@@ -1,145 +1,176 @@
-# Núcleo de Situação de Saúde — Deployment e Arquitetura
+# Núcleo de Situação de Saúde - Deployment e Arquitetura
 
-Este repositório centraliza a **documentação arquitetural** e os artefatos de **integração, execução e deployment** do sistema do Núcleo de Situação de Saúde (NSS) da Universidade Estadual do Norte Fluminense Darcy Ribeiro (UENF).
+Este repositório é a **fonte normativa de integração e deployment** do sistema do Núcleo de Situação de Saúde (NSS) da Universidade Estadual do Norte Fluminense Darcy Ribeiro (UENF). Ele registra o escopo aprovado da NSS 1.0, os contratos entre componentes, a arquitetura de execução e os runbooks necessários para colocar a primeira versão integrada em funcionamento.
 
-O NSS é mantido em repositórios independentes. **Não é um monorepo.** A separação existe para permitir evolução, testes, versionamento e deployment independentes de cada componente.
+O NSS **não é um monorepo**. Frontend, backend Java, pipeline Python e configuração NixOS permanecem versionados em repositórios independentes. Este repositório não concentra código de negócio; ele define como os componentes devem convergir para formar um único sistema.
 
-## Repositórios de aplicação
+## Release-alvo
 
-| Componente | Repositório | Responsabilidade principal |
+A release integrada alvo desta documentação é a **NSS 1.0**, com Frontend V2, prevista inicialmente para homologação em **02/10/2026**.
+
+A NSS 1.0 responde, com dados do SINAN/PySUS, perguntas sobre **notificações** de Dengue, Febre Maculosa e Toxoplasmose, dentro do recorte aprovado. O termo "casos" só poderá substituir "notificações" quando a regra epidemiológica de classificação estiver formalmente validada para cada agravo.
+
+### Escopo funcional congelado
+
+- municípios: Campos dos Goytacazes, São João da Barra, Macaé e Itaperuna;
+- perspectiva geográfica da V1.0: **local da notificação**, não residência do paciente;
+- detalhamento intramunicipal apenas para Campos dos Goytacazes;
+- hierarquia em Campos: município -> distrito -> bairro/localidade da **unidade notificadora**;
+- período oficial: ano e mês derivados de `DT_NOTIFIC`;
+- sexo: Todos, Masculino e Feminino; valores ignorados continuam preservados nos dados;
+- faixa etária: `<1`, `1-4`, `5-9`, `10-14`, `15-19`, `20-39`, `40-59`, `60-64`, `65-69`, `70-74`, `75-79`, `80+`;
+- múltiplas faixas etárias simultâneas ficam fora da V1.0;
+- bairro de residência fica para versão futura dependente da parceria com o CIEVS;
+- CEP e identificadores pessoais diretos não são necessários para esta versão e não devem ser solicitados para esse objetivo;
+- o CIDAC é apenas referência conceitual da hierarquia distrito -> bairro/localidade; os GeoJSON continuam sendo produzidos por Python para o frontend;
+- localização pública de UBS no mapa é um artefato de visualização client-side e não faz parte do grão analítico da Gold Serving.
+
+## Repositórios
+
+| Componente | Repositório | Responsabilidade |
 |---|---|---|
-| Front-end | `Zadoque/nss-front-end` | Interface web, homepage institucional, mapa geográfico, filtros e experiência de consulta |
-| Java | `ArtursPereira/Site-Sala-de-Situa-o-de-Saude-Java` | API principal, autenticação, autorização, regras de negócio e PostgreSQL |
-| Python / Pipeline | `Zadoque/Nucleo-de-Situacao-De-Saude` | Ingestão PySUS/SINAN, Bronze → Silver → Gold e preparação dos dados |
-| Deployment | `Zadoque/nss-deployment` | Arquitetura, integração, decisões e documentação operacional |
+| Frontend | `Zadoque/nss-front-end` | React/TypeScript, login, mapas, filtros, acessibilidade e consumo da API Java |
+| Backend Java | `ArtursPereira/Site-Sala-de-Situa-o-de-Saude-Java` | Spring Boot, autenticação, autorização, sessão, API REST e leitura do PostgreSQL |
+| Pipeline | `Zadoque/NSS-pipeline` | PySUS/SINAN, CNES, Bronze -> Silver -> Gold, validação e carga do schema `analytics` |
+| Deployment | `Zadoque/NSS-deployment` | Contratos, arquitetura integrada, Compose, Caddy, runbooks e documentação normativa |
+| Host NixOS | `Zadoque/nss-NixOS-Configuration` | Configuração declarativa do servidor, firewall, SSH, Docker, ngrok temporário e WireGuard definitivo |
 
-## Arquitetura-alvo
+O repositório Java poderá permanecer no repositório atual com acesso de colaborador ou ser trabalhado por fork/PR, sem alterar o contrato de integração documentado aqui.
+
+## Arquitetura da NSS 1.0
 
 ```text
-                    ┌──────────────────────┐
-                    │      Front-end       │
-                    │ React + TypeScript   │
-                    │ Vite + TanStack      │
-                    └──────────┬───────────┘
-                               │ HTTPS
-                               ▼
-                    ┌──────────────────────┐
-                    │   Java / Spring Boot │
-                    │ REST API             │
-                    │ Auth / Business      │
-                    └──────────┬───────────┘
-                               │
-                               ▼
-                    ┌──────────────────────┐
-                    │      PostgreSQL      │
-                    └──────────▲───────────┘
-                               │
-                          batch / ETL
-                               │
-                    ┌──────────┴───────────┐
-                    │   Python Pipeline    │
-                    │ PySUS / SINAN        │
-                    │ Bronze→Silver→Gold   │
-                    └──────────┬───────────┘
-                               │
-                               ▼
-                         DATASUS / PySUS
+                         INTERNET
+                            |
+                    ngrok HTTPS (temporário)
+                            |
+                            v
+                         Caddy
+                       /       \
+                      v         v
+                 Frontend     /api/*
+                                |
+                                v
+                          Java/Spring Boot
+                                |
+                                v
+                           PostgreSQL
+                         /             \
+                        v               v
+                tabelas de app      analytics.*
+                  Java/Flyway      Python/Alembic
+                                       ^
+                                       |
+                             Gold Serving V1
+                                       ^
+                                       |
+PySUS/SINAN -> Bronze -> Silver -----+----- Gold Ad Hoc
+                         ^
+                         |
+                       CNES
 ```
 
-O Python **não deve fazer parte do caminho síncrono definitivo de consulta do usuário**. A função principal da pipeline é manter dados processados, auditáveis e prontos para persistência/consumo.
+O frontend nunca acessa diretamente o PostgreSQL ou os Parquets. A API Java é o único caminho síncrono oficial da aplicação. O pipeline roda fora do caminho crítico de consulta e publica dados já processados.
 
-## Estado da V1 geográfica do front-end
+## Autenticação da V1.0
 
-A V1 está sendo desenvolvida em `Zadoque/nss-front-end`, branch `feat/v1-geographic-dashboard`.
+- homepage pública;
+- dashboard `/mapa` protegido;
+- login por e-mail e senha;
+- senha armazenada com Argon2;
+- access token JWT curto;
+- refresh token opaco, rotacionado e armazenado no navegador apenas como cookie `HttpOnly`, `Secure` e `SameSite=Strict`;
+- logout revoga o refresh token;
+- auto-registro público desabilitado;
+- CRUD de usuários não é uma API comum do dashboard na V1.0;
+- frontend e Java ficam sob a mesma origem via Caddy, reduzindo a superfície de CORS e cookies cross-site.
 
-O que já existe nessa V1:
+O contrato completo está em [`contracts/auth-v1.md`](contracts/auth-v1.md).
 
-- aplicação React + TypeScript com Vite;
-- TanStack Query para o ciclo de consulta;
-- mapa com `react-simple-maps`;
-- navegação geográfica progressiva **Região → Estado → Município**;
-- recorte inicial do Sudeste, Rio de Janeiro e municípios cobertos na V1;
-- filtros de doença, ano e mês;
-- painel desktop e drawer de filtros para telas menores;
-- estados explícitos de carregamento, erro, ausência de registros e cobertura parcial;
-- camada `EpidemiologyDataSource`, permitindo trocar mock/API sem acoplar os componentes visuais ao transporte HTTP.
+## Dados e Gold Serving
 
-### Ampliação da V1 em andamento
+A pipeline passa a distinguir formalmente:
 
-O escopo da V1 passa também a incluir:
-
-1. **Homepage institucional antes do mapa**, apresentando o que é o NSS, seus objetivos em saúde humana e animal, estágio inicial da iniciativa, parceria em estabelecimento com a Prefeitura de Campos dos Goytacazes e localização no Hospital Veterinário Darcy Ribeiro/UENF, Av. Alberto Lamego, 3000.
-2. **Acesso claro da homepage ao mapa interativo**.
-3. **Seletor geográfico sincronizado com o mapa** para Região/Estado/Município, especialmente importante em telas abaixo de `md`, evitando depender exclusivamente do toque em geometrias pequenas.
-4. Manutenção do princípio **mobile first** e de acessibilidade por teclado/leitores de tela.
-
-O seletor geográfico deve compartilhar o mesmo estado de navegação do mapa; não deve existir uma segunda seleção independente capaz de divergir do que está visível no mapa.
-
-## Situação transitória de integração
-
-A branch da V1 possui uma abstração de data source e contrato HTTP próprio para permitir desenvolvimento e demonstração antes de toda a arquitetura-alvo estar integrada. Essa situação é **transitória**.
-
-A arquitetura definitiva continua sendo:
-
-1. frontend envia consultas à API Java;
-2. Java aplica regras de negócio e consulta PostgreSQL;
-3. pipeline Python atualiza os dados a partir do PySUS;
-4. PostgreSQL contém os dados consolidados usados na consulta síncrona.
-
-Portanto, qualquer adaptador HTTP temporário usado para validar a V1 não deve ser interpretado como mudança dessa decisão arquitetural.
-
-## Fonte de dados atual
-
-No estágio atual, a fonte efetivamente incorporada à pipeline é o **SINAN via PySUS**. O PySUS também disponibiliza outros sistemas do SUS, que serão avaliados conforme as perguntas que o Núcleo decidir responder: SIM, SINASC, SIH, SIA, PNI, CNES, CIHA, IBGE e temas OpenDataSUS.
-
-A decisão sobre quais novas fontes incorporar deve partir de **perguntas de negócio e vigilância**, e não apenas da disponibilidade técnica dos dados. O material para essa decisão está em `perguntas/main.tex`.
-
-## Papel deste repositório
-
-Este repositório **não contém código de negócio da aplicação**. Ele é o ponto de integração e documentação do sistema, registrando:
-
-- decisões arquiteturais;
-- responsabilidades entre repositórios;
-- contratos de integração;
-- ambientes de execução/deployment;
-- evolução da V1;
-- decisões sobre dados e perguntas que a aplicação precisa responder.
-
-## Documentação completa
-
-A documentação técnica detalhada está em [`documentacao/`](documentacao/). Para compilar em NixOS:
-
-```bash
-cd documentacao
-nix develop
-make pdf
+```text
+Silver
+  |-- Gold Ad Hoc       -> exploração, auditoria e debugging
+  `-- Gold Serving V1   -> contrato fixo aceito pelo loader/PostgreSQL
 ```
 
-ou:
+O menor grão analítico necessário à NSS 1.0 é composto por doença, ano, mês, município da notificação, distrito/bairro da unidade notificadora, sexo e faixa etária. As agregações solicitadas pela interface são executadas no PostgreSQL/Java por `SUM` e `GROUP BY`; o frontend não soma dados epidemiológicos.
 
-```bash
-cd documentacao
-nix run .#pdf
+O contrato está em [`contracts/serving-v1.md`](contracts/serving-v1.md).
+
+## Observabilidade
+
+A V1.0 incorpora uma auditoria mínima em Grafana, mantendo a capacidade de comparar quatro checkpoints:
+
+1. Bronze - quantidade recebida;
+2. Silver - quantidade após limpeza/deduplicação;
+3. Gold - soma da métrica publicada;
+4. PostgreSQL - soma equivalente após a carga.
+
+O objetivo imediato é provar conservação/reconciliação entre camadas. Dashboards históricos, alertas avançados, DuckDB e observabilidade distribuída ficam para evoluções posteriores.
+
+## Deployment temporário e definitivo
+
+### Bootstrap temporário
+
+```text
+Web:  Internet -> ngrok HTTPS -> Caddy -> Front/Java
+Admin: Internet -> ngrok TCP -> SSH key-only
 ```
 
-## Princípios arquiteturais
+O ngrok existe apenas enquanto a GINFO não libera a conectividade institucional necessária. PostgreSQL e Java não são publicados diretamente.
 
-1. Cada componente de aplicação possui seu próprio repositório.
-2. O projeto não deve voltar a ser documentado como monorepo.
-3. O frontend é responsável por apresentação, interação, acessibilidade e visualização.
-4. A API Java é o ponto de entrada definitivo para as consultas da aplicação.
-5. O PostgreSQL é a persistência compartilhada dos dados consolidados.
-6. A pipeline Python mantém Bronze, Silver e Gold para rastreabilidade e reprocessamento.
-7. Novos datasets devem ser incorporados para responder perguntas aprovadas pelo Núcleo.
-8. Contratos de dados e APIs devem ser versionados e testáveis.
-9. O ambiente de integração pode orquestrar imagens independentes dos componentes via Docker Compose.
+### Estado definitivo
 
-## Equipe atual
+```text
+Web:   Internet -> domínio institucional -> Caddy -> NSS
+Admin: WireGuard -> SSH key-only
+```
 
-O desenvolvimento atual é realizado por três estagiários:
+A configuração do host vive em `nss-NixOS-Configuration`. Este repositório documenta somente o contrato entre o host e a aplicação.
 
-- **Zadoque Carneiro:** arquitetura e documentação;
-- **Artur Pereira:** Java + Spring Boot;
-- **Gabriel Costa:** Python + pipeline de dados.
+## Artefatos operacionais
 
-A separação por repositórios foi mantida deliberadamente para permitir que a arquitetura cresça sem exigir uma migração posterior de monorepo.
+- [`compose.yaml`](compose.yaml): stack integrada mínima;
+- [`caddy/Caddyfile`](caddy/Caddyfile): entrada HTTP única da aplicação;
+- [`.env.example`](.env.example): variáveis esperadas, sem segredos reais;
+- [`contracts/`](contracts/): contratos da API, autenticação e Gold Serving;
+- [`runbooks/`](runbooks/): bootstrap ngrok, deployment e rollback;
+- [`documentacao/`](documentacao/): arquitetura detalhada em LaTeX/PDF;
+- [`perguntas/`](perguntas/): registro das perguntas de negócio, decisões já tomadas e itens futuros.
+
+## Definition of Done - NSS 1.0
+
+A release só pode ser declarada pronta quando, no mínimo:
+
+- login, refresh e logout funcionarem;
+- `/mapa` exigir autenticação;
+- pipeline real produzir a Gold Serving V1;
+- PostgreSQL receber somente artefato Serving compatível;
+- Gold e PostgreSQL reconciliarem seus totais;
+- Java responder os endpoints analíticos contratados;
+- Frontend consumir a API Java real e não realizar somas epidemiológicas;
+- filtros de ano, mês, sexo e faixa etária funcionarem;
+- Campos permitir drill-down distrito -> bairro/localidade da unidade notificadora;
+- ausência de cobertura não for exibida como zero;
+- Caddy for o único ponto de entrada HTTP da stack;
+- PostgreSQL e Java não forem expostos diretamente à Internet;
+- HTTPS temporário via ngrok funcionar;
+- SSH remoto usar somente chave pública;
+- um fluxo E2E validar login -> consulta -> refresh -> logout.
+
+Os gates completos da release estão em `documentacao/Section-10-NSS-1-0-Escopo-e-Plano-de-Entrega.tex` e em [`runbooks/deploy-v1.md`](runbooks/deploy-v1.md).
+
+## Princípios que continuam válidos
+
+1. Componentes permanecem em repositórios independentes.
+2. Java é a fronteira síncrona oficial do frontend.
+3. Python prepara/publica dados; não atende consultas do usuário.
+4. PostgreSQL é a persistência compartilhada, com responsabilidades separadas entre Flyway e Alembic.
+5. Parquet continua sendo parte da rastreabilidade da pipeline.
+6. Secrets nunca são versionados.
+7. Zero, ausência de registro e ausência de cobertura são estados diferentes.
+8. Dados restritos futuros do CIEVS deverão seguir minimização e isolamento próprios; esse problema não é antecipado artificialmente na V1.0.

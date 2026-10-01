@@ -1,0 +1,104 @@
+\section{NSS 1.0 - Escopo Congelado e Plano de Entrega}
+
+Esta seção é a referência operacional para a release integrada alvo de 02/10/2026. Em caso de conflito com descrições históricas de V1/V2, este escopo prevalece para a NSS 1.0.
+
+\subsection{Escopo funcional congelado}
+
+\begin{longtable}{p{4.2cm}p{10.4cm}}
+\toprule
+\textbf{Dimensão} & \textbf{Decisão NSS 1.0} \\
+\midrule
+Doenças & Dengue, Febre Maculosa e Toxoplasmose. A base/código exato de Toxoplasmose é pendência epidemiológica e não pode ser inventado. \\
+Métrica & Notificações enquanto não houver regra formal de casos confirmados por agravo. \\
+Municípios & Campos dos Goytacazes, São João da Barra, Macaé e Itaperuna. \\
+Perspectiva geográfica & Notificação. \\
+Campos dos Goytacazes & Município -> distrito -> bairro/localidade da unidade notificadora. \\
+Demais municípios & Apenas nível municipal nesta release. \\
+Tempo & Ano e mês derivados de \texttt{DT\_NOTIFIC}. \\
+Sexo & Todos, Masculino, Feminino. ``Todos'' não aplica filtro e preserva ignorados. \\
+Faixa etária & <1; 1--4; 5--9; 10--14; 15--19; 20--39; 40--59; 60--64; 65--69; 70--74; 75--79; 80+. \\
+Multi-faixa & Fora do escopo; API/modelo não devem impedir evolução futura. \\
+Residência & Fora da V1.0; depende de parceria CIEVS. \\
+CIDAC & Referência conceitual de hierarquia territorial, não fonte canônica de geometria/dados. \\
+GeoJSON & Gerado por Python e consumido pelo frontend. \\
+UBS no mapa & Dados públicos client-side; não fazem parte do grão analítico. \\
+Acesso & Home pública; dashboard autenticado. \\
+Infra temporária & ngrok HTTPS para web e ngrok TCP para SSH. \\
+Infra definitiva & domínio institucional/Caddy e WireGuard/SSH. \\
+\bottomrule
+\end{longtable}
+
+\subsection{Pendências críticas explícitas}
+
+\begin{enumerate}
+    \item validar a base/código exato de Toxoplasmose antes de expor essa doença como disponível;
+    \item validar, por doença, quando uma notificação pode ser chamada de caso confirmado;
+    \item corrigir os achados críticos do CNES/pipeline antes de confiar em territorialização por unidade notificadora.
+\end{enumerate}
+
+A pendência de definição de ``caso'' possui fallback semântico seguro: mostrar \textbf{Notificações}. A pendência de Toxoplasmose não possui fallback: se não for validada, a doença não deve ser anunciada como disponível.
+
+\subsection{Definition of Done}
+
+A NSS 1.0 somente é considerada pronta quando:
+
+\begin{itemize}
+    \item autenticação por e-mail/senha funciona;
+    \item access token, refresh rotacionável e logout funcionam;
+    \item \texttt{/mapa} não é acessível sem autenticação;
+    \item auto-registro público e CRUD irrestrito de usuários não estão expostos;
+    \item pipeline produz Gold Serving V1 válida;
+    \item loader aceita apenas Serving compatível;
+    \item PostgreSQL recebe a publicação de forma transacional;
+    \item Gold e PostgreSQL reconciliam a mesma métrica;
+    \item Java responde os endpoints V1 e executa agregações no banco;
+    \item frontend usa API real e não soma dados epidemiológicos;
+    \item ano, mês, sexo e faixa etária funcionam;
+    \item Campos permite drill-down distrito -> bairro/localidade da unidade notificadora;
+    \item ausência de cobertura não é mostrada como zero;
+    \item Caddy é a única entrada web;
+    \item Java/PostgreSQL não estão expostos diretamente à Internet;
+    \item ngrok HTTPS publica a aplicação temporariamente;
+    \item SSH remoto funciona somente por chave;
+    \item smoke E2E valida login -> consulta -> refresh -> logout.
+\end{itemize}
+
+\subsection{Gates da release}
+
+\begin{tabularx}{\textwidth}{@{}p{2cm}X@{}}
+\toprule
+\textbf{Gate} & \textbf{Condição de saída} \\
+\midrule
+G0 & Contratos API/Auth/Serving e escopo congelados neste repositório. \\
+G1 & Pipeline corrigida e Gold Serving V1 gerada com dados reais suportados. \\
+G2 & PostgreSQL migrado; carga transacional e reconciliação Gold--DB aprovadas. \\
+G3 & Java implementa API analítica V1 contra PostgreSQL real. \\
+G4 & Login, JWT, refresh e logout aprovados; registro público bloqueado. \\
+G5 & Frontend V2 autentica e consome a API real. \\
+G6 & Compose e Caddy sobem no servidor sem expor DB/Java. \\
+G7 & ngrok HTTPS e SSH TCP funcionam a partir de rede externa. \\
+G8 & Playwright/smoke integrado passa. \\
+G9 & SHAs/tags das imagens e resultado da homologação são registrados. \\
+\bottomrule
+\end{tabularx}
+
+\subsection{Execução paralela recomendada}
+
+Dentro dos gates, frentes independentes podem trabalhar simultaneamente:
+
+\begin{itemize}
+    \item Pipeline/CNES e faixa etária;
+    \item Pipeline/Serving e loader;
+    \item Java/Auth;
+    \item Java/Analytics;
+    \item Frontend/Auth e Dashboard V2 com mocks do contrato;
+    \item GeoJSON/artefatos visuais;
+    \item Grafana/reconciliação mínima;
+    \item NixOS/ngrok/SSH após instalação do host.
+\end{itemize}
+
+A integração final só deve ocorrer quando os consumidores e produtores convergirem para os contratos definidos neste repositório.
+
+\subsection{Dívidas aceitas para V1.1+}
+
+WireGuard definitivo, domínio institucional, residência/CIEVS, multi-faixa, RJ completo, Sudeste completo, painel administrativo de usuários, supressão pública de pequenas contagens, observabilidade avançada e automação completa de CI/CD não bloqueiam a NSS 1.0 bootstrap.

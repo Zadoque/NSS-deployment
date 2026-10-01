@@ -1,50 +1,46 @@
 \section{Observabilidade e Debugging}
 
-A arquitetura foi desenhada para permitir localizar uma inconsistência sem depender exclusivamente da inspeção manual do banco de dados.
+A NSS 1.0 incorpora uma frente específica de auditoria em Grafana. O objetivo da primeira versão não é observabilidade distribuída completa, mas tornar visível onde uma divergência aparece entre as etapas de dados.
+
+\subsection{Quatro checkpoints mínimos}
+
+Para cada execução relevante, a auditoria deve conseguir comparar:
+
+\begin{enumerate}
+    \item \textbf{Bronze}: quantidade de registros recebidos;
+    \item \textbf{Silver}: quantidade após limpeza/deduplicação;
+    \item \textbf{Gold}: soma da medida publicada;
+    \item \textbf{PostgreSQL}: soma equivalente após a carga.
+\end{enumerate}
+
+\subsection{Reconciliação mínima}
+
+As invariantes de maior valor para a V1.0 são:
+
+\begin{itemize}
+    \item diferença Bronze--Silver explicável por regras de transformação;
+    \item \texttt{COUNT} do universo Silver elegível compatível com \texttt{SUM} da Gold quando a semântica exigir conservação;
+    \item \texttt{SUM(Gold)} = \texttt{SUM(PostgreSQL)} para a mesma partição e filtros;
+    \item falhas de CNES/territorialização contabilizadas como não mapeadas, nunca convertidas silenciosamente em zero.
+\end{itemize}
 
 \subsection{Cadeia de diagnóstico}
 
-Quando um valor exibido no frontend parecer incorreto, a investigação deve seguir a cadeia:
+Quando um valor do frontend parecer incorreto:
 
 \begin{enumerate}
-    \item verificar a resposta da API Java;
-    \item comparar com a consulta equivalente no PostgreSQL;
-    \item comparar o PostgreSQL com o Gold produzido pelo pipeline;
-    \item comparar o Gold com o Silver;
-    \item comparar o Silver com o Bronze;
-    \item verificar a origem SINAN/PySUS quando necessário.
+    \item verificar JSON da API Java;
+    \item comparar a query equivalente no PostgreSQL;
+    \item comparar PostgreSQL e Gold Serving;
+    \item comparar Gold e Silver;
+    \item comparar Silver e Bronze;
+    \item somente então retornar à fonte SINAN/CNES.
 \end{enumerate}
 
-\placeholderfigure{cadeia-debug}{6cm}{Cadeia de diagnóstico: frontend, Java, PostgreSQL e etapas do pipeline.}
+\subsection{Escopo adiado}
 
-\subsection{API de inspeção}
+Não são requisitos para a entrega imediata: Prometheus, tracing distribuído, alertas avançados, DuckDB como datasource de exploração, SLOs formais ou histórico extenso de qualidade. Eles podem ser incorporados quando a V1.0 estiver estável.
 
-A API de inspeção do Python pode disponibilizar consultas sobre os artefatos Gold. Ela deve ser tratada como ferramenta operacional e de desenvolvimento, e não como o contrato público da aplicação.
-
-Isso permite uma comparação rápida:
-
-\begin{center}
-\texttt{Gold Python} $\leftrightarrow$ \texttt{PostgreSQL} $\leftrightarrow$ \texttt{Java API} $\leftrightarrow$ \texttt{Frontend}
-\end{center}
-
-\subsection{Logs}
-
-Os três componentes devem produzir logs suficientes para identificar uma execução sem registrar dados sensíveis desnecessariamente. O pipeline deve registrar, no mínimo, identificadores de execução, origem, período processado, quantidade de registros e resultado das validações.
-
-O Java deve registrar requisições relevantes, falhas de integração e erros de aplicação sem registrar credenciais ou informações sensíveis.
-
-\subsection{Validação automatizada}
-
-Sempre que possível, a comparação entre etapas deve ser automatizada. Exemplos de invariantes:
-
-\begin{itemize}
-    \item schema esperado;
-    \item quantidade mínima ou esperada de registros;
-    \item ausência de chaves geográficas inválidas;
-    \item consistência de totais;
-    \item equivalência entre dados publicados no PostgreSQL e artefatos Gold.
-\end{itemize}
-
-\begin{regra}[Debug por camadas]
-A existência de um valor incorreto no frontend não deve levar imediatamente à conclusão de que o frontend está errado. Cada camada deve possuir meios próprios de inspeção para reduzir sistematicamente o espaço de busca do problema.
+\begin{regra}[Auditoria não altera a semântica]
+Grafana observa e compara; ele não deve corrigir, reclassificar ou transformar os números oficiais da aplicação.
 \end{regra}

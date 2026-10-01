@@ -2,305 +2,111 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[brazilian]{babel}
-\usepackage{geometry}
-\geometry{margin=2cm}
-\usepackage{booktabs}
-\usepackage{tabularx}
-\usepackage{enumitem}
-\usepackage{hyperref}
-\usepackage{xcolor}
-\usepackage{longtable}
-\usepackage{array}
-\setlength{\parskip}{0.5em}
-\setlength{\parindent}{0pt}
-
-\title{\textbf{Núcleo de Situação de Saúde}\\Perguntas que a aplicação deve ser capaz de responder}
-\author{Documento para decisão conjunta da equipe}
-\date{Setembro de 2026}
-
-\begin{document}
-\maketitle
-\tableofcontents
-\newpage
-
+\usepackage{geometry}\geometry{margin=2cm}
+\usepackage{booktabs}\usepackage{tabularx}\usepackage{enumitem}\usepackage{hyperref}\usepackage{xcolor}\usepackage{longtable}\usepackage{array}
+\setlength{\parskip}{0.5em}\setlength{\parindent}{0pt}
+\definecolor{decidido}{RGB}{20,110,80}\definecolor{pendente}{RGB}{176,98,10}\definecolor{futuro}{RGB}{80,80,80}
+\newcommand{\statusDecidido}{\textcolor{decidido}{\textbf{DECIDIDO}}}\newcommand{\statusPendente}{\textcolor{pendente}{\textbf{PENDENTE}}}\newcommand{\statusFuturo}{\textcolor{futuro}{\textbf{FUTURO}}}
+\title{\textbf{Núcleo de Situação de Saúde}\\Perguntas, decisões e escopo epidemiológico}\author{Documento para decisão conjunta da equipe}\date{Outubro de 2026}
+\begin{document}\maketitle\tableofcontents\newpage
 \section{Objetivo deste documento}
-
-Este documento não define sozinho o escopo funcional futuro do sistema. Seu objetivo é apoiar uma decisão conjunta entre os membros do Núcleo de Situação de Saúde (NSS): \textbf{quais perguntas de vigilância, gestão, planejamento e comunicação pública queremos que a aplicação seja capaz de responder?}
-
-A decisão deve preceder a expansão técnica da pipeline. A disponibilidade de um campo ou dataset no PySUS não significa, por si só, que ele deva entrar no sistema. Primeiro definimos a pergunta de negócio; depois verificamos quais fontes, campos, regras de qualidade, agregações e visualizações são necessárias.
-
+Este documento registra duas coisas diferentes e igualmente importantes:
+\begin{enumerate}[leftmargin=*]\item as perguntas de vigilância, gestão, planejamento e comunicação que podem orientar a evolução futura do NSS;\item as decisões já tomadas para a \textbf{NSS 1.0 / Frontend V2}, evitando que pipeline, Java e frontend interpretem o escopo de maneiras diferentes.\end{enumerate}
+A disponibilidade de um campo ou dataset não é motivo suficiente para incorporá-lo. Primeiro define-se a pergunta; depois são escolhidos fonte, campos, regra de qualidade, agregação e visualização.
+\section{Estado das decisões - NSS 1.0}
+\begin{longtable}{p{4.4cm}p{2.4cm}p{8.2cm}}\toprule\textbf{Tema} & \textbf{Estado} & \textbf{Decisão} \\\midrule\endfirsthead\toprule\textbf{Tema} & \textbf{Estado} & \textbf{Decisão} \\\midrule\endhead
+Escopo de doenças & \statusDecidido & Dengue, Febre Maculosa e Toxoplasmose. A base/código exato de Toxoplasmose ainda precisa de validação epidemiológica antes de ser anunciada como disponível. \\
+Métrica exibida & \statusDecidido & Usar o termo \textbf{notificações} enquanto a regra de casos confirmados por agravo não estiver formalmente aprovada. \\
+Municípios & \statusDecidido & Campos dos Goytacazes, São João da Barra, Macaé e Itaperuna. \\
+Perspectiva geográfica & \statusDecidido & Notificação, não residência. \\
+Detalhamento em Campos & \statusDecidido & Município -> distrito -> bairro/localidade da unidade notificadora. \\
+Demais municípios & \statusDecidido & Somente nível municipal na NSS 1.0. \\
+Tempo & \statusDecidido & Ano e mês derivados de \texttt{DT\_NOTIFIC}. \\
+Semana epidemiológica & \statusFuturo & Mantida em Silver/Gold Ad Hoc para auditoria, fora da Serving/UI V1.0. \\
+Sexo & \statusDecidido & Todos, Masculino e Feminino. ``Todos'' significa ausência de filtro e preserva ignorados. \\
+Faixa etária & \statusDecidido & <1; 1--4; 5--9; 10--14; 15--19; 20--39; 40--59; 60--64; 65--69; 70--74; 75--79; 80+. \\
+Origem da idade & \statusDecidido & Derivar a faixa de \texttt{NU\_IDADE\_N}; \texttt{ANO\_NASC} não é suficiente para o contrato Serving. \\
+Multi-faixa & \statusFuturo & Não entra na V1.0. O banco/Java deve permitir evolução futura sem pré-calcular todas as combinações. \\
+Bairro de residência & \statusFuturo & Depende de parceria institucional com o CIEVS e fonte autorizada. \\
+CEP de residência & \statusDecidido & Não é necessário para a finalidade atual e não deve ser solicitado para esse objetivo. \\
+Identificadores pessoais & \statusDecidido & Nome, CPF, CNS, telefone, endereço completo e equivalentes não são necessários à finalidade atual. \\
+CIDAC & \statusDecidido & Referência conceitual para organização distrito -> bairro/localidade, não fonte canônica de dados/geometria. \\
+GeoJSON & \statusDecidido & Gerado por Python para uso do frontend. \\
+UBS no mapa & \statusDecidido & Localização pública client-side; não precisa participar do grão analítico da Gold Serving. \\
+Casos confirmados & \statusPendente & Definir por agravo, a partir de dicionário oficial e validação epidemiológica, quais classificações entram no indicador de caso. \\
+Toxoplasmose & \statusPendente & Confirmar qual base/código do SINAN representa o indicador desejado; não somar categorias distintas automaticamente. \\
+Pequenas contagens & \statusFuturo & Política institucional necessária antes de abertura pública irrestrita e antes de uso de dados restritos. Não bloqueia a primeira versão autenticada com fonte pública. \\
+Estado RJ completo & \statusFuturo & Versão posterior. \\
+Região Sudeste & \statusFuturo & Somente após cobertura dos estados desejados. \\
+\bottomrule\end{longtable}
 \section{Contexto atual do Núcleo}
-
-O NSS está em fase inicial. A iniciativa pretende apoiar saúde humana e animal por meio de monitoramento epidemiológico, planejamento de contingência, apoio logístico a prefeituras e outros órgãos públicos, produção de informação para gestores e comunicação de cuidados à população.
-
-No estágio atual, a fonte efetivamente utilizada pela pipeline Python é o \textbf{SINAN via PySUS}. A V1 do front-end apresenta uma exploração geográfica com recortes por região, estado e município, inicialmente com foco no Sudeste e no Estado do Rio de Janeiro.
-
-A parceria com a Prefeitura de Campos dos Goytacazes está em processo de estabelecimento. O Núcleo está localizado no Hospital Veterinário Darcy Ribeiro, na UENF, Av. Alberto Lamego, 3000, Campos dos Goytacazes -- RJ.
-
+O NSS está em fase inicial de integração. A iniciativa pretende apoiar saúde humana e animal por meio de monitoramento epidemiológico, planejamento de contingência, apoio a órgãos públicos e comunicação de informação de saúde.
+A fonte atualmente incorporada à pipeline é o \textbf{SINAN via PySUS}. O front-end V1 já demonstrou navegação Região -> Estado -> Município com dados de demonstração. A NSS 1.0 passa a integrar dados reais, autenticação, PostgreSQL, Java e Frontend V2.
+A futura parceria com o CIEVS é importante para dados territoriais de residência que não estão disponíveis no dataset público atualmente utilizado. A arquitetura deve deixar rota futura para essa integração sem tornar a NSS 1.0 dependente dela.
 \section{O que a pipeline atual já faz}
-
-A pipeline existente segue a arquitetura Medallion:
-
-\begin{center}
-\texttt{PySUS/SINAN $\rightarrow$ Bronze $\rightarrow$ Silver $\rightarrow$ Gold}
-\end{center}
-
-\begin{itemize}[leftmargin=*]
-    \item \textbf{Bronze}: preserva os dados brutos obtidos do PySUS em Parquet, com metadados de ingestão.
-    \item \textbf{Silver}: valida colunas obrigatórias, normaliza tipos, filtra o ano de referência, deduplica notificações e mantém granularidade por registro.
-    \item \textbf{Gold}: agrega os casos por doença, ano, mês, UF e município, podendo acrescentar dimensões opcionais aprovadas no catálogo.
-    \item Os arquivos são gravados de forma atômica e acompanhados de metadados para rastreabilidade.
-\end{itemize}
-
-\subsection{Campos já mapeados no catálogo SINAN}
-
-A pipeline atual conhece explicitamente os seguintes campos:
-
-\begin{longtable}{p{4.2cm}p{3.2cm}p{7.2cm}}
-\toprule
-\textbf{Campo lógico} & \textbf{Coluna SINAN} & \textbf{Uso atual} \\
-\midrule
-\endfirsthead
-\toprule
-\textbf{Campo lógico} & \textbf{Coluna SINAN} & \textbf{Uso atual} \\
-\midrule
-\endhead
-Data de notificação & \texttt{DT\_NOTIFIC} & Obrigatória; base para filtro temporal. \\
-Município & \texttt{ID\_MUNICIP} & Obrigatória; normalizada para código de 7 dígitos. \\
-UF de notificação & \texttt{SG\_UF\_NOT} & Obrigatória; normalizada para código de 2 dígitos. \\
-Identificador da notificação & \texttt{NU\_NOTIFIC} & Chave preferencial de deduplicação quando disponível. \\
-Semana epidemiológica & \texttt{SEM\_NOT} & Dimensão opcional de agregação. \\
-Ano epidemiológico/notificação & \texttt{NU\_ANO} & Dimensão opcional de agregação. \\
-Classificação final & \texttt{CLASSI\_FIN} & Dimensão opcional de agregação. \\
-Evolução & \texttt{EVOLUCAO} & Dimensão opcional de agregação. \\
-Sexo & \texttt{CS\_SEXO} & Dimensão opcional de agregação. \\
-Ano de nascimento & \texttt{ANO\_NASC} & Dimensão opcional de agregação. \\
-\bottomrule
-\end{longtable}
-
-Com esses campos, o sistema já pode evoluir para responder perguntas como distribuição de notificações por território e tempo, além de recortes por sexo, evolução, classificação final e semana epidemiológica, desde que esses campos existam na ficha específica da doença e passem pela validação da pipeline.
-
-\section{Limitação fundamental dos campos do SINAN}
-
-O SINAN não possui um único schema universal para todas as doenças. Há campos comuns e campos específicos de cada ficha de investigação. Por exemplo, arboviroses podem conter sinais e sintomas como febre, mialgia e exantema, enquanto tuberculose, hanseníase, meningite e outras doenças possuem campos próprios.
-
-Por isso, a expansão correta do catálogo deve considerar pelo menos três níveis:
-
-\begin{enumerate}[leftmargin=*]
-    \item campos comuns a diversas notificações;
-    \item campos específicos de uma família de doenças;
-    \item campos exclusivos de uma ficha/doença.
-\end{enumerate}
-
-O PySUS disponibiliza mecanismos de consulta aos metadados das bases, inclusive busca de colunas, e schemas curados para diversos conjuntos. Esses metadados devem ser usados para verificar o significado dos campos antes de incorporá-los à aplicação.
-
-\section{Fontes disponíveis no PySUS além do SINAN}
-
-A documentação atual do PySUS expõe múltiplos sistemas do SUS. A tabela abaixo resume as principais famílias relevantes para decisões futuras do NSS.
-
-\begin{longtable}{p{4.2cm}p{4.2cm}p{6.4cm}}
-\toprule
-\textbf{Função/fonte} & \textbf{Dataset} & \textbf{Possibilidades para o NSS} \\
-\midrule
-\endfirsthead
-\toprule
-\textbf{Função/fonte} & \textbf{Dataset} & \textbf{Possibilidades para o NSS} \\
-\midrule
-\endhead
-\texttt{ftp.sinan(...)} / \texttt{dadosgov.sinan(...)} & Notificações de doenças & Incidência/notificações, perfil epidemiológico, evolução, classificação, análise territorial e temporal. \\
-\texttt{ftp.sinasc(...)} / \texttt{dadosgov.sinasc(...)} & Nascidos vivos & Natalidade, perfil materno-infantil e indicadores de nascimento. \\
-\texttt{ftp.sim(...)} / \texttt{dadosgov.sim(...)} & Mortalidade & Óbitos por causa, sexo, idade, território e séries históricas. \\
-\texttt{ftp.sih(...)} & Internações hospitalares & Internações, procedimentos, diagnósticos e uso hospitalar. \\
-\texttt{ftp.sia(...)} & Produção ambulatorial & Produção de serviços e procedimentos ambulatoriais. \\
-\texttt{ftp.pni(...)} / \texttt{dadosgov.pni(...)} & Imunizações & Cobertura e aplicação de vacinas. \\
-\texttt{ftp.ibge(...)} & Dados IBGE & Denominadores populacionais e apoio a indicadores por território. \\
-\texttt{ftp.cnes(...)} / \texttt{dadosgov.cnes(...)} & Estabelecimentos de saúde & Localização, capacidade e estrutura dos serviços de saúde. \\
-\texttt{ftp.ciha(...)} & Internações/atendimentos hospitalares & Complementação de informações assistenciais hospitalares. \\
-\texttt{saude.arboviroses(...)} & Arboviroses & Dados abertos de dengue, chikungunya, zika e febre amarela. \\
-\texttt{saude.vacinacao(...)} & Vacinação & Cobertura vacinal e acompanhamento de campanhas. \\
-\texttt{saude.assistencia\_saude(...)} & Assistência/estabelecimentos & Capacidade assistencial e estrutura de saúde. \\
-\texttt{saude.atencao\_primaria(...)} & Atenção primária & Indicadores relacionados à APS/Previne Brasil. \\
-\texttt{saude.sisvan(...)} & Vigilância alimentar/nutricional & Estado nutricional e monitoramento alimentar. \\
-\texttt{saude.sisagua(...)} & Qualidade da água & Vigilância da água para consumo humano. \\
-\texttt{saude.bnafar(...)} & Assistência farmacêutica & Informações relacionadas à assistência farmacêutica. \\
-\texttt{saude.saude\_indigena(...)} & Saúde indígena & Dados de saúde de populações indígenas, conforme disponibilidade da fonte. \\
-\bottomrule
-\end{longtable}
-
-\section{Perguntas candidatas para decisão da equipe}
-
-As perguntas abaixo são propostas para discussão. Elas estão agrupadas por objetivo, não por tecnologia.
-
+A pipeline do repositório \texttt{Zadoque/NSS-pipeline} segue arquitetura Medallion e já evoluiu para carregar PostgreSQL:
+\begin{center}\texttt{PySUS/SINAN $\rightarrow$ Bronze $\rightarrow$ Silver $\rightarrow$ Gold $\rightarrow$ PostgreSQL}\end{center}
+\begin{itemize}[leftmargin=*]\item \textbf{Bronze}: entrada e metadados;\item \textbf{Silver}: valida, normaliza, filtra e deduplica;\item \textbf{Gold Ad Hoc}: flexível para inspeção/exploração;\item \textbf{Gold Serving}: contrato fixo da NSS 1.0;\item \textbf{PostgreSQL}: camada analítica consumida pelo Java.\end{itemize}
+A auditoria de outubro de 2026 identificou correções necessárias antes da territorialização por unidade notificadora, especialmente na ingestão/paginação do CNES, semana epidemiológica e derivação da faixa etária.
+\subsection{Campos centrais para a NSS 1.0}
+\begin{longtable}{p{4.2cm}p{3.3cm}p{7.1cm}}\toprule\textbf{Conceito} & \textbf{Campo/fonte} & \textbf{Uso na V1.0} \\\midrule\endfirsthead\toprule\textbf{Conceito} & \textbf{Campo/fonte} & \textbf{Uso na V1.0} \\\midrule\endhead
+Data de notificação & \texttt{DT\_NOTIFIC} & Define ano e mês. \\
+Município da notificação & \texttt{ID\_MUNICIP} & Nível municipal. \\
+UF de notificação & \texttt{SG\_UF\_NOT} & Validação/recorte. \\
+Unidade notificadora & \texttt{ID\_UNIDADE} & Join CNES para território intramunicipal. \\
+Sexo & \texttt{CS\_SEXO} & Filtro M/F; ignorados preservados. \\
+Idade & \texttt{NU\_IDADE\_N} & Derivação das 12 faixas + NI. \\
+Classificação final & \texttt{CLASSI\_FIN} & Futura regra formal de casos confirmados. \\
+Identificador da notificação & \texttt{NU\_NOTIFIC} e/ou chave validada & Deduplicação; unicidade auditada por dataset. \\
+CNES & estabelecimento & Território da unidade notificadora. \\
+\bottomrule\end{longtable}
+\section{Dados públicos versus futura fonte CIEVS}
+O modelo SINAN possui campos de residência, mas a disponibilidade efetiva depende do dataset disseminado. O Parquet público atualmente utilizado não deve ser tratado como se contivesse bairro de residência quando esse campo não está presente.
+A NSS 1.0 usa a localização da unidade notificadora, disponível a partir de \texttt{ID\_UNIDADE} + CNES. A perspectiva por residência será funcionalidade separada quando houver fonte institucional autorizada.
+\subsection{Princípio de minimização para a futura parceria}
+Para residência por território, a necessidade provável inclui município/distrito/bairro de residência, sexo, idade, período, classificação e chave técnica pseudonimizada. Não há justificativa atual para pedir nome, CPF, CNS, telefone, logradouro, número ou CEP.
+\section{Perguntas candidatas para evolução futura}
+As perguntas abaixo permanecem como backlog; classificação futura não significa descarte.
 \subsection{Situação epidemiológica atual}
-
-\begin{enumerate}[label=\textbf{E\arabic*.}, leftmargin=*]
-    \item Quantos casos/notificações de cada doença ocorreram em determinado município, estado ou região em um período selecionado?
-    \item Como os casos estão evoluindo semana a semana e mês a mês?
-    \item Quais municípios apresentam aumento recente de notificações em relação ao seu próprio histórico?
-    \item Quais doenças estão apresentando crescimento simultâneo em uma mesma área?
-    \item Qual é a distribuição dos casos por sexo e faixa etária?
-    \item Qual é a distribuição por classificação final e evolução do caso?
-    \item Quantos registros permanecem sem classificação conclusiva ou sem informação de evolução?
-    \item Há concentração espacial de casos em municípios vizinhos?
-\end{enumerate}
-
+\begin{enumerate}[label=\textbf{E\arabic*.},leftmargin=*]\item Quantas notificações e, quando validado, quantos casos confirmados existem por período e território?\item Como os números evoluem semana a semana e mês a mês?\item Quais municípios apresentam aumento recente?\item Quais doenças crescem simultaneamente?\item Qual é a distribuição por sexo e faixa etária?\item Qual é a distribuição por classificação final/evolução?\item Quantos permanecem sem classificação conclusiva?\item Há concentração espacial em municípios vizinhos?\end{enumerate}
+Na NSS 1.0, E1 e E5 são priorizadas no recorte aprovado.
 \subsection{Indicadores e comparação justa entre territórios}
-
-\begin{enumerate}[label=\textbf{I\arabic*.}, leftmargin=*]
-    \item Qual é a incidência por 10 mil ou 100 mil habitantes, e não apenas o número absoluto de casos?
-    \item Como um município se compara à sua própria série histórica?
-    \item Como se compara a municípios de porte populacional semelhante?
-    \item Qual é a tendência móvel das últimas semanas?
-    \item Quais indicadores devem ser usados para caracterizar um possível surto ou situação anormal?
-\end{enumerate}
-
-Essas perguntas exigem denominadores populacionais, tornando dados do IBGE especialmente relevantes.
-
+\begin{enumerate}[label=\textbf{I\arabic*.},leftmargin=*]\item Qual é a incidência por 10 mil/100 mil habitantes?\item Como o município se compara ao próprio histórico?\item Como se compara a municípios semelhantes?\item Qual a tendência móvel?\item Quais indicadores caracterizam possível surto?\end{enumerate}
 \subsection{Planejamento e contingência}
-
-\begin{enumerate}[label=\textbf{C\arabic*.}, leftmargin=*]
-    \item Em quais territórios um crescimento de casos sugere necessidade de ativar ou revisar um plano de contingência?
-    \item Onde estão os serviços de saúde capazes de atender a demanda esperada?
-    \item Quais municípios podem precisar de apoio logístico adicional?
-    \item Há capacidade hospitalar ou assistencial próxima das áreas com aumento de casos?
-    \item Como priorizar distribuição de insumos, equipes e recursos diante de múltiplos municípios afetados?
-\end{enumerate}
-
-Essas perguntas podem exigir combinação de SINAN com CNES, SIH e outras fontes assistenciais.
-
+\begin{enumerate}[label=\textbf{C\arabic*.},leftmargin=*]\item Em quais territórios crescimento sugere plano de contingência?\item Onde estão serviços capazes de atender a demanda?\item Quais municípios precisam de apoio logístico?\item Há capacidade assistencial próxima?\item Como priorizar insumos/equipes?\end{enumerate}
 \subsection{Vacinação e prevenção}
-
-\begin{enumerate}[label=\textbf{V\arabic*.}, leftmargin=*]
-    \item A cobertura vacinal está adequada nos municípios acompanhados?
-    \item Existem áreas com baixa cobertura e aumento simultâneo de doença imunoprevenível?
-    \item Quais faixas etárias ou territórios devem ser priorizados em campanhas?
-\end{enumerate}
-
+\begin{enumerate}[label=\textbf{V\arabic*.},leftmargin=*]\item Cobertura vacinal adequada?\item Áreas com baixa cobertura e aumento de doença?\item Quais faixas/territórios priorizar?\end{enumerate}
 \subsection{Mortalidade e gravidade}
-
-\begin{enumerate}[label=\textbf{M\arabic*.}, leftmargin=*]
-    \item Houve aumento de óbitos por determinada causa ou grupo de causas?
-    \item Qual é a relação entre notificações, internações e óbitos em um território?
-    \item Quais doenças apresentam maior proporção de evolução desfavorável?
-\end{enumerate}
-
+\begin{enumerate}[label=\textbf{M\arabic*.},leftmargin=*]\item Houve aumento de óbitos?\item Relação notificações/internações/óbitos?\item Quais doenças têm evolução desfavorável?\end{enumerate}
 \subsection{Saúde ambiental e determinantes}
-
-\begin{enumerate}[label=\textbf{A\arabic*.}, leftmargin=*]
-    \item Há associação temporal entre problemas de qualidade da água e aumento de determinados agravos?
-    \item Existem territórios com risco sanitário ambiental que mereçam vigilância reforçada?
-    \item Que indicadores ambientais devem aparecer ao lado dos epidemiológicos?
-\end{enumerate}
-
+\begin{enumerate}[label=\textbf{A\arabic*.},leftmargin=*]\item Associação com qualidade da água?\item Territórios com risco sanitário ambiental?\item Quais indicadores ambientais exibir?\end{enumerate}
 \subsection{Saúde animal e abordagem integrada}
-
-O objetivo do NSS inclui saúde humana e animal. Entretanto, as fontes listadas acima são predominantemente do SUS humano. Portanto, a equipe precisa decidir também:
-
-\begin{enumerate}[label=\textbf{Z\arabic*.}, leftmargin=*]
-    \item Quais zoonoses devem ser acompanhadas prioritariamente?
-    \item Quais perguntas exigem dados veterinários que não estão no PySUS?
-    \item Quais órgãos ou sistemas veterinários deverão ser integrados futuramente?
-    \item Queremos correlacionar eventos em animais com notificações em humanos por tempo e território?
-    \item Quais dados podem ser compartilhados entre vigilância epidemiológica humana, vigilância ambiental e vigilância animal?
-\end{enumerate}
-
-\section{Perguntas de qualidade e interpretação dos dados}
-
-Além das perguntas epidemiológicas, a aplicação deve ser capaz de comunicar a qualidade do dado. A equipe deve decidir se deseja responder explicitamente:
-
-\begin{enumerate}[label=\textbf{Q\arabic*.}, leftmargin=*]
-    \item Qual é a data da última atualização de cada indicador?
-    \item Quantos registros foram descartados ou não puderam ser classificados pela pipeline?
-    \item Quais campos apresentam maior proporção de valores ausentes?
-    \item O dado exibido representa notificação, caso confirmado, internação, óbito, procedimento ou outro evento?
-    \item Existem revisões retroativas que alteraram números previamente publicados?
-    \item Qual fonte e versão de processamento originaram cada indicador?
-\end{enumerate}
-
-\section{Decisões estruturais que a equipe precisa tomar}
-
-\subsection{Definição de ``caso''}
-
-Hoje a Gold agrega registros do SINAN. A equipe precisa decidir quando a interface pode chamar esse número de ``casos'' e quando deve chamá-lo de ``notificações''. Dependendo da doença, pode ser necessário filtrar pela classificação final antes de apresentar um indicador de casos confirmados.
-
-\subsection{Ano calendário versus ano epidemiológico}
-
-A pipeline atual filtra o ano usando a data de notificação (\texttt{DT\_NOTIFIC}), enquanto o SINAN também possui \texttt{NU\_ANO}. A equipe deve decidir qual conceito será usado em cada indicador.
-
-\subsection{Granularidade temporal}
-
-Devemos decidir quais níveis serão oficiais na aplicação:
-
-\begin{itemize}[leftmargin=*]
-    \item diário;
-    \item semana epidemiológica;
-    \item mensal;
-    \item anual.
-\end{itemize}
-
-\subsection{Granularidade geográfica}
-
-A V1 navega por região, estado e município. Para o futuro, deve-se decidir se haverá níveis adicionais, como bairros, distritos sanitários, regiões de saúde ou áreas de abrangência, dependendo da fonte de dados e das regras de privacidade.
-
-\subsection{Privacidade e pequenas contagens}
-
-Quanto mais granular o território e o perfil individual, maior o risco de reidentificação. Antes de publicar recortes por idade, sexo, bairro, doença rara ou outras dimensões, devem ser definidas regras de supressão e anonimização para pequenas contagens.
-
-\section{Matriz para a reunião de decisão}
-
-Sugere-se que cada pergunta candidata seja avaliada com a tabela abaixo.
-
-\begin{center}
-\begin{tabularx}{\textwidth}{p{5.2cm}c c c X}
-\toprule
-\textbf{Pergunta} & \textbf{Prioridade} & \textbf{V1/V2+} & \textbf{Dados existem?} & \textbf{Fonte/campos necessários} \\
-\midrule
- & & & & \\
- & & & & \\
- & & & & \\
- & & & & \\
- & & & & \\
-\bottomrule
-\end{tabularx}
-\end{center}
-
-Para cada pergunta aprovada, recomenda-se registrar também:
-
-\begin{itemize}[leftmargin=*]
-    \item definição exata do indicador;
-    \item população/denominador;
-    \item periodicidade de atualização;
-    \item nível geográfico permitido;
-    \item fonte primária;
-    \item campos necessários;
-    \item regra de limpeza/classificação;
-    \item regra de privacidade;
-    \item visualização esperada;
-    \item responsável por validar a interpretação epidemiológica.
-\end{itemize}
-
-\section{Proposta de decisão mínima para a próxima iteração}
-
-Para evitar expandir a pipeline sem um objetivo claro, a equipe pode escolher inicialmente um pequeno conjunto de perguntas prioritárias. Uma primeira rodada plausível de discussão seria:
-
-\begin{enumerate}[leftmargin=*]
-    \item Quantas notificações e quantos casos confirmados existem por município, mês e semana epidemiológica?
-    \item Como esses números evoluem em relação às semanas anteriores?
-    \item Qual é a incidência por população do município?
-    \item Qual é o perfil por sexo e faixa etária?
-    \item Qual é a distribuição por classificação final e evolução?
-    \item Quais municípios apresentam crescimento que merece atenção operacional?
-\end{enumerate}
-
-A lista acima é apenas um ponto de partida para discussão. A decisão final deve ser feita com participação de quem interpreta os dados epidemiológicos e de quem utilizará a ferramenta na tomada de decisão.
-
+\begin{enumerate}[label=\textbf{Z\arabic*.},leftmargin=*]\item Quais zoonoses priorizar?\item Quais perguntas exigem dados veterinários?\item Quais órgãos/sistemas integrar?\item Correlacionar eventos animais/humanos?\item Quais dados podem ser compartilhados entre vigilâncias?\end{enumerate}
+\section{Perguntas de qualidade e auditoria}
+\begin{enumerate}[label=\textbf{Q\arabic*.},leftmargin=*]\item Qual batch/data da última atualização?\item Quantos registros entraram em Bronze e permaneceram em Silver?\item Qual soma foi publicada na Gold Serving?\item A mesma soma está no PostgreSQL?\item Quantas notificações não mapearam CNES/território?\item O indicador é notificação ou caso confirmado?\item Qual versão de contrato/processamento o originou?\end{enumerate}
+Para NSS 1.0, Grafana prioriza Bronze, Silver, Gold e PostgreSQL com reconciliação mínima.
+\section{Decisões estruturais consolidadas}
+\subsection{Definição de ``caso''}\statusPendente. A regra deve ser específica por agravo e validada por dicionário oficial/equipe epidemiológica. Enquanto isso, usar \textbf{notificações}.
+\subsection{Ano e período}\statusDecidido. Ano/mês de \texttt{DT\_NOTIFIC}; semana fica fora do filtro oficial V1.0.
+\subsection{Granularidade geográfica}\statusDecidido. Perspectiva de notificação; quatro municípios em nível municipal e somente Campos com drill-down por distrito/bairro da unidade notificadora.
+\subsection{Faixa etária}\statusDecidido. Derivar de \texttt{NU\_IDADE\_N}; produzir 12 faixas + NI. Não pré-calcular combinações de multi-faixa.
+\subsection{Privacidade e pequenas contagens}\statusFuturo para publicação pública. A NSS 1.0 é autenticada e usa fonte pública agregada; regra institucional será necessária antes de abertura pública e dados restritos.
+\section{Matriz de prioridade da NSS 1.0}
+\begin{longtable}{p{6.1cm}p{2.4cm}p{2.2cm}p{4.1cm}}\toprule\textbf{Pergunta/capacidade} & \textbf{Prioridade} & \textbf{Release} & \textbf{Fonte} \\\midrule
+Notificações por quatro municípios/ano/mês & Alta & NSS 1.0 & SINAN/PySUS \\
+Filtro por sexo & Alta & NSS 1.0 & \texttt{CS\_SEXO} \\
+Filtro por 12 faixas etárias & Alta & NSS 1.0 & \texttt{NU\_IDADE\_N} \\
+Distrito/bairro da unidade em Campos & Alta & NSS 1.0 & \texttt{ID\_UNIDADE}+CNES+referência territorial \\
+Login/acesso autenticado & Alta & NSS 1.0 & Java/Spring Security \\
+Auditoria Bronze/Silver/Gold/PostgreSQL & Alta & NSS 1.0 mínima & Pipeline/PostgreSQL/Grafana \\
+Bairro de residência & Posterior & V1.1+ & CIEVS/restrita \\
+Multi-faixa & Posterior & V1.1+ & SQL sobre Serving \\
+Todos os municípios RJ & Posterior & V2+ & SINAN/PySUS \\
+Incidência populacional & Posterior & V2+ & SINAN+IBGE \\
+Saúde animal & Posterior & V2+ & fontes a definir \\
+\bottomrule\end{longtable}
+\section{Critérios para futuras decisões}
+Para cada pergunta aprovada, registrar definição do indicador, evento contado, período, perspectiva geográfica, fonte/campos mínimos, regra de qualidade, política de privacidade, periodicidade, visualização e responsável pela validação epidemiológica.
 \section{Referências técnicas}
-
-\begin{itemize}[leftmargin=*]
-    \item PySUS Documentation: \url{https://pysus.readthedocs.io/en/latest/}
-    \item PySUS -- Data Sources: \url{https://pysus.readthedocs.io/en/latest/databases/data-sources.html}
-    \item Repositório Python do NSS: \url{https://github.com/Zadoque/Nucleo-de-Situacao-De-Saude}
-    \item Pipeline atual: \url{https://github.com/Zadoque/Nucleo-de-Situacao-De-Saude/tree/main/back-end/app/pipeline}
-\end{itemize}
-
+\begin{itemize}[leftmargin=*]\item PySUS Documentation: \url{https://pysus.readthedocs.io/en/latest/}\item PySUS Data Sources: \url{https://pysus.readthedocs.io/en/latest/databases/data-sources.html}\item Pipeline NSS: \url{https://github.com/Zadoque/NSS-pipeline}\item Frontend NSS: \url{https://github.com/Zadoque/nss-front-end}\item Deployment NSS: \url{https://github.com/Zadoque/NSS-deployment}\item NixOS: \url{https://github.com/Zadoque/nss-NixOS-Configuration}\end{itemize}
 \end{document}

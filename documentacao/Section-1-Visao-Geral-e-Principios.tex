@@ -1,35 +1,45 @@
 \section{Visão Geral e Princípios Arquiteturais}
 
-O Núcleo de Situação de Saúde (NSS) é organizado como uma aplicação web apoiada por um backend Java/Spring Boot, um pipeline de dados em Python e um banco de dados PostgreSQL. O objetivo desta documentação é registrar as decisões que permitem que os três componentes evoluam de forma independente, mas permaneçam integrados como um único sistema.
+O Núcleo de Situação de Saúde (NSS) é organizado como um sistema web composto por frontend React/TypeScript, backend Java/Spring Boot, pipeline Python e PostgreSQL. A versão normativa tratada nesta documentação é a \textbf{NSS 1.0}, integrada ao \textbf{Frontend V2}.
 
-\subsection{Objetivo da arquitetura}
+\subsection{Objetivo da NSS 1.0}
 
-A arquitetura separa duas responsabilidades que possuem características diferentes:
+A NSS 1.0 deve disponibilizar uma linha ponta a ponta funcional, autenticada e auditável:
+
+\begin{center}
+\texttt{SINAN/PySUS $\rightarrow$ Pipeline $\rightarrow$ PostgreSQL $\rightarrow$ Java $\rightarrow$ Frontend}
+\end{center}
+
+A primeira release integrada privilegia um escopo estreito, verificável e operacional. Funcionalidades futuras não devem bloquear a entrega quando não forem necessárias às perguntas aprovadas para a V1.0.
+
+\subsection{Separação entre consulta e atualização}
+
+A arquitetura separa duas responsabilidades:
 
 \begin{itemize}
-    \item \textbf{consulta da aplicação}: realizada pelo frontend por meio da API Java, com leitura dos dados consolidados no PostgreSQL;
-    \item \textbf{ingestão e atualização dos dados}: realizada pelo pipeline Python, que obtém dados do SINAN por meio do PySUS, processa os dados e atualiza o PostgreSQL.
+    \item \textbf{consulta}: frontend envia requisições para a API Java, que autentica o usuário e consulta dados já publicados no PostgreSQL;
+    \item \textbf{atualização}: pipeline Python ingere SINAN/PySUS e CNES, processa Bronze/Silver/Gold e publica a Gold Serving compatível no PostgreSQL.
 \end{itemize}
 
-Assim, o Python não faz parte do caminho síncrono de uma consulta feita pelo usuário. O usuário consulta dados que já foram processados e persistidos.
-
 \begin{regra}[Princípio de separação de responsabilidades]
-O frontend não acessa diretamente o PostgreSQL nem o pipeline Python. A API Java é o ponto de entrada da aplicação. O pipeline Python é responsável pela preparação e atualização dos dados.
+O frontend não acessa diretamente PostgreSQL, Parquet ou pipeline Python. A API Java é o ponto de entrada síncrono da aplicação. O pipeline não faz parte do caminho crítico de uma consulta do usuário.
 \end{regra}
 
-\subsection{Princípios}
+\subsection{Princípios normativos}
 
 \begin{enumerate}
-    \item Cada componente possui uma responsabilidade técnica bem definida.
-    \item Os três componentes de aplicação permanecem em repositórios independentes.
-    \item O Docker fornece ambientes reproduzíveis para desenvolvimento e integração.
-    \item O PostgreSQL é o armazenamento compartilhado dos dados utilizados pela aplicação.
-    \item DataFrames e arquivos Parquet permanecem no pipeline para processamento, rastreabilidade, inspeção e debugging.
-    \item O pipeline deve permitir identificar em qual etapa uma inconsistência foi introduzida.
-    \item Contratos de dados e mudanças de schema devem ser tratados de forma versionada.
-    \item Segurança, configuração e credenciais não devem ser incorporadas ao código-fonte.
+    \item Cada componente mantém responsabilidade técnica clara e repositório independente.
+    \item O repositório \texttt{NSS-deployment} é fonte normativa de integração e deployment, não de código de negócio.
+    \item A Gold exploratória e a Gold Serving possuem finalidades diferentes e não devem ser tratadas como o mesmo contrato.
+    \item O Java realiza agregações de consulta com PostgreSQL; o frontend não soma dados epidemiológicos.
+    \item Zero, ausência de registro e ausência de cobertura são estados semanticamente diferentes.
+    \item Segredos, senhas, chaves e tokens reais não são versionados.
+    \item O acesso ao dashboard da NSS 1.0 é autenticado.
+    \item A geografia da NSS 1.0 representa \textbf{notificação}; a perspectiva por residência é uma evolução independente.
+    \item O sistema deve preservar rastreabilidade suficiente para comparar Bronze, Silver, Gold e PostgreSQL.
+    \item Complexidade futura somente deve ser incorporada quando resolver um problema concreto.
 \end{enumerate}
 
-\begin{explicacao}[Decisão arquitetural]
-A separação em três repositórios não implica necessariamente três aplicações isoladas. Os componentes podem ser desenvolvidos separadamente e integrados em um único ambiente por meio de Docker Compose, mantendo uma rede Docker compartilhada e containers distintos.
+\begin{explicacao}[Terminologia epidemiológica]
+Enquanto a regra de classificação por agravo não estiver validada pela equipe epidemiológica, a interface deve utilizar o termo \textbf{notificações}. O identificador técnico legado \texttt{cases\_total}, quando ainda presente na pipeline, não autoriza a interface a chamar automaticamente a métrica de ``casos confirmados''.
 \end{explicacao}

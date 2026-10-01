@@ -1,75 +1,47 @@
 \section{Docker e Ambiente de Integração}
 
-Os três repositórios permanecem independentes, mas podem ser executados em conjunto. A unidade de execução não precisa coincidir com a unidade de versionamento.
+A unidade de versionamento não precisa coincidir com a unidade de execução. A NSS 1.0 é integrada por Docker Compose mantendo imagens independentes.
 
-\subsection{Containers}
+\subsection{Serviços mínimos}
 
-O ambiente integrado deverá possuir, conceitualmente, pelo menos:
-
-\begin{itemize}
-    \item um container para o frontend;
-    \item um container para o Java/Spring Boot;
-    \item um container para o pipeline Python;
-    \item um container para o PostgreSQL.
-\end{itemize}
-
-Cada componente de aplicação pode produzir sua própria imagem Docker. Não é necessário colocar Java, Python e frontend em uma única imagem.
-
-\placeholderfigure{docker-rede}{7cm}{Containers do ambiente integrado e comunicação pela rede Docker.}
-
-\subsection{Comunicação entre containers}
-
-Serviços executados na mesma rede Docker Compose podem se comunicar usando o nome do serviço como hostname. Assim, o backend Java pode acessar o PostgreSQL por um endereço conceitual como:
-
-\begin{lstlisting}[language=YAML]
-jdbc:postgresql://db:5432/sala_saude
-\end{lstlisting}
-
-O pipeline Python pode utilizar a mesma infraestrutura:
-
-\begin{lstlisting}[language=YAML]
-DB_HOST=db
-DB_PORT=5432
-DB_NAME=sala_saude
-\end{lstlisting}
-
-O endereço \texttt{localhost} não deve ser usado para alcançar outro container, pois dentro de um container \texttt{localhost} representa o próprio container.
-
-\subsection{Compose de integração}
-
-Recomenda-se que o repositório de deployment possua um Compose capaz de integrar as imagens dos três repositórios:
-
-\begin{lstlisting}[language=YAML]
-services:
-  frontend:
-    image: nss-frontend:dev
-
-  java:
-    image: nss-java:dev
-    depends_on:
-      - db
-
-  pipeline:
-    image: nss-pipeline:dev
-    depends_on:
-      - db
-
-  db:
-    image: postgres:16-alpine
-\end{lstlisting}
-
-Durante desenvolvimento, o Compose também pode usar \texttt{build.context} para construir as imagens a partir dos diretórios locais dos três repositórios.
-
-\subsection{Ambientes}
-
-A mesma separação pode ser utilizada em diferentes ambientes:
+O ambiente integrado da V1.0 contém:
 
 \begin{itemize}
-    \item \textbf{desenvolvimento}: imagens construídas localmente;
-    \item \textbf{integração}: versões coordenadas dos três componentes;
-    \item \textbf{produção}: imagens versionadas publicadas em um registry.
+    \item \textbf{caddy}: única entrada HTTP;
+    \item \textbf{frontend}: artefato estático React servido internamente;
+    \item \textbf{java}: API Spring Boot;
+    \item \textbf{db}: PostgreSQL compartilhado;
+    \item \textbf{grafana}: auditoria operacional, sem necessidade de exposição pública;
+    \item \textbf{pipeline}: execução batch/job acionada quando necessário, não API pública permanente.
 \end{itemize}
 
-\begin{regra}[Isolamento das imagens]
-Cada componente deve possuir sua própria imagem Docker. A integração ocorre no nível de rede e orquestração, não pela fusão dos componentes em uma imagem única.
+\subsection{Rede e portas}
+
+Serviços se comunicam pelo nome do serviço na rede Docker. O Java usa, por exemplo:
+
+\begin{lstlisting}[language=YAML]
+jdbc:postgresql://db:5432/nss
+\end{lstlisting}
+
+A pipeline utiliza o mesmo PostgreSQL para o schema \texttt{analytics}.
+
+\begin{regra}[Menor exposição]
+PostgreSQL e Java não publicam portas na interface externa do servidor. No bootstrap, apenas Caddy é ligado a uma porta local do host para que o agente ngrok a encaminhe. Grafana pode ficar acessível somente por localhost/SSH durante a V1.0.
 \end{regra}
+
+\subsection{Propriedade do banco}
+
+Um único PostgreSQL atende o ambiente integrado, mas a propriedade lógica permanece separada:
+
+\begin{itemize}
+    \item Java/Flyway versiona tabelas da aplicação, autenticação e refresh tokens;
+    \item Python/Alembic versiona \texttt{analytics.*};
+    \item Java consome \texttt{analytics.*} para leitura;
+    \item pipeline não deve alterar tabelas de autenticação do Java.
+\end{itemize}
+
+O isolamento por usuários/roles distintos é desejável e deve ser endurecido antes da entrada de dados restritos. Para a entrega bootstrap, a prioridade é manter o banco não publicado externamente e secrets fora do Git.
+
+\subsection{Imagens}
+
+Cada componente deve produzir sua própria imagem. O Compose de integração referencia tags configuráveis. Isso evita acoplamento entre os repositórios e permite registrar exatamente quais versões participaram de uma release.
