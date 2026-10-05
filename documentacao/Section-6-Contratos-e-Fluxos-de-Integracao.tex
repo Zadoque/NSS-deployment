@@ -1,64 +1,70 @@
 \section{Contratos e Fluxos de Integração}
 
-A existência de três repositórios exige contratos claros. O objetivo é permitir que cada componente evolua sem criar dependências implícitas entre implementações internas.
+Os contratos da NSS 1.0 deixam de ser apenas recomendações abstratas. As versões normativas em Markdown estão em \texttt{contracts/api-v1.md}, \texttt{contracts/auth-v1.md} e \texttt{contracts/serving-v1.md}.
 
-\subsection{Contrato frontend--Java}
+\subsection{Frontend--Java}
 
-O frontend consome exclusivamente a API pública do Java. O contrato deve definir:
+O frontend consome exclusivamente a API Java sob o prefixo \texttt{/api/v1}. Para a V1.0, o contrato cobre:
 
 \begin{itemize}
-    \item endpoints;
-    \item parâmetros e filtros;
-    \item formato das respostas;
-    \item códigos HTTP;
-    \item mensagens de erro;
-    \item paginação, quando aplicável;
-    \item requisitos de autenticação e autorização.
+    \item login, refresh e logout;
+    \item lista de doenças disponíveis;
+    \item agregação por município;
+    \item agregação por distrito;
+    \item agregação por bairro/localidade;
+    \item filtros de doença, ano, mês, sexo e faixa etária;
+    \item semântica explícita de cobertura disponível/indisponível.
 \end{itemize}
 
-\subsection{Contrato Python--PostgreSQL}
+A API deve utilizar um campo de métrica semântico, permitindo que a UI mostre \textbf{Notificações} enquanto não houver regra aprovada para \textbf{Casos confirmados}.
 
-O pipeline e o Java compartilham o PostgreSQL. O schema do banco funciona, portanto, como um contrato de integração interno.
+\subsection{Autenticação}
 
-As mudanças de schema devem ser versionadas por migrations e acompanhadas de análise de compatibilidade com o backend Java.
+A V1.0 utiliza login por e-mail/senha, JWT de curta duração e refresh token opaco rotacionável em cookie HttpOnly/Secure. O frontend mantém o access token em memória e usa \texttt{Authorization: Bearer}. Auto-registro público fica desabilitado.
 
-\begin{regra}[Compatibilidade de schema]
-Uma alteração no PostgreSQL não deve ser publicada apenas porque o pipeline consegue executá-la. Deve-se verificar se as consultas e mapeamentos utilizados pelo Java continuam válidos.
-\end{regra}
+\subsection{Pipeline--PostgreSQL}
+
+O schema \texttt{analytics} e a Gold Serving V1 funcionam como contratos internos. Mudanças requerem migration Alembic e validação das queries do Java.
+
+\subsection{Java--PostgreSQL}
+
+O Java não precisa reconstruir lógica SINAN. Ele recebe dados Serving e executa agregações relacionais. Regras como codificação de idade, CNES e classificação epidemiológica pertencem à pipeline/contrato de dados, não ao controller.
+
+\subsection{Fluxo de consulta autenticada}
+
+\begin{lstlisting}[language=Mermaid]
+sequenceDiagram
+    participant U as Usuario
+    participant F as Frontend
+    participant C as Caddy
+    participant J as Java
+    participant D as PostgreSQL
+
+    U->>F: login email/senha
+    F->>C: POST /api/v1/auth/login
+    C->>J: proxy
+    J-->>F: access JWT + refresh cookie HttpOnly
+    F->>J: GET /api/v1/epidemiology/... + Bearer
+    J->>D: SUM/GROUP BY
+    D-->>J: agregados
+    J-->>F: JSON V1
+    F-->>U: mapa/painel
+\end{lstlisting}
 
 \subsection{Fluxo de atualização}
 
 \begin{lstlisting}[language=Mermaid]
 sequenceDiagram
-    participant S as SINAN
-    participant P as Python Pipeline
+    participant S as SINAN/CNES
+    participant P as Pipeline
     participant D as PostgreSQL
+    participant G as Grafana
 
-    P->>S: Obter dados
-    S-->>P: Dados SINAN
-    P->>P: Bronze / Silver / Gold
-    P->>P: Validar dados
-    P->>D: Atualizar dados consolidados
+    P->>S: obter fontes
+    S-->>P: dados
+    P->>P: Bronze / Silver / Gold Ad Hoc / Serving
+    P->>P: validar contrato e reconciliar
+    P->>D: publicar Serving V1
+    D-->>P: resultado da transacao
+    G->>D: consultar metricas de auditoria
 \end{lstlisting}
-
-\subsection{Fluxo de consulta}
-
-\begin{lstlisting}[language=Mermaid]
-sequenceDiagram
-    participant U as Usuário
-    participant F as Frontend
-    participant J as Java
-    participant D as PostgreSQL
-
-    U->>F: Interage com a aplicação
-    F->>J: Requisição HTTP
-    J->>J: Autenticação / autorização
-    J->>D: Consulta
-    D-->>J: Dados
-    J-->>F: DTO / JSON
-    F-->>U: Visualização
-\end{lstlisting}
-
-\subsection{Versionamento}
-
-Recomenda-se que contratos importantes sejam documentados e, quando possível, verificados automaticamente. A API Java pode utilizar OpenAPI para manter uma especificação formal de seus endpoints.

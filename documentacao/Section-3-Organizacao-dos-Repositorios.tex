@@ -1,38 +1,47 @@
 \section{Organização dos Repositórios}
 
-O projeto é mantido em três repositórios de aplicação. Esta decisão é intencional: permite que cada componente possua seu próprio ciclo de desenvolvimento, enquanto o repositório de deployment documenta e integra o sistema.
+O NSS é mantido em repositórios independentes. Essa decisão é intencional: cada componente possui seu próprio ciclo de desenvolvimento, enquanto \texttt{NSS-deployment} mantém contratos e integração coordenada.
 
-\subsection{Repositórios}
+\subsection{Repositórios oficiais no escopo atual}
 
-\begin{tabularx}{\textwidth}{@{}p{3.2cm}p{5cm}X@{}}
+\begin{tabularx}{\textwidth}{@{}p{3.1cm}p{6cm}X@{}}
 \toprule
-\textbf{Componente} & \textbf{Repositório atual} & \textbf{Responsabilidade} \\
+\textbf{Componente} & \textbf{Repositório} & \textbf{Responsabilidade} \\
 \midrule
-Java & \texttt{ArtursPereira/Site-Sala-de-Situa-o-de-Saude-Java} & Backend principal com Spring Boot. \\
-Python & \texttt{Zadoque/Nucleo-de-Situacao-De-Saude} & Pipeline de dados e processamento SINAN/PySUS. \\
-Deployment & \texttt{Zadoque/nss-deployment} & Documentação arquitetural e futura orquestração de integração. \\
-Frontend & Repositório do frontend & Interface web e consumo da API Java. \\
+Frontend & \texttt{Zadoque/nss-front-end} & React/TypeScript, Home, login, dashboard V2, mapas e filtros. \\
+Java & \texttt{ArtursPereira/Site-Sala-de-Situa-o-de-Saude-Java} & Spring Boot, autenticação, API e acesso ao banco. O trabalho pode ocorrer por colaboração direta ou fork/PR. \\
+Pipeline & \texttt{Zadoque/NSS-pipeline} & PySUS/SINAN, CNES, Medallion, Serving e Alembic. \\
+Deployment & \texttt{Zadoque/NSS-deployment} & Contratos, documentação, Compose, Caddy e runbooks. \\
+Host NixOS & \texttt{Zadoque/nss-NixOS-Configuration} & Configuração declarativa do servidor e acesso administrativo. \\
 \bottomrule
 \end{tabularx}
 
-\subsection{Responsabilidades da equipe atual}
+\subsection{Responsabilidades da equipe}
 
-Atualmente o projeto é desenvolvido por três estagiários:
+O trabalho está distribuído entre quatro estagiários, com responsabilidades atualmente separadas por domínio:
 
 \begin{itemize}
-    \item \textbf{Zadoque Carneiro}: arquitetura e documentação;
-    \item \textbf{Artur Pereira}: Java e Spring Boot;
-    \item \textbf{Gabriel Costa}: Python e pipeline de dados.
+    \item \textbf{Zadoque Carneiro}: arquitetura, integração, frontend e documentação/deployment;
+    \item \textbf{Artur Pereira}: backend Java/Spring Boot;
+    \item \textbf{Gabriel Costa}: pipeline Python e dados;
+    \item \textbf{quarto estagiário}: estudo e implementação da auditoria/visualização operacional em Grafana.
 \end{itemize}
 
-A organização em repositórios separados foi escolhida para continuar sendo adequada quando novos desenvolvedores e equipes forem incorporados ao projeto.
+O nome do quarto estagiário não é inferido nesta documentação enquanto não houver registro explícito no repositório.
 
-\subsection{Por que não unificar os repositórios}
+\subsection{Responsabilidade do NSS-deployment}
 
-Um monorepo seria tecnicamente possível, porém não é obrigatório para obter integração. Neste projeto, a separação permite que cada componente tenha seu próprio histórico, revisão, dependências e pipeline de CI/CD.
+Este repositório pode conter artefatos de orquestração e contratos, mas não deve copiar o código de negócio dos demais componentes. São apropriados aqui:
 
-O custo adicional dessa escolha é compensado por contratos claros entre componentes e por um ambiente de integração centralizado.
+\begin{itemize}
+    \item \texttt{compose.yaml};
+    \item configuração Caddy;
+    \item exemplos de variáveis de ambiente;
+    \item contratos HTTP e de dados;
+    \item runbooks de deploy/rollback;
+    \item documentação normativa e diagramas.
+\end{itemize}
 
-\begin{explicacao}[Repositório de deployment]
-O repositório \texttt{nss-deployment} não deve concentrar código de negócio. Ele funciona como ponto de integração operacional, documentação e, quando necessário, configuração de ambientes que combinam as imagens dos três componentes.
-\end{explicacao}
+\begin{regra}[Configuração do host]
+Arquivos NixOS pertencem a \texttt{nss-NixOS-Configuration}. O \texttt{NSS-deployment} documenta requisitos do host, mas não duplica essa configuração.
+\end{regra}

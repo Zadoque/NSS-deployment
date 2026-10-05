@@ -1,48 +1,80 @@
 \section{Arquitetura do Sistema}
 
-A arquitetura do NSS utiliza quatro componentes executados separadamente: frontend, backend Java/Spring Boot, pipeline Python e PostgreSQL.
+A NSS 1.0 utiliza componentes executados separadamente e integrados por rede privada de containers. Caddy é a entrada web única do ambiente integrado.
 
-\placeholderfigure{arquitetura-alto-nivel}{7cm}{Arquitetura de alto nível do Núcleo de Situação de Saúde.}
+\subsection{Arquitetura de alto nível}
+
+\begin{lstlisting}
+Internet
+   |
+   v
+ngrok HTTPS (bootstrap temporario)
+   |
+   v
+Caddy
+  |-- /        -> Frontend
+  `-- /api/*   -> Java/Spring Boot
+                      |
+                      v
+                  PostgreSQL
+                 /          \
+          app/auth            analytics.*
+          Java/Flyway         Python/Alembic
+                                  ^
+                                  |
+                         Gold Serving V1
+                                  ^
+                                  |
+PySUS/SINAN -> Bronze -> Silver -+-> Gold Ad Hoc
+                       ^
+                       |
+                      CNES
+\end{lstlisting}
+
+Grafana funciona como consumidor operacional para auditoria e não como caminho de consulta do usuário final.
 
 \subsection{Fluxo de consulta}
 
-O fluxo normal de uma consulta é:
-
 \begin{enumerate}
-    \item o usuário interage com o frontend;
-    \item o frontend envia uma requisição HTTP para a API Java;
-    \item o Java autentica e autoriza a operação, quando aplicável;
-    \item a camada de serviço aplica as regras de negócio;
-    \item o backend consulta o PostgreSQL;
-    \item o resultado é transformado em DTO e retornado ao frontend.
+    \item usuário acessa a aplicação pelo Caddy;
+    \item frontend autentica por e-mail/senha quando necessário;
+    \item frontend envia access token para a API Java;
+    \item Java valida autenticação/autorização;
+    \item camada de serviço valida filtros e semântica da consulta;
+    \item repositório analítico executa \texttt{SUM}/\texttt{GROUP BY} no PostgreSQL;
+    \item Java retorna DTO/JSON compatível com o contrato V1;
+    \item frontend renderiza mapa, filtros e estados de cobertura.
 \end{enumerate}
 
-\subsection{Fluxo de atualização de dados}
-
-A atualização dos dados ocorre separadamente do fluxo de consulta:
+\subsection{Fluxo de atualização}
 
 \begin{enumerate}
-    \item o pipeline Python obtém dados do SINAN por meio do PySUS;
-    \item os dados brutos são preservados em Bronze;
-    \item transformações e padronizações produzem Silver;
-    \item agregações necessárias à aplicação produzem Gold;
-    \item os resultados são validados;
-    \item os dados consolidados são persistidos no PostgreSQL.
+    \item pipeline obtém os dados do SINAN/PySUS;
+    \item Bronze preserva a entrada;
+    \item Silver normaliza, valida e deduplica;
+    \item CNES enriquece a unidade notificadora quando necessário;
+    \item Gold Ad Hoc mantém flexibilidade para exploração e auditoria;
+    \item Gold Serving V1 aplica o contrato fixo da aplicação;
+    \item loader valida o artefato Serving e publica a partição correspondente no PostgreSQL;
+    \item auditoria reconcilia Gold e PostgreSQL.
 \end{enumerate}
 
-\begin{regra}[Pipeline fora do caminho crítico de consulta]
-Uma consulta do usuário não deve depender de uma nova coleta ou processamento do SINAN. A aplicação consulta dados já persistidos e validados no PostgreSQL.
+\begin{regra}[Uma única fronteira web]
+Na NSS 1.0 o navegador não acessa Java, PostgreSQL ou Grafana por portas públicas independentes. Caddy é a fronteira HTTP da aplicação. Durante o bootstrap, ngrok publica somente o Caddy.
 \end{regra}
 
 \subsection{Responsabilidades}
 
-\begin{tabularx}{\textwidth}{@{}p{3.2cm}X@{}}
+\begin{tabularx}{\textwidth}{@{}p{3.4cm}X@{}}
 \toprule
 \textbf{Componente} & \textbf{Responsabilidade} \\
 \midrule
-Frontend & Interface, visualizações, mapas, filtros e interação com o usuário. \\
-Java/Spring Boot & API REST, autenticação, autorização, regras de negócio e acesso ao banco. \\
-Python/Pipeline & Ingestão, transformação, agregação, validação e atualização dos dados. \\
-PostgreSQL & Persistência compartilhada dos dados consolidados e das informações da aplicação. \\
+Frontend & Login, sessão no navegador, visualização, mapas/GeoJSON, localização pública de UBS, filtros, acessibilidade e consumo da API Java. \\
+Java/Spring Boot & Autenticação, autorização, access/refresh token, regras da API, agregações analíticas e acesso ao PostgreSQL. \\
+Python/Pipeline & Ingestão, normalização, CNES, faixas etárias, territorialização da unidade notificadora, Gold Ad Hoc/Serving, validação e publicação. \\
+PostgreSQL & Persistência das tabelas da aplicação e da camada \texttt{analytics}. \\
+Caddy & Reverse proxy e fronteira HTTP única. \\
+Grafana & Auditoria operacional Bronze/Silver/Gold/PostgreSQL. \\
+NixOS & Host, firewall, Docker, SSH e conectividade temporária/definitiva. \\
 \bottomrule
 \end{tabularx}

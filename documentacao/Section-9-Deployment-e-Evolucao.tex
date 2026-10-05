@@ -1,44 +1,57 @@
 \section{Deployment e Evolução}
 
-A estratégia de deployment deve preservar a independência dos três repositórios e, ao mesmo tempo, permitir a execução integrada do sistema.
+A estratégia de deployment possui um estado temporário de bootstrap e um estado definitivo institucional.
 
-\subsection{Desenvolvimento local}
+\subsection{Bootstrap temporário - NSS 1.0}
 
-Durante o desenvolvimento, as imagens podem ser construídas localmente a partir dos três repositórios. Um Compose de integração deve conectar frontend, Java, pipeline e PostgreSQL em uma rede comum.
-
-\subsection{Integração contínua}
-
-Em uma evolução futura, cada repositório poderá possuir seu próprio pipeline de CI/CD:
+Enquanto as portas e o domínio institucional não estiverem disponíveis:
 
 \begin{lstlisting}
-commit
-  |
-  v
-CI -> testes -> build -> imagem Docker -> registry
+Internet
+   |-- ngrok HTTPS -> 127.0.0.1:<porta Caddy> -> NSS
+   `-- ngrok TCP   -> localhost:22            -> SSH key-only
 \end{lstlisting}
 
-O repositório de deployment poderá selecionar versões específicas das imagens para cada ambiente.
+O servidor inicia a conexão de saída com ngrok; PostgreSQL, Java e Grafana permanecem não publicados externamente.
 
-\subsection{Versionamento das imagens}
+\subsection{Estado definitivo}
 
-É recomendável utilizar tags imutáveis ou identificáveis, como versões semânticas ou SHA do commit. Um ambiente integrado pode então combinar, por exemplo, versões diferentes do frontend, Java e pipeline de maneira explícita.
+Após liberação institucional:
 
-\subsection{Evolução da equipe}
+\begin{lstlisting}
+Publico: dominio institucional -> Caddy -> NSS
+Admin:  WireGuard -> SSH key-only
+\end{lstlisting}
 
-A separação por repositórios permite que equipes futuras assumam componentes diferentes. Para evitar que a separação gere acoplamento descontrolado, devem ser mantidos:
+A branch temporária de ngrok no repositório NixOS deverá então ser removida/desativada e o token revogado.
+
+\subsection{Ambiente integrado}
+
+O \texttt{compose.yaml} deste repositório é o ponto de integração operacional. As imagens continuam pertencendo aos respectivos repositórios. Tags devem ser registradas por release ou SHA para permitir rollback.
+
+\subsection{CI e homologação}
+
+Cada repositório continua responsável pelos seus testes. A release integrada adiciona uma validação ponta a ponta que cobre pelo menos:
+
+\begin{center}
+\texttt{login -> dashboard -> API -> PostgreSQL -> refresh -> logout}
+\end{center}
+
+Playwright é o mecanismo preferido para o smoke E2E do frontend integrado.
+
+\subsection{Evoluções deliberadamente adiadas}
 
 \begin{itemize}
-    \item contratos documentados;
-    \item migrations versionadas;
-    \item testes de integração;
-    \item convenções de versionamento;
-    \item documentação centralizada neste repositório.
+    \item bairro de residência/CIEVS;
+    \item todos os municípios do RJ e demais estados;
+    \item seleção simultânea de várias faixas etárias;
+    \item administração completa de usuários pela interface;
+    \item CI/CD com registry e promoção automática;
+    \item observabilidade avançada e alertas;
+    \item política definitiva de supressão para publicação pública;
+    \item SCD de CNES e outras modelagens históricas não requeridas pela V1.0.
 \end{itemize}
 
-\subsection{Evoluções futuras}
-
-A arquitetura pode evoluir gradualmente para mecanismos como registry privado, CI/CD, observabilidade centralizada, jobs agendados e ambientes de staging. Essas ferramentas devem ser adotadas quando houver necessidade operacional real, evitando complexidade prematura.
-
 \begin{explicacao}[Princípio de evolução incremental]
-A arquitetura atual deve resolver o problema presente sem impedir crescimento futuro. Novas ferramentas e serviços devem ser introduzidos quando reduzirem um problema concreto de operação, manutenção ou escala.
+A NSS 1.0 deve comprovar a cadeia ponta a ponta com um escopo pequeno. Evoluções futuras devem reutilizar contratos estáveis, não impedir a primeira operação real do sistema.
 \end{explicacao}

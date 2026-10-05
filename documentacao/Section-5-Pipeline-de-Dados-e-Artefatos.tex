@@ -1,68 +1,75 @@
 \section{Pipeline de Dados e Artefatos}
 
-O pipeline Python é responsável por transformar os dados externos em dados confiáveis para a aplicação. O processamento utiliza DataFrames e preserva arquivos Parquet como artefatos intermediários.
+O pipeline Python transforma fontes externas em dados auditáveis e prontos para a aplicação. Parquet permanece como artefato persistente de rastreabilidade; PostgreSQL é a camada de serving consultada pelo Java.
 
-\subsection{Camadas de dados}
-
-A organização conceitual é:
+\subsection{Fluxo Medallion e duas Golds}
 
 \begin{lstlisting}
-SINAN / PySUS
+PySUS / SINAN
     |
     v
-  Bronze
+ Bronze
     |
     v
-  Silver
+ Silver ---------> Gold Ad Hoc
+    |                 |
+    |                 `-> exploracao / auditoria
     |
-    v
-   Gold
-    |
-    +----> PostgreSQL
+    `------------> Gold Serving V1
+                         |
+                         v
+                       load.py
+                         |
+                         v
+                    PostgreSQL
 \end{lstlisting}
 
 \begin{itemize}
-    \item \textbf{Bronze}: preserva os dados de entrada e informações da ingestão;
-    \item \textbf{Silver}: concentra limpeza, padronização e transformação;
-    \item \textbf{Gold}: contém dados consolidados e agregações adequadas às consultas do sistema.
+    \item \textbf{Bronze}: entrada bruta e metadados de ingestão;
+    \item \textbf{Silver}: normalização, deduplicação, qualidade e campos granulares;
+    \item \textbf{Gold Ad Hoc}: agregação flexível para exploração/debugging;
+    \item \textbf{Gold Serving V1}: grão fixo e versionado da NSS 1.0, único artefato aceito pelo loader de produção.
 \end{itemize}
 
-\subsection{Papel do DataFrame}
+\subsection{Semântica territorial da V1.0}
 
-O DataFrame é uma estrutura de processamento do pipeline. Ele facilita transformações, validações, agrupamentos e inspeção durante a execução.
-
-\subsection{Papel do Parquet}
-
-Os arquivos Parquet são mantidos como artefatos persistentes do pipeline. Eles são úteis para:
+A perspectiva da NSS 1.0 é \textbf{notificação}:
 
 \begin{itemize}
-    \item inspeção manual dos resultados;
-    \item comparação entre etapas;
-    \item reprodução de uma transformação sem coletar novamente os dados externos;
-    \item investigação de falhas;
-    \item auditoria técnica da evolução dos dados.
+    \item nível municipal: município da notificação;
+    \item nível intramunicipal em Campos: distrito e bairro/localidade da \textbf{unidade notificadora};
+    \item residência do paciente não participa desta release.
 \end{itemize}
 
-\begin{explicacao}[Parquet não substitui o PostgreSQL]
-O Parquet continua sendo parte importante do pipeline, mas não é o armazenamento principal utilizado pelo frontend. O PostgreSQL funciona como fonte persistida dos dados consolidados para a aplicação Java.
-\end{explicacao}
+\texttt{ID\_UNIDADE} é um dado intermediário importante na Silver/Ad Hoc e no enriquecimento CNES. Ele não precisa permanecer no menor grão da fato Serving quando distrito/bairro já foram determinados.
 
-\subsection{API de inspeção do pipeline}
+O pipeline pode manter um artefato de referência do tipo \texttt{notifying\_units\_territories} para mapear unidade CNES para território canônico. A localização visual da UBS no mapa continua sendo responsabilidade do frontend e pode utilizar dados públicos client-side.
 
-O componente Python pode disponibilizar uma API de inspeção para desenvolvimento, validação e debugging. Essa API não deve ser confundida com a API oficial da aplicação.
-
-Seu objetivo é permitir comparar diretamente o resultado do pipeline com o que posteriormente será armazenado no PostgreSQL e retornado pelo Java.
-
-\subsection{Validação antes da publicação}
-
-Antes de considerar uma execução concluída, o pipeline deve validar propriedades importantes dos dados. Exemplos:
+\subsection{Tempo, sexo e faixa etária}
 
 \begin{itemize}
-    \item número de registros por etapa;
-    \item presença das colunas esperadas;
-    \item valores obrigatórios;
-    \item totais por doença, ano e unidade geográfica;
-    \item consistência entre Gold e dados persistidos no PostgreSQL.
+    \item ano e mês são derivados de \texttt{DT\_NOTIFIC};
+    \item semana epidemiológica permanece disponível para Silver/Ad Hoc, mas não faz parte do grão Serving V1;
+    \item sexo preserva valores desconhecidos/ignorados; ``Todos'' significa ausência de filtro;
+    \item faixa etária Serving é derivada de \texttt{NU\_IDADE\_N}, não apenas de \texttt{ANO\_NASC}.
 \end{itemize}
 
-Uma falha de validação deve ser registrada e impedir a publicação de dados inconsistentes, quando a regra de validação for crítica.
+Faixas oficiais:
+
+\begin{center}
+\texttt{<1, 1-4, 5-9, 10-14, 15-19, 20-39, 40-59, 60-64, 65-69, 70-74, 75-79, 80+}
+\end{center}
+
+Uma categoria técnica \texttt{NI} deve existir para idade não informada/incompatível, sem necessariamente ser exposta como opção de filtro na UI. ``Todos'' inclui também os registros \texttt{NI}.
+
+\subsection{Métrica e definição de caso}
+
+Até validação epidemiológica por agravo, a métrica publicada deve ser apresentada como \textbf{notificações}. \texttt{CLASSI\_FIN} pode ser usado futuramente para construir um indicador de casos confirmados, mas a regra não pode ser inventada pelo software ou por LLM.
+
+\subsection{Publicação no PostgreSQL}
+
+A carga Serving deve ser atômica por partição lógica. Para o volume atual, a estratégia recomendada é substituir dentro de uma única transação o estado da combinação doença/ano carregada, evitando que grupos removidos em revisões retroativas permaneçam obsoletos no banco.
+
+\begin{regra}[Contrato de artefato]
+O loader deve validar o tipo e a versão do artefato Serving. Uma Gold Ad Hoc não pode ser carregada acidentalmente apenas porque possui algumas colunas compatíveis.
+\end{regra}

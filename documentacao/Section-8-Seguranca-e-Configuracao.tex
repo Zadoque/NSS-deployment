@@ -1,27 +1,44 @@
 \section{Segurança e Configuração}
 
-A segurança da aplicação é responsabilidade do backend Java. O frontend não deve possuir credenciais de banco de dados e não deve acessar diretamente serviços internos.
+A NSS 1.0 exige autenticação para o dashboard e minimiza a exposição de serviços durante o bootstrap via ngrok.
+
+\subsection{Fronteira web}
+
+Caddy é a única entrada HTTP da stack. O navegador acessa frontend e Java sob a mesma origem:
+
+\begin{lstlisting}
+/         -> frontend
+/api/*    -> java:8080
+\end{lstlisting}
+
+PostgreSQL não é publicado. Java não é publicado diretamente. Grafana não precisa ser público.
+
+\subsection{Login e sessão}
+
+\begin{itemize}
+    \item login por e-mail e senha;
+    \item hashing de senha com Argon2;
+    \item access token JWT de curta duração;
+    \item refresh token opaco, aleatório, rotacionável e revogável;
+    \item refresh token armazenado somente como hash no servidor;
+    \item cookie de refresh \texttt{HttpOnly}, \texttt{Secure}, \texttt{SameSite=Strict};
+    \item access token mantido em memória pelo frontend;
+    \item logout revoga refresh e remove cookie;
+    \item auto-registro público desabilitado na V1.0.
+\end{itemize}
+
+O CRUD de usuários existente no backend não deve ficar disponível genericamente a qualquer usuário autenticado.
 
 \subsection{Segredos}
 
-Credenciais, chaves e tokens devem ser fornecidos por variáveis de ambiente, secrets do ambiente de execução ou mecanismo equivalente. Valores reais não devem ser versionados nos repositórios.
+Chaves JWT, senhas PostgreSQL, credenciais Grafana e token ngrok são fornecidos pelo ambiente/secret store e não entram no Git. O repositório versiona somente \texttt{.env.example}.
 
-\subsection{Banco de dados}
+\subsection{SSH}
 
-O PostgreSQL deve ficar acessível diretamente apenas aos serviços que precisam dele. Em um ambiente integrado, o banco pode estar na rede interna do Compose sem necessidade de publicar sua porta para a máquina host.
+O acesso administrativo temporário é SSH com chave pública, sem senha e sem login direto de root. Enquanto a GINFO não libera a conectividade definitiva, ngrok TCP pode encaminhar para o SSH local. No estado definitivo, SSH fica disponível apenas após entrada por WireGuard.
 
-\subsection{Java}
+\subsection{Dados epidemiológicos e privacidade}
 
-O backend deve aplicar autenticação e autorização antes de executar operações protegidas. Senhas devem ser armazenadas utilizando mecanismos de hashing apropriados, nunca em texto puro.
+A NSS 1.0 trabalha com dados agregados e fonte pública. Mesmo assim, granularidade por bairro, sexo e faixa etária exige cautela. Uma política institucional de pequenas contagens deve ser definida antes de eventual abertura pública irrestrita e é obrigatória antes da incorporação de fontes restritas CIEVS.
 
-\subsection{Python}
-
-A API de inspeção do pipeline deve receber proteção adequada quando exposta fora do ambiente local. Endpoints de debugging não devem expor informações desnecessárias em produção.
-
-\begin{regra}[Princípio de menor exposição]
-Um serviço deve expor apenas as portas e endpoints necessários ao seu papel. PostgreSQL e endpoints internos não devem ser tratados como APIs públicas.
-\end{regra}
-
-\subsection{Ambientes}
-
-As configurações devem ser separadas por ambiente. O repositório pode manter exemplos, como \texttt{.env.example}, mas não valores secretos reais.
+Para uma futura integração por residência, deve ser aplicado o princípio de minimização. CEP, nome, CPF, CNS, telefone, logradouro e outros identificadores diretos não devem ser solicitados quando não forem necessários à finalidade epidemiológica aprovada.
