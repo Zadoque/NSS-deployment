@@ -20,7 +20,7 @@ test('AUTH-E2E-003 refresh sem sessão é rejeitado', async ({ request }) => {
 });
 
 test('AUTH-E2E-004 logout encerra a sessão', async ({ request }) => {
-  const session = await login(request);
+  const session = await login(request, { fresh: true });
   const response = await request.post('/api/v1/auth/logout', { headers: authHeaders(session) });
   expect([200, 204]).toContain(response.status());
 });
