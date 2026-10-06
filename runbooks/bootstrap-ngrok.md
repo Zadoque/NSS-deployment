@@ -18,13 +18,13 @@ Objetivo: publicar a NSS 1.0 e permitir administração SSH enquanto a conectivi
 Valide primeiro no servidor:
 
 ```bash
-curl -I http://127.0.0.1:8080/
+curl -I http://127.0.0.1:${NSS_HTTP_PORT:-8080}/
 ```
 
 Depois abra um endpoint HTTPS ngrok apontando para o Caddy local. Em uma instalação CLI compatível:
 
 ```bash
-ngrok http http://127.0.0.1:8080
+ngrok http 127.0.0.1:${NSS_HTTP_PORT:-8080}
 ```
 
 O endereço HTTPS fornecido pelo ngrok deve ser o único endereço compartilhado para a aplicação bootstrap. Não crie túneis separados para Java, PostgreSQL ou Grafana.

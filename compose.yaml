@@ -5,11 +5,14 @@ services:
     image: postgres:16-alpine
     restart: unless-stopped
     environment:
+      # POSTGRES_DB is the analytical/pipeline database.
       POSTGRES_DB: ${POSTGRES_DB:?POSTGRES_DB must be set}
+      POSTGRES_APP_DB: ${POSTGRES_APP_DB:-nss}
       POSTGRES_USER: ${POSTGRES_USER:?POSTGRES_USER must be set}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD must be set}
     volumes:
       - pgdata:/var/lib/postgresql/data
+      - ./postgres/init/01-create-operational-db.sh:/docker-entrypoint-initdb.d/01-create-operational-db.sh:ro
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
       interval: 5s
@@ -22,16 +25,30 @@ services:
     image: ${NSS_JAVA_IMAGE:-nss-java:local}
     restart: unless-stopped
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/${POSTGRES_DB}
+      # Operational JPA/Flyway database. Analytics remains read-only below.
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/${POSTGRES_APP_DB:-nss}
       SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
       SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
+      ANALYTICS_DATASOURCE_URL: jdbc:postgresql://db:5432/${POSTGRES_DB}
+      ANALYTICS_DATASOURCE_USERNAME: ${POSTGRES_USER}
+      ANALYTICS_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
       SPRING_JPA_HIBERNATE_DDL_AUTO: validate
       SPRING_PROFILES_ACTIVE: prod
       JWT_SECRET: ${JWT_SECRET:?JWT_SECRET must be set}
       JWT_EXPIRATION: ${JWT_EXPIRATION:-900000}
-      REFRESH_TOKEN_TTL_SECONDS: ${REFRESH_TOKEN_TTL_SECONDS:-604800}
-      REFRESH_COOKIE_SECURE: ${REFRESH_COOKIE_SECURE:-true}
-      REFRESH_COOKIE_SAME_SITE: ${REFRESH_COOKIE_SAME_SITE:-Strict}
+      REFRESH_EXPIRATION: ${REFRESH_EXPIRATION:-604800000}
+      SECURE_COOKIES: ${SECURE_COOKIES:-true}
+      CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS:-}
+      FIRST_ACCESS_FRONTEND_URL: ${FIRST_ACCESS_FRONTEND_URL:-http://localhost:8080}
+      BOOTSTRAP_ADMIN_EMAIL: ${BOOTSTRAP_ADMIN_EMAIL:-}
+      BOOTSTRAP_ADMIN_PASSWORD: ${BOOTSTRAP_ADMIN_PASSWORD:-}
+      MAIL_HOST: ${MAIL_HOST:-smtp.gmail.com}
+      MAIL_PORT: ${MAIL_PORT:-587}
+      MAIL_USERNAME: ${MAIL_USERNAME:-}
+      MAIL_PASSWORD: ${MAIL_PASSWORD:-}
+      MAIL_FROM: ${MAIL_FROM:-}
+      MAIL_SMTP_AUTH: ${MAIL_SMTP_AUTH:-true}
+      MAIL_SMTP_STARTTLS: ${MAIL_SMTP_STARTTLS:-true}
     depends_on:
       db:
         condition: service_healthy

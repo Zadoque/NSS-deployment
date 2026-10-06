@@ -114,6 +114,40 @@ O objetivo imediato é provar conservação/reconciliação entre camadas. Dashb
 
 ## Deployment temporário e definitivo
 
+### Bancos PostgreSQL
+
+O Compose integrado usa dois bancos no mesmo servidor PostgreSQL:
+
+- `POSTGRES_DB` (por padrão `situacao_saude`): banco analítico da pipeline, lido pelo Java através do datasource somente leitura;
+- `POSTGRES_APP_DB` (por padrão `nss`): banco operacional do Java, usado por usuários e Flyway.
+
+O script `postgres/init/01-create-operational-db.sh` cria `POSTGRES_APP_DB` somente quando o volume PostgreSQL é inicializado pela primeira vez. Para um volume existente, crie o banco sem apagar dados:
+
+```bash
+docker compose exec db psql -U "$POSTGRES_USER" -d postgres \
+  -c 'CREATE DATABASE nss OWNER nss_app;'
+```
+
+Adapte o nome do proprietário se `POSTGRES_USER` tiver outro valor. Nunca aponte o Flyway para `situacao_saude`.
+
+### Imagens da integração
+
+Construa as imagens a partir dos repositórios independentes, mantendo o frontend em modo same-origin:
+
+```bash
+docker build --build-arg VITE_USE_MOCKS=false --build-arg VITE_API_BASE_URL= \
+  -t nss-frontend:local ../NSS-front-end
+docker build -t nss-java:local ../Site-Sala-de-Situa-o-de-Saude-Java
+```
+
+Preencha um `.env` local a partir de `.env.example`, sem versionar segredos, e valide:
+
+```bash
+docker compose config
+docker compose up -d db java frontend caddy
+curl -I http://127.0.0.1:${NSS_HTTP_PORT:-8080}/
+```
+
 ### Bootstrap temporário
 
 ```text
