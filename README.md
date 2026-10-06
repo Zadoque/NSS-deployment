@@ -125,10 +125,33 @@ O script `postgres/init/01-create-operational-db.sh` cria `POSTGRES_APP_DB` some
 
 ```bash
 docker compose exec db psql -U "$POSTGRES_USER" -d postgres \
-  -c 'CREATE DATABASE nss OWNER nss_app;'
+  -c 'CREATE DATABASE nss OWNER nss;'
 ```
 
 Adapte o nome do proprietário se `POSTGRES_USER` tiver outro valor. Nunca aponte o Flyway para `situacao_saude`.
+
+Se o volume já foi inicializado com o role antigo `nss_app`, não basta trocar o `.env`: o PostgreSQL não reaplica `POSTGRES_USER` em um volume existente. Nesse caso, crie o novo role e conceda os acessos antes de alterar o `.env` para `POSTGRES_USER=nss`:
+
+```bash
+docker compose exec -it db psql -U nss_app -d postgres
+```
+
+No `psql`, defina a senha do novo role sem colocá-la na linha de comando:
+
+```sql
+CREATE ROLE nss LOGIN;
+\password nss
+ALTER DATABASE nss OWNER TO nss;
+GRANT CONNECT ON DATABASE situacao_saude TO nss;
+\connect nss
+GRANT USAGE, CREATE ON SCHEMA public TO nss;
+\connect situacao_saude
+GRANT USAGE ON SCHEMA analytics TO nss;
+GRANT SELECT ON ALL TABLES IN SCHEMA analytics TO nss;
+ALTER DEFAULT PRIVILEGES FOR ROLE nss_app IN SCHEMA analytics GRANT SELECT ON TABLES TO nss;
+```
+
+Depois, coloque a mesma senha do role `nss` em `POSTGRES_PASSWORD` no `.env` do deployment e reinicie os serviços. Não use `docker compose down -v`: isso apagaria o volume.
 
 ### Imagens da integração
 
