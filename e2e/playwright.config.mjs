@@ -1,6 +1,7 @@
 import { defineConfig } from '@playwright/test';
 import { loadEnvFile } from 'node:process';
 
+const explicitBaseURL = process.env.E2E_BASE_URL;
 loadEnvFile(new URL('.env', import.meta.url));
 
 export default defineConfig({
@@ -11,7 +12,7 @@ export default defineConfig({
   workers: 1,
   reporter: [['list'], ['html', { outputFolder: 'playwright-report', open: 'never' }]],
   use: {
-    baseURL: process.env.E2E_BASE_URL,
+    baseURL: explicitBaseURL || process.env.E2E_BASE_URL,
     extraHTTPHeaders: { 'ngrok-skip-browser-warning': 'true' },
     trace: 'retain-on-failure',
     screenshot: 'only-on-failure',
