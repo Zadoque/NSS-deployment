@@ -1,8 +1,9 @@
 # E2E NSS
 
 Estado em 2026-10-06: divergência corrigida, CNES carregado e auditoria integral
-Gold/PostgreSQL aprovada. Ver [relatório](TERRITORY_REPAIR.md). Há um smoke territorial;
-a suíte de 100+ testes ainda está pendente.
+Gold/PostgreSQL aprovada. Ver [relatório](TERRITORY_REPAIR.md). A descoberta do
+Playwright confirma 248 cenários versionados em `specs/`. A execução completa
+depende da instância HTTPS configurada no arquivo local `.env`.
 
 ## Credenciais
 
@@ -11,8 +12,10 @@ credenciais de teste não representam cadastros reais de produção. Os dados
 epidemiológicos, porém, são reais, publicados pela pipeline. Nenhum banco foi
 resetado. Não copiar senha ou tokens para documentação ou testes.
 
-`.env`, sessões, traces e resultados são ignorados pelo Git. O alvo é HTTPS via
-ngrok. `.env.example` contém só as chaves e a URL pública.
+`.env`, sessões, traces e resultados são ignorados pelo Git. O arquivo local pode
+conter a URL HTTPS pública do ngrok para smoke externo. Para a matriz completa,
+prefira o Caddy local: assim os testes não dependem da disponibilidade do túnel.
+`.env.example` contém só as chaves e a URL pública.
 
 ## Conferência reproduzível
 
@@ -39,13 +42,38 @@ npm run smoke:territory
 Requer Chromium do Playwright instalado; em NixOS pode ser necessário fornecer
 `CHROMIUM_PATH` para um Chromium compatível com o sistema.
 
-Com a pré-condição corrigida: Playwright Test em specs/*.spec.ts, helpers para
-login/navegação e oráculo SQL/Gold; global setup sem reset nem seed. Um worker,
-lotes de três testes, aplicação real sem mocks. Preferir getByRole, getByLabel,
-texto estável e getByTestId. Aguardar resposta correspondente aos filtros e sua
-renderização. Traces não devem capturar preenchimento da senha nem ser publicados.
+Com a pré-condição corrigida: Playwright Test em `specs/*.spec.mjs`, helpers para
+login/navegação e oráculo SQL/Gold; sem reset nem seed. Um worker, aplicação real
+sem mocks. A sessão autenticada é compartilhada pelos cenários somente-leitura para
+respeitar o limite de tentativas do backend; o cenário de logout usa sessão própria.
+Preferir `getByRole`, `getByLabel`, texto estável e `getByTestId`. Aguardar resposta
+correspondente aos filtros e sua renderização. Traces não devem capturar preenchimento
+da senha nem ser publicados.
 
-A matriz AUDIT.md planeja 156 cenários distintos de filtros, além de território,
-período e autenticação. Planejamento não equivale a teste implementado/aprovado.
+A matriz AUDIT.md cobre a base dos 156 cenários distintos de filtros, além de
+território, período e autenticação. Confira a descoberta antes de executar:
+
+```sh
+cd e2e
+npm run test -- --list
+```
+
+Para rodar a suíte contra a instância configurada:
+
+```sh
+npm run test
+```
+
+No NixOS, execute a matriz pelo Chromium temporário do Nix e force o alvo local:
+
+```sh
+XDG_CACHE_HOME=/tmp/nss-playwright-nix-cache nix-shell -p chromium --run \
+  'E2E_BASE_URL=http://127.0.0.1:8080 CHROMIUM_PATH="$(command -v chromium)" npm run test'
+```
+
+Antes desse comando, inicie o deployment com seu `.env` completo e confira
+`docker compose --env-file .env ps`. O ngrok continua útil para validar uma
+rota pública curta, mas não é requisito para a regressão completa.
+
 Falhas devem gerar roteiro manual com ID, objetivo, pré-condições, seleções
 exatas, esperado, observado e consulta de conferência.
