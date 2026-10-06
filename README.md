@@ -152,37 +152,17 @@ O Compose integrado usa dois bancos no mesmo servidor PostgreSQL:
 - `POSTGRES_DB` (por padrão `situacao_saude`): banco analítico da pipeline, lido pelo Java através do datasource somente leitura;
 - `POSTGRES_APP_DB` (por padrão `nss`): banco operacional do Java, usado por usuários e Flyway.
 
-O script `postgres/init/01-create-operational-db.sh` cria `POSTGRES_APP_DB` somente quando o volume PostgreSQL é inicializado pela primeira vez. Para um volume existente, crie o banco sem apagar dados:
+O serviço único `db-provision` é idempotente e deve sempre rodar antes do Java ou
+da pipeline. Ele cria/atualiza papéis distintos: `NSS_APP_MIGRATOR_USER` é dono do
+schema operacional e executa Flyway; `NSS_APP_RUNTIME_USER` só usa tabelas; a
+pipeline escreve como `NSS_ANALYTICS_WRITER_USER`; Java lê analytics como
+`NSS_ANALYTICS_READER_USER`; e `NSS_BACKUP_USER` apenas faz backup. Nunca aponte
+o Flyway para `situacao_saude` nem reutilize a credencial administrativa em uma
+aplicação.
 
-```bash
-docker compose exec db psql -U "$POSTGRES_USER" -d postgres \
-  -c 'CREATE DATABASE nss OWNER nss;'
-```
-
-Adapte o nome do proprietário se `POSTGRES_USER` tiver outro valor. Nunca aponte o Flyway para `situacao_saude`.
-
-Se o volume já foi inicializado com o role antigo `nss_app`, não basta trocar o `.env`: o PostgreSQL não reaplica `POSTGRES_USER` em um volume existente. Nesse caso, crie o novo role e conceda os acessos antes de alterar o `.env` para `POSTGRES_USER=nss`:
-
-```bash
-docker compose exec -it db psql -U nss_app -d postgres
-```
-
-No `psql`, defina a senha do novo role sem colocá-la na linha de comando:
-
-```sql
-CREATE ROLE nss LOGIN;
-\password nss
-ALTER DATABASE nss OWNER TO nss;
-GRANT CONNECT ON DATABASE situacao_saude TO nss;
-\connect nss
-GRANT USAGE, CREATE ON SCHEMA public TO nss;
-\connect situacao_saude
-GRANT USAGE ON SCHEMA analytics TO nss;
-GRANT SELECT ON ALL TABLES IN SCHEMA analytics TO nss;
-ALTER DEFAULT PRIVILEGES FOR ROLE nss_app IN SCHEMA analytics GRANT SELECT ON TABLES TO nss;
-```
-
-Depois, coloque a mesma senha do role `nss` em `POSTGRES_PASSWORD` no `.env` do deployment e reinicie os serviços. Não use `docker compose down -v`: isso apagaria o volume.
+Em um volume PostgreSQL já existente, preencha as seis credenciais novas no
+`.env` e execute `docker compose up db-provision`. Não use `docker compose down
+-v`: isso apagaria o volume.
 
 ### Imagens da integração
 
@@ -192,15 +172,33 @@ Construa as imagens a partir dos repositórios independentes, mantendo o fronten
 docker build --build-arg VITE_USE_MOCKS=false --build-arg VITE_API_BASE_URL= \
   -t nss-frontend:local ../NSS-front-end
 docker build -t nss-java:local ../Site-Sala-de-Situa-o-de-Saude-Java
+docker build -t nss-pipeline:local ../NSS-pipeline
 ```
 
 Preencha um `.env` local a partir de `.env.example`, sem versionar segredos, e valide:
 
 ```bash
 docker compose config
-docker compose up -d db java frontend caddy
-curl -I http://127.0.0.1:${NSS_HTTP_PORT:-8080}/
+docker compose up -d db-provision java frontend caddy
+curl --fail http://127.0.0.1:${NSS_HTTP_PORT:-8080}/actuator/health
 ```
+
+### Observabilidade local
+
+O perfil `monitoring` mantém Prometheus, Pushgateway, node-exporter e Grafana
+fora da internet: Prometheus e Grafana escutam somente em `127.0.0.1`, e
+Pushgateway/node-exporter só existem na rede interna do Compose. Suba-o com:
+
+```bash
+docker compose --profile monitoring up -d prometheus pushgateway node-exporter grafana
+curl --fail http://127.0.0.1:9090/-/ready
+curl --fail http://127.0.0.1:3000/api/health
+```
+
+O datasource Prometheus é provisionado automaticamente no Grafana. A API expõe
+`/actuator/prometheus` exclusivamente à rede interna; Caddy não o publica. A
+pipeline publica cardinalidade e perdas de Bronze/Silver/Gold somente quando
+`PROMETHEUS_PUSHGATEWAY_URL=http://pushgateway:9091` estiver configurado.
 
 ### Bootstrap temporário
 
