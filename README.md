@@ -89,6 +89,37 @@ O contrato completo está em [`contracts/auth-v1.md`](contracts/auth-v1.md).
 
 ## Dados e Gold Serving
 
+### Pré-condição territorial e recuperação
+
+O CNES deve estar no **mesmo volume `pipeline_data`** da carga SINAN. O diretório
+`data/` do repositório do pipeline não é compartilhado automaticamente com este
+Compose. Antes de publicar a Gold Serving, execute:
+
+```sh
+docker compose --profile jobs run --rm --entrypoint python pipeline -m app.pipeline.run_cnes
+```
+
+A publicação territorial sem CNES é bloqueada. Latitude/longitude permanecem na
+Silver para classificar a unidade notificadora; valores ausentes/ inválidos não
+eliminam notificações. O mapeamento não representa endereço de residência.
+
+Para reconstruir um recorte sem baixar novamente o SINAN, use o módulo
+`app.pipeline.reprocess_serving` com `--silver CAMINHO_NO_VOLUME`,
+`--database situacao_saude` e `--expected-total TOTAL_VALIDADO`. O padrão é simulação;
+`--publish` substitui atomicamente o recorte no PostgreSQL e registra a nova Gold
+Serving. Faça backup antes. A data original da Silver é preservada e conferida
+contra o histórico de publicação. Falha de escrita do Parquet após o commit exige
+reconciliação/reexecução; PostgreSQL e filesystem não compartilham uma transação.
+
+Auditoria somente leitura:
+
+```sh
+docker compose --profile jobs run --rm -T --entrypoint python pipeline - < e2e/audit_gold.py
+```
+
+O resultado precisa apresentar `passed: true`, incluindo igualdade de todas as
+dimensões (não apenas totais). Ver [relatório da correção territorial](e2e/TERRITORY_REPAIR.md).
+
 A pipeline passa a distinguir formalmente:
 
 ```text
