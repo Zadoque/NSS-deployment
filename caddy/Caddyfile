@@ -12,6 +12,12 @@
         reverse_proxy java:8080
     }
 
+    # Health is intentionally public so Compose, systemd and the reverse proxy
+    # can distinguish a healthy frontend from a healthy full application.
+    handle /actuator/health {
+        reverse_proxy java:8080
+    }
+
     handle {
         reverse_proxy frontend:80
     }
