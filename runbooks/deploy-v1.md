@@ -25,7 +25,8 @@ cp .env.example .env
 chmod 600 .env
 ```
 
-Substitua todos os `CHANGE_ME`. Gere `JWT_SECRET` forte. Não versione `.env`.
+Substitua todos os `CHANGE_ME`. Gere uma chave JWT Base64 forte com
+`openssl rand -base64 64` e não versione `.env`.
 
 ## Backup antes de migração
 
@@ -33,14 +34,17 @@ Se o banco já contiver estado relevante:
 
 ```bash
 docker compose up -d db
-docker compose exec -T db pg_dump -U "$POSTGRES_USER" -d "$POSTGRES_DB" -Fc > nss-before-v1.dump
+docker compose up db-provision
+docker compose exec -T db pg_dump -U "$NSS_BACKUP_USER" -d "$POSTGRES_DB" -Fc > nss-before-v1.dump
 ```
 
 ## G1/G2 - pipeline e PostgreSQL
 
 ```bash
 docker compose up -d db
-docker compose --profile jobs run --rm pipeline --disease DENG --year 2026
+docker compose up db-provision
+docker compose --profile jobs run --rm pipeline-migrate
+docker compose --profile jobs run --rm --entrypoint python pipeline -m app.pipeline.run_load --disease DENG --year 2026
 ```
 
 Aplique Alembic conforme a imagem atual antes da carga quando necessário. Não execute Toxoplasmose até o código/base estar validado.
@@ -51,6 +55,7 @@ Exija: Serving 1.0, publicação transacional, soma Gold=PostgreSQL e não-mapea
 
 ```bash
 docker compose up -d java
+curl --fail http://127.0.0.1:${NSS_HTTP_PORT:-8080}/actuator/health
 ```
 
 Verifique Flyway, login, endpoint protegido, refresh rotacionado e logout. Confirme auto-registro bloqueado e ausência de CRUD irrestrito de usuários.
@@ -67,10 +72,14 @@ O frontend deve usar `/api/v1` na mesma origem, não `localhost:8080` hardcoded 
 ## Grafana mínimo
 
 ```bash
-docker compose up -d grafana
+docker compose --profile monitoring up -d prometheus pushgateway node-exporter grafana
+curl --fail http://127.0.0.1:9090/-/ready
+curl --fail http://127.0.0.1:3000/api/health
 ```
 
-Grafana fica em `127.0.0.1:3000`. Prioridade: Bronze, Silver, Gold e PostgreSQL/reconciliação. Dashboards/datasources específicos pertencem à frente Grafana.
+Grafana fica em `127.0.0.1:3000` e recebe o datasource Prometheus automaticamente.
+Prometheus e Grafana não devem ser expostos no Caddy/ngrok. Prioridade: Bronze,
+Silver, Gold, PostgreSQL/reconciliação, saúde JVM e capacidade do host.
 
 ## G6/G7 - servidor e acesso externo
 
