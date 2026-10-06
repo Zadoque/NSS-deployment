@@ -1,0 +1,40 @@
+import { chromium, expect } from '@playwright/test';
+import { loadEnvFile } from 'node:process';
+import { mkdir } from 'node:fs/promises';
+loadEnvFile(new URL('.env', import.meta.url));
+const browser = await chromium.launch({executablePath: process.env.CHROMIUM_PATH || undefined});
+try {
+  const page = await browser.newPage({viewport: {width: 1440, height: 1000}, extraHTTPHeaders: {'ngrok-skip-browser-warning': 'true'}});
+  const errors = [];
+  page.on('response', r => {if (r.url().includes('/api/v1/') && r.status() >= 500) errors.push(r.url());});
+  await page.goto(`${process.env.E2E_BASE_URL}/login`);
+  await page.getByLabel('E-mail', {exact: true}).fill(process.env.E2E_EMAIL);
+  await page.getByLabel('Senha', {exact: true}).fill(process.env.E2E_PASSWORD);
+  const loginResponse = page.waitForResponse(r => r.url().includes('/api/v1/auth/login'));
+  await page.getByRole('button', {name:'Entrar',exact:true}).click();
+  expect((await loginResponse).status()).toBe(200);
+  await page.getByLabel('Região', {exact:true}).selectOption('SE');
+  await page.getByLabel('Estado', {exact:true}).selectOption('RJ');
+  await page.getByLabel('Mês', {exact:true}).first().selectOption('ALL');
+  const districtsResponse = page.waitForResponse(r => r.url().includes('/epidemiology/districts') && !new URL(r.url()).searchParams.has('month'));
+  await page.getByLabel('Município', {exact:true}).selectOption('3301009');
+  const districts = await (await districtsResponse).json();
+  expect(districts.totalNotifications).toBe(23);
+  expect(districts.coverage.mappedNotificationsTotal).toBe(23);
+  expect(districts.items.reduce((sum,item)=>sum+item.notificationsTotal,0)).toBe(23);
+  await expect(page.getByRole('region', {name:'Notificações por distrito'})).toBeVisible();
+  const neighborhoodsResponse = page.waitForResponse(r => r.url().includes('/epidemiology/neighborhoods'));
+  await page.getByLabel('Distrito', {exact:true}).selectOption('CG_DIST_SEDE');
+  const neighborhoods = await (await neighborhoodsResponse).json();
+  expect(neighborhoods.items.reduce((sum,item)=>sum+item.notificationsTotal,0)).toBe(neighborhoods.coverage.mappedNotificationsTotal);
+  expect(neighborhoods.coverage.mappedNotificationsTotal).toBeGreaterThan(0);
+  await expect(page.getByRole('region', {name:'Notificações por bairro da notificação'})).toBeVisible();
+  await expect(page.locator('.map-context')).toContainText('23 notificações da unidade notificadora');
+  await expect(page.locator('.query-state')).toContainText('Mapeadas no território: 21');
+  expect(errors).toEqual([]);
+  await mkdir(new URL('artifacts/territory-repair-20261006/', import.meta.url), {recursive: true});
+  await page.screenshot({path:new URL('artifacts/territory-repair-20261006/browser.png',import.meta.url).pathname,fullPage:true});
+  console.log(JSON.stringify({districtTotal:districts.totalNotifications,neighborhoodTotal:neighborhoods.totalNotifications,neighborhoodMapped:neighborhoods.coverage.mappedNotificationsTotal,passed:true}));
+} finally {
+  await browser.close();
+}
