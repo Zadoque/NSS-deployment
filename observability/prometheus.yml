@@ -1,0 +1,22 @@
+global:
+  scrape_interval: 30s
+  evaluation_interval: 30s
+
+scrape_configs:
+  - job_name: prometheus
+    static_configs:
+      - targets: ["localhost:9090"]
+
+  - job_name: nss-java
+    metrics_path: /actuator/prometheus
+    static_configs:
+      - targets: ["java:8080"]
+
+  - job_name: nss-pipeline
+    honor_labels: true
+    static_configs:
+      - targets: ["pushgateway:9091"]
+
+  - job_name: nss-host
+    static_configs:
+      - targets: ["node-exporter:9100"]
