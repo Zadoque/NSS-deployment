@@ -2,14 +2,14 @@ name: nss-v1
 
 services:
   db:
-    image: postgres:16-alpine
+    image: ${NSS_POSTGRES_IMAGE:?NSS_POSTGRES_IMAGE must be an immutable PostgreSQL image reference}
     restart: unless-stopped
     environment:
       # POSTGRES_DB is the analytical/pipeline database.
       POSTGRES_DB: ${POSTGRES_DB:?POSTGRES_DB must be set}
       POSTGRES_APP_DB: ${POSTGRES_APP_DB:-nss}
-      POSTGRES_USER: ${POSTGRES_USER:?POSTGRES_USER must be set}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD must be set}
+      POSTGRES_USER: ${POSTGRES_ADMIN_USER:?POSTGRES_ADMIN_USER must be set}
+      POSTGRES_PASSWORD: ${POSTGRES_ADMIN_PASSWORD:?POSTGRES_ADMIN_PASSWORD must be set}
     volumes:
       - pgdata:/var/lib/postgresql/data
       - ./postgres/init/01-create-operational-db.sh:/docker-entrypoint-initdb.d/01-create-operational-db.sh:ro
@@ -21,17 +21,45 @@ services:
       start_period: 10s
     networks: [nss_internal]
 
+  db-provision:
+    image: ${NSS_POSTGRES_IMAGE:?NSS_POSTGRES_IMAGE must be an immutable PostgreSQL image reference}
+    restart: "no"
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:?POSTGRES_DB must be set}
+      POSTGRES_APP_DB: ${POSTGRES_APP_DB:-nss}
+      POSTGRES_ADMIN_USER: ${POSTGRES_ADMIN_USER:?POSTGRES_ADMIN_USER must be set}
+      POSTGRES_ADMIN_PASSWORD: ${POSTGRES_ADMIN_PASSWORD:?POSTGRES_ADMIN_PASSWORD must be set}
+      NSS_APP_MIGRATOR_USER: ${NSS_APP_MIGRATOR_USER:?NSS_APP_MIGRATOR_USER must be set}
+      NSS_APP_MIGRATOR_PASSWORD: ${NSS_APP_MIGRATOR_PASSWORD:?NSS_APP_MIGRATOR_PASSWORD must be set}
+      NSS_APP_RUNTIME_USER: ${NSS_APP_RUNTIME_USER:?NSS_APP_RUNTIME_USER must be set}
+      NSS_APP_RUNTIME_PASSWORD: ${NSS_APP_RUNTIME_PASSWORD:?NSS_APP_RUNTIME_PASSWORD must be set}
+      NSS_ANALYTICS_WRITER_USER: ${NSS_ANALYTICS_WRITER_USER:?NSS_ANALYTICS_WRITER_USER must be set}
+      NSS_ANALYTICS_WRITER_PASSWORD: ${NSS_ANALYTICS_WRITER_PASSWORD:?NSS_ANALYTICS_WRITER_PASSWORD must be set}
+      NSS_ANALYTICS_READER_USER: ${NSS_ANALYTICS_READER_USER:?NSS_ANALYTICS_READER_USER must be set}
+      NSS_ANALYTICS_READER_PASSWORD: ${NSS_ANALYTICS_READER_PASSWORD:?NSS_ANALYTICS_READER_PASSWORD must be set}
+      NSS_BACKUP_USER: ${NSS_BACKUP_USER:?NSS_BACKUP_USER must be set}
+      NSS_BACKUP_PASSWORD: ${NSS_BACKUP_PASSWORD:?NSS_BACKUP_PASSWORD must be set}
+    volumes:
+      - ./postgres/provision/01-provision-roles.sh:/usr/local/bin/provision-roles:ro
+    entrypoint: ["/bin/sh", "/usr/local/bin/provision-roles"]
+    depends_on:
+      db:
+        condition: service_healthy
+    networks: [nss_internal]
+
   java:
-    image: ${NSS_JAVA_IMAGE:-nss-java:local}
+    image: ${NSS_JAVA_IMAGE:?NSS_JAVA_IMAGE must be an immutable Java image reference}
     restart: unless-stopped
     environment:
       # Operational JPA/Flyway database. Analytics remains read-only below.
       SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/${POSTGRES_APP_DB:-nss}
-      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
-      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
+      SPRING_DATASOURCE_USERNAME: ${NSS_APP_RUNTIME_USER}
+      SPRING_DATASOURCE_PASSWORD: ${NSS_APP_RUNTIME_PASSWORD}
+      SPRING_FLYWAY_USER: ${NSS_APP_MIGRATOR_USER}
+      SPRING_FLYWAY_PASSWORD: ${NSS_APP_MIGRATOR_PASSWORD}
       ANALYTICS_DATASOURCE_URL: jdbc:postgresql://db:5432/${POSTGRES_DB}
-      ANALYTICS_DATASOURCE_USERNAME: ${POSTGRES_USER}
-      ANALYTICS_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
+      ANALYTICS_DATASOURCE_USERNAME: ${NSS_ANALYTICS_READER_USER}
+      ANALYTICS_DATASOURCE_PASSWORD: ${NSS_ANALYTICS_READER_PASSWORD}
       SPRING_JPA_HIBERNATE_DDL_AUTO: validate
       SPRING_PROFILES_ACTIVE: prod
       JWT_SECRET: ${JWT_SECRET:?JWT_SECRET must be set}
@@ -50,21 +78,33 @@ services:
       MAIL_SMTP_AUTH: ${MAIL_SMTP_AUTH:-true}
       MAIL_SMTP_STARTTLS: ${MAIL_SMTP_STARTTLS:-true}
     depends_on:
-      db:
-        condition: service_healthy
+      db-provision:
+        condition: service_completed_successfully
     expose:
       - "8080"
     networks: [nss_internal]
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O - http://127.0.0.1:8080/actuator/health | grep -q '\"status\":\"UP\"'"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 30s
 
   frontend:
-    image: ${NSS_FRONTEND_IMAGE:-nss-frontend:local}
+    image: ${NSS_FRONTEND_IMAGE:?NSS_FRONTEND_IMAGE must be an immutable frontend image reference}
     restart: unless-stopped
     expose:
       - "80"
     networks: [nss_internal]
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O - http://127.0.0.1/healthz >/dev/null"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+      start_period: 10s
 
   caddy:
-    image: caddy:2-alpine
+    image: ${NSS_CADDY_IMAGE:?NSS_CADDY_IMAGE must be an immutable Caddy image reference}
     restart: unless-stopped
     ports:
       - "127.0.0.1:${NSS_HTTP_PORT:-8080}:80"
@@ -73,12 +113,21 @@ services:
       - caddy_data:/data
       - caddy_config:/config
     depends_on:
-      - frontend
-      - java
+      frontend:
+        condition: service_healthy
+      java:
+        condition: service_healthy
     networks: [nss_internal]
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O - http://127.0.0.1/ >/dev/null"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+      start_period: 10s
 
   grafana:
-    image: ${NSS_GRAFANA_IMAGE:-grafana/grafana:latest}
+    image: ${NSS_GRAFANA_IMAGE:?NSS_GRAFANA_IMAGE must be an immutable Grafana image reference}
+    profiles: ["monitoring"]
     restart: unless-stopped
     environment:
       GF_SECURITY_ADMIN_USER: ${GRAFANA_ADMIN_USER:-admin}
@@ -88,19 +137,75 @@ services:
       - "127.0.0.1:3000:3000"
     volumes:
       - grafana_data:/var/lib/grafana
+      - ./observability/grafana/provisioning:/etc/grafana/provisioning:ro
+    networks: [nss_internal]
+
+  prometheus:
+    image: ${NSS_PROMETHEUS_IMAGE:?NSS_PROMETHEUS_IMAGE must be an immutable Prometheus image reference}
+    profiles: ["monitoring"]
+    restart: unless-stopped
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.path=/prometheus
+      - --storage.tsdb.retention.time=30d
+      - --web.enable-lifecycle=false
+    ports:
+      - "127.0.0.1:9090:9090"
+    volumes:
+      - ./observability/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus_data:/prometheus
+    networks: [nss_internal]
+
+  pushgateway:
+    image: ${NSS_PUSHGATEWAY_IMAGE:?NSS_PUSHGATEWAY_IMAGE must be an immutable Pushgateway image reference}
+    profiles: ["monitoring"]
+    restart: unless-stopped
+    expose:
+      - "9091"
+    volumes:
+      - pushgateway_data:/data
+    command:
+      - --persistence.file=/data/metrics
+      - --persistence.interval=5m
+    networks: [nss_internal]
+
+  node-exporter:
+    image: ${NSS_NODE_EXPORTER_IMAGE:?NSS_NODE_EXPORTER_IMAGE must be an immutable node-exporter image reference}
+    profiles: ["monitoring"]
+    restart: unless-stopped
+    pid: host
+    command:
+      - --path.rootfs=/host
+    volumes:
+      - /:/host:ro,rslave
+    expose:
+      - "9100"
     networks: [nss_internal]
 
   pipeline:
-    image: ${NSS_PIPELINE_IMAGE:-nss-pipeline:local}
+    image: ${NSS_PIPELINE_IMAGE:?NSS_PIPELINE_IMAGE must be an immutable pipeline image reference}
     profiles: ["jobs"]
     entrypoint: ["python", "-m", "app.pipeline.run_load"]
     environment:
-      DATABASE_URL: postgresql+psycopg2://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+      DATABASE_URL: postgresql+psycopg2://${NSS_ANALYTICS_WRITER_USER}:${NSS_ANALYTICS_WRITER_PASSWORD}@db:5432/${POSTGRES_DB}
+      PROMETHEUS_PUSHGATEWAY_URL: ${PROMETHEUS_PUSHGATEWAY_URL:-}
     volumes:
       - pipeline_data:/data
     depends_on:
-      db:
-        condition: service_healthy
+      db-provision:
+        condition: service_completed_successfully
+    networks: [nss_internal]
+
+  pipeline-migrate:
+    image: ${NSS_PIPELINE_IMAGE:?NSS_PIPELINE_IMAGE must be an immutable pipeline image reference}
+    profiles: ["jobs"]
+    restart: "no"
+    entrypoint: ["alembic", "upgrade", "head"]
+    environment:
+      DATABASE_URL: postgresql+psycopg2://${NSS_ANALYTICS_WRITER_USER}:${NSS_ANALYTICS_WRITER_PASSWORD}@db:5432/${POSTGRES_DB}
+    depends_on:
+      db-provision:
+        condition: service_completed_successfully
     networks: [nss_internal]
 
 networks:
@@ -111,5 +216,7 @@ volumes:
   pgdata:
   pipeline_data:
   grafana_data:
+  prometheus_data:
+  pushgateway_data:
   caddy_data:
   caddy_config:
