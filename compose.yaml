@@ -13,6 +13,14 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
       - ./postgres/init/01-create-operational-db.sh:/docker-entrypoint-initdb.d/01-create-operational-db.sh:ro
+    cpus: ${NSS_DB_CPUS:-1.50}
+    mem_limit: ${NSS_DB_MEMORY_LIMIT:-12g}
+    mem_reservation: ${NSS_DB_MEMORY_RESERVATION:-4g}
+    pids_limit: ${NSS_DB_PIDS_LIMIT:-256}
+    ulimits:
+      nofile:
+        soft: ${NSS_DB_NOFILE_SOFT:-32768}
+        hard: ${NSS_DB_NOFILE_HARD:-65536}
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
       interval: 5s
@@ -42,6 +50,10 @@ services:
     volumes:
       - ./postgres/provision/01-provision-roles.sh:/usr/local/bin/provision-roles:ro
     entrypoint: ["/bin/sh", "/usr/local/bin/provision-roles"]
+    cpus: ${NSS_DB_PROVISION_CPUS:-0.50}
+    mem_limit: ${NSS_DB_PROVISION_MEMORY_LIMIT:-512m}
+    mem_reservation: ${NSS_DB_PROVISION_MEMORY_RESERVATION:-256m}
+    pids_limit: ${NSS_DB_PROVISION_PIDS_LIMIT:-64}
     depends_on:
       db:
         condition: service_healthy
@@ -77,11 +89,22 @@ services:
       MAIL_FROM: ${MAIL_FROM:-}
       MAIL_SMTP_AUTH: ${MAIL_SMTP_AUTH:-true}
       MAIL_SMTP_STARTTLS: ${MAIL_SMTP_STARTTLS:-true}
+      # Keep the JVM heap below the container ceiling and leave room for
+      # metaspace, thread stacks and native buffers.
+      JAVA_TOOL_OPTIONS: -XX:MaxRAMPercentage=${NSS_JAVA_MAX_RAM_PERCENTAGE:-65.0}
     depends_on:
       db-provision:
         condition: service_completed_successfully
     expose:
       - "8080"
+    cpus: ${NSS_JAVA_CPUS:-1.50}
+    mem_limit: ${NSS_JAVA_MEMORY_LIMIT:-4g}
+    mem_reservation: ${NSS_JAVA_MEMORY_RESERVATION:-1g}
+    pids_limit: ${NSS_JAVA_PIDS_LIMIT:-256}
+    ulimits:
+      nofile:
+        soft: ${NSS_JAVA_NOFILE_SOFT:-32768}
+        hard: ${NSS_JAVA_NOFILE_HARD:-65536}
     networks: [nss_internal]
     healthcheck:
       test: ["CMD-SHELL", "wget -q -O - http://127.0.0.1:8080/actuator/health | grep -q '\"status\":\"UP\"'"]
@@ -95,6 +118,14 @@ services:
     restart: unless-stopped
     expose:
       - "80"
+    cpus: ${NSS_FRONTEND_CPUS:-0.25}
+    mem_limit: ${NSS_FRONTEND_MEMORY_LIMIT:-128m}
+    mem_reservation: ${NSS_FRONTEND_MEMORY_RESERVATION:-64m}
+    pids_limit: ${NSS_FRONTEND_PIDS_LIMIT:-64}
+    ulimits:
+      nofile:
+        soft: ${NSS_FRONTEND_NOFILE_SOFT:-4096}
+        hard: ${NSS_FRONTEND_NOFILE_HARD:-8192}
     networks: [nss_internal]
     healthcheck:
       test: ["CMD-SHELL", "wget -q -O - http://127.0.0.1/healthz >/dev/null"]
@@ -112,6 +143,14 @@ services:
       - ./caddy/Caddyfile:/etc/caddy/Caddyfile:ro
       - caddy_data:/data
       - caddy_config:/config
+    cpus: ${NSS_CADDY_CPUS:-0.50}
+    mem_limit: ${NSS_CADDY_MEMORY_LIMIT:-256m}
+    mem_reservation: ${NSS_CADDY_MEMORY_RESERVATION:-64m}
+    pids_limit: ${NSS_CADDY_PIDS_LIMIT:-128}
+    ulimits:
+      nofile:
+        soft: ${NSS_CADDY_NOFILE_SOFT:-16384}
+        hard: ${NSS_CADDY_NOFILE_HARD:-32768}
     depends_on:
       frontend:
         condition: service_healthy
@@ -138,6 +177,10 @@ services:
     volumes:
       - grafana_data:/var/lib/grafana
       - ./observability/grafana/provisioning:/etc/grafana/provisioning:ro
+    cpus: ${NSS_GRAFANA_CPUS:-0.50}
+    mem_limit: ${NSS_GRAFANA_MEMORY_LIMIT:-1g}
+    mem_reservation: ${NSS_GRAFANA_MEMORY_RESERVATION:-512m}
+    pids_limit: ${NSS_GRAFANA_PIDS_LIMIT:-256}
     networks: [nss_internal]
 
   prometheus:
@@ -154,6 +197,10 @@ services:
     volumes:
       - ./observability/prometheus.yml:/etc/prometheus/prometheus.yml:ro
       - prometheus_data:/prometheus
+    cpus: ${NSS_PROMETHEUS_CPUS:-0.75}
+    mem_limit: ${NSS_PROMETHEUS_MEMORY_LIMIT:-4g}
+    mem_reservation: ${NSS_PROMETHEUS_MEMORY_RESERVATION:-1g}
+    pids_limit: ${NSS_PROMETHEUS_PIDS_LIMIT:-256}
     networks: [nss_internal]
 
   pushgateway:
@@ -167,6 +214,10 @@ services:
     command:
       - --persistence.file=/data/metrics
       - --persistence.interval=5m
+    cpus: ${NSS_PUSHGATEWAY_CPUS:-0.25}
+    mem_limit: ${NSS_PUSHGATEWAY_MEMORY_LIMIT:-256m}
+    mem_reservation: ${NSS_PUSHGATEWAY_MEMORY_RESERVATION:-64m}
+    pids_limit: ${NSS_PUSHGATEWAY_PIDS_LIMIT:-64}
     networks: [nss_internal]
 
   node-exporter:
@@ -178,6 +229,10 @@ services:
       - --path.rootfs=/host
     volumes:
       - /:/host:ro,rslave
+    cpus: ${NSS_NODE_EXPORTER_CPUS:-0.25}
+    mem_limit: ${NSS_NODE_EXPORTER_MEMORY_LIMIT:-256m}
+    mem_reservation: ${NSS_NODE_EXPORTER_MEMORY_RESERVATION:-64m}
+    pids_limit: ${NSS_NODE_EXPORTER_PIDS_LIMIT:-64}
     expose:
       - "9100"
     networks: [nss_internal]
@@ -191,6 +246,14 @@ services:
       PROMETHEUS_PUSHGATEWAY_URL: ${PROMETHEUS_PUSHGATEWAY_URL:-}
     volumes:
       - pipeline_data:/data
+    cpus: ${NSS_PIPELINE_CPUS:-2.00}
+    mem_limit: ${NSS_PIPELINE_MEMORY_LIMIT:-16g}
+    mem_reservation: ${NSS_PIPELINE_MEMORY_RESERVATION:-2g}
+    pids_limit: ${NSS_PIPELINE_PIDS_LIMIT:-256}
+    ulimits:
+      nofile:
+        soft: ${NSS_PIPELINE_NOFILE_SOFT:-16384}
+        hard: ${NSS_PIPELINE_NOFILE_HARD:-32768}
     depends_on:
       db-provision:
         condition: service_completed_successfully
@@ -203,6 +266,10 @@ services:
     entrypoint: ["alembic", "upgrade", "head"]
     environment:
       DATABASE_URL: postgresql+psycopg2://${NSS_ANALYTICS_WRITER_USER}:${NSS_ANALYTICS_WRITER_PASSWORD}@db:5432/${POSTGRES_DB}
+    cpus: ${NSS_PIPELINE_MIGRATE_CPUS:-1.00}
+    mem_limit: ${NSS_PIPELINE_MIGRATE_MEMORY_LIMIT:-1g}
+    mem_reservation: ${NSS_PIPELINE_MIGRATE_MEMORY_RESERVATION:-256m}
+    pids_limit: ${NSS_PIPELINE_MIGRATE_PIDS_LIMIT:-128}
     depends_on:
       db-provision:
         condition: service_completed_successfully
