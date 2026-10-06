@@ -2,6 +2,9 @@
   "name": "nss-deployment-e2e",
   "private": true,
   "type": "module",
-  "scripts": {"smoke:territory": "node smoke-territory.mjs"},
+  "scripts": {
+    "smoke:territory": "node smoke-territory.mjs",
+    "test": "playwright test"
+  },
   "devDependencies": {"@playwright/test": "1.63.0"}
 }
