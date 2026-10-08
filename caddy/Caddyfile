@@ -1,24 +1,22 @@
+{
+    admin off
+    auto_https off
+}
+
 :80 {
     encode zstd gzip
+    header -Server
 
-    header {
-        -Server
-        X-Content-Type-Options "nosniff"
-        Referrer-Policy "strict-origin-when-cross-origin"
-        X-Frame-Options "DENY"
+    # Somente páginas públicas e arquivos necessários ao build estático.
+    # GET/HEAD apenas: nenhuma credencial ou escrita é encaminhada ao front.
+    @frontend {
+        method GET HEAD
+        path_regexp frontend ^/(|mapa/?|login/?|healthz|favicon\.ico|assets/[A-Za-z0-9_-]+\.(js|css|woff2?|svg|png)|maps/(brazil-regions|southeast-states|rj-municipalities|campos-districts|campos-neighborhoods)\.geojson|snapshot/(manifest|(chik|deng|fmac|toxc|toxg|zika)-[a-f0-9]{12})\.json)$
     }
-
-    handle /api/* {
-        reverse_proxy java:8080
-    }
-
-    # Health is intentionally public so Compose, systemd and the reverse proxy
-    # can distinguish a healthy frontend from a healthy full application.
-    handle /actuator/health {
-        reverse_proxy java:8080
-    }
-
-    handle {
+    handle @frontend {
         reverse_proxy frontend:80
+    }
+    handle {
+        respond "Not found" 404
     }
 }
