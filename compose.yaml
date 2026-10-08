@@ -1,289 +1,54 @@
-name: nss-v1
-
+# Branch de publicação estática: nenhum Java, banco ou job de pipeline.
 services:
-  db:
-    image: ${NSS_POSTGRES_IMAGE:?NSS_POSTGRES_IMAGE must be an immutable PostgreSQL image reference}
-    restart: unless-stopped
-    environment:
-      # POSTGRES_DB is the analytical/pipeline database.
-      POSTGRES_DB: ${POSTGRES_DB:?POSTGRES_DB must be set}
-      POSTGRES_APP_DB: ${POSTGRES_APP_DB:-nss}
-      POSTGRES_USER: ${POSTGRES_ADMIN_USER:?POSTGRES_ADMIN_USER must be set}
-      POSTGRES_PASSWORD: ${POSTGRES_ADMIN_PASSWORD:?POSTGRES_ADMIN_PASSWORD must be set}
-    volumes:
-      - pgdata:/var/lib/postgresql/data
-      - ./postgres/init/01-create-operational-db.sh:/docker-entrypoint-initdb.d/01-create-operational-db.sh:ro
-    cpus: ${NSS_DB_CPUS:-1.50}
-    mem_limit: ${NSS_DB_MEMORY_LIMIT:-12g}
-    mem_reservation: ${NSS_DB_MEMORY_RESERVATION:-4g}
-    pids_limit: ${NSS_DB_PIDS_LIMIT:-256}
-    ulimits:
-      nofile:
-        soft: ${NSS_DB_NOFILE_SOFT:-32768}
-        hard: ${NSS_DB_NOFILE_HARD:-65536}
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
-      interval: 5s
-      timeout: 5s
-      retries: 10
-      start_period: 10s
-    networks: [nss_internal]
-
-  db-provision:
-    image: ${NSS_POSTGRES_IMAGE:?NSS_POSTGRES_IMAGE must be an immutable PostgreSQL image reference}
-    restart: "no"
-    environment:
-      POSTGRES_DB: ${POSTGRES_DB:?POSTGRES_DB must be set}
-      POSTGRES_APP_DB: ${POSTGRES_APP_DB:-nss}
-      POSTGRES_ADMIN_USER: ${POSTGRES_ADMIN_USER:?POSTGRES_ADMIN_USER must be set}
-      POSTGRES_ADMIN_PASSWORD: ${POSTGRES_ADMIN_PASSWORD:?POSTGRES_ADMIN_PASSWORD must be set}
-      NSS_APP_MIGRATOR_USER: ${NSS_APP_MIGRATOR_USER:?NSS_APP_MIGRATOR_USER must be set}
-      NSS_APP_MIGRATOR_PASSWORD: ${NSS_APP_MIGRATOR_PASSWORD:?NSS_APP_MIGRATOR_PASSWORD must be set}
-      NSS_APP_RUNTIME_USER: ${NSS_APP_RUNTIME_USER:?NSS_APP_RUNTIME_USER must be set}
-      NSS_APP_RUNTIME_PASSWORD: ${NSS_APP_RUNTIME_PASSWORD:?NSS_APP_RUNTIME_PASSWORD must be set}
-      NSS_ANALYTICS_WRITER_USER: ${NSS_ANALYTICS_WRITER_USER:?NSS_ANALYTICS_WRITER_USER must be set}
-      NSS_ANALYTICS_WRITER_PASSWORD: ${NSS_ANALYTICS_WRITER_PASSWORD:?NSS_ANALYTICS_WRITER_PASSWORD must be set}
-      NSS_ANALYTICS_READER_USER: ${NSS_ANALYTICS_READER_USER:?NSS_ANALYTICS_READER_USER must be set}
-      NSS_ANALYTICS_READER_PASSWORD: ${NSS_ANALYTICS_READER_PASSWORD:?NSS_ANALYTICS_READER_PASSWORD must be set}
-      NSS_BACKUP_USER: ${NSS_BACKUP_USER:?NSS_BACKUP_USER must be set}
-      NSS_BACKUP_PASSWORD: ${NSS_BACKUP_PASSWORD:?NSS_BACKUP_PASSWORD must be set}
-    volumes:
-      - ./postgres/provision/01-provision-roles.sh:/usr/local/bin/provision-roles:ro
-    entrypoint: ["/bin/sh", "/usr/local/bin/provision-roles"]
-    cpus: ${NSS_DB_PROVISION_CPUS:-0.50}
-    mem_limit: ${NSS_DB_PROVISION_MEMORY_LIMIT:-512m}
-    mem_reservation: ${NSS_DB_PROVISION_MEMORY_RESERVATION:-256m}
-    pids_limit: ${NSS_DB_PROVISION_PIDS_LIMIT:-64}
-    depends_on:
-      db:
-        condition: service_healthy
-    networks: [nss_internal]
-
-  java:
-    image: ${NSS_JAVA_IMAGE:?NSS_JAVA_IMAGE must be an immutable Java image reference}
-    restart: unless-stopped
-    environment:
-      # Operational JPA/Flyway database. Analytics remains read-only below.
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/${POSTGRES_APP_DB:-nss}
-      SPRING_DATASOURCE_USERNAME: ${NSS_APP_RUNTIME_USER}
-      SPRING_DATASOURCE_PASSWORD: ${NSS_APP_RUNTIME_PASSWORD}
-      SPRING_FLYWAY_USER: ${NSS_APP_MIGRATOR_USER}
-      SPRING_FLYWAY_PASSWORD: ${NSS_APP_MIGRATOR_PASSWORD}
-      ANALYTICS_DATASOURCE_URL: jdbc:postgresql://db:5432/${POSTGRES_DB}
-      ANALYTICS_DATASOURCE_USERNAME: ${NSS_ANALYTICS_READER_USER}
-      ANALYTICS_DATASOURCE_PASSWORD: ${NSS_ANALYTICS_READER_PASSWORD}
-      SPRING_JPA_HIBERNATE_DDL_AUTO: validate
-      SPRING_PROFILES_ACTIVE: prod
-      JWT_SECRET: ${JWT_SECRET:?JWT_SECRET must be set}
-      JWT_EXPIRATION: ${JWT_EXPIRATION:-900000}
-      REFRESH_EXPIRATION: ${REFRESH_EXPIRATION:-604800000}
-      SECURE_COOKIES: ${SECURE_COOKIES:-true}
-      CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS:-}
-      FIRST_ACCESS_FRONTEND_URL: ${FIRST_ACCESS_FRONTEND_URL:-http://localhost:8080}
-      BOOTSTRAP_ADMIN_EMAIL: ${BOOTSTRAP_ADMIN_EMAIL:-}
-      BOOTSTRAP_ADMIN_PASSWORD: ${BOOTSTRAP_ADMIN_PASSWORD:-}
-      MAIL_HOST: ${MAIL_HOST:-smtp.gmail.com}
-      MAIL_PORT: ${MAIL_PORT:-587}
-      MAIL_USERNAME: ${MAIL_USERNAME:-}
-      MAIL_PASSWORD: ${MAIL_PASSWORD:-}
-      MAIL_FROM: ${MAIL_FROM:-}
-      MAIL_SMTP_AUTH: ${MAIL_SMTP_AUTH:-true}
-      MAIL_SMTP_STARTTLS: ${MAIL_SMTP_STARTTLS:-true}
-      # Keep the JVM heap below the container ceiling and leave room for
-      # metaspace, thread stacks and native buffers.
-      JAVA_TOOL_OPTIONS: -XX:MaxRAMPercentage=${NSS_JAVA_MAX_RAM_PERCENTAGE:-65.0}
-    depends_on:
-      db-provision:
-        condition: service_completed_successfully
-    expose:
-      - "8080"
-    cpus: ${NSS_JAVA_CPUS:-1.50}
-    mem_limit: ${NSS_JAVA_MEMORY_LIMIT:-4g}
-    mem_reservation: ${NSS_JAVA_MEMORY_RESERVATION:-1g}
-    pids_limit: ${NSS_JAVA_PIDS_LIMIT:-256}
-    ulimits:
-      nofile:
-        soft: ${NSS_JAVA_NOFILE_SOFT:-32768}
-        hard: ${NSS_JAVA_NOFILE_HARD:-65536}
-    networks: [nss_internal]
-    healthcheck:
-      test: ["CMD-SHELL", "wget -q -O - http://127.0.0.1:8080/actuator/health | grep -q '\"status\":\"UP\"'"]
-      interval: 10s
-      timeout: 5s
-      retries: 12
-      start_period: 30s
-
   frontend:
-    image: ${NSS_FRONTEND_IMAGE:?NSS_FRONTEND_IMAGE must be an immutable frontend image reference}
+    image: ${NSS_FRONTEND_IMAGE:-nss-frontend:prod-mock}
+    build:
+      context: ${NSS_FRONTEND_CONTEXT:-../NSS-front-end}
+      dockerfile: Dockerfile.prod-mock
     restart: unless-stopped
-    expose:
-      - "80"
-    cpus: ${NSS_FRONTEND_CPUS:-0.25}
+    cpus: ${NSS_FRONTEND_CPUS:-0.50}
     mem_limit: ${NSS_FRONTEND_MEMORY_LIMIT:-128m}
-    mem_reservation: ${NSS_FRONTEND_MEMORY_RESERVATION:-64m}
-    pids_limit: ${NSS_FRONTEND_PIDS_LIMIT:-64}
-    ulimits:
-      nofile:
-        soft: ${NSS_FRONTEND_NOFILE_SOFT:-4096}
-        hard: ${NSS_FRONTEND_NOFILE_HARD:-8192}
-    networks: [nss_internal]
+    pids_limit: 64
+    security_opt: [no-new-privileges:true]
+    read_only: true
+    tmpfs:
+      - /var/cache/nginx:size=32m
+      - /var/run:size=1m
+      - /tmp:size=16m
+    networks: [static_internal]
     healthcheck:
-      test: ["CMD-SHELL", "wget -q -O - http://127.0.0.1/healthz >/dev/null"]
+      test: [CMD-SHELL, "wget -q -O - http://127.0.0.1/healthz >/dev/null"]
       interval: 10s
-      timeout: 5s
-      retries: 6
-      start_period: 10s
+      timeout: 3s
+      retries: 5
 
   caddy:
-    image: ${NSS_CADDY_IMAGE:?NSS_CADDY_IMAGE must be an immutable Caddy image reference}
+    image: ${NSS_CADDY_IMAGE:-caddy:2-alpine}
     restart: unless-stopped
     ports:
-      - "127.0.0.1:${NSS_HTTP_PORT:-8080}:80"
+      - "${NSS_BIND_ADDRESS:-127.0.0.1}:${NSS_HTTP_PORT:-8080}:80"
     volumes:
       - ./caddy/Caddyfile:/etc/caddy/Caddyfile:ro
-      - caddy_data:/data
-      - caddy_config:/config
+    tmpfs:
+      - /data:size=16m
+      - /config:size=16m
+      - /tmp:size=16m
+    read_only: true
+    security_opt: [no-new-privileges:true]
     cpus: ${NSS_CADDY_CPUS:-0.50}
-    mem_limit: ${NSS_CADDY_MEMORY_LIMIT:-256m}
-    mem_reservation: ${NSS_CADDY_MEMORY_RESERVATION:-64m}
-    pids_limit: ${NSS_CADDY_PIDS_LIMIT:-128}
-    ulimits:
-      nofile:
-        soft: ${NSS_CADDY_NOFILE_SOFT:-16384}
-        hard: ${NSS_CADDY_NOFILE_HARD:-32768}
+    mem_limit: ${NSS_CADDY_MEMORY_LIMIT:-128m}
+    pids_limit: 128
     depends_on:
       frontend:
         condition: service_healthy
-      java:
-        condition: service_healthy
-    networks: [nss_internal]
+    networks: [static_internal, edge]
     healthcheck:
-      test: ["CMD-SHELL", "wget -q -O - http://127.0.0.1/ >/dev/null"]
+      test: [CMD-SHELL, "wget -q -O - http://127.0.0.1/healthz >/dev/null"]
       interval: 10s
-      timeout: 5s
-      retries: 6
-      start_period: 10s
-
-  grafana:
-    image: ${NSS_GRAFANA_IMAGE:?NSS_GRAFANA_IMAGE must be an immutable Grafana image reference}
-    profiles: ["monitoring"]
-    restart: unless-stopped
-    environment:
-      GF_SECURITY_ADMIN_USER: ${GRAFANA_ADMIN_USER:-admin}
-      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD:?GRAFANA_ADMIN_PASSWORD must be set}
-      GF_USERS_ALLOW_SIGN_UP: "false"
-    ports:
-      - "127.0.0.1:3000:3000"
-    volumes:
-      - grafana_data:/var/lib/grafana
-      - ./observability/grafana/provisioning:/etc/grafana/provisioning:ro
-    cpus: ${NSS_GRAFANA_CPUS:-0.50}
-    mem_limit: ${NSS_GRAFANA_MEMORY_LIMIT:-1g}
-    mem_reservation: ${NSS_GRAFANA_MEMORY_RESERVATION:-512m}
-    pids_limit: ${NSS_GRAFANA_PIDS_LIMIT:-256}
-    networks: [nss_internal]
-
-  prometheus:
-    image: ${NSS_PROMETHEUS_IMAGE:?NSS_PROMETHEUS_IMAGE must be an immutable Prometheus image reference}
-    profiles: ["monitoring"]
-    restart: unless-stopped
-    command:
-      - --config.file=/etc/prometheus/prometheus.yml
-      - --storage.tsdb.path=/prometheus
-      - --storage.tsdb.retention.time=30d
-      - --web.enable-lifecycle=false
-    ports:
-      - "127.0.0.1:9090:9090"
-    volumes:
-      - ./observability/prometheus.yml:/etc/prometheus/prometheus.yml:ro
-      - prometheus_data:/prometheus
-    cpus: ${NSS_PROMETHEUS_CPUS:-0.75}
-    mem_limit: ${NSS_PROMETHEUS_MEMORY_LIMIT:-4g}
-    mem_reservation: ${NSS_PROMETHEUS_MEMORY_RESERVATION:-1g}
-    pids_limit: ${NSS_PROMETHEUS_PIDS_LIMIT:-256}
-    networks: [nss_internal]
-
-  pushgateway:
-    image: ${NSS_PUSHGATEWAY_IMAGE:?NSS_PUSHGATEWAY_IMAGE must be an immutable Pushgateway image reference}
-    profiles: ["monitoring"]
-    restart: unless-stopped
-    expose:
-      - "9091"
-    volumes:
-      - pushgateway_data:/data
-    command:
-      - --persistence.file=/data/metrics
-      - --persistence.interval=5m
-    cpus: ${NSS_PUSHGATEWAY_CPUS:-0.25}
-    mem_limit: ${NSS_PUSHGATEWAY_MEMORY_LIMIT:-256m}
-    mem_reservation: ${NSS_PUSHGATEWAY_MEMORY_RESERVATION:-64m}
-    pids_limit: ${NSS_PUSHGATEWAY_PIDS_LIMIT:-64}
-    networks: [nss_internal]
-
-  node-exporter:
-    image: ${NSS_NODE_EXPORTER_IMAGE:?NSS_NODE_EXPORTER_IMAGE must be an immutable node-exporter image reference}
-    profiles: ["monitoring"]
-    restart: unless-stopped
-    pid: host
-    command:
-      - --path.rootfs=/host
-    volumes:
-      - /:/host:ro,rslave
-    cpus: ${NSS_NODE_EXPORTER_CPUS:-0.25}
-    mem_limit: ${NSS_NODE_EXPORTER_MEMORY_LIMIT:-256m}
-    mem_reservation: ${NSS_NODE_EXPORTER_MEMORY_RESERVATION:-64m}
-    pids_limit: ${NSS_NODE_EXPORTER_PIDS_LIMIT:-64}
-    expose:
-      - "9100"
-    networks: [nss_internal]
-
-  pipeline:
-    image: ${NSS_PIPELINE_IMAGE:?NSS_PIPELINE_IMAGE must be an immutable pipeline image reference}
-    profiles: ["jobs"]
-    entrypoint: ["python", "-m", "app.pipeline.run_load"]
-    environment:
-      DATABASE_URL: postgresql+psycopg2://${NSS_ANALYTICS_WRITER_USER}:${NSS_ANALYTICS_WRITER_PASSWORD}@db:5432/${POSTGRES_DB}
-      PROMETHEUS_PUSHGATEWAY_URL: ${PROMETHEUS_PUSHGATEWAY_URL:-}
-    volumes:
-      - pipeline_data:/data
-    cpus: ${NSS_PIPELINE_CPUS:-2.00}
-    mem_limit: ${NSS_PIPELINE_MEMORY_LIMIT:-16g}
-    mem_reservation: ${NSS_PIPELINE_MEMORY_RESERVATION:-2g}
-    pids_limit: ${NSS_PIPELINE_PIDS_LIMIT:-256}
-    ulimits:
-      nofile:
-        soft: ${NSS_PIPELINE_NOFILE_SOFT:-16384}
-        hard: ${NSS_PIPELINE_NOFILE_HARD:-32768}
-    depends_on:
-      db-provision:
-        condition: service_completed_successfully
-    networks: [nss_internal]
-
-  pipeline-migrate:
-    image: ${NSS_PIPELINE_IMAGE:?NSS_PIPELINE_IMAGE must be an immutable pipeline image reference}
-    profiles: ["jobs"]
-    restart: "no"
-    entrypoint: ["alembic", "upgrade", "head"]
-    environment:
-      DATABASE_URL: postgresql+psycopg2://${NSS_ANALYTICS_WRITER_USER}:${NSS_ANALYTICS_WRITER_PASSWORD}@db:5432/${POSTGRES_DB}
-    cpus: ${NSS_PIPELINE_MIGRATE_CPUS:-1.00}
-    mem_limit: ${NSS_PIPELINE_MIGRATE_MEMORY_LIMIT:-1g}
-    mem_reservation: ${NSS_PIPELINE_MIGRATE_MEMORY_RESERVATION:-256m}
-    pids_limit: ${NSS_PIPELINE_MIGRATE_PIDS_LIMIT:-128}
-    depends_on:
-      db-provision:
-        condition: service_completed_successfully
-    networks: [nss_internal]
+      timeout: 3s
+      retries: 5
 
 networks:
-  nss_internal:
-    driver: bridge
-
-volumes:
-  pgdata:
-  pipeline_data:
-  grafana_data:
-  prometheus_data:
-  pushgateway_data:
-  caddy_data:
-  caddy_config:
+  edge:
+  static_internal:
+    internal: true
