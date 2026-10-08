@@ -1,5 +1,17 @@
 # Núcleo de Situação de Saúde - Deployment e Arquitetura
 
+## Esta branch: somente front estático + Caddy
+
+**`feat/frontend-static-only` substitui o Compose desta branch por dois serviços.**
+Não inicia Java, PostgreSQL, pipeline ou observabilidade. A arquitetura integrada
+documentada abaixo permanece como referência histórica, não como comando de operação
+desta branch. Consulte [o procedimento de publicação estática](runbooks/frontend-static.md).
+
+Use o front da branch `feat/prod-mock-real-snapshot` (ou uma imagem construída
+a partir dela). O modo `prod-mock` contém um snapshot real agregado dos quatro
+municípios, incluindo distritos de Campos e bairros da sede; não são dados sintéticos.
+
+
 Este repositório é a **fonte normativa de integração e deployment** do sistema do Núcleo de Situação de Saúde (NSS) da Universidade Estadual do Norte Fluminense Darcy Ribeiro (UENF). Ele registra o escopo aprovado da NSS 1.0, os contratos entre componentes, a arquitetura de execução e os runbooks necessários para colocar a primeira versão integrada em funcionamento.
 
 O NSS **não é um monorepo**. Frontend, backend Java, pipeline Python e configuração NixOS permanecem versionados em repositórios independentes. Este repositório não concentra código de negócio; ele define como os componentes devem convergir para formar um único sistema.
