@@ -47,6 +47,17 @@ Aplique Alembic conforme a imagem atual antes da carga quando necessário. Não 
 
 Exija: Serving 1.0, publicação transacional, soma Gold=PostgreSQL e não-mapeados contabilizados.
 
+Após a carga, confirme a publicação corrente e seus metadados:
+
+```sql
+SELECT disease_codigo, ano, count(*) AS municipios,
+       min(source_extracted_timestamp), max(added_at)
+FROM analytics.pipeline_current_publication
+GROUP BY disease_codigo, ano;
+```
+
+As consultas Java devem relacionar `fato_casos` com essa tabela por `disease_codigo`, `ano`, `cd_mun` e `batch_id`. O frontend deve exibir o `source_extracted_timestamp` retornado pela API.
+
 ## G3/G4 - Java e autenticação
 
 ```bash
@@ -64,13 +75,15 @@ curl -I http://127.0.0.1:${NSS_HTTP_PORT:-8080}/
 
 O frontend deve usar `/api/v1` na mesma origem, não `localhost:8080` hardcoded no navegador.
 
-## Grafana mínimo
+## Grafana e Prometheus
 
 ```bash
-docker compose up -d grafana
+docker compose up -d prometheus pushgateway grafana
+curl -fsS http://127.0.0.1:9090/-/ready
+curl -fsS http://127.0.0.1:3000/api/health
 ```
 
-Grafana fica em `127.0.0.1:3000`. Prioridade: Bronze, Silver, Gold e PostgreSQL/reconciliação. Dashboards/datasources específicos pertencem à frente Grafana.
+Grafana fica em `127.0.0.1:3000` e usa o datasource provisionado do Prometheus. Prioridade: Bronze, Silver, Gold, PostgreSQL/reconciliação e o estado da tabela `pipeline_current_publication`.
 
 ## G6/G7 - servidor e acesso externo
 

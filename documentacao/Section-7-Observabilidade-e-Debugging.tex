@@ -39,7 +39,14 @@ Quando um valor do frontend parecer incorreto:
 
 \subsection{Escopo adiado}
 
-Não são requisitos para a entrega imediata: Prometheus, tracing distribuído, alertas avançados, DuckDB como datasource de exploração, SLOs formais ou histórico extenso de qualidade. Eles podem ser incorporados quando a V1.0 estiver estável.
+Não são requisitos para a entrega imediata: tracing distribuído, alertas avançados, DuckDB como datasource de exploração, SLOs formais ou histórico extenso de qualidade. Eles podem ser incorporados quando a V1.0 estiver estável.
+
+No ambiente integrado, o pipeline publica métricas no Pushgateway. O Prometheus
+faz a coleta e retenção, e o Grafana consulta o Prometheus por datasource
+provisionado. A tabela de publicação corrente no PostgreSQL complementa as
+métricas com a linhagem por doença, ano, município e lote. Grafana, Prometheus e
+Pushgateway são acessíveis apenas localmente; o Caddy não os expõe ao navegador
+público.
 
 \begin{regra}[Auditoria não altera a semântica]
 Grafana observa e compara; ele não deve corrigir, reclassificar ou transformar os números oficiais da aplicação.

@@ -8,12 +8,11 @@ Esta seção é a referência operacional para a release integrada alvo de 02/10
 \toprule
 \textbf{Dimensão} & \textbf{Decisão NSS 1.0} \\
 \midrule
-Doenças & Dengue, Febre Maculosa e Toxoplasmose. A base/código exato de Toxoplasmose é pendência epidemiológica e não pode ser inventado. \\
+Doenças & Todos os grupos SINAN acompanhados pela pipeline; cada grupo/ano sem fonte disponível permanece explicitamente como indisponível. \\
 Métrica & Notificações enquanto não houver regra formal de casos confirmados por agravo. \\
-Municípios & Campos dos Goytacazes, São João da Barra, Macaé e Itaperuna. \\
+Municípios & Cobertura nacional; validação obrigatória dos 92 municípios do Estado do Rio de Janeiro. \\
 Perspectiva geográfica & Notificação. \\
-Campos dos Goytacazes & Município -> distrito -> bairro/localidade da unidade notificadora. \\
-Demais municípios & Apenas nível municipal nesta release. \\
+Hierarquia nacional & Região -> UF -> município -> distrito/bairro/localidade da unidade notificadora. \\
 Tempo & Ano e mês derivados de \texttt{DT\_NOTIFIC}. \\
 Sexo & Todos, Masculino, Feminino. ``Todos'' não aplica filtro e preserva ignorados. \\
 Faixa etária & <1; 1--4; 5--9; 10--14; 15--19; 20--39; 40--59; 60--64; 65--69; 70--74; 75--79; 80+. \\
@@ -54,7 +53,7 @@ A NSS 1.0 somente é considerada pronta quando:
     \item Java responde os endpoints V1 e executa agregações no banco;
     \item frontend usa API real e não soma dados epidemiológicos;
     \item ano, mês, sexo e faixa etária funcionam;
-    \item Campos permite drill-down distrito -> bairro/localidade da unidade notificadora;
+    \item o frontend permite drill-down territorial conforme o catálogo nacional e valida os 92 municípios do Rio de Janeiro;
     \item ausência de cobertura não é mostrada como zero;
     \item Caddy é a única entrada web;
     \item Java/PostgreSQL não estão expostos diretamente à Internet;

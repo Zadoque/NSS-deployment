@@ -37,7 +37,7 @@ A perspectiva da NSS 1.0 é \textbf{notificação}:
 
 \begin{itemize}
     \item nível municipal: município da notificação;
-    \item nível intramunicipal em Campos: distrito e bairro/localidade da \textbf{unidade notificadora};
+    \item nível intramunicipal nacional quando o território estiver resolvido: distrito e bairro/localidade da \textbf{unidade notificadora};
     \item residência do paciente não participa desta release.
 \end{itemize}
 
@@ -69,6 +69,18 @@ Até validação epidemiológica por agravo, a métrica publicada deve ser apres
 \subsection{Publicação no PostgreSQL}
 
 A carga Serving deve ser atômica por partição lógica. Para o volume atual, a estratégia recomendada é substituir dentro de uma única transação o estado da combinação doença/ano carregada, evitando que grupos removidos em revisões retroativas permaneçam obsoletos no banco.
+
+\subsection{Publicação corrente e linhagem temporal}
+
+Cada linha publicada na Serving também alimenta
+\texttt{analytics.pipeline\_current\_publication}. A chave é
+\texttt{(disease\_codigo, ano, cd\_mun)} e os campos
+\texttt{batch\_id}, \texttt{source\_extracted\_timestamp} e
+\texttt{added\_at} identificam, respectivamente, o lote efetivamente servido, o
+instante informado pela fonte e o instante de entrada no banco. O Java relaciona
+essa tabela por igualdade, evitando escolher um lote arbitrário por meio de
+\texttt{MAX()}; o mesmo registro fornece ao frontend a informação ``dados SINAN
+extraídos em ...''.
 
 \begin{regra}[Contrato de artefato]
 O loader deve validar o tipo e a versão do artefato Serving. Uma Gold Ad Hoc não pode ser carregada acidentalmente apenas porque possui algumas colunas compatíveis.

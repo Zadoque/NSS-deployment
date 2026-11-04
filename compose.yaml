@@ -25,6 +25,9 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/${POSTGRES_DB}
       SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
       SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
+      ANALYTICS_DATASOURCE_URL: jdbc:postgresql://db:5432/${POSTGRES_DB}
+      ANALYTICS_DATASOURCE_USERNAME: ${POSTGRES_USER}
+      ANALYTICS_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
       SPRING_JPA_HIBERNATE_DDL_AUTO: validate
       SPRING_PROFILES_ACTIVE: prod
       JWT_SECRET: ${JWT_SECRET:?JWT_SECRET must be set}
@@ -32,9 +35,21 @@ services:
       REFRESH_TOKEN_TTL_SECONDS: ${REFRESH_TOKEN_TTL_SECONDS:-604800}
       REFRESH_COOKIE_SECURE: ${REFRESH_COOKIE_SECURE:-true}
       REFRESH_COOKIE_SAME_SITE: ${REFRESH_COOKIE_SAME_SITE:-Strict}
+      BOOTSTRAP_ADMIN_EMAIL: ${BOOTSTRAP_ADMIN_EMAIL:-}
+      BOOTSTRAP_ADMIN_PASSWORD: ${BOOTSTRAP_ADMIN_PASSWORD:-}
+      CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS:-}
+      MAIL_HOST: ${MAIL_HOST:-localhost}
+      MAIL_PORT: ${MAIL_PORT:-1025}
+      MAIL_USERNAME: ${MAIL_USERNAME:-}
+      MAIL_PASSWORD: ${MAIL_PASSWORD:-}
+      MAIL_FROM: ${MAIL_FROM:-}
+      MAIL_SMTP_AUTH: ${MAIL_SMTP_AUTH:-false}
+      MAIL_SMTP_STARTTLS: ${MAIL_SMTP_STARTTLS:-false}
     depends_on:
       db:
         condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
     expose:
       - "8080"
     networks: [nss_internal]
@@ -44,6 +59,19 @@ services:
     restart: unless-stopped
     expose:
       - "80"
+    networks: [nss_internal]
+
+  migrate:
+    image: ${NSS_PIPELINE_IMAGE:-nss-pipeline:local}
+    entrypoint: ["alembic"]
+    command: ["upgrade", "head"]
+    environment:
+      DATABASE_URL: postgresql+psycopg2://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+      GRAFANA_DB_USER: ${GRAFANA_DB_USER:-grafana_ro}
+      GRAFANA_DB_PASSWORD: ${GRAFANA_DB_PASSWORD:-grafana_ro}
+    depends_on:
+      db:
+        condition: service_healthy
     networks: [nss_internal]
 
   caddy:
@@ -71,6 +99,34 @@ services:
       - "127.0.0.1:3000:3000"
     volumes:
       - grafana_data:/var/lib/grafana
+      - ./observability/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./observability/grafana/dashboards:/var/lib/grafana/dashboards:ro
+    depends_on:
+      prometheus:
+        condition: service_started
+    networks: [nss_internal]
+
+  prometheus:
+    image: prom/prometheus:v3.7.2
+    restart: unless-stopped
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.path=/prometheus
+    volumes:
+      - prometheus_data:/prometheus
+      - ./observability/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    ports:
+      - "127.0.0.1:9090:9090"
+    networks: [nss_internal]
+
+  pushgateway:
+    image: prom/pushgateway:v1.11.1
+    restart: unless-stopped
+    command: ["--persistence.file=/pushgateway/metrics"]
+    volumes:
+      - pushgateway_data:/pushgateway
+    ports:
+      - "127.0.0.1:9091:9091"
     networks: [nss_internal]
 
   pipeline:
@@ -79,11 +135,16 @@ services:
     entrypoint: ["python", "-m", "app.pipeline.run_load"]
     environment:
       DATABASE_URL: postgresql+psycopg2://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+      PROMETHEUS_PUSHGATEWAY_URL: ${PROMETHEUS_PUSHGATEWAY_URL:-http://pushgateway:9091}
     volumes:
       - pipeline_data:/data
     depends_on:
       db:
         condition: service_healthy
+      pushgateway:
+        condition: service_started
+      migrate:
+        condition: service_completed_successfully
     networks: [nss_internal]
 
 networks:
@@ -94,5 +155,7 @@ volumes:
   pgdata:
   pipeline_data:
   grafana_data:
+  prometheus_data:
+  pushgateway_data:
   caddy_data:
   caddy_config:

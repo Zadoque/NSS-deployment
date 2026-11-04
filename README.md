@@ -12,10 +12,10 @@ A NSS 1.0 responde, com dados do SINAN/PySUS, perguntas sobre **notificações**
 
 ### Escopo funcional congelado
 
-- municípios: Campos dos Goytacazes, São João da Barra, Macaé e Itaperuna;
+- municípios: cobertura nacional por UF e município; a validação obrigatória de referência inclui os 92 municípios do Estado do Rio de Janeiro;
 - perspectiva geográfica da V1.0: **local da notificação**, não residência do paciente;
-- detalhamento intramunicipal apenas para Campos dos Goytacazes;
-- hierarquia em Campos: município -> distrito -> bairro/localidade da **unidade notificadora**;
+- detalhamento intramunicipal disponível para os municípios com território resolvido, com validação obrigatória de todos os distritos/bairros dos 92 municípios do Rio de Janeiro;
+- hierarquia nacional: região -> UF -> município -> distrito/bairro/localidade da **unidade notificadora**;
 - período oficial: ano e mês derivados de `DT_NOTIFIC`;
 - sexo: Todos, Masculino e Feminino; valores ignorados continuam preservados nos dados;
 - faixa etária: `<1`, `1-4`, `5-9`, `10-14`, `15-19`, `20-39`, `40-59`, `60-64`, `65-69`, `70-74`, `75-79`, `80+`;
@@ -72,6 +72,8 @@ PySUS/SINAN -> Bronze -> Silver -----+----- Gold Ad Hoc
 
 O frontend nunca acessa diretamente o PostgreSQL ou os Parquets. A API Java é o único caminho síncrono oficial da aplicação. O pipeline roda fora do caminho crítico de consulta e publica dados já processados.
 
+Além do fato analítico, a pipeline mantém `analytics.pipeline_current_publication`, uma tabela de controle com a chave doença/ano/município, `batch_id`, `source_extracted_timestamp` e `added_at`. O Java usa essa tabela por igualdade com o lote publicado; assim, consultas e metadados exibidos no frontend pertencem exatamente à publicação corrente, sem depender de `MAX()`.
+
 ## Autenticação da V1.0
 
 - homepage pública;
@@ -111,6 +113,8 @@ A V1.0 incorpora uma auditoria mínima em Grafana, mantendo a capacidade de comp
 4. PostgreSQL - soma equivalente após a carga.
 
 O objetivo imediato é provar conservação/reconciliação entre camadas. Dashboards históricos, alertas avançados, DuckDB e observabilidade distribuída ficam para evoluções posteriores.
+
+No Compose integrado, o pipeline envia métricas ao Pushgateway, o Prometheus faz a retenção/consulta e o Grafana consome o Prometheus por datasource provisionado. Grafana, Prometheus e Pushgateway ficam presos ao loopback do host; não são pontos públicos do Caddy.
 
 ## Deployment temporário e definitivo
 

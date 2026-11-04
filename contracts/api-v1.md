@@ -103,17 +103,17 @@ Quando `UNAVAILABLE`, a API não deve fabricar itens com zero.
 
 ### `GET /api/v1/epidemiology/municipalities`
 
-Filtros comuns. O escopo da NSS 1.0 deve retornar no máximo os municípios habilitados: Campos dos Goytacazes, São João da Barra, Macaé e Itaperuna. A semântica é **município da notificação**.
+Filtros comuns. O escopo da NSS 1.0 cobre as UFs e municípios nacionais publicados pela pipeline. A semântica é **município da notificação**. A validação de referência deve cobrir os 92 municípios do Estado do Rio de Janeiro.
 
-## Distritos de Campos
+## Distritos nacionais
 
 ### `GET /api/v1/epidemiology/districts`
 
-Parâmetro adicional `municipality`, obrigatório. Na V1.0 somente Campos possui cobertura intramunicipal. `geography` deve ser `DISTRICT`.
+Parâmetro adicional `municipality`, obrigatório. `geography` deve ser `DISTRICT`.
 
 Para municípios sem cobertura intramunicipal, retornar `200` com `coverage.status=UNAVAILABLE`, não uma lista de zeros.
 
-## Bairros/localidades de Campos
+## Bairros/localidades nacionais
 
 ### `GET /api/v1/epidemiology/neighborhoods`
 
