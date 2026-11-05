@@ -71,6 +71,11 @@ GRANT USAGE, CREATE ON SCHEMA public TO :app_migrator;
 GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO :app_migrator;
 GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO :app_migrator;
 
+-- O Alembic do pipeline mantém a tabela alembic_version no schema public.
+GRANT USAGE, CREATE ON SCHEMA public TO :analytics_migrator;
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO :analytics_migrator;
+GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO :analytics_migrator;
+
 GRANT USAGE ON SCHEMA analytics TO :analytics_reader, :analytics_writer, :analytics_migrator, :grafana;
 GRANT SELECT ON ALL TABLES IN SCHEMA analytics TO :analytics_reader;
 GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA analytics TO :analytics_writer;
