@@ -147,6 +147,7 @@ A configuração do host vive em `nss-NixOS-Configuration`. Este repositório do
 ## Artefatos operacionais
 
 - [`compose.yaml`](compose.yaml): stack integrada mínima;
+- [`scripts/nss-deploy.sh`](scripts/nss-deploy.sh): menu terminal idempotente com cronômetro, progresso e diagnóstico;
 - [`caddy/Caddyfile`](caddy/Caddyfile): entrada HTTP única da aplicação;
 - [`.env.example`](.env.example): variáveis esperadas, sem segredos reais;
 - [`contracts/`](contracts/): contratos da API, autenticação e Gold Serving;
@@ -155,6 +156,23 @@ A configuração do host vive em `nss-NixOS-Configuration`. Este repositório do
 - [`perguntas/`](perguntas/): registro das perguntas de negócio, decisões já tomadas e itens futuros.
 
 ## Subida completa da aplicação
+
+### Menu operacional
+
+Para executar o runbook de forma guiada no terminal do servidor:
+
+```bash
+chmod +x scripts/nss-deploy.sh
+./scripts/nss-deploy.sh
+```
+
+O menu separa verificação, build, PostgreSQL/roles, Redis/Flyway/Alembic/Java,
+catálogos, pipeline, frontend/Caddy/observabilidade e diagnóstico. Cada etapa
+mostra início, fim e duração; a opção de diagnóstico exibe `docker compose ps`,
+portas locais, consumo dos containers, resolução interna `java -> redis`,
+`PONG` do Redis, status HTTP do Caddy e logs recentes. A execução nacional da
+pipeline exige confirmação digitando `SIM` e não trunca tabelas nem remove
+volumes automaticamente.
 
 Esta seção é o procedimento operacional para subir a NSS do zero no host de
 deployment. Execute os comandos a partir de `NSS-deployment`. Os quatro
