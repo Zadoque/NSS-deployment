@@ -146,6 +146,224 @@ A configuração do host vive em `nss-NixOS-Configuration`. Este repositório do
 - [`documentacao/`](documentacao/): arquitetura detalhada em LaTeX/PDF;
 - [`perguntas/`](perguntas/): registro das perguntas de negócio, decisões já tomadas e itens futuros.
 
+## Subida completa da aplicação
+
+Esta seção é o procedimento operacional para subir a NSS do zero no host de
+deployment. Execute os comandos a partir de `NSS-deployment`. Os quatro
+repositórios devem estar lado a lado:
+
+```text
+NSS-deployment/
+NSS-pipeline/
+NSS-front-end/
+Site-Sala-de-Situa-o-de-Saude-Java/
+```
+
+### 1. Pré-requisitos
+
+Instale Docker Engine com Docker Compose v2, Git, `curl` e ngrok. Confirme:
+
+```bash
+docker version
+docker compose version
+git --version
+curl --version
+ngrok version
+```
+
+Use a branch `main` dos repositórios e confira as imagens antes de publicar:
+
+```bash
+for repo in NSS-deployment NSS-pipeline NSS-front-end Site-Sala-de-Situa-o-de-Saude-Java; do
+  git -C "../$repo" switch main
+  git -C "../$repo" pull --ff-only
+done
+```
+
+### 2. Configurar o ambiente e os segredos
+
+```bash
+cp .env.example .env
+chmod 600 .env
+```
+
+Edite `.env` e substitua todos os valores obrigatórios. `JWT_SECRET` deve ser
+um segredo aleatório com pelo menos 32 bytes. `POSTGRES_PASSWORD`,
+`GRAFANA_ADMIN_PASSWORD` e `BOOTSTRAP_ADMIN_PASSWORD` nunca devem ser
+versionados nem colados em comandos gravados no histórico do shell.
+
+Para gerar um segredo JWT:
+
+```bash
+openssl rand -base64 48
+```
+
+O `BOOTSTRAP_ADMIN_EMAIL` e o `BOOTSTRAP_ADMIN_PASSWORD` criam o administrador
+inicial do Java. Depois do primeiro login, remova esses valores do `.env` e
+recrie o serviço Java para que a credencial de bootstrap não permaneça na
+configuração operacional.
+
+### 3. Construir as imagens
+
+O frontend precisa ser construído com `VITE_USE_MOCKS=false` e com API relativa
+(`VITE_API_BASE_URL=`), pois o Caddy encaminha `/api/*` para o Java:
+
+```bash
+docker build -t nss-java:local ../Site-Sala-de-Situa-o-de-Saude-Java
+docker build \
+  --build-arg VITE_USE_MOCKS=false \
+  --build-arg VITE_API_BASE_URL= \
+  -t nss-frontend:local ../NSS-front-end
+docker build -t nss-pipeline:local ../NSS-pipeline
+```
+
+Em uma release imutável, prefira tags com o SHA dos commits e configure as
+variáveis `NSS_JAVA_IMAGE`, `NSS_FRONTEND_IMAGE` e `NSS_PIPELINE_IMAGE` no
+`.env`. Nunca use `latest` para as imagens da aplicação em produção.
+
+### 4. Subir o PostgreSQL e aplicar o schema Java
+
+```bash
+docker compose up -d db
+docker compose ps db
+```
+
+O Java aplica o Flyway na inicialização. O banco precisa estar saudável antes
+de iniciar o Java:
+
+```bash
+docker compose up -d java
+docker compose logs --tail=100 java
+```
+
+O Compose do deployment usa o mesmo PostgreSQL para as tabelas operacionais
+do Java e o schema `analytics` publicado pela pipeline. O Flyway administra o
+schema do Java; o Alembic da pipeline administra o schema `analytics`.
+
+### 5. Aplicar o schema analítico e carregar dados
+
+O serviço `pipeline` pertence ao profile `jobs`, portanto é um job sob demanda
+e não um servidor web. Execute a migration da pipeline com o próprio checkout
+da pipeline antes da carga:
+
+```bash
+docker compose run --rm migrate
+```
+
+Depois execute a carga usando a imagem construída no deployment. Para uma
+primeira validação:
+
+```bash
+docker compose --profile jobs run --rm pipeline \
+  --disease DENG --year 2026
+```
+
+Repita para cada doença/ano liberado. A carga só deve ser promovida depois de
+validar o manifesto, o batch CNES/IBGE e a reconciliação Gold = PostgreSQL.
+Consulte o README do `NSS-pipeline` para carga nacional, CNES, escopo IBGE e
+opções de atualização SINAN.
+
+### 6. Subir frontend, Caddy e Grafana
+
+```bash
+docker compose up -d frontend caddy grafana
+docker compose ps
+```
+
+O único ponto HTTP da aplicação é:
+
+```text
+http://127.0.0.1:8080
+```
+
+O Caddy envia `/api/*` para `java:8080` e o restante para `frontend:80`.
+PostgreSQL e Java não possuem `ports` publicados. Grafana fica disponível
+somente em `127.0.0.1:3000` e não deve ser exposto pelo ngrok da aplicação.
+
+Valide localmente:
+
+```bash
+curl -fsSI http://127.0.0.1:8080/
+curl -fsS http://127.0.0.1:3000/api/health
+docker compose ps
+```
+
+### 7. Configurar CORS e ngrok
+
+O frontend servido pelo Caddy usa a mesma origem e normalmente não exige CORS
+para chamar `/api`. Quando a URL HTTPS do ngrok for usada, configure-a também
+como origem autorizada no Java:
+
+```bash
+./scripts/configure-ngrok.sh https://seu-endereco.ngrok-free.dev
+```
+
+O script valida o formato HTTPS, grava `CORS_ALLOWED_ORIGINS`, força
+`NSS_HTTP_PORT=8080`, valida o Compose e recria somente `java` e `caddy`. Ele
+não abre portas adicionais e não publica Java, banco ou Grafana.
+
+Em outro terminal, mantendo o script do ngrok em execução:
+
+```bash
+ngrok http http://127.0.0.1:8080
+```
+
+Se o endereço for aleatório, execute novamente o script com o novo endereço e
+aguarde a recriação do Java. O endereço compartilhado deve ser o HTTPS do
+ngrok, nunca `:8080`, `:3000`, `:5432` ou a porta interna `8080` do Java.
+
+### 8. Smoke test completo
+
+```bash
+PUBLIC_URL=https://seu-endereco.ngrok-free.dev
+curl -fsSI "$PUBLIC_URL/"
+curl -fsSI "$PUBLIC_URL/mapa"
+```
+
+No navegador, valide nesta ordem:
+
+```text
+Home pública
+  -> /mapa redireciona para login
+  -> login com o administrador bootstrap
+  -> consulta real no mapa
+  -> refresh da sessão
+  -> logout
+  -> /mapa volta a exigir autenticação
+```
+
+Para diagnosticar falhas:
+
+```bash
+docker compose logs --tail=200 java frontend caddy grafana
+docker compose ps
+ss -lntup
+```
+
+O `ss` deve mostrar apenas Caddy em `127.0.0.1:8080` e Grafana em
+`127.0.0.1:3000`; não deve mostrar Java ou PostgreSQL publicados em interfaces
+externas.
+
+### 9. Parar e atualizar
+
+Para reiniciar sem remover dados:
+
+```bash
+docker compose restart java frontend caddy grafana
+```
+
+Para atualizar uma imagem, reconstrua-a, recrie somente o serviço e repita os
+smoke tests:
+
+```bash
+docker build -t nss-java:local ../Site-Sala-de-Situa-o-de-Saude-Java
+docker compose up -d --force-recreate java
+```
+
+Não use `docker compose down -v` em operação normal: isso remove volumes
+persistentes do PostgreSQL, Grafana e Caddy. O procedimento de rollback está
+em [`runbooks/rollback-v1.md`](runbooks/rollback-v1.md).
+
 ## Definition of Done - NSS 1.0
 
 A release só pode ser declarada pronta quando, no mínimo:
