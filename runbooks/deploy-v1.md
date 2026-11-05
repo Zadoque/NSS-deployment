@@ -33,13 +33,15 @@ Se o banco já contiver estado relevante:
 
 ```bash
 docker compose up -d db
-docker compose exec -T db pg_dump -U "$POSTGRES_USER" -d "$POSTGRES_DB" -Fc > nss-before-v1.dump
+docker compose exec -T db pg_dump -U "$POSTGRES_ADMIN_USER" -d "$POSTGRES_DB" -Fc > nss-before-v1.dump
 ```
 
 ## G1/G2 - pipeline e PostgreSQL
 
 ```bash
 docker compose up -d db
+docker compose run --rm db-permissions
+docker compose run --rm migrate
 docker compose --profile jobs run --rm pipeline --disease DENG --year 2026
 ```
 
@@ -63,6 +65,11 @@ As consultas Java devem relacionar `fato_casos` com essa tabela por `disease_cod
 ```bash
 docker compose up -d java
 ```
+
+O Java usa `APP_RUNTIME_*` para a aplicação, `APP_MIGRATOR_*` para Flyway e
+`ANALYTICS_READER_*` para consultas. A pipeline usa `ANALYTICS_WRITER_*` e o
+Alembic usa `ANALYTICS_MIGRATOR_*`; nenhuma dessas funções usa a role
+administrativa do PostgreSQL.
 
 Verifique Flyway, login, endpoint protegido, refresh rotacionado e logout. Confirme auto-registro bloqueado e ausência de CRUD irrestrito de usuários.
 

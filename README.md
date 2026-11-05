@@ -188,9 +188,15 @@ chmod 600 .env
 ```
 
 Edite `.env` e substitua todos os valores obrigatórios. `JWT_SECRET` deve ser
-um segredo aleatório com pelo menos 32 bytes. `POSTGRES_PASSWORD`,
+um segredo aleatório com pelo menos 32 bytes. `POSTGRES_ADMIN_PASSWORD`,
 `GRAFANA_ADMIN_PASSWORD` e `BOOTSTRAP_ADMIN_PASSWORD` nunca devem ser
 versionados nem colados em comandos gravados no histórico do shell.
+
+O arquivo também separa as credenciais por responsabilidade: `APP_RUNTIME_*`
+é usado pelo Java em execução, `APP_MIGRATOR_*` pelo Flyway,
+`ANALYTICS_READER_*` pelo Java para consultas, `ANALYTICS_WRITER_*` pela
+pipeline e `ANALYTICS_MIGRATOR_*` pelo Alembic. Nenhum serviço deve usar a
+credencial administrativa do PostgreSQL.
 
 Para gerar um segredo JWT:
 
@@ -221,36 +227,42 @@ Em uma release imutável, prefira tags com o SHA dos commits e configure as
 variáveis `NSS_JAVA_IMAGE`, `NSS_FRONTEND_IMAGE` e `NSS_PIPELINE_IMAGE` no
 `.env`. Nunca use `latest` para as imagens da aplicação em produção.
 
-### 4. Subir o PostgreSQL e aplicar o schema Java
+### 4. Subir o PostgreSQL e provisionar as roles
 
 ```bash
 docker compose up -d db
 docker compose ps db
+docker compose run --rm db-permissions
 ```
 
-O Java aplica o Flyway na inicialização. O banco precisa estar saudável antes
-de iniciar o Java:
+`db-permissions` cria as roles definitivas e aplica os grants mínimos. Em uma
+instalação nova, o usuário de inicialização do PostgreSQL é
+`POSTGRES_ADMIN_USER`; ele não é usado pelo Java, pela pipeline ou pelo
+Grafana. Se o volume já existir com outro usuário administrativo, não altere
+o `.env` esperando que o PostgreSQL o substitua: use o procedimento de
+recriação do ambiente homologação ou execute o provisionamento com uma
+conexão administrativa autorizada.
+
+### 5. Aplicar os schemas
+
+O serviço `migrate` usa exclusivamente `ANALYTICS_MIGRATOR_*` para executar o
+Alembic. O Java usa `APP_MIGRATOR_*` para executar o Flyway ao iniciar:
 
 ```bash
+docker compose run --rm migrate
 docker compose up -d java
 docker compose logs --tail=100 java
 ```
 
 O Compose do deployment usa o mesmo PostgreSQL para as tabelas operacionais
 do Java e o schema `analytics` publicado pela pipeline. O Flyway administra o
-schema do Java; o Alembic da pipeline administra o schema `analytics`.
+schema do Java; o Alembic administra o schema `analytics`. As roles de
+migration não são usadas para atender requisições.
 
-### 5. Aplicar o schema analítico e carregar dados
+### 6. Carregar dados
 
 O serviço `pipeline` pertence ao profile `jobs`, portanto é um job sob demanda
-e não um servidor web. Execute a migration da pipeline com o próprio checkout
-da pipeline antes da carga:
-
-```bash
-docker compose run --rm migrate
-```
-
-Depois execute a carga usando a imagem construída no deployment. Para uma
+e não um servidor web. Ele usa exclusivamente `ANALYTICS_WRITER_*`. Para uma
 primeira validação:
 
 ```bash
@@ -263,7 +275,7 @@ validar o manifesto, o batch CNES/IBGE e a reconciliação Gold = PostgreSQL.
 Consulte o README do `NSS-pipeline` para carga nacional, CNES, escopo IBGE e
 opções de atualização SINAN.
 
-### 6. Subir frontend, Caddy e Grafana
+### 7. Subir frontend, Caddy e Grafana
 
 ```bash
 docker compose up -d frontend caddy grafana
@@ -288,7 +300,7 @@ curl -fsS http://127.0.0.1:3000/api/health
 docker compose ps
 ```
 
-### 7. Configurar CORS e ngrok
+### 8. Configurar CORS e ngrok
 
 O frontend servido pelo Caddy usa a mesma origem e normalmente não exige CORS
 para chamar `/api`. Quando a URL HTTPS do ngrok for usada, configure-a também
@@ -312,7 +324,7 @@ Se o endereço for aleatório, execute novamente o script com o novo endereço e
 aguarde a recriação do Java. O endereço compartilhado deve ser o HTTPS do
 ngrok, nunca `:8080`, `:3000`, `:5432` ou a porta interna `8080` do Java.
 
-### 8. Smoke test completo
+### 9. Smoke test completo
 
 ```bash
 PUBLIC_URL=https://seu-endereco.ngrok-free.dev
@@ -344,7 +356,7 @@ O `ss` deve mostrar apenas Caddy em `127.0.0.1:8080` e Grafana em
 `127.0.0.1:3000`; não deve mostrar Java ou PostgreSQL publicados em interfaces
 externas.
 
-### 9. Parar e atualizar
+### 10. Parar e atualizar
 
 Para reiniciar sem remover dados:
 
