@@ -266,23 +266,130 @@ do Java e o schema `analytics` publicado pela pipeline. O Flyway administra o
 schema do Java; o Alembic administra o schema `analytics`. As roles de
 migration não são usadas para atender requisições.
 
-### 6. Carregar dados
+### 6. Preparar e verificar o catálogo IBGE
+
+A Gold Serving nacional só pode ser executada com uma release IBGE válida e
+ativa. O catálogo fica no volume `pipeline_data`, montado como `/data` dentro
+do container da pipeline. Primeiro verifique se já existe uma release ativa:
+
+```bash
+docker compose --profile jobs run --rm --entrypoint python pipeline -c \
+  'from pathlib import Path; from app.pipeline.reference.ibge.storage import load_active_catalog; c=load_active_catalog(Path("/data/reference/ibge")); print({"catalog_id": c.metadata.catalog_id, "reference_year": c.metadata.reference_year, "validation_status": c.metadata.validation_status, "sha256": c.metadata.sha256, "content_sha256": c.metadata.content_sha256, "municipalities": len(c.municipalities())})'
+```
+
+Esse comando falha se `active.json` estiver ausente, se o manifesto não tiver
+SHA-256 válido, se `validation_status` não for `VALIDATED`, se os Parquets
+auxiliares estiverem ausentes ou se o hash lógico divergir. Não execute o
+serving nacional enquanto essa verificação falhar.
+
+Para carregar uma nova release, execute o refresh dentro do serviço da
+pipeline. O `--expected-sha256` deve ser o SHA-256 oficial informado pela
+fonte IBGE:
+
+```bash
+docker compose --profile jobs run --rm --entrypoint python pipeline \
+  -m app.pipeline.reference.ibge.refresh \
+  --root /data/reference/ibge \
+  --catalog-id ibge-dtb-2025 \
+  --reference-year 2025 \
+  --dtb-url 'https://geoftp.ibge.gov.br/organizacao_do_territorio/estrutura_territorial/divisao_territorial/2025/DTB_2025.zip' \
+  --expected-sha256 '<SHA256_OFICIAL_IBGE>'
+```
+
+O refresh só promove `active.json` depois de validar a release. Verifique
+novamente o catálogo após o carregamento:
+
+```bash
+docker compose --profile jobs run --rm --entrypoint python pipeline -c \
+  'from pathlib import Path; from app.pipeline.reference.ibge.storage import load_active_catalog; c=load_active_catalog(Path("/data/reference/ibge")); print(c.metadata.catalog_id, c.metadata.validation_status, c.metadata.sha256, len(c.municipalities()))'
+```
+
+### 7. Carregar e verificar o CNES
+
+O CNES deve ser carregado depois de o IBGE estar ativo. A execução grava
+Bronze, Silver, `metadata.json` e um `batch_id` no mesmo volume persistente:
+
+```bash
+docker compose --profile jobs run --rm --entrypoint python pipeline \
+  -m app.pipeline.run_cnes \
+  --catalog-root /data/reference/ibge \
+  --all-brazil \
+  --checkpoint /data/reference/cnes-checkpoint.json \
+  --workers 8 \
+  --continue-on-error
+```
+
+Depois da execução, liste os lotes CNES e seus estados:
+
+```bash
+docker compose --profile jobs run --rm --entrypoint python pipeline -c \
+  'from pathlib import Path; import json; root=Path("/data/silver/cnes"); rows=[]; [rows.append({"batch_id": p.parent.name.removeprefix("batch_id="), "status": json.loads((p.parent/"metadata.json").read_text())["status"], "rows": json.loads((p.parent/"metadata.json").read_text()).get("rows")}) for p in sorted(root.glob("batch_id=*/data.parquet"))]; print(*rows, sep="\n")'
+```
+
+Escolha somente um lote cujo `status` seja `COMPLETED`. Lotes `PARTIAL`, sem
+`metadata.json`, com manifesto inconsistente ou incompatíveis com a release
+IBGE ativa não podem ser usados:
+
+```bash
+export CNES_BATCH_ID='YYYYMMDDTHHMMSSZ'
+```
+
+Antes da Gold Serving, confirme que o lote escolhido existe e está íntegro:
+
+```bash
+docker compose --profile jobs run --rm \
+  -e CNES_BATCH_ID="$CNES_BATCH_ID" \
+  --entrypoint python pipeline -c \
+  'from pathlib import Path; import json, os; batch=os.environ["CNES_BATCH_ID"]; p=Path("/data/silver/cnes")/f"batch_id={batch}"; m=json.loads((p/"metadata.json").read_text()); assert m["batch_id"]==batch and m["status"]=="COMPLETED"; print(m)'
+```
+
+Publique o snapshot CNES validado na dimensão analítica do PostgreSQL. O
+`--source` fixa exatamente o lote que foi verificado; não use implicitamente
+o lote mais recente em uma carga de homologação:
+
+```bash
+docker compose --profile jobs run --rm \
+  -e CNES_BATCH_ID="$CNES_BATCH_ID" \
+  --entrypoint python pipeline \
+  -m app.pipeline.load_cnes \
+  --catalog-root /data/reference/ibge \
+  --source "/data/silver/cnes/batch_id=${CNES_BATCH_ID}/data.parquet"
+```
+
+Confirme que a dimensão CNES recebeu registros antes de publicar o SINAN:
+
+```bash
+docker compose exec -T db psql \
+  -U "$POSTGRES_ADMIN_USER" \
+  -d "$POSTGRES_DB" \
+  -c 'SELECT count(*) AS unidades_cnes FROM analytics.dim_unidade_saude;'
+```
+
+### 8. Carregar o SINAN na Gold Serving
 
 O serviço `pipeline` pertence ao profile `jobs`, portanto é um job sob demanda
 e não um servidor web. Ele usa exclusivamente `ANALYTICS_WRITER_*`. Para uma
-primeira validação:
+primeira carga nacional, informe explicitamente o catálogo IBGE e o lote CNES
+`COMPLETED`:
 
 ```bash
 docker compose --profile jobs run --rm pipeline \
-  --disease DENG --year 2026
+  --disease DENG \
+  --year 2026 \
+  --catalog-root /data/reference/ibge \
+  --all-brazil \
+  --cnes-batch-id "$CNES_BATCH_ID"
 ```
 
 Repita para cada doença/ano liberado. A carga só deve ser promovida depois de
-validar o manifesto, o batch CNES/IBGE e a reconciliação Gold = PostgreSQL.
+validar o manifesto, o catálogo IBGE, o batch CNES e a reconciliação Gold =
+PostgreSQL. A Gold Serving rejeita automaticamente a ausência de
+`--cnes-batch-id`, lote CNES `PARTIAL`, release IBGE inválida ou escopo
+incompatível.
 Consulte o README do `NSS-pipeline` para carga nacional, CNES, escopo IBGE e
 opções de atualização SINAN.
 
-### 7. Subir frontend, Caddy e Grafana
+### 9. Subir frontend, Caddy e Grafana
 
 ```bash
 docker compose up -d frontend caddy grafana
@@ -307,7 +414,7 @@ curl -fsS http://127.0.0.1:3000/api/health
 docker compose ps
 ```
 
-### 8. Configurar CORS e ngrok
+### 10. Configurar CORS e ngrok
 
 O frontend servido pelo Caddy usa a mesma origem e normalmente não exige CORS
 para chamar `/api`. Quando a URL HTTPS do ngrok for usada, configure-a também
@@ -331,7 +438,7 @@ Se o endereço for aleatório, execute novamente o script com o novo endereço e
 aguarde a recriação do Java. O endereço compartilhado deve ser o HTTPS do
 ngrok, nunca `:8080`, `:3000`, `:5432` ou a porta interna `8080` do Java.
 
-### 9. Smoke test completo
+### 11. Smoke test completo
 
 ```bash
 PUBLIC_URL=https://seu-endereco.ngrok-free.dev
@@ -363,7 +470,7 @@ O `ss` deve mostrar apenas Caddy em `127.0.0.1:8080` e Grafana em
 `127.0.0.1:3000`; não deve mostrar Java ou PostgreSQL publicados em interfaces
 externas.
 
-### 10. Parar e atualizar
+### 12. Parar e atualizar
 
 Para reiniciar sem remover dados:
 
