@@ -261,10 +261,11 @@ docker compose up -d java
 docker compose logs --tail=100 java
 ```
 
-O Compose do deployment usa o mesmo PostgreSQL para as tabelas operacionais
-do Java e o schema `analytics` publicado pela pipeline. O Flyway administra o
-schema do Java; o Alembic administra o schema `analytics`. As roles de
-migration não são usadas para atender requisições.
+O Compose do deployment usa o mesmo servidor PostgreSQL com dois bancos
+separados: `POSTGRES_APP_DB` (`nss`) para as tabelas operacionais do Java e
+`POSTGRES_DB` (`situacao_saude`) para o schema `analytics` publicado pela
+pipeline. O Flyway administra o banco do Java; o Alembic administra o banco
+analítico. As roles de migration não são usadas para atender requisições.
 
 ### 6. Preparar e verificar o catálogo IBGE
 
@@ -388,6 +389,71 @@ PostgreSQL. A Gold Serving rejeita automaticamente a ausência de
 incompatível.
 Consulte o README do `NSS-pipeline` para carga nacional, CNES, escopo IBGE e
 opções de atualização SINAN.
+
+### 8.1. Reprocessar uma doença nacional usando catálogos já existentes
+
+Quando o IBGE e o CNES nacionais já estiverem carregados no repositório
+`NSS-pipeline`, execute o job a partir deste repositório. Não execute o
+`docker compose` do repositório da pipeline, pois ele pode subir outro
+PostgreSQL (`nss-pipeline-db-1`) e publicar no banco errado.
+
+O procedimento abaixo usa a release IBGE 2025 e o lote CNES nacional 2025 já
+existentes em `../NSS-pipeline/data`:
+
+```bash
+# 1. A imagem é construída no repositório da pipeline.
+docker build -t nss-pipeline:local ../NSS-pipeline
+
+# 2. Verifique a release IBGE ativa no mesmo diretório que será montado no job.
+docker run --rm \
+  -v "$PWD/../NSS-pipeline/data:/data:ro" \
+  nss-pipeline:local python -c \
+  'from pathlib import Path; from app.pipeline.reference.ibge.storage import load_active_catalog; c=load_active_catalog(Path("/data/reference/ibge")); print({"catalog_id": c.metadata.catalog_id, "reference_year": c.metadata.reference_year, "validation_status": c.metadata.validation_status, "sha256": c.metadata.sha256, "municipalities": len(c.municipalities())})'
+
+# 3. Confirme o CNES nacional 2025.
+docker run --rm \
+  -v "$PWD/../NSS-pipeline/data:/data:ro" \
+  nss-pipeline:local python -c \
+  'import json; from pathlib import Path; p=Path("/data/reference/cnes-2025.json"); m=json.loads(p.read_text()); print({"status": m["status"], "municipios": len(m["municipios"]), "output_path": m["output_path"]}) ; assert m["status"] == "COMPLETED"'
+
+# 4. Se for necessário deixar o banco analítico vazio, preserve migrations
+#    e trunque apenas as tabelas de analytics. NÃO use down -v.
+docker compose exec -T db sh -lc \
+  'PGPASSWORD="$POSTGRES_PASSWORD" psql -v ON_ERROR_STOP=1 -U "$POSTGRES_USER" -d "$POSTGRES_DB" -c "TRUNCATE TABLE analytics.fato_casos, analytics.pipeline_publications, analytics.dim_unidade_saude, analytics.dim_municipio, analytics.dim_doenca, analytics.dim_classificacao, analytics.dim_evolucao CASCADE;"'
+
+# 5. Garanta que o schema esteja atualizado antes da carga.
+docker compose run --rm migrate
+
+# 6. Rode a pipeline pelo Compose do deployment, montando os artefatos
+#    nacionais da pipeline no /data do container.
+NSS_PIPELINE_IMAGE=nss-pipeline:local \
+docker compose --profile jobs run --rm \
+  -v "$PWD/../NSS-pipeline/data:/data" \
+  pipeline \
+  --disease DENG \
+  --year 2024 \
+  --catalog-root /data/reference/ibge \
+  --all-brazil \
+  --cnes-batch-id 20261103T125935Z
+```
+
+Nesse fluxo, `20261103T125935Z` é o `batch_id` nacional concluído do CNES
+2025. Se outro lote nacional for selecionado, substitua o valor somente após
+validar seu `metadata.json` como `COMPLETED`.
+
+Valide a publicação no banco correto, a partir de `NSS-deployment`:
+
+```bash
+docker compose exec -T db sh -lc \
+  'PGPASSWORD="$POSTGRES_PASSWORD" psql -U "$POSTGRES_USER" -d "$POSTGRES_DB" -c "SELECT disease_codigo, ano, count(*) AS rows, sum(cases_total) AS cases FROM analytics.fato_casos GROUP BY disease_codigo, ano ORDER BY disease_codigo, ano;"'
+
+docker compose exec -T db sh -lc \
+  'PGPASSWORD="$POSTGRES_PASSWORD" psql -U "$POSTGRES_USER" -d "$POSTGRES_DB" -c "SELECT count(*) AS publications FROM analytics.pipeline_publications;"'
+```
+
+O resultado deve ser consultado no container `nss-v1-db-1`. Um PostgreSQL
+iniciado pelo Compose do repositório `NSS-pipeline` não faz parte desta stack e
+não deve ser usado para validar a carga do deployment.
 
 ### 9. Subir frontend, Caddy e Grafana
 
