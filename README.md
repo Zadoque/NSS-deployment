@@ -249,6 +249,19 @@ docker build \
 docker build -t nss-pipeline:local ../NSS-pipeline
 ```
 
+Antes de subir os serviços, confirme que o Compose está apontando para as
+mesmas tags recém-construídas:
+
+```bash
+docker compose config --images | sort -u
+```
+
+O `.env` não deve declarar a mesma variável duas vezes: o Compose considera a
+última ocorrência, o que pode fazer uma imagem antiga como
+`nss-pipeline:production-readiness-test` vencer a imagem local atualizada.
+Se a saída mostrar outra tag, corrija o `.env` ou execute explicitamente, por
+exemplo, `NSS_PIPELINE_IMAGE=nss-pipeline:local docker compose ...`.
+
 Em uma release imutável, prefira tags com o SHA dos commits e configure as
 variáveis `NSS_JAVA_IMAGE`, `NSS_FRONTEND_IMAGE` e `NSS_PIPELINE_IMAGE` no
 `.env`. Nunca use `latest` para as imagens da aplicação em produção.
