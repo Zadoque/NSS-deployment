@@ -4,6 +4,7 @@ set -Eeuo pipefail
 : "${POSTGRES_ADMIN_USER:?POSTGRES_ADMIN_USER é obrigatório}"
 : "${POSTGRES_ADMIN_PASSWORD:?POSTGRES_ADMIN_PASSWORD é obrigatório}"
 : "${POSTGRES_DB:?POSTGRES_DB é obrigatório}"
+: "${POSTGRES_APP_DB:?POSTGRES_APP_DB é obrigatório}"
 
 for variable in \
   APP_RUNTIME_USER APP_RUNTIME_PASSWORD \
@@ -100,6 +101,28 @@ ALTER DEFAULT PRIVILEGES FOR ROLE :analytics_migrator IN SCHEMA analytics
   GRANT SELECT ON TABLES TO :analytics_reader;
 ALTER DEFAULT PRIVILEGES FOR ROLE :analytics_migrator IN SCHEMA analytics
   GRANT SELECT ON TABLES TO :grafana;
+SQL
+
+# O Java usa um banco operacional separado do banco analítico do pipeline.
+PGPASSWORD="${POSTGRES_ADMIN_PASSWORD}" psql \
+  --host "${POSTGRES_HOST:-db}" \
+  --username "${POSTGRES_ADMIN_USER}" \
+  --dbname "${POSTGRES_APP_DB}" \
+  --set ON_ERROR_STOP=1 \
+  --set app_runtime="${APP_RUNTIME_USER}" \
+  --set app_migrator="${APP_MIGRATOR_USER}" <<'SQL'
+GRANT USAGE ON SCHEMA public TO :app_runtime;
+GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO :app_runtime;
+GRANT USAGE, SELECT, UPDATE ON ALL SEQUENCES IN SCHEMA public TO :app_runtime;
+
+GRANT USAGE, CREATE ON SCHEMA public TO :app_migrator;
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO :app_migrator;
+GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO :app_migrator;
+
+ALTER DEFAULT PRIVILEGES FOR ROLE :app_migrator IN SCHEMA public
+  GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO :app_runtime;
+ALTER DEFAULT PRIVILEGES FOR ROLE :app_migrator IN SCHEMA public
+  GRANT USAGE, SELECT, UPDATE ON SEQUENCES TO :app_runtime;
 SQL
 
 printf 'Roles NSS provisionadas com separação de responsabilidades.\n'

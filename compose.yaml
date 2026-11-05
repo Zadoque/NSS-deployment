@@ -22,7 +22,7 @@ services:
     image: ${NSS_JAVA_IMAGE:-nss-java:local}
     restart: unless-stopped
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/${POSTGRES_DB}
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/${POSTGRES_APP_DB:-${POSTGRES_DB}}
       SPRING_DATASOURCE_USERNAME: ${NSS_APP_RUNTIME_USER}
       SPRING_DATASOURCE_PASSWORD: ${NSS_APP_RUNTIME_PASSWORD}
       ANALYTICS_DATASOURCE_URL: jdbc:postgresql://db:5432/${POSTGRES_DB}
@@ -72,6 +72,7 @@ services:
     environment:
       POSTGRES_HOST: db
       POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_APP_DB: ${POSTGRES_APP_DB:-${POSTGRES_DB}}
       POSTGRES_ADMIN_USER: ${POSTGRES_ADMIN_USER}
       POSTGRES_ADMIN_PASSWORD: ${POSTGRES_ADMIN_PASSWORD}
       APP_RUNTIME_USER: ${NSS_APP_RUNTIME_USER}
