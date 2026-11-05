@@ -52,13 +52,13 @@ O repositório Java poderá permanecer no repositório atual com acesso de colab
                                 |
                                 v
                           Java/Spring Boot
-                                |
-                                v
-                           PostgreSQL
-                         /             \
-                        v               v
-                tabelas de app      analytics.*
-                  Java/Flyway      Python/Alembic
+                           /            \
+                          v              v
+                    Redis persistente  PostgreSQL
+                    sessões/rate-limit  /        \
+                                      v          v
+                              tabelas app    analytics.*
+                              Java/Flyway  Python/Alembic
                                        ^
                                        |
 PySUS/SINAN -> Bronze -> Silver -----+----> Gold Ad Hoc
@@ -89,6 +89,7 @@ Além do fato analítico, a pipeline mantém `analytics.pipeline_current_publica
 - senha armazenada com Argon2;
 - access token JWT curto;
 - refresh token opaco, rotacionado e armazenado no navegador apenas como cookie `HttpOnly`, `Secure` e `SameSite=Strict`;
+- refresh session persistida no Redis com TTL/AOF; rate limit de login e reset executado por scripts atômicos Redis;
 - logout revoga o refresh token;
 - auto-registro público desabilitado;
 - CRUD de usuários não é uma API comum do dashboard na V1.0;
@@ -260,6 +261,14 @@ docker compose run --rm migrate
 docker compose up -d java
 docker compose logs --tail=100 java
 ```
+
+O serviço `redis` é obrigatório para o Java. Ele usa o volume `redis_data` com
+Append Only File (AOF), não fica publicado em nenhuma porta do host e é
+resolvido internamente como `redis:6379`. O Java não persiste refresh sessions
+nem janelas de rate limit no PostgreSQL ou somente na RAM. Em banco novo, o
+Flyway executa `V0001__initial_schema.sql` no banco operacional `nss`; essa
+migration consolidada é o estado inicial atual e não cria a antiga tabela
+`refresh_sessions`.
 
 O Compose do deployment usa o mesmo servidor PostgreSQL com dois bancos
 separados: `POSTGRES_APP_DB` (`nss`) para as tabelas operacionais do Java e
@@ -460,6 +469,14 @@ não deve ser usado para validar a carga do deployment.
 ```bash
 docker compose up -d frontend caddy grafana
 docker compose ps
+```
+
+O comando acima também inicia o Redis por dependência do Java. Confirme o
+estado persistente antes do smoke test:
+
+```bash
+docker compose ps redis java
+docker compose exec -T redis redis-cli ping
 ```
 
 O único ponto HTTP da aplicação é:

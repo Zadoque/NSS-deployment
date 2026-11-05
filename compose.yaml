@@ -28,6 +28,7 @@ services:
       ANALYTICS_DATASOURCE_URL: jdbc:postgresql://db:5432/${POSTGRES_DB}
       ANALYTICS_DATASOURCE_USERNAME: ${NSS_ANALYTICS_READER_USER}
       ANALYTICS_DATASOURCE_PASSWORD: ${NSS_ANALYTICS_READER_PASSWORD}
+      SPRING_DATA_REDIS_URL: redis://redis:6379
       SPRING_JPA_HIBERNATE_DDL_AUTO: validate
       SPRING_PROFILES_ACTIVE: prod
       JWT_SECRET: ${JWT_SECRET:?JWT_SECRET must be set}
@@ -53,10 +54,25 @@ services:
     depends_on:
       db:
         condition: service_healthy
+      redis:
+        condition: service_healthy
       migrate:
         condition: service_completed_successfully
     expose:
       - "8080"
+    networks: [nss_internal]
+
+  redis:
+    image: ${REDIS_IMAGE:-redis:7-alpine}
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
     networks: [nss_internal]
 
   frontend:
@@ -100,8 +116,6 @@ services:
     command: ["upgrade", "head"]
     environment:
       DATABASE_URL: postgresql+psycopg2://${NSS_ANALYTICS_MIGRATOR_USER:-nss_analytics_migrator}:${NSS_ANALYTICS_MIGRATOR_PASSWORD:-${POSTGRES_ADMIN_PASSWORD}}@db:5432/${POSTGRES_DB}
-      GRAFANA_DB_USER: ${NSS_GRAFANA_DB_USER:-nss_grafana}
-      GRAFANA_DB_PASSWORD: ${NSS_GRAFANA_DB_PASSWORD:-${POSTGRES_ADMIN_PASSWORD}}
     depends_on:
       db:
         condition: service_healthy
@@ -194,3 +208,4 @@ volumes:
   pushgateway_data:
   caddy_data:
   caddy_config:
+  redis_data:
