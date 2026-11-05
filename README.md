@@ -167,12 +167,18 @@ chmod +x scripts/nss-deploy.sh
 ```
 
 O menu separa verificação, build, PostgreSQL/roles, Redis/Flyway/Alembic/Java,
-catálogos, pipeline, frontend/Caddy/observabilidade e diagnóstico. Cada etapa
+catálogos, ingestão CNES nacional com checkpoint, pipeline, frontend/Caddy/observabilidade e diagnóstico. Cada etapa
 mostra início, fim e duração; a opção de diagnóstico exibe `docker compose ps`,
 portas locais, consumo dos containers, resolução interna `java -> redis`,
 `PONG` do Redis, status HTTP do Caddy e logs recentes. A execução nacional da
 pipeline exige confirmação digitando `SIM` e não trunca tabelas nem remove
 volumes automaticamente.
+
+A opção de ingestão CNES solicita o número de workers e o nome do checkpoint.
+O arquivo fica no volume `pipeline_data` e pode ser reutilizado após uma
+interrupção; o catálogo IBGE e o escopo nacional são validados antes das
+requisições. Execute essa opção antes da pipeline SINAN quando a publicação
+precisar de cobertura territorial nacional.
 
 Esta seção é o procedimento operacional para subir a NSS do zero no host de
 deployment. Execute os comandos a partir de `NSS-deployment`. Os quatro

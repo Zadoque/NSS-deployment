@@ -87,6 +87,21 @@ run_pipeline() {
   step "pipeline ${disease}/${year}" docker compose --profile jobs run --rm pipeline --disease "${disease}" --year "${year}" --all-brazil
 }
 
+run_cnes() {
+  local workers checkpoint
+  read -r -p 'Workers CNES [8]: ' workers
+  workers=${workers:-8}
+  read -r -p 'Checkpoint [cnes-national-ibge-2025.json]: ' checkpoint
+  checkpoint=${checkpoint:-cnes-national-ibge-2025.json}
+  step 'CNES nacional' docker compose --profile jobs run --rm --entrypoint python pipeline \
+    -m app.pipeline.run_cnes \
+    --catalog-root /data/reference/ibge \
+    --all-brazil \
+    --workers "${workers}" \
+    --continue-on-error \
+    --checkpoint "/data/checkpoints/${checkpoint}"
+}
+
 start_web() {
   step 'frontend, Caddy, Prometheus e Grafana' docker compose up -d frontend caddy prometheus grafana
   step 'smoke Caddy' curl -fsSI http://127.0.0.1:"${NSS_HTTP_PORT:-8080}"/
@@ -122,10 +137,11 @@ NSS deployment
   3) subir PostgreSQL e provisionar roles
   4) subir Redis, Flyway 0001, Alembic e Java
   5) verificar catálogo IBGE e lotes CNES
-  6) executar pipeline nacional (confirmação explícita)
-  7) subir frontend, Caddy e observabilidade
-  8) status e diagnóstico
-  9) sair
+  6) ingerir CNES nacional com checkpoint
+  7) executar pipeline nacional (confirmação explícita)
+  8) subir frontend, Caddy e observabilidade
+  9) status e diagnóstico
+  10) sair
 EOF
     read -r -p 'Escolha: ' choice
     case "${choice}" in
@@ -134,10 +150,11 @@ EOF
       3) start_database ;;
       4) start_java ;;
       5) catalog_status ;;
-      6) read -r -p 'Confirma execução nacional da pipeline? [digite SIM]: ' confirm; [[ "${confirm}" == SIM ]] && run_pipeline || log 'Pipeline não executada.' ;;
-      7) start_web ;;
-      8) status; diagnose ;;
-      9) return 0 ;;
+      6) run_cnes ;;
+      7) read -r -p 'Confirma execução nacional da pipeline? [digite SIM]: ' confirm; [[ "${confirm}" == SIM ]] && run_pipeline || log 'Pipeline não executada.' ;;
+      8) start_web ;;
+      9) status; diagnose ;;
+      10) return 0 ;;
       *) log 'Opção inválida.' ;;
     esac
   done
