@@ -61,16 +61,23 @@ O repositório Java poderá permanecer no repositório atual com acesso de colab
                   Java/Flyway      Python/Alembic
                                        ^
                                        |
-                             Gold Serving V1
-                                       ^
-                                       |
-PySUS/SINAN -> Bronze -> Silver -----+----- Gold Ad Hoc
-                         ^
-                         |
-                       CNES
+PySUS/SINAN -> Bronze -> Silver -----+----> Gold Ad Hoc
+                                      |
+                                      +----> Gold Serving V1
+                                       ^          ^
+                                       |          |
+                         IBGE/reference catalog  CNES
+                         identidade, escopo      unidades notificadoras
 ```
 
 O frontend nunca acessa diretamente o PostgreSQL ou os Parquets. A API Java é o único caminho síncrono oficial da aplicação. O pipeline roda fora do caminho crítico de consulta e publica dados já processados.
+
+O IBGE é uma dependência territorial da pipeline: fornece a identidade
+canônica dos municípios, UFs, códigos de sete dígitos, seleção de escopo e a
+release territorial usada para validar a publicação. O CNES é uma dependência
+de unidades notificadoras: relaciona `ID_UNIDADE` do SINAN ao estabelecimento
+e permite derivar o distrito/bairro da notificação. Ambos participam da Gold;
+nenhum deles é acessado diretamente pelo frontend ou pelo Java em runtime.
 
 Além do fato analítico, a pipeline mantém `analytics.pipeline_current_publication`, uma tabela de controle com a chave doença/ano/município, `batch_id`, `source_extracted_timestamp` e `added_at`. O Java usa essa tabela por igualdade com o lote publicado; assim, consultas e metadados exibidos no frontend pertencem exatamente à publicação corrente, sem depender de `MAX()`.
 
