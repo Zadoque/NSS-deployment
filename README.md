@@ -58,7 +58,7 @@ O repositório Java poderá permanecer no repositório atual com acesso de colab
                     sessões/rate-limit  /        \
                                       v          v
                               tabelas app    analytics.*
-                              Java/Flyway  Python/Alembic
+                              schema app   schema analytics
                                        ^
                                        |
 PySUS/SINAN -> Bronze -> Silver -----+----> Gold Ad Hoc
@@ -166,7 +166,7 @@ chmod +x scripts/nss-deploy.sh
 ./scripts/nss-deploy.sh
 ```
 
-O menu separa verificação, build, PostgreSQL/roles, Redis/Flyway/Alembic/Java,
+O menu separa verificação, build, PostgreSQL/roles, Redis/schema central/Java,
 catálogos, ingestão CNES nacional com checkpoint, pipeline, frontend/Caddy/observabilidade e diagnóstico. Cada etapa
 mostra início, fim e duração; a opção de diagnóstico exibe `docker compose ps`,
 portas locais, consumo dos containers, resolução interna `java -> redis`,
@@ -225,9 +225,9 @@ um segredo aleatório com pelo menos 32 bytes. `POSTGRES_ADMIN_PASSWORD`,
 versionados nem colados em comandos gravados no histórico do shell.
 
 O arquivo também separa as credenciais por responsabilidade: `APP_RUNTIME_*`
-é usado pelo Java em execução, `APP_MIGRATOR_*` pelo Flyway,
+é usado pelo Java em execução, `APP_MIGRATOR_*` pelo job de schema,
 `ANALYTICS_READER_*` pelo Java para consultas, `ANALYTICS_WRITER_*` pela
-pipeline e `ANALYTICS_MIGRATOR_*` pelo Alembic. Nenhum serviço deve usar a
+pipeline e `ANALYTICS_MIGRATOR_*` pelo job de schema. Nenhum serviço deve usar a
 credencial administrativa do PostgreSQL.
 
 Para gerar um segredo JWT:
@@ -290,28 +290,18 @@ conexão administrativa autorizada.
 
 ### 5. Aplicar os schemas
 
-O serviço `migrate` usa exclusivamente `ANALYTICS_MIGRATOR_*` para executar o
-Alembic. O Java usa `APP_MIGRATOR_*` para executar o Flyway ao iniciar:
+O serviço `migrate` aplica a versão 0001 mantida em `NSS-database` aos bancos operacional e analítico. Construa a imagem central e execute o provisionamento antes da migração:
 
 ```bash
+docker build -t nss-database:0001 ../NSS-database
+docker compose run --rm db-permissions
 docker compose run --rm migrate
 docker compose up -d java
-docker compose logs --tail=100 java
 ```
 
-O serviço `redis` é obrigatório para o Java. Ele usa o volume `redis_data` com
-Append Only File (AOF), não fica publicado em nenhuma porta do host e é
-resolvido internamente como `redis:6379`. O Java não persiste refresh sessions
-nem janelas de rate limit no PostgreSQL ou somente na RAM. Em banco novo, o
-Flyway executa `V0001__initial_schema.sql` no banco operacional `nss`; essa
-migration consolidada é o estado inicial atual e não cria a antiga tabela
-`refresh_sessions`.
+O job valida a versão e o checksum antes de reaplicar. A versão inicial destina-se a bancos novos e rejeita schemas legados sem histórico central. A migração de dados existentes exige procedimento próprio e validação prévia.
 
-O Compose do deployment usa o mesmo servidor PostgreSQL com dois bancos
-separados: `POSTGRES_APP_DB` (`nss`) para as tabelas operacionais do Java e
-`POSTGRES_DB` (`situacao_saude`) para o schema `analytics` publicado pela
-pipeline. O Flyway administra o banco do Java; o Alembic administra o banco
-analítico. As roles de migration não são usadas para atender requisições.
+O Compose usa `POSTGRES_APP_DB` para as tabelas operacionais e `POSTGRES_DB` para os schemas analíticos. As roles de migração não atendem requisições. O Redis de sessões e o Redis de limites usam volumes persistentes separados. O segundo tem limite de memória configurável por `AUTH_RATE_LIMIT_REDIS_MAXMEMORY` e política `noeviction`. Configure `AUTH_RATE_LIMIT_KEY_SECRET` com segredo próprio e `AUTH_TRUSTED_PROXY_REGEX` apenas para endereços de proxies confiáveis.
 
 ### 6. Preparar e verificar o catálogo IBGE
 
@@ -637,7 +627,7 @@ Os gates completos da release estão em `documentacao/Section-10-NSS-1-0-Escopo-
 1. Componentes permanecem em repositórios independentes.
 2. Java é a fronteira síncrona oficial do frontend.
 3. Python prepara/publica dados; não atende consultas do usuário.
-4. PostgreSQL é a persistência compartilhada, com responsabilidades separadas entre Flyway e Alembic.
+4. PostgreSQL é a persistência compartilhada, com schemas mantidos no repositório NSS-database.
 5. Parquet continua sendo parte da rastreabilidade da pipeline.
 6. Secrets nunca são versionados.
 7. Zero, ausência de registro e ausência de cobertura são estados diferentes.

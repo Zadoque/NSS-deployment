@@ -1,0 +1,18 @@
+name: Deployment validation
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  compose:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Validar Compose
+        run: docker compose --env-file .env.example config --quiet
+      - name: Validar sintaxe do menu operacional
+        run: bash -n scripts/nss-deploy.sh
+      - name: Validar IP encaminhado pelo proxy
+        run: tests/proxy-forwarding.sh

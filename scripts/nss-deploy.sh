@@ -51,9 +51,13 @@ check_prerequisites() {
 }
 
 build_images() {
+  local frontend_repo="../NSS-front-end" pipeline_repo="../NSS-pipeline"
+  [[ -d "$frontend_repo" ]] || frontend_repo="../nss-front-end"
+  [[ -d "$pipeline_repo" ]] || pipeline_repo="../nss-pipeline"
+  step 'imagem do banco central' docker build -t "${NSS_DATABASE_IMAGE:-nss-database:0001}" ../NSS-database
   step 'imagem Java' docker build -t "${NSS_JAVA_IMAGE:-nss-java:local}" ../Site-Sala-de-Situa-o-de-Saude-Java
-  step 'imagem frontend' docker build --build-arg VITE_USE_MOCKS=false --build-arg VITE_API_BASE_URL= -t "${NSS_FRONTEND_IMAGE:-nss-frontend:local}" ../NSS-front-end
-  step 'imagem pipeline' docker build -t "${NSS_PIPELINE_IMAGE:-nss-pipeline:local}" ../NSS-pipeline
+  step 'imagem frontend' docker build --build-arg VITE_USE_MOCKS=false --build-arg VITE_API_BASE_URL= -t "${NSS_FRONTEND_IMAGE:-nss-frontend:local}" "$frontend_repo"
+  step 'imagem pipeline' docker build -t "${NSS_PIPELINE_IMAGE:-nss-pipeline:local}" "$pipeline_repo"
 }
 
 start_database() {
@@ -63,10 +67,11 @@ start_database() {
 }
 
 start_java() {
-  step 'Redis persistente' docker compose up -d redis
+  step 'Redis persistente' docker compose up -d redis redis-rate-limit
   step 'health Redis' docker compose exec -T redis redis-cli ping
-  step 'schema analítico Alembic' docker compose run --rm migrate
-  step 'Java e Flyway 0001' docker compose up -d java
+  step 'health Redis de limites' docker compose exec -T redis-rate-limit redis-cli ping
+  step 'schema central NSS 0001' docker compose run --rm migrate
+  step 'Java'  docker compose up -d java
   step 'health Java' bash -c 'for i in {1..30}; do curl -fsS http://127.0.0.1:8080/actuator/health >/dev/null 2>&1 && return 0; sleep 2; done; docker compose logs --tail=100 java; return 1'
 }
 
@@ -135,7 +140,7 @@ NSS deployment
   1) verificar pré-requisitos e Compose
   2) construir imagens Java/frontend/pipeline
   3) subir PostgreSQL e provisionar roles
-  4) subir Redis, Flyway 0001, Alembic e Java
+  4) subir Redis, schema central e Java
   5) verificar catálogo IBGE e lotes CNES
   6) ingerir CNES nacional com checkpoint
   7) executar pipeline nacional (confirmação explícita)
