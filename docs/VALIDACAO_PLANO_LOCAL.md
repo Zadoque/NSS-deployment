@@ -27,6 +27,8 @@ pois já existiam antes desta etapa.
 | Carga Dengue 2024 | Parquet nacional e publicação em banco descartável | 6.564.924 linhas de entrada; 6.177.144 resolvidas; 5.571 municípios |
 | API concorrente | Endpoint autenticado local, 500 e 1.000 requisições | 100% HTTP 200; p95 de 3,88 s e 4,94 s, respectivamente |
 | HTTP estático | Caddy local, 10.000 requisições concorrentes controladas | 100% HTTP 200; p95 de 443 ms |
+| Frontend | `npm run build` e `npm run lint` | Aprovados; bundle produzido (aviso não bloqueante de chunk acima de 500 kB) |
+| Pipeline | `nix develop --command python -m pytest -q` | 748 passaram, 23 ignorados, 1 warning de dependência |
 | Deployment TTY | `bash -n scripts/nss-deploy.sh` e inspeção do fluxo `up` | Sintaxe válida; fluxo sobe DB, três Redis, migration, Java, web e status |
 
 Os artefatos detalhados da carga, paridade e dimensionamento estão no diretório local
