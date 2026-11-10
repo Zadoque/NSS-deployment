@@ -29,6 +29,7 @@ pois já existiam antes desta etapa.
 | HTTP estático | Caddy local, 10.000 requisições concorrentes controladas | 100% HTTP 200; p95 de 443 ms |
 | Frontend | `npm run build` e `npm run lint` | Aprovados; bundle produzido (aviso não bloqueante de chunk acima de 500 kB) |
 | Frontend QA | `npx playwright test --list` | 51 testes em 10 arquivos descobertos após tornar o módulo de autenticação seguro durante o carregamento fora do browser |
+| Frontend smoke visual | Navegação local em `http://127.0.0.1:8088/` | Homepage carregou com título, links de login/mapa, missão e aviso explícito de cobertura parcial |
 | Pipeline | `nix develop --command python -m pytest -q` | 748 passaram, 23 ignorados, 1 warning de dependência |
 | Dependências frontend | `npm audit --omit=dev --audit-level=high` | 0 vulnerabilidades info/low/moderate/high/critical no snapshot local |
 | Higiene de diff | `git diff --check` nos cinco repositórios | Sem erro de whitespace nos diffs presentes |
