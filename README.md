@@ -39,35 +39,37 @@ O repositório Java poderá permanecer no repositório atual com acesso de colab
 
 ## Arquitetura da NSS 1.0
 
-```text
-                         INTERNET
-                            |
-                    ngrok HTTPS (temporário)
-                            |
-                            v
-                         Caddy
-                       /       \
-                      v         v
-                 Frontend     /api/*
-                                |
-                                v
-                          Java/Spring Boot
-                           /            \
-                          v              v
-                    Redis persistente  PostgreSQL
-                    sessões/rate-limit  /        \
-                                      v          v
-                              tabelas app    analytics.*
-                              schema app   schema analytics
-                                       ^
-                                       |
-PySUS/SINAN -> Bronze -> Silver -----+----> Gold Ad Hoc
-                                      |
-                                      +----> Gold Serving V1
-                                       ^          ^
-                                       |          |
-                         IBGE/reference catalog  CNES
-                         identidade, escopo      unidades notificadoras
+```mermaid
+flowchart LR
+    Internet([Internet]) --> Ngrok[ngrok HTTPS<br/>temporário]
+    Ngrok --> Caddy[Caddy<br/>127.0.0.1:8080]
+    Caddy --> Front[Frontend estático]
+    Caddy -->|/api/*| Java[Java / Spring Boot]
+
+    Java -->|JPA operacional| App[(PostgreSQL<br/>public/app)]
+    Java -->|JDBC somente leitura| Analytics[(PostgreSQL<br/>analytics)]
+    Java --> Sessions[(Redis persistente<br/>refresh sessions)]
+    Java --> Limits[(Redis rate-limit<br/>noeviction)]
+    Java --> Cache[(Redis analytics cache<br/>allkeys-lfu)]
+
+    subgraph Jobs[Pipeline sob demanda — profile jobs]
+        Sources[PySUS / SINAN] --> Bronze[Bronze]
+        Bronze --> Silver[Silver]
+        Silver --> AdHoc[Gold Ad Hoc]
+        Silver --> Serving[Gold Serving V1]
+        IBGE[IBGE release/catalog] --> Serving
+        CNES[CNES batch COMPLETED] --> Serving
+        Serving --> Analytics
+        Serving --> Push[Pushgateway]
+    end
+
+    Prom[Prometheus] --> Push
+    Grafana[Grafana] --> Prom
+    Migrate[NSS-database<br/>roles + migration 0001] --> App
+    Migrate --> Analytics
+    Deploy[nss-deploy.sh<br/>pré-voo + estados] --> Migrate
+    Deploy --> Jobs
+    Deploy --> Caddy
 ```
 
 O frontend nunca acessa diretamente o PostgreSQL ou os Parquets. A API Java é o único caminho síncrono oficial da aplicação. O pipeline roda fora do caminho crítico de consulta e publica dados já processados.
