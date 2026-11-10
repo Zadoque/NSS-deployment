@@ -3,10 +3,30 @@ set -Eeuo pipefail
 
 DEPLOY_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "${DEPLOY_ROOT}"
+STATE_FILE="${NSS_DEPLOY_STATE_FILE:-${DEPLOY_ROOT}/.nss-deploy-state}"
+
+REPO_DATABASE="${NSS_DATABASE_REPO:-${DEPLOY_ROOT}/../NSS-database}"
+REPO_JAVA="${NSS_JAVA_REPO:-${DEPLOY_ROOT}/../Site-Sala-de-Situa-o-de-Saude-Java}"
+REPO_FRONTEND="${NSS_FRONTEND_REPO:-${DEPLOY_ROOT}/../nss-front-end}"
+REPO_PIPELINE="${NSS_PIPELINE_REPO:-${DEPLOY_ROOT}/../nss-pipeline}"
 
 timestamp() { date '+%Y-%m-%d %H:%M:%S'; }
 log() { printf '[%s] %s\n' "$(timestamp)" "$*"; }
 die() { log "ERRO: $*" >&2; exit 1; }
+
+state_has() { [[ -f "$STATE_FILE" ]] && grep -Fxq "$1" "$STATE_FILE"; }
+state_mark() { mkdir -p "$(dirname "$STATE_FILE")"; grep -Fxq "$1" "$STATE_FILE" 2>/dev/null || printf '%s\n' "$1" >> "$STATE_FILE"; }
+state_reset() { rm -f "$STATE_FILE"; log "Estado removido: $STATE_FILE"; }
+
+require_repositories() {
+  local missing=()
+  for pair in "NSS-database:${REPO_DATABASE}" "Java:${REPO_JAVA}" "frontend:${REPO_FRONTEND}" "pipeline:${REPO_PIPELINE}"; do
+    local name=${pair%%:*} path=${pair#*:}
+    [[ -d "$path" ]] || missing+=("${name} em ${path}")
+  done
+  ((${#missing[@]} == 0)) || die "repositórios ausentes: ${missing[*]}. Defina NSS_*_REPO ou monte os diretórios esperados."
+  log "Repositórios encontrados: database=${REPO_DATABASE}, java=${REPO_JAVA}, frontend=${REPO_FRONTEND}, pipeline=${REPO_PIPELINE}"
+}
 
 require_env() {
   [[ -f .env ]] || die '.env não existe; copie .env.example e preencha os segredos.'
@@ -47,23 +67,22 @@ check_prerequisites() {
   docker compose version >/dev/null || die 'Docker Compose v2 não encontrado'
   require_env
   docker compose config --quiet
+  require_repositories
   log 'Compose válido; imagens e variáveis obrigatórias estão presentes.'
 }
 
 build_images() {
-  local frontend_repo="../NSS-front-end" pipeline_repo="../NSS-pipeline"
-  [[ -d "$frontend_repo" ]] || frontend_repo="../nss-front-end"
-  [[ -d "$pipeline_repo" ]] || pipeline_repo="../nss-pipeline"
-  step 'imagem do banco central' docker build -t "${NSS_DATABASE_IMAGE:-nss-database:0001}" ../NSS-database
-  step 'imagem Java' docker build -t "${NSS_JAVA_IMAGE:-nss-java:local}" ../Site-Sala-de-Situa-o-de-Saude-Java
-  step 'imagem frontend' docker build --build-arg VITE_USE_MOCKS=false --build-arg VITE_API_BASE_URL= -t "${NSS_FRONTEND_IMAGE:-nss-frontend:local}" "$frontend_repo"
-  step 'imagem pipeline' docker build -t "${NSS_PIPELINE_IMAGE:-nss-pipeline:local}" "$pipeline_repo"
+  step 'imagem do banco central' docker build -t "${NSS_DATABASE_IMAGE:-nss-database:0001}" "$REPO_DATABASE"
+  step 'imagem Java' docker build -t "${NSS_JAVA_IMAGE:-nss-java:local}" "$REPO_JAVA"
+  step 'imagem frontend' docker build --build-arg VITE_USE_MOCKS=false --build-arg VITE_API_BASE_URL= -t "${NSS_FRONTEND_IMAGE:-nss-frontend:local}" "$REPO_FRONTEND"
+  step 'imagem pipeline' docker build -t "${NSS_PIPELINE_IMAGE:-nss-pipeline:local}" "$REPO_PIPELINE"
 }
 
 start_database() {
   step 'PostgreSQL' docker compose up -d db
   step 'aguardar PostgreSQL' docker compose exec -T db pg_isready -U "${POSTGRES_ADMIN_USER}" -d "${POSTGRES_DB}"
   step 'roles PostgreSQL' docker compose run --rm db-permissions
+  step 'auditar roles PostgreSQL' docker compose exec -T db psql -U "${POSTGRES_ADMIN_USER}" -d "${POSTGRES_DB}" -v ON_ERROR_STOP=1 -c "SELECT rolname FROM pg_roles WHERE rolname IN ('${NSS_APP_RUNTIME_USER}','${NSS_APP_MIGRATOR_USER}','${NSS_ANALYTICS_READER_USER}','${NSS_ANALYTICS_WRITER_USER}') ORDER BY rolname;"
 }
 
 start_java() {
@@ -88,11 +107,11 @@ start_java() {
 
 bootstrap_tty() {
   log 'Bootstrap completo em modo TTY'
-  check_prerequisites
-  build_images
-  start_database
-  start_java
-  start_web
+  check_prerequisites; state_mark prerequisites
+  if ! state_has images; then build_images; state_mark images; else log 'SKIP images: estado concluído'; fi
+  if ! state_has database; then start_database; state_mark database; else log 'SKIP database: estado concluído'; fi
+  if ! state_has java; then start_java; state_mark java; else log 'SKIP java: estado concluído'; fi
+  if ! state_has web; then start_web; state_mark web; else log 'SKIP web: estado concluído'; fi
   status
 }
 
@@ -134,7 +153,7 @@ start_web() {
 }
 
 status() {
-  docker compose ps
+  docker compose ps || log 'Não foi possível consultar os serviços; verifique Docker/Compose e o .env.'
   printf '\nPortas locais:\n'
   ss -lnt 2>/dev/null | awk 'NR==1 || /:8080|:3000|:9090|:9091|:6379/' || true
   printf '\nRecursos:\n'
@@ -153,10 +172,17 @@ diagnose() {
   docker compose logs --tail=40 java redis redis-rate-limit redis-analytics caddy frontend
 }
 
-if [[ "${1:-}" == "up" ]]; then
+show_state() {
+  printf 'Arquivo de estado: %s\n' "$STATE_FILE"
+  if [[ -f "$STATE_FILE" ]]; then sed 's/^/  [concluído] /' "$STATE_FILE"; else echo '  nenhum estado persistido'; fi
+}
+
+if [[ "${1:-}" == "up" || "${1:-}" == "resume" ]]; then
   bootstrap_tty
   exit 0
 fi
+if [[ "${1:-}" == "status" ]]; then show_state; status; exit 0; fi
+if [[ "${1:-}" == "reset-state" ]]; then state_reset; exit 0; fi
 
 menu() {
   while true; do
@@ -172,7 +198,9 @@ NSS deployment
   7) executar pipeline nacional (confirmação explícita)
   8) subir frontend, Caddy e observabilidade
   9) status e diagnóstico
-  10) sair
+  10) mostrar máquina de estados
+  11) limpar estado persistido
+  12) sair
 EOF
     read -r -p 'Escolha: ' choice
     case "${choice}" in
@@ -185,7 +213,9 @@ EOF
       7) read -r -p 'Confirma execução nacional da pipeline? [digite SIM]: ' confirm; [[ "${confirm}" == SIM ]] && run_pipeline || log 'Pipeline não executada.' ;;
       8) start_web ;;
       9) status; diagnose ;;
-      10) return 0 ;;
+      10) show_state ;;
+      11) read -r -p 'Digite LIMPAR para confirmar: ' confirm; [[ "$confirm" == LIMPAR ]] && state_reset || log 'Estado preservado.' ;;
+      12) return 0 ;;
       *) log 'Opção inválida.' ;;
     esac
   done

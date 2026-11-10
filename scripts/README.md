@@ -1,0 +1,108 @@
+# `nss-deploy.sh`
+
+O `nss-deploy.sh` é o orquestrador TTY do NSS. Ele prepara as imagens, sobe a
+topologia Compose na ordem correta e valida cada dependência antes de avançar.
+Não substitui o provisionamento do sistema operacional: Docker, Docker Compose,
+rede, discos e segredos devem existir previamente.
+
+## Máquina de estados
+
+```mermaid
+stateDiagram-v2
+    [*] --> prerequisites
+    prerequisites --> images: Docker/.env/Compose/repos válidos
+    images --> database: quatro imagens construídas
+    database --> java: PostgreSQL, roles e grants auditados
+    java --> web: Redis, migration e Java saudáveis
+    web --> ready: Caddy smoke test
+    ready --> [*]
+    prerequisites --> [*]: falha fail-fast
+    images --> [*]: falha de build
+    database --> [*]: falha de banco/roles
+    java --> [*]: falha de Redis/migration/health
+    web --> [*]: falha de proxy
+```
+
+Cada estado concluído é gravado em `.nss-deploy-state`, que é local, temporário
+e ignorado pelo Git. Um `up` ou `resume` repete somente os estados ainda não
+marcados. O estado não substitui healthchecks: pré-requisitos e Compose são
+validados em toda execução.
+
+## Uso
+
+```bash
+# Subida inicial ou retomada após falha
+./scripts/nss-deploy.sh up
+./scripts/nss-deploy.sh resume
+
+# Inspecionar estado e serviços sem alterar o estado persistido
+./scripts/nss-deploy.sh status
+
+# Limpar o checkpoint depois de recriar volumes ou trocar imagens
+./scripts/nss-deploy.sh reset-state
+```
+
+O menu interativo continua disponível sem argumento. Ele oferece as mesmas
+etapas individualmente, diagnóstico e operações de estado.
+
+## Pré-requisitos e mensagens de erro
+
+O script verifica:
+
+- `docker` e Docker Compose v2;
+- `.env` e todas as variáveis obrigatórias;
+- `docker compose config`;
+- os quatro repositórios de build.
+
+Os caminhos padrão são diretórios irmãos de `nss-deployment`:
+
+```text
+../NSS-database
+../Site-Sala-de-Situa-o-de-Saude-Java
+../nss-front-end
+../nss-pipeline
+```
+
+É possível apontar caminhos diferentes sem editar o script:
+
+```bash
+export NSS_DATABASE_REPO=/srv/nss/NSS-database
+export NSS_JAVA_REPO=/srv/nss/java
+export NSS_FRONTEND_REPO=/srv/nss/frontend
+export NSS_PIPELINE_REPO=/srv/nss/pipeline
+```
+
+Quando algo não existe, a execução termina com o caminho exato, por exemplo:
+
+```text
+ERRO: repositórios ausentes: frontend em /srv/nss/frontend
+```
+
+O script não pergunta nem inventa valores para segredos. Variáveis ausentes
+causam encerramento antes de iniciar containers.
+
+## Banco e permissões
+
+`start_database` sobe o PostgreSQL, aguarda `pg_isready`, executa o serviço
+`db-permissions` e consulta as quatro roles esperadas. A migration central é
+aplicada depois, pelo serviço `migrate`, antes do Java. O script não concede
+permissões de arquivos no host ao Caddy/Nginx: permissões de proxy são as
+definidas pela imagem e pelo Compose, e devem ser auditadas no ambiente alvo.
+
+## Idempotência e recuperação
+
+`docker compose up`, o provisionamento de roles e a migration foram desenhados
+para serem repetíveis. O checkpoint evita rebuild e reinício de etapas já
+concluídas. Se uma etapa falhar, corrija a causa e execute `resume`; para forçar
+uma nova avaliação de tudo, use `reset-state` e depois `up`.
+
+O script não implementa rollback automático. Rollback operacional deve usar
+imagem anterior, backup aprovado e procedimento de restauração documentado em
+`../docs/VALIDACAO_PLANO_LOCAL.md`.
+
+## Limites
+
+O modo `up` não executa ingestão CNES nem pipeline epidemiológica automaticamente.
+Essas operações continuam explícitas no menu para evitar cargas nacionais
+acidentais. Também não cria Docker no sistema operacional, certificados TLS,
+DNS ou credenciais.
