@@ -270,14 +270,14 @@ run_cnes() {
 }
 
 start_web() {
-  step 'frontend, Caddy, Prometheus e Grafana' docker compose up -d frontend caddy prometheus grafana
+  step 'frontend, Caddy, Prometheus, Pushgateway e Grafana' docker compose up -d frontend caddy prometheus pushgateway grafana
   step 'smoke Caddy' curl -fsSI http://127.0.0.1:"${NSS_HTTP_PORT:-8080}"/
 }
 
 status() {
   docker compose ps || log 'Não foi possível consultar os serviços; verifique Docker/Compose e o .env.'
   printf '\nPortas locais:\n'
-  ss -lnt 2>/dev/null | awk 'NR==1 || /:8080|:3000|:9090|:9091|:6379/' || true
+  ss -lnt 2>/dev/null | awk -v ports=":${NSS_HTTP_PORT:-8080}|:${NSS_GRAFANA_PORT:-3000}|:${NSS_PROMETHEUS_PORT:-9090}|:${NSS_PUSHGATEWAY_PORT:-9091}|:6379" 'NR==1 || $0 ~ ports' || true
   printf '\nRecursos:\n'
   docker stats --no-stream --format 'table {{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}' 2>/dev/null || true
 }
