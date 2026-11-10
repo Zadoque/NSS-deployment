@@ -68,6 +68,10 @@ deploy real, substitua no arquivo externo do servidor `MAIL_HOST`, `MAIL_PORT`,
 STARTTLS habilitado. Nunca coloque essa senha em `.env.example`, Git ou na linha
 de comando.
 
+No Gmail, basta ativar a autenticação de dois fatores na conta Google e gerar
+uma senha de app nas configurações de segurança. Use o e-mail da conta como
+`MAIL_USERNAME`/`MAIL_FROM` e a senha de app como `MAIL_PASSWORD`.
+
 ## Uso
 
 ```bash

@@ -303,7 +303,10 @@ Em homologação/produção, altere obrigatoriamente no arquivo externo do servi
 (`/etc/nss/deployment.env`, modo `0600`): `MAIL_HOST`, `MAIL_PORT`, `MAIL_FROM`,
 `MAIL_USERNAME`, `MAIL_PASSWORD` (senha de aplicativo, nunca a senha pessoal),
 `MAIL_SMTP_AUTH=true` e `MAIL_SMTP_STARTTLS=true`. Também ajuste
-`FIRST_ACCESS_FRONTEND_URL` para o domínio público. Os valores locais não podem
+`FIRST_ACCESS_FRONTEND_URL` para o domínio público. Para usar Gmail, basta uma
+conta Google com autenticação de dois fatores ativa e uma senha de app gerada
+nas configurações de segurança da conta. Use o endereço da conta em
+`MAIL_USERNAME`/`MAIL_FROM` e a senha de app em `MAIL_PASSWORD`. Os valores locais não podem
 ser reutilizados em homologação ou produção.
 
 ### 3. Construir as imagens
