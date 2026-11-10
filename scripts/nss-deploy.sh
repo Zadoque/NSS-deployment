@@ -167,7 +167,7 @@ start_java() {
     [[ -n "$container" ]] || { docker compose logs --tail=100 java; return 1; }
     for i in {1..30}; do
       status=$(docker inspect --format "{{if .State.Health}}{{.State.Health.Status}}{{else}}{{.State.Status}}{{end}}" "$container")
-      [[ "$status" == healthy || "$status" == running ]] && return 0
+      [[ "$status" == healthy || "$status" == running ]] && exit 0
       sleep 2
     done
     docker compose logs --tail=100 java
