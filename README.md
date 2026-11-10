@@ -632,3 +632,19 @@ Os gates completos da release estão em `documentacao/Section-10-NSS-1-0-Escopo-
 6. Secrets nunca são versionados.
 7. Zero, ausência de registro e ausência de cobertura são estados diferentes.
 8. Dados restritos futuros do CIEVS deverão seguir minimização e isolamento próprios; esse problema não é antecipado artificialmente na V1.0.
+
+## Arquitetura e operação TTY
+
+```mermaid
+flowchart LR
+  U[Usuário] --> C[Caddy]
+  C --> F[Frontend]
+  C --> J[Java]
+  J --> DB[(PostgreSQL)]
+  J --> RS[(Redis sessões)]
+  J --> RL[(Redis rate limit)]
+  J --> RC[(Redis analytics cache)]
+  PL[Pipeline job] --> DB
+```
+
+`compose.yaml` define a stack; `caddy/` é a fronteira HTTP; `scripts/nss-deploy.sh` automatiza imagens, banco, roles, Redis, Java, frontend e observabilidade. Em servidor somente TTY, use `./scripts/nss-deploy.sh up`. `runbooks/`, `contracts/` e `observability/` documentam rollback, contratos e métricas.

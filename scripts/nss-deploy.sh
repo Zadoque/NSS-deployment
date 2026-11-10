@@ -67,12 +67,23 @@ start_database() {
 }
 
 start_java() {
-  step 'Redis persistente' docker compose up -d redis redis-rate-limit
+  step 'Redis persistente' docker compose up -d redis redis-rate-limit redis-analytics
   step 'health Redis' docker compose exec -T redis redis-cli ping
   step 'health Redis de limites' docker compose exec -T redis-rate-limit redis-cli ping
+  step 'health Redis de analytics' docker compose exec -T redis-analytics redis-cli ping
   step 'schema central NSS 0001' docker compose run --rm migrate
   step 'Java'  docker compose up -d java
   step 'health Java' bash -c 'for i in {1..30}; do curl -fsS http://127.0.0.1:8080/actuator/health >/dev/null 2>&1 && return 0; sleep 2; done; docker compose logs --tail=100 java; return 1'
+}
+
+bootstrap_tty() {
+  log 'Bootstrap completo em modo TTY'
+  check_prerequisites
+  build_images
+  start_database
+  start_java
+  start_web
+  status
 }
 
 catalog_status() {
@@ -129,8 +140,13 @@ diagnose() {
   log 'HTTP local'
   curl -fsS -o /dev/null -w 'Caddy HTTP %{http_code}, %{time_total}s\n' http://127.0.0.1:"${NSS_HTTP_PORT:-8080}"/ || true
   log 'Logs recentes'
-  docker compose logs --tail=40 java redis caddy frontend
+  docker compose logs --tail=40 java redis redis-rate-limit redis-analytics caddy frontend
 }
+
+if [[ "${1:-}" == "up" ]]; then
+  bootstrap_tty
+  exit 0
+fi
 
 menu() {
   while true; do
