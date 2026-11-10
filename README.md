@@ -635,6 +635,11 @@ Os gates completos da release estão em `documentacao/Section-10-NSS-1-0-Escopo-
 
 ## Arquitetura e operação TTY
 
+O registro reproduzível da auditoria local do plano está em
+[`docs/VALIDACAO_PLANO_LOCAL.md`](docs/VALIDACAO_PLANO_LOCAL.md). Ele separa as
+evidências já obtidas dos cenários que exigem pré-produção e não devem ser
+interpretados como certificação de 100 mil usuários em uma máquina local.
+
 ```mermaid
 flowchart LR
   U[Usuário] --> C[Caddy]
