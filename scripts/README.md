@@ -139,8 +139,8 @@ Os caminhos padrão são diretórios irmãos de `nss-deployment`:
 ```text
 ../NSS-database
 ../Site-Sala-de-Situa-o-de-Saude-Java
-../nss-front-end
-../nss-pipeline
+../NSS-front-end
+../NSS-pipeline
 ```
 
 É possível apontar caminhos diferentes sem editar o script:

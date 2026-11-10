@@ -43,8 +43,8 @@ alterados por `NSS_*_REPO`:
 NSS-deployment/
 NSS-database/
 Site-Sala-de-Situa-o-de-Saude-Java/
-nss-front-end/
-nss-pipeline/
+NSS-front-end/
+NSS-pipeline/
 ```
 
 O Deployment não troca branches e não executa `git switch` ou `git pull`. Todos

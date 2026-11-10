@@ -8,8 +8,8 @@ ENV_FILE="${NSS_ENV_FILE:-/etc/nss/deployment.env}"
 
 REPO_DATABASE="${NSS_DATABASE_REPO:-${DEPLOY_ROOT}/../NSS-database}"
 REPO_JAVA="${NSS_JAVA_REPO:-${DEPLOY_ROOT}/../Site-Sala-de-Situa-o-de-Saude-Java}"
-REPO_FRONTEND="${NSS_FRONTEND_REPO:-${DEPLOY_ROOT}/../nss-front-end}"
-REPO_PIPELINE="${NSS_PIPELINE_REPO:-${DEPLOY_ROOT}/../nss-pipeline}"
+REPO_FRONTEND="${NSS_FRONTEND_REPO:-${DEPLOY_ROOT}/../NSS-front-end}"
+REPO_PIPELINE="${NSS_PIPELINE_REPO:-${DEPLOY_ROOT}/../NSS-pipeline}"
 
 timestamp() { date '+%Y-%m-%d %H:%M:%S'; }
 log() { printf '[%s] %s\n' "$(timestamp)" "$*"; }
@@ -285,6 +285,9 @@ show_state() {
 }
 
 if [[ "${1:-}" == "up" || "${1:-}" == "resume" ]]; then
+  # Carrega o ambiente no processo principal. As etapas executadas por `step`
+  # rodam em background e não conseguem devolver exports ao menu pai.
+  require_env
   bootstrap_tty
   exit 0
 fi
@@ -338,4 +341,8 @@ EOF
   done
 }
 
+# O menu também precisa manter as variáveis carregadas entre operações. Sem
+# isso, a opção 1 valida o ambiente em um processo filho e a opção 3 pode
+# encontrar POSTGRES_ADMIN_USER/POSTGRES_DB indefinidas.
+require_env
 menu
