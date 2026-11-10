@@ -31,6 +31,7 @@ pois já existiam antes desta etapa.
 | Frontend QA | CI com Chromium: `npm run test:builds` e `npx playwright test tests/auth-resilience.spec.ts --workers=1` | Aprovado; build snapshots e teste de resiliência executados no browser |
 | Frontend smoke visual | Navegação local em `http://127.0.0.1:8088/` | Homepage carregou com título, links de login/mapa, missão e aviso explícito de cobertura parcial |
 | Navegação RJ one-district | Vite mock + fluxo Sudeste → RJ → Rio de Janeiro → bairros → Voltar | Reproduziu a regressão, corrigiu o ramo demo e confirmou retorno direto à tela de municípios sem tela de distritos |
+| Frontend geográfico | `feat(geography)` | Enquadramento por bounds, zoom inicial responsivo, filtro de bairros por distrito e catálogo de cobertura versionados em `eb769a2e` |
 
 ### Reconciliação dos GeoJSON
 
