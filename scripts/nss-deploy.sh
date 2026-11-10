@@ -73,7 +73,17 @@ start_java() {
   step 'health Redis de analytics' docker compose exec -T redis-analytics redis-cli ping
   step 'schema central NSS 0001' docker compose run --rm migrate
   step 'Java'  docker compose up -d java
-  step 'health Java' bash -c 'for i in {1..30}; do curl -fsS http://127.0.0.1:8080/actuator/health >/dev/null 2>&1 && return 0; sleep 2; done; docker compose logs --tail=100 java; return 1'
+  step 'health Java' bash -c '
+    container=$(docker compose ps -q java)
+    [[ -n "$container" ]] || { docker compose logs --tail=100 java; return 1; }
+    for i in {1..30}; do
+      status=$(docker inspect --format "{{if .State.Health}}{{.State.Health.Status}}{{else}}{{.State.Status}}{{end}}" "$container")
+      [[ "$status" == healthy || "$status" == running ]] && return 0
+      sleep 2
+    done
+    docker compose logs --tail=100 java
+    return 1
+  '
 }
 
 bootstrap_tty() {
