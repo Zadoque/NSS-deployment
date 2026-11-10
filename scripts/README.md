@@ -37,8 +37,9 @@ confundir tempo de execução com quantidade de bytes ou linhas processadas.
 
 ## Arquivo de ambiente e secrets
 
-`.env.example` é somente um modelo versionado. Nunca copie valores reais para
-um repositório. No servidor, copie o modelo para `/etc/nss/deployment.env`,
+`.env.example` do repositório `NSS-deployment` é o único modelo que deve ser
+preenchido para o deploy integrado. Nunca copie valores reais para um
+repositório. No servidor, copie esse modelo para `/etc/nss/deployment.env`,
 preencha os valores e execute:
 
 ```bash
@@ -60,6 +61,11 @@ NSS_ENV_FILE="$PWD/.env" ./scripts/nss-deploy.sh up
 Os outros repositórios também fornecem `.env.local.test` para execução isolada.
 Altere apenas porta ocupada e caminhos dos repositórios quando necessário. Esses
 valores nunca devem ser usados em homologação ou produção.
+
+Não combine os `.env.example` de Java, Pipeline, frontend ou database no
+servidor. O Deployment compõe a configuração efetiva e injeta cada variável no
+serviço correto. Os arquivos de ambiente dos demais repositórios só são usados
+quando aquele componente é executado isoladamente fora do Compose integrado.
 
 O perfil local aponta para Mailpit e deixa SMTP sem autenticação. Antes de um
 deploy real, substitua no arquivo externo do servidor `MAIL_HOST`, `MAIL_PORT`,

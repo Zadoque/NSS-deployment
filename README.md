@@ -250,10 +250,16 @@ done
 
 ### 2. Configurar o ambiente e os segredos
 
+Para o deploy integrado, use exclusivamente o `.env.example` deste repositório
+(NSS-deployment). Em servidor, mantenha-o fora do Git:
+
 ```bash
-cp .env.example .env
-chmod 600 .env
+sudo install -o root -g root -m 600 .env.example /etc/nss/deployment.env
+sudoedit /etc/nss/deployment.env
 ```
+
+Em teste local, a cópia equivalente é `cp .env.local.test .env` e o comando
+deve usar `NSS_ENV_FILE="$PWD/.env"`.
 
 Edite `.env` e substitua todos os valores obrigatórios. `JWT_SECRET` deve ser
 um segredo aleatório com pelo menos 32 bytes. `POSTGRES_ADMIN_PASSWORD`,

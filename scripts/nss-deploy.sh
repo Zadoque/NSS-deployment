@@ -30,7 +30,7 @@ require_repositories() {
 }
 
 require_env() {
-  [[ -f "$ENV_FILE" ]] || die "arquivo de ambiente não encontrado: ${ENV_FILE}. Copie .env.example para esse caminho, preencha-o fora do Git e proteja-o com chmod 600."
+  [[ -f "$ENV_FILE" ]] || die "arquivo de ambiente não encontrado: ${ENV_FILE}. Para o deploy integrado, copie SOMENTE nss-deployment/.env.example para esse caminho, preencha-o fora do Git e proteja-o com chmod 600. Os .env.example dos demais repositórios são apenas para execução isolada."
   [[ -r "$ENV_FILE" ]] || die "arquivo de ambiente sem permissão de leitura: ${ENV_FILE}"
   if [[ "$(stat -c '%a' "$ENV_FILE" 2>/dev/null || true)" != "600" ]]; then
     log "AVISO: ${ENV_FILE} não está com modo 600; ajuste com: chmod 600 ${ENV_FILE}"
