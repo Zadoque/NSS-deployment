@@ -10,7 +10,8 @@ de pré-produção nem autoriza a troca do ambiente ativo.
 ## Estado dos repositórios
 
 Todos os repositórios do projeto estão na branch `feat/national-coverage-validation`.
-Os commits de implementação e documentação foram enviados ao GitHub. Alterações locais
+Os commits de implementação e documentação estão prontos localmente para envio ao GitHub.
+O envio depende da chave SSH carregada no `ssh-agent`. Alterações locais
 de geometrias e do catálogo territorial permanecem deliberadamente fora dos commits,
 pois já existiam antes desta etapa.
 
@@ -55,7 +56,8 @@ de fallback. A reconciliação deve comparar manifestos, códigos e status de pr
 | Pipeline territorial | `feat(territories)` após validar todos os GeoJSON | Normalização de parent district, precedência de fontes, exportação catálogo/API e classificação CNES vetorizada versionadas em `8aaaebcc` |
 | Dependências frontend | `npm audit --omit=dev --audit-level=high` | 0 vulnerabilidades info/low/moderate/high/critical no snapshot local |
 | Higiene de diff | `git diff --check` nos cinco repositórios | Sem erro de whitespace nos diffs presentes |
-| Deployment TTY | `bash -n scripts/nss-deploy.sh`, `docker compose --env-file .env.example config --quiet` e inspeção do fluxo `up` | Sintaxe, Compose e proxy validados no run `42827810934`; fluxo sobe DB, três Redis, migration, Java, web e status |
+| Deployment TTY | `bash -n scripts/nss-deploy.sh`, Compose efetivo e execução isolada das etapas 1–5 e 13–14 | Sintaxe, Compose e bootstrap real validados com projeto `nss-deploy-validation`, volume PostgreSQL novo, três Redis, migration, Java, frontend, Caddy, Prometheus, Pushgateway e Grafana; Caddy respondeu HTTP 200 |
+| QA pós-bootstrap | Roles, schemas, Redis, endpoints HTTP, healthcheck Java e retomada | 4 roles não-superusuárias com login; schemas `nss_schema`, `analytics` e `analytics_animal`; 3× `PONG`; Caddy/Grafana/Prometheus/Pushgateway `200`; Java `healthy`; retomada sem recriação |
 
 Os artefatos detalhados da carga, paridade e dimensionamento estão no diretório local
 de validação (`nss-runtime-data/implementation-validation`) e não contêm credenciais.
@@ -92,12 +94,16 @@ PostgreSQL operacional e analítico -> conexões aceitas
 2. A execução do backend cacheado foi validada até readiness e conectividade Redis;
    um benchmark comparativo aquecido/vazio em HTTP deve ser repetido em pré-produção
    com identidades e dados representativos.
-3. O `up` do deployment foi validado por sintaxe, composição e componentes isolados;
-   a execução destrutiva de bootstrap completo deve ocorrer em servidor TTY descartável
-   ou janela aprovada.
+3. O bootstrap integral de dados externos (IBGE, CNES e SINAN) permanece pendente;
+   a execução destrutiva dessas cargas deve ocorrer em servidor TTY descartável ou
+   janela aprovada. As etapas de infraestrutura foram executadas integralmente em
+   projeto Compose isolado, sem tocar o ambiente `nss-v1`.
 4. A validação local não usa ngrok e não substitui revisão de segurança operacional,
    observabilidade e rollback no ambiente de produção.
-5. O `.env` local não contém todos os segredos necessários para executar o Compose
+5. O diagnóstico local exibiu o aviso padrão do Redis sobre `vm.overcommit_memory=1`;
+   isso é requisito operacional para produção e deve ser aplicado no host antes da
+   janela de carga.
+6. O `.env` local não contém todos os segredos necessários para executar o Compose
    real; por isso a composição foi validada com `.env.example`, sem iniciar uma stack
    de produção nem expor credenciais.
 
@@ -121,5 +127,6 @@ pré-produção com os cenários de carga definidos no HTML.
 | Segurança de dependências e higiene | **Comprovado no snapshot** | `npm audit`, `git diff --check`, CI e testes de mutação |
 | QA browser Playwright executado | **Comprovado no CI** | Chromium instalado no runner; execução `42826392510` passou com `npm run test:builds` (199 testes) e `npx playwright test tests/auth-resilience.spec.ts --workers=1` |
 | Meta de 100 mil sessões / 5 mil RPS | **Pendente** | Exige pré-produção; testes locais não certificam esse SLO |
-| Bootstrap completo em servidor TTY | **Parcial** | `bash -n scripts/nss-deploy.sh` passou; `./scripts/nss-deploy.sh up` executado localmente e falhou fail-fast por variáveis ausentes no `.env`, antes de iniciar containers. Execução completa requer `.env` preenchido e servidor descartável |
+| Bootstrap de infraestrutura em TTY isolado | **Comprovado localmente** | Etapas 1–5 e 13–14 executadas com PostgreSQL descartável, Redis real, migration, Java, frontend, Caddy, Prometheus, Pushgateway e Grafana; preflight rejeitou imagem local mutável e aprovou imagem OCI com digest SHA-256 |
+| Cargas IBGE/CNES/SINAN e Gold Serving | **Pendente** | Exigem credenciais, manifestos e dados de produção em ambiente descartável; não foram simuladas com dados falsos |
 | Liberação/rollback operacional | **Pendente** | Requer janela aprovada e ensaio no ambiente alvo |
