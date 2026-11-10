@@ -55,7 +55,7 @@ de fallback. A reconciliação deve comparar manifestos, códigos e status de pr
 | Pipeline territorial | `feat(territories)` após validar todos os GeoJSON | Normalização de parent district, precedência de fontes, exportação catálogo/API e classificação CNES vetorizada versionadas em `8aaaebcc` |
 | Dependências frontend | `npm audit --omit=dev --audit-level=high` | 0 vulnerabilidades info/low/moderate/high/critical no snapshot local |
 | Higiene de diff | `git diff --check` nos cinco repositórios | Sem erro de whitespace nos diffs presentes |
-| Deployment TTY | `bash -n scripts/nss-deploy.sh`, `docker compose --env-file .env.example config --quiet` e inspeção do fluxo `up` | Sintaxe e Compose válidos; fluxo sobe DB, três Redis, migration, Java, web e status |
+| Deployment TTY | `bash -n scripts/nss-deploy.sh`, `docker compose --env-file .env.example config --quiet` e inspeção do fluxo `up` | Sintaxe, Compose e proxy validados no run `42827810934`; fluxo sobe DB, três Redis, migration, Java, web e status |
 
 Os artefatos detalhados da carga, paridade e dimensionamento estão no diretório local
 de validação (`nss-runtime-data/implementation-validation`) e não contêm credenciais.
