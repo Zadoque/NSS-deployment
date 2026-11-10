@@ -180,6 +180,35 @@ interrupção; o catálogo IBGE e o escopo nacional são validados antes das
 requisições. Execute essa opção antes da pipeline SINAN quando a publicação
 precisar de cobertura territorial nacional.
 
+### Pipeline operada pelo `nss-deploy.sh`
+
+Depois do bootstrap da infraestrutura, todas as operações de dados ficam no
+menu do mesmo script. A ordem recomendada é:
+
+| Opção | Etapa | O que verifica ou executa |
+|---:|---|---|
+| 5 | Preflight da pipeline | imagem, configuração e contratos da pipeline |
+| 6 | IBGE ativo | release, manifesto, status de validação e cobertura municipal |
+| 7 | Atualizar IBGE | baixa a DTB oficial, valida SHA-256/5571 municípios e só então promove `active.json` |
+| 8 | CNES existente | lista lotes, status `COMPLETED/PARTIAL`, linhas e municípios |
+| 9 | Baixar/atualizar CNES | executa `run_cnes` nacional com workers, checkpoint e tolerância explícita a falhas |
+| 10 | Parquet SINAN existente | lê o manifesto persistente de fontes e informa ausência/estado |
+| 11 | Verificar/baixar Parquet | executa o atualizador incremental por doença/ano; manifesto e arquivos são preservados em caso de erro |
+| 12 | Gold Serving | exige batch CNES `COMPLETED`, processa o recorte nacional e publica no PostgreSQL |
+
+As opções 7, 9, 11 e 12 fazem rede ou escrita de dados e pedem os parâmetros
+necessários. A opção 12 exige confirmação explícita `SIM`. Um lote CNES
+`PARTIAL` nunca é aceito para Gold Serving. O atualizador SINAN é a operação
+idempotente de “verificar atualização”: ele compara o manifesto, baixa apenas
+fontes necessárias e não substitui um manifesto válido quando a atualização
+falha.
+
+Para acompanhar a execução, use a opção `14` (status/diagnóstico) ou, fora do
+menu, `./scripts/nss-deploy.sh status`. O checkpoint de bootstrap e os
+checkpoints da pipeline são independentes: `resume` retoma infraestrutura,
+enquanto CNES e Parquet usam seus próprios manifestos/checkpoints no volume
+`pipeline_data`.
+
 Esta seção é o procedimento operacional para subir a NSS do zero no host de
 deployment. Execute os comandos a partir de `NSS-deployment`. Os quatro
 repositórios devem estar lado a lado:

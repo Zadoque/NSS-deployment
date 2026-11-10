@@ -62,6 +62,25 @@ script apresenta o pré-voo numerado (Compose, repositórios, ambiente, Compose
 efetivo e confirmação do operador). Ele não inicia containers enquanto uma
 dessas verificações falhar.
 
+## Operações da pipeline
+
+Após a infraestrutura estar saudável, o menu inclui as operações de dados:
+
+1. preflight da pipeline;
+2. verificar release IBGE ativa;
+3. baixar/promover nova release IBGE com URL e SHA-256;
+4. verificar lotes CNES e seu status;
+5. baixar CNES nacional com checkpoint;
+6. verificar o manifesto de Parquets SINAN;
+7. verificar e baixar atualizações SINAN por doença/ano;
+8. executar Gold Serving, exigindo batch CNES `COMPLETED`.
+
+Os comandos são executados dentro do serviço `pipeline` pelo Compose, usando o
+volume `pipeline_data`. A atualização SINAN é incremental e preserva o
+manifesto anterior quando uma fonte falha. O CNES usa checkpoint por lote e
+`PARTIAL` nunca pode ser usado para enriquecer a Gold. A publicação nacional
+exige confirmação explícita no menu.
+
 ## Pré-requisitos e mensagens de erro
 
 O script verifica:

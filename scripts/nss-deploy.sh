@@ -151,6 +151,58 @@ catalog_status() {
     'from pathlib import Path; import json; root=Path("/data/silver/cnes"); print([{ "batch_id":p.parent.name.removeprefix("batch_id="), **json.loads((p.parent/"metadata.json").read_text())} for p in root.glob("batch_id=*/data.parquet")])'
 }
 
+refresh_ibge() {
+  local catalog_id reference_year dtb_url expected_sha
+  read -r -p 'IBGE catalog-id [ibge-dtb-2025]: ' catalog_id; catalog_id=${catalog_id:-ibge-dtb-2025}
+  read -r -p 'Ano de referência [2025]: ' reference_year; reference_year=${reference_year:-2025}
+  read -r -p 'URL DTB oficial: ' dtb_url
+  [[ -n "$dtb_url" ]] || die 'URL DTB é obrigatória para atualizar o IBGE'
+  read -r -p 'SHA-256 esperado (opcional): ' expected_sha
+  local args=(--root /data/reference/ibge --catalog-id "$catalog_id" --reference-year "$reference_year" --dtb-url "$dtb_url")
+  [[ -n "$expected_sha" ]] && args+=(--expected-sha256 "$expected_sha")
+  step "atualizar catálogo IBGE ${catalog_id}" docker compose --profile jobs run --rm --entrypoint python pipeline \
+    -m app.pipeline.reference.ibge.refresh "${args[@]}"
+}
+
+cnes_status() {
+  step 'verificar carga CNES' docker compose --profile jobs run --rm --entrypoint python pipeline -c \
+    'from pathlib import Path; import json; root=Path("/data/silver/cnes"); items=[]
+for p in sorted(root.glob("batch_id=*/metadata.json")):
+    data=json.loads(p.read_text()); items.append({"batch_id":p.parent.name.removeprefix("batch_id="),"status":data.get("status"),"rows":data.get("rows"),"municipalities":data.get("municipalities")})
+print(json.dumps(items,ensure_ascii=False,indent=2))'
+}
+
+update_sinan() {
+  local diseases years cnes_batch
+  read -r -p 'Doenças separadas por vírgula [DENG]: ' diseases; diseases=${diseases:-DENG}
+  read -r -p 'Anos separados por vírgula [2024]: ' years; years=${years:-2024}
+  read -r -p 'Batch CNES COMPLETED (opcional): ' cnes_batch
+  local args=(--diseases "$diseases" --years "$years" --catalog-root /data/reference/ibge --all-brazil --continue-on-error)
+  [[ -n "$cnes_batch" ]] && args+=(--cnes-batch-id "$cnes_batch")
+  step "verificar/baixar atualizações SINAN ${diseases}/${years}" docker compose --profile jobs run --rm --entrypoint python pipeline \
+    -m app.pipeline.update_sinan "${args[@]}"
+}
+
+parquet_status() {
+  step 'verificar manifestos Parquet SINAN' docker compose --profile jobs run --rm --entrypoint python pipeline -c \
+    'from pathlib import Path; import json; p=Path("/data/source/sinan/manifest.json"); print(json.dumps(json.loads(p.read_text()) if p.exists() else {"status":"missing","path":str(p)},ensure_ascii=False,indent=2))'
+}
+
+run_serving_load() {
+  local disease year cnes_batch
+  read -r -p 'Doença [DENG]: ' disease; disease=${disease:-DENG}
+  read -r -p 'Ano [2024]: ' year; year=${year:-2024}
+  read -r -p 'Batch CNES COMPLETED: ' cnes_batch
+  [[ -n "$cnes_batch" ]] || die 'batch CNES explícito é obrigatório para Gold Serving'
+  step "carga Gold Serving ${disease}/${year}" docker compose --profile jobs run --rm --entrypoint python pipeline \
+    -m app.pipeline.run_load --disease "$disease" --year "$year" \
+    --catalog-root /data/reference/ibge --all-brazil --cnes-batch-id "$cnes_batch"
+}
+
+pipeline_preflight() {
+  step 'preflight pipeline' docker compose --profile jobs run --rm --entrypoint python pipeline -m app.pipeline.preflight
+}
+
 run_pipeline() {
   local disease year scope
   read -r -p 'Doença (ex.: DENG): ' disease
@@ -222,14 +274,19 @@ NSS deployment
   2) construir imagens Java/frontend/pipeline
   3) subir PostgreSQL e provisionar roles
   4) subir Redis, schema central e Java
-  5) verificar catálogo IBGE e lotes CNES
-  6) ingerir CNES nacional com checkpoint
-  7) executar pipeline nacional (confirmação explícita)
-  8) subir frontend, Caddy e observabilidade
-  9) status e diagnóstico
-  10) mostrar máquina de estados
-  11) limpar estado persistido
-  12) sair
+  5) preflight da pipeline
+  6) verificar catálogo IBGE ativo
+  7) atualizar release/catálogo IBGE
+  8) verificar carga CNES
+  9) baixar/atualizar carga CNES nacional
+  10) verificar manifestos Parquet SINAN
+  11) verificar/baixar atualizações Parquet SINAN
+  12) executar Gold Serving/PostgreSQL
+  13) subir frontend, Caddy e observabilidade
+  14) status e diagnóstico
+  15) mostrar máquina de estados
+  16) limpar estado persistido
+  17) sair
 EOF
     read -r -p 'Escolha: ' choice
     case "${choice}" in
@@ -237,14 +294,19 @@ EOF
       2) build_images ;;
       3) start_database ;;
       4) start_java ;;
-      5) catalog_status ;;
-      6) run_cnes ;;
-      7) read -r -p 'Confirma execução nacional da pipeline? [digite SIM]: ' confirm; [[ "${confirm}" == SIM ]] && run_pipeline || log 'Pipeline não executada.' ;;
-      8) start_web ;;
-      9) status; diagnose ;;
-      10) show_state ;;
-      11) read -r -p 'Digite LIMPAR para confirmar: ' confirm; [[ "$confirm" == LIMPAR ]] && state_reset || log 'Estado preservado.' ;;
-      12) return 0 ;;
+      5) pipeline_preflight ;;
+      6) catalog_status ;;
+      7) refresh_ibge ;;
+      8) cnes_status ;;
+      9) run_cnes ;;
+      10) parquet_status ;;
+      11) update_sinan ;;
+      12) read -r -p 'Confirma carga Gold nacional? [digite SIM]: ' confirm; [[ "${confirm}" == SIM ]] && run_serving_load || log 'Gold Serving não executada.' ;;
+      13) start_web ;;
+      14) status; diagnose ;;
+      15) show_state ;;
+      16) read -r -p 'Digite LIMPAR para confirmar: ' confirm; [[ "$confirm" == LIMPAR ]] && state_reset || log 'Estado preservado.' ;;
+      17) return 0 ;;
       *) log 'Opção inválida.' ;;
     esac
   done
