@@ -135,7 +135,17 @@ build_images() {
 
 start_database() {
   step 'PostgreSQL' docker compose up -d db
-  step 'aguardar PostgreSQL' docker compose exec -T db pg_isready -U "${POSTGRES_ADMIN_USER}" -d "${POSTGRES_DB}"
+  step 'aguardar PostgreSQL' bash -c '
+    for i in {1..60}; do
+      if docker compose exec -T db pg_isready -U "${POSTGRES_ADMIN_USER}" -d "${POSTGRES_DB}" >/dev/null 2>&1; then
+        printf "PostgreSQL pronto após %ss\\n" "$(( (i - 1) * 2 ))"
+        exit 0
+      fi
+      sleep 2
+    done
+    docker compose logs --tail=100 db
+    exit 1
+  '
   step 'roles PostgreSQL' docker compose run --rm db-permissions
   step 'auditar roles PostgreSQL' docker compose exec -T db psql -U "${POSTGRES_ADMIN_USER}" -d "${POSTGRES_DB}" -v ON_ERROR_STOP=1 -c "SELECT rolname FROM pg_roles WHERE rolname IN ('${NSS_APP_RUNTIME_USER}','${NSS_APP_MIGRATOR_USER}','${NSS_ANALYTICS_READER_USER}','${NSS_ANALYTICS_WRITER_USER}') ORDER BY rolname;"
 }
