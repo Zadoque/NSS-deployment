@@ -275,6 +275,31 @@ inicial do Java. Depois do primeiro login, remova esses valores do `.env` e
 recrie o serviço Java para que a credencial de bootstrap não permaneça na
 configuração operacional.
 
+#### Teste local reproduzível
+
+Para o ambiente local integrado, use o arquivo completo já preenchido com
+credenciais descartáveis:
+
+```bash
+cp .env.local.test .env
+NSS_ENV_FILE="$PWD/.env" ./scripts/nss-deploy.sh up
+```
+
+Nos demais repositórios, quando for executar o componente isoladamente:
+
+```bash
+cp ../NSS-database/.env.local.test ../NSS-database/.env
+cp ../nss-pipeline/.env.local.test ../nss-pipeline/.env
+cp ../nss-front-end/.env.local.test ../nss-front-end/.env
+cp ../Site-Sala-de-Situa-o-de-Saude-Java/.env.local.test ../Site-Sala-de-Situa-o-de-Saude-Java/.env
+```
+
+Com esses arquivos, normalmente só é necessário alterar `NSS_HTTP_PORT` se a
+porta 8080 estiver ocupada e os caminhos `NSS_*_REPO` se os repositórios não
+estiverem lado a lado. Os valores são exclusivamente locais e não podem ser
+reutilizados em homologação ou produção. No servidor, use
+`/etc/nss/deployment.env` com `chmod 600`.
+
 ### 3. Construir as imagens
 
 O frontend precisa ser construído com `VITE_USE_MOCKS=false` e com API relativa

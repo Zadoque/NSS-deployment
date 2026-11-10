@@ -50,6 +50,17 @@ O caminho pode ser alterado com `NSS_ENV_FILE=/caminho/seguro`. O pré-voo
 mostra esse caminho e valida Docker Compose, repositórios, variáveis obrigatórias,
 placeholders e a configuração efetiva antes de construir qualquer imagem.
 
+Para teste local integrado, use o arquivo completo de valores descartáveis:
+
+```bash
+cp .env.local.test .env
+NSS_ENV_FILE="$PWD/.env" ./scripts/nss-deploy.sh up
+```
+
+Os outros repositórios também fornecem `.env.local.test` para execução isolada.
+Altere apenas porta ocupada e caminhos dos repositórios quando necessário. Esses
+valores nunca devem ser usados em homologação ou produção.
+
 ## Uso
 
 ```bash
