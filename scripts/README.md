@@ -28,6 +28,21 @@ e ignorado pelo Git. Um `up` ou `resume` repete somente os estados ainda não
 marcados. O estado não substitui healthchecks: pré-requisitos e Compose são
 validados em toda execução.
 
+## Arquivo de ambiente e secrets
+
+`.env.example` é somente um modelo versionado. Nunca copie valores reais para
+um repositório. No servidor, copie o modelo para `/etc/nss/deployment.env`,
+preencha os valores e execute:
+
+```bash
+sudo install -o root -g root -m 600 .env.example /etc/nss/deployment.env
+sudoedit /etc/nss/deployment.env
+```
+
+O caminho pode ser alterado com `NSS_ENV_FILE=/caminho/seguro`. O pré-voo
+mostra esse caminho e valida Docker Compose, repositórios, variáveis obrigatórias,
+placeholders e a configuração efetiva antes de construir qualquer imagem.
+
 ## Uso
 
 ```bash
@@ -42,8 +57,10 @@ validados em toda execução.
 ./scripts/nss-deploy.sh reset-state
 ```
 
-O menu interativo continua disponível sem argumento. Ele oferece as mesmas
-etapas individualmente, diagnóstico e operações de estado.
+O menu interativo continua disponível sem argumento. Antes do bootstrap, o
+script apresenta o pré-voo numerado (Compose, repositórios, ambiente, Compose
+efetivo e confirmação do operador). Ele não inicia containers enquanto uma
+dessas verificações falhar.
 
 ## Pré-requisitos e mensagens de erro
 

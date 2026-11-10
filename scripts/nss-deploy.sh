@@ -4,6 +4,7 @@ set -Eeuo pipefail
 DEPLOY_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "${DEPLOY_ROOT}"
 STATE_FILE="${NSS_DEPLOY_STATE_FILE:-${DEPLOY_ROOT}/.nss-deploy-state}"
+ENV_FILE="${NSS_ENV_FILE:-/etc/nss/deployment.env}"
 
 REPO_DATABASE="${NSS_DATABASE_REPO:-${DEPLOY_ROOT}/../NSS-database}"
 REPO_JAVA="${NSS_JAVA_REPO:-${DEPLOY_ROOT}/../Site-Sala-de-Situa-o-de-Saude-Java}"
@@ -29,11 +30,16 @@ require_repositories() {
 }
 
 require_env() {
-  [[ -f .env ]] || die '.env não existe; copie .env.example e preencha os segredos.'
+  [[ -f "$ENV_FILE" ]] || die "arquivo de ambiente não encontrado: ${ENV_FILE}. Copie .env.example para esse caminho, preencha-o fora do Git e proteja-o com chmod 600."
+  [[ -r "$ENV_FILE" ]] || die "arquivo de ambiente sem permissão de leitura: ${ENV_FILE}"
+  if [[ "$(stat -c '%a' "$ENV_FILE" 2>/dev/null || true)" != "600" ]]; then
+    log "AVISO: ${ENV_FILE} não está com modo 600; ajuste com: chmod 600 ${ENV_FILE}"
+  fi
   set -a
   # shellcheck disable=SC1091
-  source .env
+  source "$ENV_FILE"
   set +a
+  export COMPOSE_ENV_FILES="$ENV_FILE"
   local missing=()
   for name in POSTGRES_DB POSTGRES_ADMIN_USER POSTGRES_ADMIN_PASSWORD \
     POSTGRES_APP_DB NSS_APP_RUNTIME_USER NSS_APP_RUNTIME_PASSWORD \
@@ -43,7 +49,10 @@ require_env() {
     JWT_SECRET GRAFANA_ADMIN_PASSWORD; do
     [[ -n "${!name:-}" ]] || missing+=("${name}")
   done
-  ((${#missing[@]} == 0)) || die "variáveis ausentes no .env: ${missing[*]}"
+  ((${#missing[@]} == 0)) || die "variáveis ausentes em ${ENV_FILE}: ${missing[*]}"
+  local placeholders
+  placeholders=$(grep -E '(^|=)(CHANGE_ME|change-me-before-deploy|<[^>]+>)($|\s*$)' "$ENV_FILE" || true)
+  [[ -z "$placeholders" ]] || die "valores placeholder ainda existem em ${ENV_FILE}; substitua-os antes do deploy"
 }
 
 step() {
@@ -66,9 +75,29 @@ check_prerequisites() {
   command -v docker >/dev/null || die 'docker não encontrado'
   docker compose version >/dev/null || die 'Docker Compose v2 não encontrado'
   require_env
-  docker compose config --quiet
+  docker compose --env-file "$ENV_FILE" config --quiet
   require_repositories
   log 'Compose válido; imagens e variáveis obrigatórias estão presentes.'
+}
+
+preflight_menu() {
+  cat <<EOF
+
+NSS deployment — pré-voo obrigatório
+  1) Validar Docker Compose instalado
+  2) Validar caminhos dos repositórios
+  3) Validar arquivo de ambiente completo
+  4) Validar configuração efetiva do Compose
+  5) Continuar para build e bootstrap
+
+Arquivo de ambiente esperado: ${ENV_FILE}
+EOF
+  step '1/4 Docker Compose' bash -c 'command -v docker >/dev/null && docker compose version >/dev/null'
+  step '2/4 repositórios' require_repositories
+  step '3/4 arquivo de ambiente' require_env
+  step '4/4 configuração Compose' docker compose --env-file "$ENV_FILE" config --quiet
+  read -r -p 'Pré-voo concluído. Continuar? [S/n] ' answer
+  [[ -z "$answer" || "$answer" =~ ^[Ss]$ ]] || die 'bootstrap cancelado pelo operador'
 }
 
 build_images() {
@@ -107,7 +136,7 @@ start_java() {
 
 bootstrap_tty() {
   log 'Bootstrap completo em modo TTY'
-  check_prerequisites; state_mark prerequisites
+  preflight_menu; state_mark prerequisites
   if ! state_has images; then build_images; state_mark images; else log 'SKIP images: estado concluído'; fi
   if ! state_has database; then start_database; state_mark database; else log 'SKIP database: estado concluído'; fi
   if ! state_has java; then start_java; state_mark java; else log 'SKIP java: estado concluído'; fi
@@ -162,7 +191,7 @@ status() {
 
 diagnose() {
   log 'Diagnóstico de configuração'
-  docker compose config --quiet && log 'compose.yaml: OK' || log 'compose.yaml: INVÁLIDO'
+  docker compose --env-file "$ENV_FILE" config --quiet && log 'compose.yaml: OK' || log 'compose.yaml: INVÁLIDO'
   log 'DNS interno e Redis'
   docker compose exec -T java getent hosts redis 2>/dev/null || log 'Java ainda não está em execução'
   docker compose exec -T redis redis-cli ping 2>/dev/null || log 'Redis não responde'
