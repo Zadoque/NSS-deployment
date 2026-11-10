@@ -29,6 +29,8 @@ pois já existiam antes desta etapa.
 | HTTP estático | Caddy local, 10.000 requisições concorrentes controladas | 100% HTTP 200; p95 de 443 ms |
 | Frontend | `npm run build` e `npm run lint` | Aprovados; bundle produzido (aviso não bloqueante de chunk acima de 500 kB) |
 | Pipeline | `nix develop --command python -m pytest -q` | 748 passaram, 23 ignorados, 1 warning de dependência |
+| Dependências frontend | `npm audit --omit=dev --audit-level=high` | 0 vulnerabilidades info/low/moderate/high/critical no snapshot local |
+| Higiene de diff | `git diff --check` nos cinco repositórios | Sem erro de whitespace nos diffs presentes |
 | Deployment TTY | `bash -n scripts/nss-deploy.sh`, `docker compose --env-file .env.example config --quiet` e inspeção do fluxo `up` | Sintaxe e Compose válidos; fluxo sobe DB, três Redis, migration, Java, web e status |
 
 Os artefatos detalhados da carga, paridade e dimensionamento estão no diretório local
