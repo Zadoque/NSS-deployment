@@ -241,7 +241,16 @@ run_serving_load() {
 }
 
 pipeline_preflight() {
-  step 'preflight pipeline' docker compose --profile jobs run --rm --entrypoint python pipeline -m app.pipeline.preflight
+  step 'preflight pipeline' docker compose --profile jobs run --rm --entrypoint python \
+    -e POSTGRES_USER="${POSTGRES_ADMIN_USER}" \
+    -e POSTGRES_PASSWORD="${POSTGRES_ADMIN_PASSWORD}" \
+    -e POSTGRES_DB="${POSTGRES_DB}" \
+    -e GRAFANA_ADMIN_USER="${GRAFANA_ADMIN_USER:-admin}" \
+    -e GRAFANA_ADMIN_PASSWORD="${GRAFANA_ADMIN_PASSWORD}" \
+    -e GRAFANA_DB_USER="${NSS_GRAFANA_DB_USER:-nss_grafana}" \
+    -e GRAFANA_DB_PASSWORD="${NSS_GRAFANA_DB_PASSWORD:-${POSTGRES_ADMIN_PASSWORD}}" \
+    -e NSS_PIPELINE_IMAGE="${NSS_PIPELINE_IMAGE}" \
+    pipeline -m app.pipeline.preflight
 }
 
 run_pipeline() {
