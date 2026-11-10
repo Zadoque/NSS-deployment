@@ -121,5 +121,5 @@ pré-produção com os cenários de carga definidos no HTML.
 | Segurança de dependências e higiene | **Comprovado no snapshot** | `npm audit`, `git diff --check`, CI e testes de mutação |
 | QA browser Playwright executado | **Comprovado no CI** | Chromium instalado no runner; execução `42826392510` passou com `npm run test:builds` (199 testes) e `npx playwright test tests/auth-resilience.spec.ts --workers=1` |
 | Meta de 100 mil sessões / 5 mil RPS | **Pendente** | Exige pré-produção; testes locais não certificam esse SLO |
-| Bootstrap completo em servidor TTY | **Parcial** | Script, Compose e componentes validados; execução real requer `.env` e servidor descartável |
+| Bootstrap completo em servidor TTY | **Parcial** | `bash -n scripts/nss-deploy.sh` passou; `./scripts/nss-deploy.sh up` executado localmente e falhou fail-fast por variáveis ausentes no `.env`, antes de iniciar containers. Execução completa requer `.env` preenchido e servidor descartável |
 | Liberação/rollback operacional | **Pendente** | Requer janela aprovada e ensaio no ambiente alvo |
