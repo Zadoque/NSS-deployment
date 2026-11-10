@@ -31,6 +31,25 @@ pois já existiam antes desta etapa.
 | Frontend QA | `npx playwright test --list` | 51 testes em 10 arquivos descobertos após tornar o módulo de autenticação seguro durante o carregamento fora do browser |
 | Frontend smoke visual | Navegação local em `http://127.0.0.1:8088/` | Homepage carregou com título, links de login/mapa, missão e aviso explícito de cobertura parcial |
 | Navegação RJ one-district | Vite mock + fluxo Sudeste → RJ → Rio de Janeiro → bairros → Voltar | Reproduziu a regressão, corrigiu o ramo demo e confirmou retorno direto à tela de municípios sem tela de distritos |
+
+### Reconciliação dos GeoJSON
+
+Os diretórios não são réplicas byte a byte. A pipeline preserva fontes e candidatos
+territoriais para ingestão e fallback; o frontend publica uma versão canônica promovida
+para servir a aplicação. Na validação atual:
+
+| Repositório | Conteúdo | Quantidade aproximada |
+|---|---|---:|
+| `nss-pipeline/territories` | IBGE, OSM, fontes oficiais, RJ e assets de Campos | 14.070 GeoJSON / 362 MiB |
+| `nss-front-end/public/maps/national` | asset nacional canônico por município para distritos e bairros, mais índices | 16.769 GeoJSON / 257 MiB |
+
+O critério de equivalência é o catálogo e os códigos, não o tamanho dos arquivos:
+o frontend contém 5.571 assets de distrito e 5.571 de bairros, além de 5.571 mapas
+municipais; a pipeline contém múltiplos candidatos por território (por exemplo, IBGE
+e OSM), que são selecionados pela prioridade documentada antes da promoção. Um asset
+da pipeline não publicado no frontend não significa necessariamente perda: pode ser
+uma fonte alternativa, um município sem geometria nacional promovível ou um artefato
+de fallback. A reconciliação deve comparar manifestos, códigos e status de promoção.
 | Pipeline | `nix develop --command python -m pytest -q` | 748 passaram, 23 ignorados, 1 warning de dependência |
 | Dependências frontend | `npm audit --omit=dev --audit-level=high` | 0 vulnerabilidades info/low/moderate/high/critical no snapshot local |
 | Higiene de diff | `git diff --check` nos cinco repositórios | Sem erro de whitespace nos diffs presentes |
