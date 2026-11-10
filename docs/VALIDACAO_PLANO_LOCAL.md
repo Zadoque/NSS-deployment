@@ -85,3 +85,19 @@ O plano pode ser considerado tecnicamente implementado nos repositórios quando 
 checks do CI permanecerem verdes e os artefatos acima forem reproduzidos. A validação
 integral de capacidade e a liberação operacional continuam pendentes até a execução em
 pré-produção com os cenários de carga definidos no HTML.
+
+## Matriz de aceite auditada
+
+| Requisito do HTML | Estado atual | Evidência ou pendência |
+|---|---|---|
+| Banco centralizado e migration inicial | **Comprovado localmente** | NSS-database, CI e PostgreSQL descartável |
+| Sessões Redis e rate limiter distribuído | **Comprovado localmente** | Integração Redis real, scripts atômicos e testes Java |
+| Cache diário do frontend até 02h | **Comprovado por código/build** | Implementação, build, lint e 51 testes descobertos |
+| Cache analítico Redis dedicado | **Comprovado localmente** | Testes unitários, imagem Docker e readiness com Redis dedicado |
+| Comparação de 3/2/1 consultas | **Comprovado localmente** | Paridade e benchmark SQL no mesmo snapshot |
+| Carga nacional Dengue 2024 | **Comprovado localmente** | Lote completo processado e reconciliado |
+| Segurança de dependências e higiene | **Comprovado no snapshot** | `npm audit`, `git diff --check`, CI e testes de mutação |
+| QA browser Playwright executado | **Parcial** | Descoberta dos 51 testes e smoke visual; execução requer Chromium disponível |
+| Meta de 100 mil sessões / 5 mil RPS | **Pendente** | Exige pré-produção; testes locais não certificam esse SLO |
+| Bootstrap completo em servidor TTY | **Parcial** | Script, Compose e componentes validados; execução real requer `.env` e servidor descartável |
+| Liberação/rollback operacional | **Pendente** | Requer janela aprovada e ensaio no ambiente alvo |
