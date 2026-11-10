@@ -22,7 +22,7 @@ pois já existiam antes desta etapa.
 | Sessões/rate limit | Redis real para integração de sessão e `AuthRateLimiter` | Testes Redis aprovados; decisão distribuída não depende do `HashMap` |
 | Cache analítico | Redis dedicado, chave versionada, TTL, fail-open e teste unitário | 3 testes de cache aprovados; imagem Java iniciou com Redis dedicado |
 | Java | Maven/Docker build | 112 testes passaram na imagem `nss-java:cache-validation` |
-| CI Java | `verify`, `mutation`, `container` | Todos passaram no PR |
+| CI Java | `verify`, `mutation`, `container` | Todos passaram no run `42827186066` |
 | Paridade SQL | Cenários Brasil, UF, município, distrito, bairro e filtros | Respostas equivalentes entre alternativas de 3, 2 e 1 consulta |
 | Carga Dengue 2024 | Parquet nacional e publicação em banco descartável | 6.564.924 linhas de entrada; 6.177.144 resolvidas; 5.571 municípios |
 | API concorrente | Endpoint autenticado local, 500 e 1.000 requisições | 100% HTTP 200; p95 de 3,88 s e 4,94 s, respectivamente |
