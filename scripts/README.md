@@ -28,6 +28,13 @@ e ignorado pelo Git. Um `up` ou `resume` repete somente os estados ainda não
 marcados. O estado não substitui healthchecks: pré-requisitos e Compose são
 validados em toda execução.
 
+Cada estado também é executado com uma barra de progresso no TTY. A barra mostra
+atividade e tempo decorrido, avançando até 100% quando o comando termina. Para
+downloads e processamento, o script não inventa um percentual: a porcentagem é
+deliberadamente indeterminada durante a operação, enquanto a saída detalhada é
+impressa ao final. Assim, IBGE, CNES, Parquet e Gold têm feedback visual sem
+confundir tempo de execução com quantidade de bytes ou linhas processadas.
+
 ## Arquivo de ambiente e secrets
 
 `.env.example` é somente um modelo versionado. Nunca copie valores reais para
@@ -80,6 +87,15 @@ volume `pipeline_data`. A atualização SINAN é incremental e preserva o
 manifesto anterior quando uma fonte falha. O CNES usa checkpoint por lote e
 `PARTIAL` nunca pode ser usado para enriquecer a Gold. A publicação nacional
 exige confirmação explícita no menu.
+
+As barras de progresso dessas operações correspondem às etapas abaixo:
+
+```text
+IBGE   [atividade + tempo] -> download -> validação -> promoção 100%
+CNES   [atividade + tempo] -> requisições/checkpoint -> COMPLETED 100%
+Parquet[atividade + tempo] -> manifesto -> download/skip -> 100%
+Gold   [atividade + tempo] -> Bronze/Silver/Gold/load -> publicação 100%
+```
 
 ## Pré-requisitos e mensagens de erro
 

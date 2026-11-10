@@ -174,6 +174,11 @@ portas locais, consumo dos containers, resolução interna `java -> redis`,
 pipeline exige confirmação digitando `SIM` e não trunca tabelas nem remove
 volumes automaticamente.
 
+Cada etapa exibe uma barra de atividade e tempo decorrido no TTY. Em downloads
+ou cargas cujo total remoto não é conhecido, ela não simula percentual de
+bytes: permanece como progresso indeterminado e fecha em 100% somente após
+download, validação, checkpoint e promoção concluírem.
+
 A opção de ingestão CNES solicita o número de workers e o nome do checkpoint.
 O arquivo fica no volume `pipeline_data` e pode ser reutilizado após uma
 interrupção; o catálogo IBGE e o escopo nacional são validados antes das

@@ -55,18 +55,44 @@ require_env() {
   [[ -z "$placeholders" ]] || die "valores placeholder ainda existem em ${ENV_FILE}; substitua-os antes do deploy"
 }
 
+progress_bar() {
+  local label="$1" percent="$2" elapsed="$3" width=28 filled
+  filled=$((width * percent / 100))
+  printf '\r%-34s [' "$label"
+  printf '%*s' "$filled" '' | tr ' ' '#'
+  printf '%*s' "$((width - filled))" '' | tr ' ' '.'
+  printf '] %3d%% (%ss)' "$percent" "$elapsed"
+}
+
 step() {
   local name="$1"; shift
   local started ended
   started=$(date +%s)
   log "INÍCIO: ${name}"
-  if "$@"; then
+  local output_file pid elapsed
+  output_file=$(mktemp "${TMPDIR:-/tmp}/nss-deploy-step.XXXXXX")
+  "$@" >"$output_file" 2>&1 &
+  pid=$!
+  while kill -0 "$pid" 2>/dev/null; do
+    elapsed=$(( $(date +%s) - started ))
+    progress_bar "$name" $((10 + (elapsed % 80))) "$elapsed"
+    sleep 1
+  done
+  if wait "$pid"; then
+    progress_bar "$name" 100 "$(( $(date +%s) - started ))"
+    printf '\n'
+    sed -n '1,120p' "$output_file"
     ended=$(date +%s)
     log "CONCLUÍDO: ${name} ($((ended - started))s)"
+    rm -f "$output_file"
   else
+    progress_bar "$name" 100 "$(( $(date +%s) - started ))"
+    printf '\n'
+    sed -n '1,200p' "$output_file" >&2
     ended=$(date +%s)
     log "FALHOU: ${name} ($((ended - started))s)"
-    log 'Execute a opção 8 para separar falha de rede, serviço ou configuração.'
+    log 'Consulte a saída acima e execute a opção de diagnóstico antes de repetir.'
+    rm -f "$output_file"
     return 1
   fi
 }
