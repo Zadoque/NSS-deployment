@@ -61,6 +61,13 @@ Os outros repositórios também fornecem `.env.local.test` para execução isola
 Altere apenas porta ocupada e caminhos dos repositórios quando necessário. Esses
 valores nunca devem ser usados em homologação ou produção.
 
+O perfil local aponta para Mailpit e deixa SMTP sem autenticação. Antes de um
+deploy real, substitua no arquivo externo do servidor `MAIL_HOST`, `MAIL_PORT`,
+`MAIL_FROM`, `MAIL_USERNAME` e `MAIL_PASSWORD` por uma conta de envio dedicada;
+`MAIL_PASSWORD` deve ser uma senha de aplicativo, com SMTP autenticado e
+STARTTLS habilitado. Nunca coloque essa senha em `.env.example`, Git ou na linha
+de comando.
+
 ## Uso
 
 ```bash

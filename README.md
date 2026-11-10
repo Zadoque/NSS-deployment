@@ -296,9 +296,15 @@ cp ../Site-Sala-de-Situa-o-de-Saude-Java/.env.local.test ../Site-Sala-de-Situa-o
 
 Com esses arquivos, normalmente só é necessário alterar `NSS_HTTP_PORT` se a
 porta 8080 estiver ocupada e os caminhos `NSS_*_REPO` se os repositórios não
-estiverem lado a lado. Os valores são exclusivamente locais e não podem ser
-reutilizados em homologação ou produção. No servidor, use
-`/etc/nss/deployment.env` com `chmod 600`.
+estiverem lado a lado. O perfil local usa Mailpit sem autenticação; não é envio
+real de e-mail.
+
+Em homologação/produção, altere obrigatoriamente no arquivo externo do servidor
+(`/etc/nss/deployment.env`, modo `0600`): `MAIL_HOST`, `MAIL_PORT`, `MAIL_FROM`,
+`MAIL_USERNAME`, `MAIL_PASSWORD` (senha de aplicativo, nunca a senha pessoal),
+`MAIL_SMTP_AUTH=true` e `MAIL_SMTP_STARTTLS=true`. Também ajuste
+`FIRST_ACCESS_FRONTEND_URL` para o domínio público. Os valores locais não podem
+ser reutilizados em homologação ou produção.
 
 ### 3. Construir as imagens
 
