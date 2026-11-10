@@ -51,6 +51,7 @@ da pipeline não publicado no frontend não significa necessariamente perda: pod
 uma fonte alternativa, um município sem geometria nacional promovível ou um artefato
 de fallback. A reconciliação deve comparar manifestos, códigos e status de promoção.
 | Pipeline | `nix develop --command python -m pytest -q` | 748 passaram, 23 ignorados, 1 warning de dependência |
+| Pipeline territorial | `feat(territories)` após validar todos os GeoJSON | Normalização de parent district, precedência de fontes, exportação catálogo/API e classificação CNES vetorizada versionadas em `8aaaebcc` |
 | Dependências frontend | `npm audit --omit=dev --audit-level=high` | 0 vulnerabilidades info/low/moderate/high/critical no snapshot local |
 | Higiene de diff | `git diff --check` nos cinco repositórios | Sem erro de whitespace nos diffs presentes |
 | Deployment TTY | `bash -n scripts/nss-deploy.sh`, `docker compose --env-file .env.example config --quiet` e inspeção do fluxo `up` | Sintaxe e Compose válidos; fluxo sobe DB, três Redis, migration, Java, web e status |
