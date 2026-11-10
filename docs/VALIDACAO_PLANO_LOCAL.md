@@ -29,7 +29,7 @@ pois já existiam antes desta etapa.
 | HTTP estático | Caddy local, 10.000 requisições concorrentes controladas | 100% HTTP 200; p95 de 443 ms |
 | Frontend | `npm run build` e `npm run lint` | Aprovados; bundle produzido (aviso não bloqueante de chunk acima de 500 kB) |
 | Pipeline | `nix develop --command python -m pytest -q` | 748 passaram, 23 ignorados, 1 warning de dependência |
-| Deployment TTY | `bash -n scripts/nss-deploy.sh` e inspeção do fluxo `up` | Sintaxe válida; fluxo sobe DB, três Redis, migration, Java, web e status |
+| Deployment TTY | `bash -n scripts/nss-deploy.sh`, `docker compose --env-file .env.example config --quiet` e inspeção do fluxo `up` | Sintaxe e Compose válidos; fluxo sobe DB, três Redis, migration, Java, web e status |
 
 Os artefatos detalhados da carga, paridade e dimensionamento estão no diretório local
 de validação (`nss-runtime-data/implementation-validation`) e não contêm credenciais.
@@ -71,6 +71,9 @@ PostgreSQL operacional e analítico -> conexões aceitas
    ou janela aprovada.
 4. A validação local não usa ngrok e não substitui revisão de segurança operacional,
    observabilidade e rollback no ambiente de produção.
+5. O `.env` local não contém todos os segredos necessários para executar o Compose
+   real; por isso a composição foi validada com `.env.example`, sem iniciar uma stack
+   de produção nem expor credenciais.
 
 ## Critério de encerramento
 
