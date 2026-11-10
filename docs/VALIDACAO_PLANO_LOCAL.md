@@ -28,7 +28,7 @@ pois já existiam antes desta etapa.
 | API concorrente | Endpoint autenticado local, 500 e 1.000 requisições | 100% HTTP 200; p95 de 3,88 s e 4,94 s, respectivamente |
 | HTTP estático | Caddy local, 10.000 requisições concorrentes controladas | 100% HTTP 200; p95 de 443 ms |
 | Frontend | `npm run build` e `npm run lint` | Aprovados; bundle produzido (aviso não bloqueante de chunk acima de 500 kB) |
-| Frontend QA | `npx playwright test --list` | 51 testes em 10 arquivos descobertos após tornar o módulo de autenticação seguro durante o carregamento fora do browser |
+| Frontend QA | CI com Chromium: `npm run test:builds` e `npx playwright test tests/auth-resilience.spec.ts --workers=1` | Aprovado; build snapshots e teste de resiliência executados no browser |
 | Frontend smoke visual | Navegação local em `http://127.0.0.1:8088/` | Homepage carregou com título, links de login/mapa, missão e aviso explícito de cobertura parcial |
 | Navegação RJ one-district | Vite mock + fluxo Sudeste → RJ → Rio de Janeiro → bairros → Voltar | Reproduziu a regressão, corrigiu o ramo demo e confirmou retorno direto à tela de municípios sem tela de distritos |
 
@@ -117,7 +117,7 @@ pré-produção com os cenários de carga definidos no HTML.
 | Comparação de 3/2/1 consultas | **Comprovado localmente** | Paridade e benchmark SQL no mesmo snapshot |
 | Carga nacional Dengue 2024 | **Comprovado localmente** | Lote completo processado e reconciliado |
 | Segurança de dependências e higiene | **Comprovado no snapshot** | `npm audit`, `git diff --check`, CI e testes de mutação |
-| QA browser Playwright executado | **Parcial** | Descoberta dos 51 testes e smoke visual; execução requer Chromium disponível |
+| QA browser Playwright executado | **Comprovado no CI** | Chromium instalado no runner; `test:builds` e `auth-resilience` passaram |
 | Meta de 100 mil sessões / 5 mil RPS | **Pendente** | Exige pré-produção; testes locais não certificam esse SLO |
 | Bootstrap completo em servidor TTY | **Parcial** | Script, Compose e componentes validados; execução real requer `.env` e servidor descartável |
 | Liberação/rollback operacional | **Pendente** | Requer janela aprovada e ensaio no ambiente alvo |
