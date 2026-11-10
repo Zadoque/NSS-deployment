@@ -53,6 +53,11 @@ require_env() {
   local placeholders
   placeholders=$(grep -E '(^|=)(CHANGE_ME|change-me-before-deploy|<[^>]+>)($|\s*$)' "$ENV_FILE" || true)
   [[ -z "$placeholders" ]] || die "valores placeholder ainda existem em ${ENV_FILE}; substitua-os antes do deploy"
+  local jwt_decoded
+  jwt_decoded=$(printf '%s' "$JWT_SECRET" | base64 --decode 2>/dev/null) || \
+    die 'JWT_SECRET deve ser Base64 válido; gere-o com: openssl rand -base64 64'
+  ((${#jwt_decoded} >= 32)) || \
+    die 'JWT_SECRET decodificado deve conter pelo menos 32 bytes; gere-o com: openssl rand -base64 64'
 }
 
 progress_bar() {
@@ -166,7 +171,7 @@ start_java() {
       sleep 2
     done
     docker compose logs --tail=100 java
-    return 1
+    exit 1
   '
 }
 
