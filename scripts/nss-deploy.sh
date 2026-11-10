@@ -312,5 +312,4 @@ EOF
   done
 }
 
-require_env
 menu
