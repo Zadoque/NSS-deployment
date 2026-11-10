@@ -28,6 +28,7 @@ pois já existiam antes desta etapa.
 | API concorrente | Endpoint autenticado local, 500 e 1.000 requisições | 100% HTTP 200; p95 de 3,88 s e 4,94 s, respectivamente |
 | HTTP estático | Caddy local, 10.000 requisições concorrentes controladas | 100% HTTP 200; p95 de 443 ms |
 | Frontend | `npm run build` e `npm run lint` | Aprovados; bundle produzido (aviso não bloqueante de chunk acima de 500 kB) |
+| Frontend QA | `npx playwright test --list` | 51 testes em 10 arquivos descobertos após tornar o módulo de autenticação seguro durante o carregamento fora do browser |
 | Pipeline | `nix develop --command python -m pytest -q` | 748 passaram, 23 ignorados, 1 warning de dependência |
 | Dependências frontend | `npm audit --omit=dev --audit-level=high` | 0 vulnerabilidades info/low/moderate/high/critical no snapshot local |
 | Higiene de diff | `git diff --check` nos cinco repositórios | Sem erro de whitespace nos diffs presentes |
