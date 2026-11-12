@@ -80,8 +80,8 @@ um serviço/timer próprio e uma ordem explícita antes dos consumidores.
 
 ### 3. Dados e IBGE
 
-- Criar no NixOS um serviço/timer de refresh IBGE com URL, ano, catálogo e
-  checksum configuráveis.
+- Manter no `releases.yaml` o catálogo IBGE, ano, URL oficial e checksum; o
+  NixOS deve conter somente a habilitação e o calendário do timer.
 - Promover o novo catálogo de forma atômica; manter o anterior para rollback.
 - Executar SINAN às 02:30 usando `--catalog-root /data/reference/ibge`.
 - Executar CNES sob o mesmo lock operacional e registrar o catálogo IBGE usado.
