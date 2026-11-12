@@ -207,6 +207,12 @@ portanto, uma atualização revisada do manifesto, sem alterar a estrutura do
 NixOS. A etapa CNES também lê `workers` e `checkpoint` do mesmo manifesto;
 nenhum parâmetro de carga precisa ser digitado no TTY.
 
+Durante a etapa CNES, o deployment consulta o checkpoint no volume Docker a
+cada cinco segundos. O indicador mostra municípios processados, percentual
+restante, falhas classificadas e o status (`IN_PROGRESS`, `COMPLETED` ou
+`PARTIAL`). O cálculo é baseado no checkpoint persistido, não no tempo
+decorrido.
+
 Valide o manifesto antes do bootstrap:
 
 ```bash

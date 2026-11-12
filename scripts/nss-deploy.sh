@@ -310,13 +310,55 @@ run_cnes() {
     read -r -p 'Executar carga CNES nacional com esta configuração? [digite SIM]: ' confirm
     [[ "$confirm" == SIM ]] || die 'carga CNES cancelada pelo operador'
   fi
-  step 'CNES nacional' docker compose --profile jobs run --rm --entrypoint python pipeline \
+  run_cnes_with_progress "$workers" "$checkpoint"
+}
+
+run_cnes_with_progress() {
+  local workers="$1" checkpoint="$2" output_file pid started elapsed
+  local total completed failed status percent remaining snapshot
+  output_file=$(mktemp "${TMPDIR:-/tmp}/nss-cnes.XXXXXX")
+  started=$(date +%s)
+  log 'INÍCIO: CNES nacional'
+  docker compose --profile jobs run --rm --entrypoint python pipeline \
     -m app.pipeline.run_cnes \
     --catalog-root /data/reference/ibge \
     --all-brazil \
     --workers "${workers}" \
     --continue-on-error \
-    --checkpoint "/data/checkpoints/${checkpoint}"
+    --checkpoint "/data/checkpoints/${checkpoint}" >"$output_file" 2>&1 &
+  pid=$!
+  while kill -0 "$pid" 2>/dev/null; do
+    snapshot=$(docker compose --profile jobs run --rm --no-deps --entrypoint python pipeline -c \
+      "from pathlib import Path; import json; p=Path('/data/checkpoints/${checkpoint}'); d=json.loads(p.read_text()) if p.exists() else {}; done=len(d.get('completed',{}))+len(d.get('failed',{})); total=len(d.get('municipios',[])); print(f'{total}\\t{len(d.get(\"completed\",{}))}\\t{len(d.get(\"failed\",{}))}\\t{d.get(\"status\",\"STARTING\")}')" \
+      2>/dev/null || true)
+    IFS=$'\t' read -r total completed failed status <<<"$snapshot"
+    total=${total:-0}; completed=${completed:-0}; failed=${failed:-0}; status=${status:-STARTING}
+    if ((total > 0)); then
+      percent=$((100 * (completed + failed) / total))
+      ((percent > 100)) && percent=100
+      remaining=$((100 - percent))
+      progress_bar 'CNES nacional' "$percent" "$(( $(date +%s) - started ))"
+      printf ' (%s/%s processados; faltam %s%%; %s falhas; status=%s)' "$((completed + failed))" "$total" "$remaining" "$failed" "$status"
+    else
+      progress_bar 'CNES nacional' 0 "$(( $(date +%s) - started ))"
+      printf ' (aguardando checkpoint)'
+    fi
+    sleep 5
+  done
+  if wait "$pid"; then
+    progress_bar 'CNES nacional' 100 "$(( $(date +%s) - started ))"
+    printf '\n'
+    sed -n '1,160p' "$output_file"
+    log "CONCLUÍDO: CNES nacional ($(( $(date +%s) - started ))s)"
+    rm -f "$output_file"
+  else
+    progress_bar 'CNES nacional' 100 "$(( $(date +%s) - started ))"
+    printf '\n'
+    sed -n '1,200p' "$output_file" >&2
+    log "FALHOU: CNES nacional ($(( $(date +%s) - started ))s)"
+    rm -f "$output_file"
+    return 1
+  fi
 }
 
 start_web() {
