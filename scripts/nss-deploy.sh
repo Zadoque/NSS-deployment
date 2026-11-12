@@ -20,6 +20,16 @@ state_has() { [[ -f "$STATE_FILE" ]] && grep -Fxq "$1" "$STATE_FILE"; }
 state_mark() { mkdir -p "$(dirname "$STATE_FILE")"; grep -Fxq "$1" "$STATE_FILE" 2>/dev/null || printf '%s\n' "$1" >> "$STATE_FILE"; }
 state_reset() { rm -f "$STATE_FILE"; log "Estado removido: $STATE_FILE"; }
 
+purge_docker() {
+  command -v docker >/dev/null || die 'docker não encontrado'
+  read -r -p 'Isso apagará todos os containers, volumes, imagens e redes não utilizadas. Digite APAGAR TUDO: ' confirm
+  [[ "$confirm" == 'APAGAR TUDO' ]] || { log 'Limpeza Docker cancelada; nada foi removido.'; return 0; }
+  log 'INÍCIO: limpeza completa do Docker'
+  docker system prune --all --volumes --force
+  state_reset
+  log 'CONCLUÍDO: limpeza completa do Docker'
+}
+
 require_repositories() {
   local missing=()
   for pair in "NSS-database:${REPO_DATABASE}" "Java:${REPO_JAVA}" "frontend:${REPO_FRONTEND}" "pipeline:${REPO_PIPELINE}"; do
@@ -703,6 +713,7 @@ NSS deployment
   15) mostrar máquina de estados
   16) limpar estado persistido
   17) sair
+  18) apagar todos os recursos Docker
 EOF
     read -r -p 'Escolha: ' choice
     case "${choice}" in
@@ -723,6 +734,7 @@ EOF
       15) show_state ;;
       16) read -r -p 'Digite LIMPAR para confirmar: ' confirm; [[ "$confirm" == LIMPAR ]] && state_reset || log 'Estado preservado.' ;;
       17) return 0 ;;
+      18) purge_docker ;;
       *) log 'Opção inválida.' ;;
     esac
   done
