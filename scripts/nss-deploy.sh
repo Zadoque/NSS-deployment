@@ -288,11 +288,30 @@ for number, (code, label) in enumerate(DISEASE_NAMES.items(), 1):
 }
 
 update_sinan() {
-  local diseases years cnes_batch disease_selection
+  local diseases years cnes_batch disease_selection latest_cnes
   disease_selection=$(sinan_disease_menu | tail -n 1)
   diseases="$disease_selection"
   read -r -p 'Anos separados por vírgula [2024]: ' years; years=${years:-2024}
-  read -r -p 'Batch CNES COMPLETED (opcional): ' cnes_batch
+  latest_cnes=$(docker compose --profile jobs run --rm --no-deps --entrypoint python pipeline -c \
+    'from pathlib import Path
+import json
+root = Path("/data/silver/cnes")
+items = []
+for metadata in root.glob("batch_id=*/metadata.json"):
+    data = json.loads(metadata.read_text(encoding="utf-8"))
+    if data.get("status") == "COMPLETED":
+        items.append((data.get("batch_id", metadata.parent.name.removeprefix("batch_id=")), metadata))
+print(sorted(items, reverse=True)[0][0] if items else "")' < /dev/null 2>/dev/null || true)
+  if [[ -n "${NSS_CNES_BATCH_ID:-}" ]]; then
+    cnes_batch="$NSS_CNES_BATCH_ID"
+    log "Batch CNES recebido por NSS_CNES_BATCH_ID: ${cnes_batch}"
+  elif [[ -n "$latest_cnes" ]]; then
+    read -r -p "Batch CNES COMPLETED [${latest_cnes}]: " cnes_batch
+    cnes_batch=${cnes_batch:-$latest_cnes}
+  else
+    read -r -p 'Batch CNES COMPLETED (obrigatório): ' cnes_batch
+  fi
+  [[ -n "$cnes_batch" ]] || die 'batch CNES COMPLETED é obrigatório para atualização nacional SINAN'
   log "SINAN selecionado: doenças=${diseases}, anos=${years}"
   if [[ "${NSS_NONINTERACTIVE:-0}" == 1 ]]; then
     log 'Confirmação interativa desabilitada; prosseguindo com a seleção informada.'

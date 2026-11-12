@@ -145,8 +145,9 @@ Após a infraestrutura estar saudável, o menu inclui as operações de dados:
 Os comandos são executados dentro do serviço `pipeline` pelo Compose, usando o
 volume `pipeline_data`. A atualização SINAN é incremental e preserva o
 manifesto anterior quando uma fonte falha. O CNES usa checkpoint por lote e
-`PARTIAL` nunca pode ser usado para enriquecer a Gold. A publicação nacional
-exige confirmação explícita no menu.
+`PARTIAL` nunca pode ser usado para enriquecer a Gold. A opção SINAN sugere o
+último lote CNES `COMPLETED`; o lote é obrigatório para a publicação nacional
+e a execução exige confirmação explícita no menu.
 
 As barras de progresso dessas operações correspondem às etapas abaixo:
 
