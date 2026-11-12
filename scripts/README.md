@@ -154,7 +154,7 @@ As barras de progresso dessas operações correspondem às etapas abaixo:
 ```text
 IBGE   [atividade + tempo] -> download -> validação -> promoção 100%
 CNES   [processados/total] -> requisições/checkpoint -> COMPLETED 100%
-SINAN  [processados/total] -> manifesto -> download/skip -> 100%
+SINAN  [processados/total] + item/etapa/lotes -> manifesto -> download/skip -> 100%
 Gold   [atividade + tempo] -> Bronze/Silver/Gold/load -> publicação 100%
 ```
 

@@ -321,13 +321,14 @@ print(sorted(items, reverse=True)[0][0] if items else "")' < /dev/null 2>/dev/nu
   fi
   local args=(--diseases "$diseases" --years "$years" --catalog-root /data/reference/ibge --all-brazil --continue-on-error)
   [[ -n "$cnes_batch" ]] && args+=(--cnes-batch-id "$cnes_batch")
-  run_sinan_with_progress "$diseases" "$years" "${args[@]}"
+  run_sinan_with_progress "$diseases" "$years" "$cnes_batch" "${args[@]}"
 }
 
 run_sinan_with_progress() {
-  local diseases="$1" years="$2"
-  shift 2
+  local diseases="$1" years="$2" cnes_batch="$3"
+  shift 3
   local output_file pid started snapshot total completed failed status percent remaining
+  local recent current_item current_batch current_stage first_render=1
   output_file=$(mktemp "${TMPDIR:-/tmp}/nss-sinan.XXXXXX")
   started=$(date +%s)
   log "INÍCIO: atualização SINAN (${diseases}/${years})"
@@ -363,20 +364,47 @@ print(f"{len(keys)}\t{done}\t{failed}\t{done == len(keys)}")' \
       2>/dev/null || true)
     IFS=$'\t' read -r total completed failed status <<<"$snapshot"
     total=${total:-0}; completed=${completed:-0}; failed=${failed:-0}
+    recent=$(tail -n 100 "$output_file" 2>/dev/null || true)
+    current_item=$(printf '%s\n' "$recent" | sed -n 's/.*Verificando SINAN disease=\([^ ]*\) year=\([^ ]*\).*/\1\/\2/p' | tail -n 1)
+    current_batch=$(printf '%s\n' "$recent" | sed -n 's|.*batch_id=\([^/]*/\)data.parquet.*|\1|p' | tr -d '/' | tail -n 1)
+    current_stage=$(printf '%s\n' "$recent" | awk '
+/Verificando SINAN/ { stage="fonte" }
+/Bronze concluída/ { stage="Bronze" }
+/Silver concluída/ { stage="Silver" }
+/Iniciando carga SINAN/ { stage="Gold" }
+END { print stage }')
+    current_item=${current_item:-preparando}
+    current_batch=${current_batch:-aguardando}
+    current_stage=${current_stage:-preparando}
     if ((total > 0)); then
       percent=$((100 * completed / total))
       ((percent > 100)) && percent=100
       remaining=$((100 - percent))
-      progress_bar 'SINAN' "$percent" "$(( $(date +%s) - started ))"
-      printf ' (%s/%s processados; faltam %s%%; %s falhas)' "$completed" "$total" "$remaining" "$failed"
+      if [[ -t 1 ]]; then
+        ((first_render == 0)) && printf '\033[1A'
+        printf '\033[2K\r'
+        progress_bar 'SINAN' "$percent" "$(( $(date +%s) - started ))"
+        printf ' (%s/%s processados; faltam %s%%; %s falhas)\n' "$completed" "$total" "$remaining" "$failed"
+        printf '\033[2K\r  atual: %s | etapa: %s | lote SINAN: %s | lote CNES: %s' \
+          "$current_item" "$current_stage" "$current_batch" "$cnes_batch"
+      else
+        progress_bar 'SINAN' "$percent" "$(( $(date +%s) - started ))"
+        printf ' (%s/%s processados; faltam %s%%; %s falhas)\n' "$completed" "$total" "$remaining" "$failed"
+        printf '  atual: %s | etapa: %s | lote SINAN: %s | lote CNES: %s\n' \
+          "$current_item" "$current_stage" "$current_batch" "$cnes_batch"
+      fi
     else
       progress_bar 'SINAN' 0 "$(( $(date +%s) - started ))"
-      printf ' (aguardando manifesto)'
+      printf ' (aguardando manifesto)\n'
+      printf '  atual: %s | etapa: %s | lote SINAN: %s | lote CNES: %s\n' \
+        "$current_item" "$current_stage" "$current_batch" "$cnes_batch"
     fi
+    first_render=0
     sleep 5
   done
   trap - INT TERM
   if wait "$pid"; then
+    [[ -t 1 ]] && printf '\n'
     progress_bar 'SINAN' 100 "$(( $(date +%s) - started ))"
     printf '\n'
     sed -n '1,160p' "$output_file"
