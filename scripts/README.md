@@ -306,6 +306,7 @@ O modo `up` não executa ingestão CNES nem pipeline epidemiológica automaticam
 Essas operações continuam explícitas no menu para evitar cargas nacionais
 acidentais. Também não cria Docker no sistema operacional, certificados TLS,
 DNS ou credenciais.
+
 ## Limpeza completa
 
 A opção `18` do menu executa `docker system prune --all --volumes --force`.
