@@ -3,15 +3,15 @@
 frontend:
   repository: Zadoque/NSS-front-end
   branch: feat/national-coverage-validation
-  commit: 887fad7d7fd13e9eedac9f6f33d4ad95b20d8dad
+  commit: c5be3c9c078f3285b3f01763403eac694f39d987
 java:
   repository: Zadoque/Site-Sala-de-Situa-o-de-Saude-Java
   branch: feat/national-coverage-validation
-  commit: 059ba38f68fbc9695057343e82320676b12052c0
+  commit: a984996c5fd731b5b8f778ac26d0529fe2bc3b15
 pipeline:
   repository: Zadoque/NSS-pipeline
   branch: feat/national-coverage-validation
-  commit: 2a39bf495e547f153516d7f2b539004342e04650
+  commit: 94eeb8cfc39e2fd4017cc1d1aebb5e8abf1b6db2
 database:
   repository: Zadoque/NSS-database
   branch: feat/national-coverage-validation
