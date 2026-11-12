@@ -323,7 +323,7 @@ update_sinan() {
     read -r -p 'Executar atualização SINAN com esta seleção? [digite SIM]: ' confirm
     [[ "$confirm" == SIM ]] || die 'atualização SINAN cancelada pelo operador'
   fi
-  local args=(--diseases "$diseases" --years "$years" --catalog-root /data/reference/ibge --all-brazil --continue-on-error)
+  local args=(--diseases "$diseases" --years "$years" --catalog-root /data/reference/ibge --all-brazil --continue-on-error --allow-unavailable)
   [[ -n "$cnes_batch" ]] && args+=(--cnes-batch-id "$cnes_batch")
   run_sinan_with_progress "$diseases" "$years" "$cnes_batch" "${args[@]}"
 }
