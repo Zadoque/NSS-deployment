@@ -167,6 +167,23 @@ export NSS_PIPELINE_REPO=/srv/nss/pipeline
 
 ## Manifesto de release
 
+### Registry local opcional
+
+O caminho padrão não exige registry: `NSS_PIPELINE_IMAGE_MODE=local-build`
+constrói e executa as imagens no próprio host. Para produzir referências
+imutáveis sem GHCR, habilite o registry loopback no NixOS e, após o build,
+execute:
+
+```bash
+NSS_IMAGE_DIGEST_FILE=/var/lib/nss/releases/20261112.env \
+  ./scripts/publish-local-images.sh
+```
+
+O comando publica as imagens locais no registry configurado, verifica os quatro
+`RepoDigest` SHA-256 e gera um arquivo de variáveis sem credenciais. Esse
+arquivo deve ser promovido junto com a release; não é um substituto para o
+manifesto Git de commits.
+
 `releases.yaml` fixa o repositório, a branch de origem e o commit exato dos
 quatro componentes. O commit é a referência efetiva do build; a branch serve
 para rastreabilidade e para o runner saber de onde buscar a versão.
