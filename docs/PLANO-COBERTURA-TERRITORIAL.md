@@ -97,15 +97,23 @@ Código IBGE: `3106200`.
 Fonte atual: malhas versionadas em `NSS-pipeline/territories`, exportadas para
 o catálogo Java e para `public/maps/national`.
 
-Os números abaixo são a linha de base anterior à deduplicação; não são ainda
-o aceite final do catálogo:
+Os números abaixo eram a linha de base anterior à deduplicação. O snapshot
+canônico aprovado substituiu essa linha de base:
 
-- 3 distritos e 468 bairros presentes na pipeline;
-- 3 distritos e 468 bairros presentes no frontend;
-- 3 distritos e 468 bairros presentes no Java após a correção;
+- 3 distritos e 466 bairros canônicos em BH nos três consumidores;
+- 2 geometrias OSM redundantes foram descartadas (Lourdes e Santo Agostinho,
+  `way` sobreposto à `relation`), com relatório versionado;
 - conjuntos de identificadores, nomes e pais iguais entre as três fontes;
-- teste `TerritoryCatalogTest` cobrindo os 3 distritos e 468 bairros;
+- teste `TerritoryCatalogTest` cobrindo os 3 distritos e 466 bairros;
 - suíte Maven do Java executada com sucesso.
+
+O gate nacional foi executado no snapshot promovido e produziu: 5 regiões, 27
+UFs, 5.571 municípios, 10.699 distritos, 28.465 bairros e 39.164 geometrias.
+Houve 594 descartes determinísticos no total, zero IDs duplicados, zero
+geometrias vazias ou inválidas, zero pais inexistentes, zero geometrias fora
+do pai e zero sobreposições semânticas acima de 85%. A contenção usou
+tolerância de `1e-6` grau. A paridade com o TSV Java foi completa e o auditor
+retornou código 0.
 
 Validação operacional executada no `nss-v1`:
 
@@ -116,16 +124,16 @@ Validação operacional executada no `nss-v1`:
    254 e parcela não mapeada 3.761;
 5. confirmar que a API retorna os três distritos, inclusive os que tenham
    zero casos;
-6. confirmar 468 bairros, com 269 no distrito Belo Horizonte, 78 no Barreiro
-   e 121 em Venda Nova;
+6. confirmar 466 bairros canônicos e a distribuição por distrito no relatório
+   gerado, sem duplicidade semântica;
 7. confirmar que a soma territorial continua separada da parcela não mapeada.
 
 Após o importador corrigido, o piloto só será aprovado novamente quando:
 
 - Lourdes aparecer uma única vez no catálogo semântico e no GeoJSON;
 - Santo Agostinho aparecer uma única vez, salvo justificativa documentada;
-- houver exatamente 3 distritos e a nova contagem canônica de bairros for
-  registrada no relatório;
+- houver exatamente 3 distritos e 466 bairros canônicos, registrados no
+  relatório;
 - a API retornar cada território uma única vez;
 - DENG/2026 continuar preservando o total municipal de 4.015;
 - as consultas de mês individual, ano inteiro e período inteiro retornarem
