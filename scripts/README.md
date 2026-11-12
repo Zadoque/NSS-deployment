@@ -130,9 +130,22 @@ Gold   [atividade + tempo] -> Bronze/Silver/Gold/load -> publicação 100%
 O script verifica:
 
 - `docker` e Docker Compose v2;
+- dependências do host verificadas por `./scripts/check-host-dependencies.sh`;
 - `.env` e todas as variáveis obrigatórias;
 - `docker compose config`;
 - os quatro repositórios de build.
+
+No NixOS, essas dependências são declaradas pelo módulo `services.nss`. Antes
+do bootstrap, execute:
+
+```bash
+./scripts/check-host-dependencies.sh
+```
+
+O teste verifica os comandos usados pelo script, incluindo Docker/Compose,
+Git, curl, awk, `ss`, base64 e os utilitários POSIX. Python, Java, Node,
+PostgreSQL e Redis pertencem às imagens/serviços Compose e são validados pelos
+healthchecks e testes de integração correspondentes.
 
 Os caminhos padrão são diretórios irmãos de `nss-deployment`:
 
