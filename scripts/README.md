@@ -66,6 +66,10 @@ stateDiagram-v2
 O estado `cnes_partial` nunca é aceito pela Gold; a promoção exige um lote
 `COMPLETED` compatível com a release IBGE.
 
+O smoke test do Caddy aguarda até 60 segundos pela resposta HTTP local. Isso
+evita reprovar a etapa 13 apenas porque o proxy ainda está iniciando; se o
+prazo terminar, os logs do Caddy, frontend e Java são exibidos.
+
 ## Arquivo de ambiente e secrets
 
 `.env.example` do repositório `NSS-deployment` é o único modelo que deve ser

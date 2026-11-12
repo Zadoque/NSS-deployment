@@ -537,6 +537,19 @@ END { print stage }')
   done
 }
 
+smoke_caddy() {
+  local port="${NSS_HTTP_PORT:-8080}" attempt
+  for attempt in {1..30}; do
+    if curl -fsSI --max-time 3 "http://127.0.0.1:${port}/" >/dev/null 2>&1; then
+      printf 'Caddy pronto após %ss\n' "$(( (attempt - 1) * 2 ))"
+      return 0
+    fi
+    sleep 2
+  done
+  docker compose logs --tail=100 caddy frontend java >&2 || true
+  return 1
+}
+
 pipeline_preflight() {
   local pipeline_image_mode="${NSS_PIPELINE_IMAGE_MODE:-${NSS_IMAGE_MODE:-digest}}"
   step 'preflight pipeline' docker compose --profile jobs run --rm --entrypoint python \
@@ -630,7 +643,7 @@ run_cnes_with_progress() {
 
 start_web() {
   step 'frontend, Caddy, Prometheus, Pushgateway e Grafana' docker compose up -d frontend caddy prometheus pushgateway grafana
-  step 'smoke Caddy' curl -fsSI http://127.0.0.1:"${NSS_HTTP_PORT:-8080}"/
+  step 'smoke Caddy' smoke_caddy
 }
 
 status() {
