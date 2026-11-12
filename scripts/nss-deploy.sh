@@ -137,7 +137,19 @@ build_images() {
   step 'imagem do banco central' docker build -t "${NSS_DATABASE_IMAGE:-nss-database:0001}" "$REPO_DATABASE"
   step 'imagem Java' docker build -t "${NSS_JAVA_IMAGE:-nss-java:local}" "$REPO_JAVA"
   step 'imagem frontend' docker build --build-arg VITE_USE_MOCKS=false --build-arg VITE_API_BASE_URL= -t "${NSS_FRONTEND_IMAGE:-nss-frontend:local}" "$REPO_FRONTEND"
-  step 'imagem pipeline' docker build -t "${NSS_PIPELINE_IMAGE:-nss-pipeline:local}" "$REPO_PIPELINE"
+  case "${NSS_PIPELINE_IMAGE_MODE:-digest}" in
+    local-build)
+      step 'imagem pipeline' docker build -t "${NSS_PIPELINE_IMAGE:-nss-pipeline:local}" "$REPO_PIPELINE"
+      ;;
+    digest)
+      [[ "${NSS_PIPELINE_IMAGE:-}" =~ @sha256:[[:xdigit:]]{64}$ ]] ||
+        die 'NSS_PIPELINE_IMAGE deve ser um digest OCI SHA-256 no modo digest'
+      log "SKIP imagem pipeline: usando digest ${NSS_PIPELINE_IMAGE}"
+      ;;
+    *)
+      die 'NSS_PIPELINE_IMAGE_MODE deve ser digest ou local-build'
+      ;;
+  esac
 }
 
 start_database() {
@@ -252,6 +264,7 @@ pipeline_preflight() {
     -e GRAFANA_DB_USER="${NSS_GRAFANA_DB_USER:-nss_grafana}" \
     -e GRAFANA_DB_PASSWORD="${NSS_GRAFANA_DB_PASSWORD:-${POSTGRES_ADMIN_PASSWORD}}" \
     -e NSS_PIPELINE_IMAGE="${NSS_PIPELINE_IMAGE}" \
+    -e NSS_PIPELINE_IMAGE_MODE="${NSS_PIPELINE_IMAGE_MODE:-digest}" \
     pipeline -m app.pipeline.preflight
 }
 
