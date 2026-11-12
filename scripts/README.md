@@ -188,6 +188,21 @@ manifesto Git de commits.
 quatro componentes. O commit é a referência efetiva do build; a branch serve
 para rastreabilidade e para o runner saber de onde buscar a versão.
 
+O mesmo manifesto fixa a release territorial usada pelos jobs:
+
+```yaml
+ibge:
+  catalogId: ibge-dtb-2025
+  referenceYear: 2025
+  dtbUrl: https://geoftp.ibge.gov.br/.../DTB_2025.zip
+  expectedSha256: <sha256-verificado>
+```
+
+O NixOS apenas habilita e agenda o timer IBGE. O serviço lê esses quatro
+campos do deployment em tempo de execução; uma nova release do IBGE é,
+portanto, uma atualização revisada do manifesto, sem alterar a estrutura do
+NixOS.
+
 Valide o manifesto antes do bootstrap:
 
 ```bash

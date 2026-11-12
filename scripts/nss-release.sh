@@ -36,6 +36,37 @@ validate_manifest() {
       die "${component}.commit deve ser um SHA Git no manifesto"
     printf '%-8s %s %s %s\n' "$component" "$repository" "$branch" "$commit"
   done
+  validate_ibge
+  printf 'ibge     %s %s %s %s\n' \
+    "$(manifest_value ibge catalogId)" \
+    "$(manifest_value ibge referenceYear)" \
+    "$(manifest_value ibge dtbUrl)" \
+    "$(manifest_value ibge expectedSha256)"
+}
+
+validate_ibge() {
+  local catalog_id reference_year dtb_url expected_sha
+  catalog_id=$(manifest_value ibge catalogId)
+  reference_year=$(manifest_value ibge referenceYear)
+  dtb_url=$(manifest_value ibge dtbUrl)
+  expected_sha=$(manifest_value ibge expectedSha256)
+  [[ "$catalog_id" =~ ^[A-Za-z0-9_.-]+$ ]] ||
+    die 'ibge.catalogId inválido no manifesto'
+  [[ "$reference_year" =~ ^[0-9]{4}$ ]] ||
+    die 'ibge.referenceYear deve ser um ano de quatro dígitos'
+  [[ "$dtb_url" =~ ^https:// ]] ||
+    die 'ibge.dtbUrl deve usar HTTPS'
+  [[ "$expected_sha" =~ ^[0-9a-fA-F]{64}$ ]] ||
+    die 'ibge.expectedSha256 deve ser um SHA-256 hexadecimal'
+}
+
+ibge_values() {
+  validate_ibge
+  printf '%s\t%s\t%s\t%s\n' \
+    "$(manifest_value ibge catalogId)" \
+    "$(manifest_value ibge referenceYear)" \
+    "$(manifest_value ibge dtbUrl)" \
+    "$(manifest_value ibge expectedSha256)"
 }
 
 repo_path() {
@@ -69,5 +100,6 @@ sync_repositories() {
 case "${1:-validate}" in
   validate) validate_manifest ;;
   sync) sync_repositories ;;
-  *) die "uso: $0 [validate|sync]" ;;
+  ibge-values) ibge_values ;;
+  *) die "uso: $0 [validate|sync|ibge-values]" ;;
 esac
