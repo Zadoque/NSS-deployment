@@ -123,10 +123,20 @@ manifestos SINAN e resultado do rollback de ensaio.
 ## Pendências ordenadas
 
 1. Publicar a `main` local do NixOS após autenticar o SSH.
-2. Integrar o contrato `local-build`/`digest` entre deployment e pipeline.
-3. Implementar registry local opcional e publicação de `RepoDigest`.
-4. Adicionar IBGE ao NixOS com lock, promoção e rollback.
-5. Implementar workflow e runner self-hosted orientado a eventos.
-6. Atualizar `releases.yaml` para SHAs de `main` após os merges dos quatro
+2. Atualizar `releases.yaml` para SHAs de `main` após os merges dos quatro
    repositórios.
-7. Ensaiar a implantação integrada e só depois promover o servidor.
+3. Criar os segredos no servidor e habilitar o registry/runner no host.
+4. Ensaiar a publicação de `RepoDigest` e a execução do workflow no runner.
+5. Ensaiar a implantação integrada e só depois promover o servidor.
+
+## Implementação já validada localmente
+
+- `nss-NixOS-Configuration`: dependências do host, registry loopback,
+  runner self-hosted e timer IBGE estão implementados; o `nix flake check`
+  passa inclusive com esses recursos habilitados no cenário de avaliação.
+- `NSS-deployment`: manifesto, verificador de dependências, workflow de
+  `main`, modo não interativo e publicador local de quatro imagens estão
+  implementados; validação sintática Bash, Compose preflight e manifesto
+  passaram.
+- `NSS-pipeline`: `local-build` é aceito somente quando explícito; o modo
+  padrão continua exigindo digest; 30 testes de preflight passaram.
