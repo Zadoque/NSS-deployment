@@ -138,7 +138,8 @@ Após a infraestrutura estar saudável, o menu inclui as operações de dados:
 4. verificar lotes CNES e seu status;
 5. baixar CNES nacional com checkpoint;
 6. verificar o manifesto de Parquets SINAN;
-7. verificar e baixar atualizações SINAN por doença/ano;
+7. listar as 49 doenças SINAN, selecionar os números e verificar/baixar
+   atualizações por doença/ano;
 8. executar Gold Serving, exigindo batch CNES `COMPLETED`.
 
 Os comandos são executados dentro do serviço `pipeline` pelo Compose, usando o
@@ -151,10 +152,14 @@ As barras de progresso dessas operações correspondem às etapas abaixo:
 
 ```text
 IBGE   [atividade + tempo] -> download -> validação -> promoção 100%
-CNES   [atividade + tempo] -> requisições/checkpoint -> COMPLETED 100%
-Parquet[atividade + tempo] -> manifesto -> download/skip -> 100%
+CNES   [processados/total] -> requisições/checkpoint -> COMPLETED 100%
+SINAN  [processados/total] -> manifesto -> download/skip -> 100%
 Gold   [atividade + tempo] -> Bronze/Silver/Gold/load -> publicação 100%
 ```
+
+Na opção 11, informar `1,2` seleciona `DENG` e `CHIK`. Para execução sem
+TTY, a seleção pode ser fornecida em `NSS_SINAN_DISEASES` usando os números do
+menu; a execução também aceita `NSS_NONINTERACTIVE=1`.
 
 ## Pré-requisitos e mensagens de erro
 

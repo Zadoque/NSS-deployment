@@ -245,15 +245,132 @@ for p in sorted(root.glob("batch_id=*/metadata.json")):
 print(json.dumps(items,ensure_ascii=False,indent=2))'
 }
 
+sinan_disease_menu() {
+  local disease_lines number code label
+  local -a disease_codes
+  disease_lines=$(docker compose --profile jobs run --rm --no-deps --entrypoint python pipeline -c \
+    'from app.pipeline.load import DISEASE_NAMES
+for number, (code, label) in enumerate(DISEASE_NAMES.items(), 1):
+    print(f"{number}\t{code}\t{label}")' < /dev/null) ||
+    die 'não foi possível carregar a lista de doenças da imagem da pipeline'
+
+  printf '\nDoenças SINAN disponíveis:\n' >&2
+  while IFS=$'\t' read -r number code label; do
+    [[ -n "$number" && -n "$code" ]] || continue
+    disease_codes[number]="$code"
+    printf '  %2s: %s — %s\n' "$number" "$code" "$label" >&2
+  done <<<"$disease_lines"
+  ((${#disease_codes[@]} == 49)) || die "a imagem retornou ${#disease_codes[@]} doenças; eram esperadas 49"
+
+  local selection normalized diseases=''
+  local -a selections
+  if [[ -n "${NSS_SINAN_DISEASES:-}" ]]; then
+    normalized="$NSS_SINAN_DISEASES"
+    log "Doenças recebidas por NSS_SINAN_DISEASES: ${normalized}"
+  else
+    read -r -p 'Escolha os números separados por vírgula (ex.: 1,2): ' normalized
+  fi
+  [[ -n "$normalized" ]] || die 'selecione ao menos uma doença'
+  IFS=',' read -r -a selections <<<"$normalized"
+  local -A selected=()
+  for selection in "${selections[@]}"; do
+    selection="${selection//[[:space:]]/}"
+    [[ "$selection" =~ ^[0-9]+$ ]] || die "seleção inválida: ${selection}"
+    ((selection >= 1 && selection <= 49)) || die "número de doença fora do intervalo: ${selection}"
+    if [[ -z "${selected[$selection]:-}" ]]; then
+      selected[$selection]=1
+      if [[ -n "$diseases" ]]; then diseases+=','; fi
+      diseases+="${disease_codes[$selection]}"
+    fi
+  done
+  printf 'Doenças selecionadas: %s\n' "$diseases" >&2
+  printf '%s\n' "$diseases"
+}
+
 update_sinan() {
-  local diseases years cnes_batch
-  read -r -p 'Doenças separadas por vírgula [DENG]: ' diseases; diseases=${diseases:-DENG}
+  local diseases years cnes_batch disease_selection
+  disease_selection=$(sinan_disease_menu | tail -n 1)
+  diseases="$disease_selection"
   read -r -p 'Anos separados por vírgula [2024]: ' years; years=${years:-2024}
   read -r -p 'Batch CNES COMPLETED (opcional): ' cnes_batch
+  log "SINAN selecionado: doenças=${diseases}, anos=${years}"
+  if [[ "${NSS_NONINTERACTIVE:-0}" == 1 ]]; then
+    log 'Confirmação interativa desabilitada; prosseguindo com a seleção informada.'
+  else
+    read -r -p 'Executar atualização SINAN com esta seleção? [digite SIM]: ' confirm
+    [[ "$confirm" == SIM ]] || die 'atualização SINAN cancelada pelo operador'
+  fi
   local args=(--diseases "$diseases" --years "$years" --catalog-root /data/reference/ibge --all-brazil --continue-on-error)
   [[ -n "$cnes_batch" ]] && args+=(--cnes-batch-id "$cnes_batch")
-  step "verificar/baixar atualizações SINAN ${diseases}/${years}" docker compose --profile jobs run --rm --entrypoint python pipeline \
-    -m app.pipeline.update_sinan "${args[@]}"
+  run_sinan_with_progress "$diseases" "$years" "${args[@]}"
+}
+
+run_sinan_with_progress() {
+  local diseases="$1" years="$2"
+  shift 2
+  local output_file pid started snapshot total completed failed status percent remaining
+  output_file=$(mktemp "${TMPDIR:-/tmp}/nss-sinan.XXXXXX")
+  started=$(date +%s)
+  log "INÍCIO: atualização SINAN (${diseases}/${years})"
+  docker compose --profile jobs run --rm --entrypoint python pipeline \
+    -m app.pipeline.update_sinan "$@" >"$output_file" 2>&1 &
+  pid=$!
+  trap 'kill "$pid" 2>/dev/null || true; wait "$pid" 2>/dev/null || true; rm -f "$output_file"; exit 130' INT TERM
+  while kill -0 "$pid" 2>/dev/null; do
+    snapshot=$(docker compose --profile jobs run --rm --no-deps \
+      -e NSS_MONITOR_DISEASES="$diseases" \
+      -e NSS_MONITOR_YEARS="$years" \
+      -e NSS_MONITOR_STARTED="$started" \
+      --entrypoint python pipeline -c \
+      'from pathlib import Path
+import json, os
+diseases = [value for value in os.environ["NSS_MONITOR_DISEASES"].split(",") if value]
+years = sorted({value.strip() for value in os.environ["NSS_MONITOR_YEARS"].split(",") if value.strip()})
+keys = {f"{disease}:{year}" for disease in diseases for year in years}
+path = Path("/data/source/sinan/manifest.json")
+manifest = json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}
+started = float(os.environ["NSS_MONITOR_STARTED"])
+entries = [manifest.get(key, {}) for key in keys]
+def current(entry):
+    value = entry.get("updatedAt") or entry.get("checkedAt")
+    try:
+        return value is not None and __import__("datetime").datetime.fromisoformat(value).timestamp() >= started
+    except (TypeError, ValueError):
+        return False
+finished = [entry.get("status") if current(entry) else None for entry in entries]
+done = sum(status in {"UPDATED", "UNCHANGED", "UNAVAILABLE", "FAILED"} for status in finished)
+failed = sum(status in {"FAILED", "UNAVAILABLE"} for status in finished)
+print(f"{len(keys)}\t{done}\t{failed}\t{done == len(keys)}")' \
+      2>/dev/null || true)
+    IFS=$'\t' read -r total completed failed status <<<"$snapshot"
+    total=${total:-0}; completed=${completed:-0}; failed=${failed:-0}
+    if ((total > 0)); then
+      percent=$((100 * completed / total))
+      ((percent > 100)) && percent=100
+      remaining=$((100 - percent))
+      progress_bar 'SINAN' "$percent" "$(( $(date +%s) - started ))"
+      printf ' (%s/%s processados; faltam %s%%; %s falhas)' "$completed" "$total" "$remaining" "$failed"
+    else
+      progress_bar 'SINAN' 0 "$(( $(date +%s) - started ))"
+      printf ' (aguardando manifesto)'
+    fi
+    sleep 5
+  done
+  trap - INT TERM
+  if wait "$pid"; then
+    progress_bar 'SINAN' 100 "$(( $(date +%s) - started ))"
+    printf '\n'
+    sed -n '1,160p' "$output_file"
+    log "CONCLUÍDO: atualização SINAN ($(( $(date +%s) - started ))s)"
+    rm -f "$output_file"
+  else
+    progress_bar 'SINAN' 100 "$(( $(date +%s) - started ))"
+    printf '\n'
+    sed -n '1,200p' "$output_file" >&2
+    log "FALHOU: atualização SINAN ($(( $(date +%s) - started ))s)"
+    rm -f "$output_file"
+    return 1
+  fi
 }
 
 parquet_status() {
