@@ -129,8 +129,12 @@ EOF
   step '2/4 repositórios' require_repositories
   step '3/4 arquivo de ambiente' require_env
   step '4/4 configuração Compose' docker compose --env-file "$ENV_FILE" config --quiet
-  read -r -p 'Pré-voo concluído. Continuar? [S/n] ' answer
-  [[ -z "$answer" || "$answer" =~ ^[Ss]$ ]] || die 'bootstrap cancelado pelo operador'
+  if [[ "${NSS_NONINTERACTIVE:-0}" == 1 ]]; then
+    log 'Pré-voo concluído; prosseguindo em modo não interativo.'
+  else
+    read -r -p 'Pré-voo concluído. Continuar? [S/n] ' answer
+    [[ -z "$answer" || "$answer" =~ ^[Ss]$ ]] || die 'bootstrap cancelado pelo operador'
+  fi
 }
 
 build_images() {
@@ -195,6 +199,7 @@ bootstrap_tty() {
   if ! state_has images; then build_images; state_mark images; else log 'SKIP images: estado concluído'; fi
   if ! state_has database; then start_database; state_mark database; else log 'SKIP database: estado concluído'; fi
   if ! state_has java; then start_java; state_mark java; else log 'SKIP java: estado concluído'; fi
+  if ! state_has pipeline-preflight; then pipeline_preflight; state_mark pipeline-preflight; else log 'SKIP pipeline-preflight: estado concluído'; fi
   if ! state_has web; then start_web; state_mark web; else log 'SKIP web: estado concluído'; fi
   status
 }
