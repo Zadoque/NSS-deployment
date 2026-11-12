@@ -218,14 +218,21 @@ catalog_status() {
 }
 
 refresh_ibge() {
-  local catalog_id reference_year dtb_url expected_sha
-  read -r -p 'IBGE catalog-id [ibge-dtb-2025]: ' catalog_id; catalog_id=${catalog_id:-ibge-dtb-2025}
-  read -r -p 'Ano de referência [2025]: ' reference_year; reference_year=${reference_year:-2025}
-  read -r -p 'URL DTB oficial: ' dtb_url
-  [[ -n "$dtb_url" ]] || die 'URL DTB é obrigatória para atualizar o IBGE'
-  read -r -p 'SHA-256 esperado (opcional): ' expected_sha
+  local catalog_id reference_year dtb_url expected_sha ibge_values
+  ibge_values=$(NSS_RELEASE_MANIFEST="$RELEASE_MANIFEST" scripts/nss-release.sh ibge-values) ||
+    die "não foi possível ler a configuração IBGE do manifesto: ${RELEASE_MANIFEST}"
+  IFS=$'\t' read -r catalog_id reference_year dtb_url expected_sha <<<"$ibge_values"
+  [[ -n "$catalog_id" && -n "$reference_year" && -n "$dtb_url" && -n "$expected_sha" ]] ||
+    die 'manifesto IBGE incompleto'
+  log "IBGE selecionado pelo manifesto: ${catalog_id}, ano ${reference_year}"
+  if [[ "${NSS_NONINTERACTIVE:-0}" == 1 ]]; then
+    log 'Confirmação interativa desabilitada; prosseguindo com o manifesto.'
+  else
+    read -r -p 'Baixar e ativar este catálogo IBGE? [digite SIM]: ' confirm
+    [[ "$confirm" == SIM ]] || die 'atualização IBGE cancelada pelo operador'
+  fi
   local args=(--root /data/reference/ibge --catalog-id "$catalog_id" --reference-year "$reference_year" --dtb-url "$dtb_url")
-  [[ -n "$expected_sha" ]] && args+=(--expected-sha256 "$expected_sha")
+  args+=(--expected-sha256 "$expected_sha")
   step "atualizar catálogo IBGE ${catalog_id}" docker compose --profile jobs run --rm --entrypoint python pipeline \
     -m app.pipeline.reference.ibge.refresh "${args[@]}"
 }
