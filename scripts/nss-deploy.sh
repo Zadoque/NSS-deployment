@@ -138,17 +138,23 @@ EOF
 }
 
 build_images() {
-  step 'imagem do banco central' docker build -t "${NSS_DATABASE_IMAGE:-nss-database:0001}" "$REPO_DATABASE"
-  step 'imagem Java' docker build -t "${NSS_JAVA_IMAGE:-nss-java:local}" "$REPO_JAVA"
-  step 'imagem frontend' docker build --build-arg VITE_USE_MOCKS=false --build-arg VITE_API_BASE_URL= -t "${NSS_FRONTEND_IMAGE:-nss-frontend:local}" "$REPO_FRONTEND"
-  case "${NSS_PIPELINE_IMAGE_MODE:-digest}" in
+  case "${NSS_IMAGE_MODE:-local-build}" in
     local-build)
+      [[ "${NSS_PIPELINE_IMAGE_MODE:-local-build}" == local-build ]] ||
+        die 'NSS_PIPELINE_IMAGE_MODE deve ser local-build quando NSS_IMAGE_MODE=local-build'
+      step 'imagem do banco central' docker build -t "${NSS_DATABASE_IMAGE:-nss-database:0001}" "$REPO_DATABASE"
+      step 'imagem Java' docker build -t "${NSS_JAVA_IMAGE:-nss-java:local}" "$REPO_JAVA"
+      step 'imagem frontend' docker build --build-arg VITE_USE_MOCKS=false --build-arg VITE_API_BASE_URL= -t "${NSS_FRONTEND_IMAGE:-nss-frontend:local}" "$REPO_FRONTEND"
       step 'imagem pipeline' docker build -t "${NSS_PIPELINE_IMAGE:-nss-pipeline:local}" "$REPO_PIPELINE"
       ;;
     digest)
-      [[ "${NSS_PIPELINE_IMAGE:-}" =~ @sha256:[[:xdigit:]]{64}$ ]] ||
-        die 'NSS_PIPELINE_IMAGE deve ser um digest OCI SHA-256 no modo digest'
-      log "SKIP imagem pipeline: usando digest ${NSS_PIPELINE_IMAGE}"
+      local image_name image_reference
+      for image_name in NSS_DATABASE_IMAGE NSS_JAVA_IMAGE NSS_FRONTEND_IMAGE NSS_PIPELINE_IMAGE; do
+        image_reference="${!image_name:-}"
+        [[ "$image_reference" =~ @sha256:[[:xdigit:]]{64}$ ]] ||
+          die "${image_name} deve ser um digest OCI SHA-256 no modo digest"
+        log "SKIP ${image_name}: usando digest ${image_reference}"
+      done
       ;;
     *)
       die 'NSS_PIPELINE_IMAGE_MODE deve ser digest ou local-build'
@@ -260,6 +266,7 @@ run_serving_load() {
 }
 
 pipeline_preflight() {
+  local pipeline_image_mode="${NSS_PIPELINE_IMAGE_MODE:-${NSS_IMAGE_MODE:-digest}}"
   step 'preflight pipeline' docker compose --profile jobs run --rm --entrypoint python \
     -e POSTGRES_USER="${POSTGRES_ADMIN_USER}" \
     -e POSTGRES_PASSWORD="${POSTGRES_ADMIN_PASSWORD}" \
@@ -269,7 +276,7 @@ pipeline_preflight() {
     -e GRAFANA_DB_USER="${NSS_GRAFANA_DB_USER:-nss_grafana}" \
     -e GRAFANA_DB_PASSWORD="${NSS_GRAFANA_DB_PASSWORD:-${POSTGRES_ADMIN_PASSWORD}}" \
     -e NSS_PIPELINE_IMAGE="${NSS_PIPELINE_IMAGE}" \
-    -e NSS_PIPELINE_IMAGE_MODE="${NSS_PIPELINE_IMAGE_MODE:-digest}" \
+    -e NSS_PIPELINE_IMAGE_MODE="${pipeline_image_mode}" \
     pipeline -m app.pipeline.preflight
 }
 
