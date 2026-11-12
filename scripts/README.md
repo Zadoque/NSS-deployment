@@ -28,12 +28,43 @@ e ignorado pelo Git. Um `up` ou `resume` repete somente os estados ainda não
 marcados. O estado não substitui healthchecks: pré-requisitos e Compose são
 validados em toda execução.
 
-Cada estado também é executado com uma barra de progresso no TTY. A barra mostra
-atividade e tempo decorrido, avançando até 100% quando o comando termina. Para
-downloads e processamento, o script não inventa um percentual: a porcentagem é
-deliberadamente indeterminada durante a operação, enquanto a saída detalhada é
-impressa ao final. Assim, IBGE, CNES, Parquet e Gold têm feedback visual sem
-confundir tempo de execução com quantidade de bytes ou linhas processadas.
+Cada estado também é executado com uma barra de progresso no TTY. Para etapas
+sem contador persistido, ela mostra atividade e tempo decorrido, sem inventar
+um percentual. A CNES é uma exceção: o monitor consulta o checkpoint no volume
+Docker e mostra municípios processados, percentual restante, falhas e status
+real. A saída detalhada continua sendo preservada e exibida ao final.
+
+O ciclo de dados depois do bootstrap segue este fluxo conceitual:
+
+```mermaid
+stateDiagram-v2
+    [*] --> infrastructure_ready
+    infrastructure_ready --> ibge_check: etapa 6
+    ibge_check --> ibge_ready: active.json válido
+    ibge_check --> ibge_refresh: catálogo ausente/atualização
+    ibge_refresh --> ibge_ready: etapa 7 concluída
+    ibge_ready --> cnes_check: etapa 8
+    cnes_check --> cnes_load: lote ausente/desatualizado
+    cnes_check --> cnes_ready: lote COMPLETED válido
+    cnes_load --> cnes_ready: etapa 9 concluída
+    cnes_load --> cnes_partial: falhas classificadas
+    cnes_partial --> cnes_load: retomar checkpoint
+    cnes_ready --> sinan_check: etapa 10
+    sinan_check --> sinan_update: manifesto ausente/desatualizado
+    sinan_check --> sinan_ready: etapa 10 válida
+    sinan_update --> sinan_ready: etapa 11 concluída
+    sinan_ready --> gold_load: etapa 12
+    gold_load --> serving_ready: transação PostgreSQL commitada
+    serving_ready --> [*]
+    ibge_refresh --> failed: falha de download/validação
+    cnes_load --> failed: erro fatal
+    sinan_update --> failed: fonte/manifesto inválido
+    gold_load --> failed: reconciliação/contrato rejeitado
+    failed --> ibge_check: corrigir e repetir
+```
+
+O estado `cnes_partial` nunca é aceito pela Gold; a promoção exige um lote
+`COMPLETED` compatível com a release IBGE.
 
 ## Arquivo de ambiente e secrets
 
