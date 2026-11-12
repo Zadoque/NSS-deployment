@@ -40,16 +40,22 @@ Validações realizadas:
 - teste `TerritoryCatalogTest` cobrindo os 3 distritos e 468 bairros;
 - suíte Maven do Java executada com sucesso.
 
-Validação operacional pendente do piloto:
+Validação operacional executada no `nss-v1`:
 
-1. construir a nova imagem Java;
-2. subir um Compose de validação com projeto distinto do ativo;
+1. construir a nova imagem Java e recriar o serviço;
+2. verificar Java saudável, Compose, Redis e Caddy;
 3. consultar a API de distritos e bairros de BH;
 4. conferir DENG/2026: total municipal 4.015, parcela territorial mapeada
    254 e parcela não mapeada 3.761;
 5. confirmar que a API retorna os três distritos, inclusive os que tenham
    zero casos;
-6. destruir somente o Compose de validação.
+6. confirmar 468 bairros, com 269 no distrito Belo Horizonte, 78 no Barreiro
+   e 121 em Venda Nova;
+7. confirmar que a soma territorial continua separada da parcela não mapeada.
+
+Resultado: aprovado para o piloto de BH. A API retornou os três distritos,
+preservou o total municipal e classificou os bairros sem criar notificações
+artificiais para o distrito Venda Nova.
 
 ## Fase 2 — verificador nacional de catálogo
 
@@ -98,6 +104,24 @@ As unidades SINAN que não aparecem no CNES devem formar um relatório separado.
 Não se deve atribuir distrito por nome textual ou por aproximação sem regra
 versionada e aprovada.
 
+### Evidência inicial de BH e lote histórico
+
+O lote CNES ativo `20261112T153932Z` contém 560 estabelecimentos de BH,
+enquanto o lote histórico `20261103T125935Z` contém 11.179. Dos 225 códigos
+SINAN ausentes no lote ativo, 219 aparecem no lote histórico, cobrindo 3.734
+dos 3.755 casos associados a esses códigos. No entanto, os campos territoriais
+do lote histórico estão marcados como `UNAVAILABLE`.
+
+Uma reclassificação somente em memória, usando as geometrias versionadas
+atuais, classificou esses registros históricos de BH em 3.704 casos por
+bairro, 25 somente por distrito e 205 ainda não mapeados. Isso demonstra uma
+possível recuperação, mas não autoriza substituir automaticamente o lote
+ativo: a troca de snapshot altera a referência epidemiológica do Gold.
+
+Critério para a próxima implementação: reclassificar o lote histórico em uma
+área isolada, comparar contagens e metadados com o lote ativo e exigir um
+`batch_id` explicitamente aprovado antes de publicar qualquer fallback.
+
 ## Fase 5 — validação Gold e API
 
 Selecionar amostras representativas por estado, incluindo municípios com:
@@ -130,6 +154,18 @@ Adicionar ao CI:
 
 Uma atualização futura do catálogo só poderá ser publicada se todos os
 verificadores passarem ou se as exceções forem registradas explicitamente.
+
+## Atualização SINAN multi-doença/ano
+
+Na execução de CHIK, ZIKA, TUBE e HANS para 2023–2026, foram processados 15
+dos 16 pares. O único par sem carga foi `TUBE/2026`, para o qual o catálogo
+PySUS não disponibiliza Parquet. O manifesto registrou esse caso como
+`UNAVAILABLE`, sem interromper as demais cargas.
+
+O `nss-deploy.sh` passou a enviar `--allow-unavailable` ao job de atualização,
+e a suíte de contrato do pipeline foi executada no container: `31 passed`.
+Esse comportamento mantém a falha real visível no manifesto e evita tratar
+uma ausência de fonte como erro das outras doenças/anos.
 
 ## Diagnóstico conhecido de BH
 
