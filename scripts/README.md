@@ -140,7 +140,8 @@ Após a infraestrutura estar saudável, o menu inclui as operações de dados:
 6. verificar o manifesto de Parquets SINAN;
 7. listar as 49 doenças SINAN, selecionar os números e verificar/baixar
    atualizações por doença/ano;
-8. executar Gold Serving, exigindo batch CNES `COMPLETED`.
+8. selecionar doenças/anos e executar Gold Serving, exigindo batch CNES
+   `COMPLETED`.
 
 Os comandos são executados dentro do serviço `pipeline` pelo Compose, usando o
 volume `pipeline_data`. A atualização SINAN é incremental e preserva o
@@ -155,7 +156,7 @@ As barras de progresso dessas operações correspondem às etapas abaixo:
 IBGE   [atividade + tempo] -> download -> validação -> promoção 100%
 CNES   [processados/total] -> requisições/checkpoint -> COMPLETED 100%
 SINAN  [processados/total] + item/etapa/lotes -> manifesto -> download/skip -> 100%
-Gold   [atividade + tempo] -> Bronze/Silver/Gold/load -> publicação 100%
+Gold   [lotes concluídos/total] + item/etapa/lotes -> Bronze/Silver/Gold/PostgreSQL -> 100%
 ```
 
 Na opção 11, informar `1,2` seleciona `DENG` e `CHIK`. Para execução sem

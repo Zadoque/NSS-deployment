@@ -287,12 +287,8 @@ for number, (code, label) in enumerate(DISEASE_NAMES.items(), 1):
   printf '%s\n' "$diseases"
 }
 
-update_sinan() {
-  local diseases years cnes_batch disease_selection latest_cnes
-  disease_selection=$(sinan_disease_menu | tail -n 1)
-  diseases="$disease_selection"
-  read -r -p 'Anos separados por vírgula [2024]: ' years; years=${years:-2024}
-  latest_cnes=$(docker compose --profile jobs run --rm --no-deps --entrypoint python pipeline -c \
+latest_completed_cnes_batch() {
+  docker compose --profile jobs run --rm --no-deps --entrypoint python pipeline -c \
     'from pathlib import Path
 import json
 root = Path("/data/silver/cnes")
@@ -301,7 +297,15 @@ for metadata in root.glob("batch_id=*/metadata.json"):
     data = json.loads(metadata.read_text(encoding="utf-8"))
     if data.get("status") == "COMPLETED":
         items.append((data.get("batch_id", metadata.parent.name.removeprefix("batch_id=")), metadata))
-print(sorted(items, reverse=True)[0][0] if items else "")' < /dev/null 2>/dev/null || true)
+print(sorted(items, reverse=True)[0][0] if items else "")' < /dev/null 2>/dev/null || true
+}
+
+update_sinan() {
+  local diseases years cnes_batch disease_selection latest_cnes
+  disease_selection=$(sinan_disease_menu | tail -n 1)
+  diseases="$disease_selection"
+  read -r -p 'Anos separados por vírgula [2024]: ' years; years=${years:-2024}
+  latest_cnes=$(latest_completed_cnes_batch)
   if [[ -n "${NSS_CNES_BATCH_ID:-}" ]]; then
     cnes_batch="$NSS_CNES_BATCH_ID"
     log "Batch CNES recebido por NSS_CNES_BATCH_ID: ${cnes_batch}"
@@ -426,14 +430,111 @@ parquet_status() {
 }
 
 run_serving_load() {
-  local disease year cnes_batch
-  read -r -p 'Doença [DENG]: ' disease; disease=${disease:-DENG}
-  read -r -p 'Ano [2024]: ' year; year=${year:-2024}
-  read -r -p 'Batch CNES COMPLETED: ' cnes_batch
-  [[ -n "$cnes_batch" ]] || die 'batch CNES explícito é obrigatório para Gold Serving'
-  step "carga Gold Serving ${disease}/${year}" docker compose --profile jobs run --rm --entrypoint python pipeline \
-    -m app.pipeline.run_load --disease "$disease" --year "$year" \
-    --catalog-root /data/reference/ibge --all-brazil --cnes-batch-id "$cnes_batch"
+  local diseases years cnes_batch disease_selection latest_cnes
+  disease_selection=$(sinan_disease_menu | tail -n 1)
+  diseases="$disease_selection"
+  read -r -p 'Anos separados por vírgula [2024]: ' years; years=${years:-2024}
+  latest_cnes=$(latest_completed_cnes_batch)
+  if [[ -n "${NSS_CNES_BATCH_ID:-}" ]]; then
+    cnes_batch="$NSS_CNES_BATCH_ID"
+    log "Batch CNES recebido por NSS_CNES_BATCH_ID: ${cnes_batch}"
+  elif [[ -n "$latest_cnes" ]]; then
+    read -r -p "Batch CNES COMPLETED [${latest_cnes}]: " cnes_batch
+    cnes_batch=${cnes_batch:-$latest_cnes}
+  else
+    read -r -p 'Batch CNES COMPLETED (obrigatório): ' cnes_batch
+  fi
+  [[ -n "$cnes_batch" ]] || die 'batch CNES COMPLETED é obrigatório para Gold Serving'
+  log "Gold Serving selecionado: doenças=${diseases}, anos=${years}, batch CNES=${cnes_batch}"
+  if [[ "${NSS_NONINTERACTIVE:-0}" == 1 ]]; then
+    log 'Confirmação interativa desabilitada; prosseguindo com a seleção informada.'
+  else
+    read -r -p 'Executar Gold Serving/PostgreSQL com esta seleção? [digite SIM]: ' confirm
+    [[ "$confirm" == SIM ]] || die 'carga Gold Serving cancelada pelo operador'
+  fi
+  run_serving_with_progress "$diseases" "$years" "$cnes_batch"
+}
+
+run_serving_with_progress() {
+  local diseases="$1" years="$2" cnes_batch="$3"
+  local -a disease_list year_list
+  local disease year total completed=0 output_file pid started recent current_stage current_batch
+  local phase percent remaining first_render
+  IFS=',' read -r -a disease_list <<<"$diseases"
+  IFS=',' read -r -a year_list <<<"$years"
+  total=$(( ${#disease_list[@]} * ${#year_list[@]} ))
+  first_render=1
+
+  for disease in "${disease_list[@]}"; do
+    for year in "${year_list[@]}"; do
+      disease="${disease//[[:space:]]/}"
+      year="${year//[[:space:]]/}"
+      output_file=$(mktemp "${TMPDIR:-/tmp}/nss-serving.XXXXXX")
+      started=$(date +%s)
+      log "INÍCIO: Gold Serving ${disease}/${year}"
+      docker compose --profile jobs run --rm --entrypoint python pipeline \
+        -m app.pipeline.run_load --disease "$disease" --year "$year" \
+        --catalog-root /data/reference/ibge --all-brazil \
+        --cnes-batch-id "$cnes_batch" >"$output_file" 2>&1 &
+      pid=$!
+      trap 'kill "$pid" 2>/dev/null || true; wait "$pid" 2>/dev/null || true; rm -f "$output_file"; exit 130' INT TERM
+      while kill -0 "$pid" 2>/dev/null; do
+        recent=$(tail -n 100 "$output_file" 2>/dev/null || true)
+        current_stage=$(printf '%s\n' "$recent" | awk '
+/Iniciando carga SINAN/ { stage="início" }
+/Bronze concluída/ { stage="Bronze" }
+/Silver concluída/ { stage="Silver" }
+/Gold: / { stage="Gold" }
+/Gold concluída/ { stage="Gold" }
+/Publicando snapshot/ { stage="publicação" }
+/Postgres: snapshot publicado/ { stage="PostgreSQL" }
+END { print stage }')
+        current_batch=$(printf '%s\n' "$recent" | sed -n 's|.*batch_id=\([^/]*/\)data.parquet.*|\1|p' | tr -d '/' | tail -n 1)
+        current_stage=${current_stage:-preparando}
+        current_batch=${current_batch:-aguardando}
+        case "$current_stage" in
+          início) phase=5 ;; Bronze) phase=20 ;; Silver) phase=45 ;;
+          Gold) phase=65 ;; publicação) phase=80 ;; PostgreSQL) phase=95 ;;
+          *) phase=0 ;;
+        esac
+        percent=$(( (completed * 100 + phase) / total ))
+        remaining=$((100 - percent))
+        if [[ -t 1 ]]; then
+          ((first_render == 0)) && printf '\033[1A'
+          printf '\033[2K\r'
+          progress_bar 'Gold Serving' "$percent" "$(( $(date +%s) - started ))"
+          printf ' (%s/%s lotes concluídos; faltam %s%%)\n' "$completed" "$total" "$remaining"
+          printf '\033[2K\r  atual: %s/%s | etapa: %s | lote SINAN: %s | lote CNES: %s' \
+            "$disease" "$year" "$current_stage" "$current_batch" "$cnes_batch"
+        else
+          progress_bar 'Gold Serving' "$percent" "$(( $(date +%s) - started ))"
+          printf ' (%s/%s lotes concluídos; faltam %s%%)\n' "$completed" "$total" "$remaining"
+          printf '  atual: %s/%s | etapa: %s | lote SINAN: %s | lote CNES: %s\n' \
+            "$disease" "$year" "$current_stage" "$current_batch" "$cnes_batch"
+        fi
+        first_render=0
+        sleep 5
+      done
+      trap - INT TERM
+      if wait "$pid"; then
+        ((completed += 1))
+        [[ -t 1 ]] && printf '\n'
+        progress_bar 'Gold Serving' $((100 * completed / total)) "$(( $(date +%s) - started ))"
+        printf ' (%s/%s lotes concluídos)\n' "$completed" "$total"
+        sed -n '1,160p' "$output_file"
+        log "CONCLUÍDO: Gold Serving ${disease}/${year}"
+        rm -f "$output_file"
+      else
+        [[ -t 1 ]] && printf '\n'
+        progress_bar 'Gold Serving' 100 "$(( $(date +%s) - started ))"
+        printf '\n'
+        sed -n '1,200p' "$output_file" >&2
+        log "FALHOU: Gold Serving ${disease}/${year}"
+        rm -f "$output_file"
+        return 1
+      fi
+    done
+  done
 }
 
 pipeline_preflight() {
@@ -603,7 +704,7 @@ EOF
       9) run_cnes ;;
       10) parquet_status ;;
       11) update_sinan ;;
-      12) read -r -p 'Confirma carga Gold nacional? [digite SIM]: ' confirm; [[ "${confirm}" == SIM ]] && run_serving_load || log 'Gold Serving não executada.' ;;
+      12) run_serving_load ;;
       13) start_web ;;
       14) status; diagnose ;;
       15) show_state ;;
