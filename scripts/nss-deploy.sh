@@ -298,11 +298,18 @@ run_pipeline() {
 }
 
 run_cnes() {
-  local workers checkpoint
-  read -r -p 'Workers CNES [8]: ' workers
-  workers=${workers:-8}
-  read -r -p 'Checkpoint [cnes-national-ibge-2025.json]: ' checkpoint
-  checkpoint=${checkpoint:-cnes-national-ibge-2025.json}
+  local workers checkpoint cnes_values
+  cnes_values=$(NSS_RELEASE_MANIFEST="$RELEASE_MANIFEST" scripts/nss-release.sh cnes-values) ||
+    die "não foi possível ler a configuração CNES do manifesto: ${RELEASE_MANIFEST}"
+  IFS=$'\t' read -r workers checkpoint <<<"$cnes_values"
+  [[ -n "$workers" && -n "$checkpoint" ]] || die 'manifesto CNES incompleto'
+  log "CNES selecionado pelo manifesto: workers=${workers}, checkpoint=${checkpoint}"
+  if [[ "${NSS_NONINTERACTIVE:-0}" == 1 ]]; then
+    log 'Confirmação interativa desabilitada; prosseguindo com o manifesto.'
+  else
+    read -r -p 'Executar carga CNES nacional com esta configuração? [digite SIM]: ' confirm
+    [[ "$confirm" == SIM ]] || die 'carga CNES cancelada pelo operador'
+  fi
   step 'CNES nacional' docker compose --profile jobs run --rm --entrypoint python pipeline \
     -m app.pipeline.run_cnes \
     --catalog-root /data/reference/ibge \

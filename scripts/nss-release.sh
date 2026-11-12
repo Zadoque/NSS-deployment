@@ -42,6 +42,10 @@ validate_manifest() {
     "$(manifest_value ibge referenceYear)" \
     "$(manifest_value ibge dtbUrl)" \
     "$(manifest_value ibge expectedSha256)"
+  validate_cnes
+  printf 'cnes     %s %s\n' \
+    "$(manifest_value cnes workers)" \
+    "$(manifest_value cnes checkpoint)"
 }
 
 validate_ibge() {
@@ -60,6 +64,18 @@ validate_ibge() {
     die 'ibge.expectedSha256 deve ser um SHA-256 hexadecimal'
 }
 
+validate_cnes() {
+  local workers checkpoint
+  workers=$(manifest_value cnes workers)
+  checkpoint=$(manifest_value cnes checkpoint)
+  [[ "$workers" =~ ^[1-9][0-9]*$ ]] ||
+    die 'cnes.workers deve ser um inteiro positivo no manifesto'
+  ((workers <= 128)) ||
+    die 'cnes.workers não pode exceder 128 no manifesto'
+  [[ "$checkpoint" =~ ^[A-Za-z0-9_.-]+\.json$ ]] ||
+    die 'cnes.checkpoint deve ser um nome de arquivo JSON simples no manifesto'
+}
+
 ibge_values() {
   validate_ibge
   printf '%s\t%s\t%s\t%s\n' \
@@ -67,6 +83,13 @@ ibge_values() {
     "$(manifest_value ibge referenceYear)" \
     "$(manifest_value ibge dtbUrl)" \
     "$(manifest_value ibge expectedSha256)"
+}
+
+cnes_values() {
+  validate_cnes
+  printf '%s\t%s\n' \
+    "$(manifest_value cnes workers)" \
+    "$(manifest_value cnes checkpoint)"
 }
 
 repo_path() {
@@ -101,5 +124,6 @@ case "${1:-validate}" in
   validate) validate_manifest ;;
   sync) sync_repositories ;;
   ibge-values) ibge_values ;;
-  *) die "uso: $0 [validate|sync|ibge-values]" ;;
+  cnes-values) cnes_values ;;
+  *) die "uso: $0 [validate|sync|ibge-values|cnes-values]" ;;
 esac

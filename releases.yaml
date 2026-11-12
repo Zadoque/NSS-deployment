@@ -21,3 +21,6 @@ ibge:
   referenceYear: 2025
   dtbUrl: https://geoftp.ibge.gov.br/organizacao_do_territorio/estrutura_territorial/divisao_territorial/2025/DTB_2025.zip
   expectedSha256: d077a0e48c36cf18bcc96268b4a436200c014c6b8522c1a62d894acaf39dad27
+cnes:
+  workers: 8
+  checkpoint: cnes-national-ibge-2025.json

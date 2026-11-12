@@ -196,12 +196,16 @@ ibge:
   referenceYear: 2025
   dtbUrl: https://geoftp.ibge.gov.br/.../DTB_2025.zip
   expectedSha256: <sha256-verificado>
+cnes:
+  workers: 8
+  checkpoint: cnes-national-ibge-2025.json
 ```
 
 O NixOS apenas habilita e agenda o timer IBGE. O serviço lê esses quatro
 campos do deployment em tempo de execução; uma nova release do IBGE é,
 portanto, uma atualização revisada do manifesto, sem alterar a estrutura do
-NixOS.
+NixOS. A etapa CNES também lê `workers` e `checkpoint` do mesmo manifesto;
+nenhum parâmetro de carga precisa ser digitado no TTY.
 
 Valide o manifesto antes do bootstrap:
 
