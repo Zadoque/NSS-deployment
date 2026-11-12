@@ -327,6 +327,7 @@ run_cnes_with_progress() {
     --continue-on-error \
     --checkpoint "/data/checkpoints/${checkpoint}" >"$output_file" 2>&1 &
   pid=$!
+  trap 'kill "$pid" 2>/dev/null || true; wait "$pid" 2>/dev/null || true; rm -f "$output_file"; exit 130' INT TERM
   while kill -0 "$pid" 2>/dev/null; do
     snapshot=$(docker compose --profile jobs run --rm --no-deps --entrypoint python pipeline -c \
       "from pathlib import Path; import json; p=Path('/data/checkpoints/${checkpoint}'); d=json.loads(p.read_text()) if p.exists() else {}; done=len(d.get('completed',{}))+len(d.get('failed',{})); total=len(d.get('municipios',[])); print(f'{total}\\t{len(d.get(\"completed\",{}))}\\t{len(d.get(\"failed\",{}))}\\t{d.get(\"status\",\"STARTING\")}')" \
@@ -345,6 +346,7 @@ run_cnes_with_progress() {
     fi
     sleep 5
   done
+  trap - INT TERM
   if wait "$pid"; then
     progress_bar 'CNES nacional' 100 "$(( $(date +%s) - started ))"
     printf '\n'
