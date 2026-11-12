@@ -152,6 +152,29 @@ export NSS_FRONTEND_REPO=/srv/nss/frontend
 export NSS_PIPELINE_REPO=/srv/nss/pipeline
 ```
 
+## Manifesto de release
+
+`releases.yaml` fixa o repositório, a branch de origem e o commit exato dos
+quatro componentes. O commit é a referência efetiva do build; a branch serve
+para rastreabilidade e para o runner saber de onde buscar a versão.
+
+Valide o manifesto antes do bootstrap:
+
+```bash
+./scripts/nss-release.sh validate
+```
+
+No servidor, o runner deve sincronizar somente repositórios limpos e fazer
+checkout dos commits fixados antes de construir:
+
+```bash
+./scripts/nss-release.sh sync
+```
+
+O comando `sync` recusa alterações locais ou staged para não sobrescrever
+trabalho do operador. Os caminhos locais continuam sendo definidos por
+`NSS_*_REPO`; eles não entram no manifesto versionado.
+
 Quando algo não existe, a execução termina com o caminho exato, por exemplo:
 
 ```text

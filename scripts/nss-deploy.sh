@@ -5,6 +5,7 @@ DEPLOY_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "${DEPLOY_ROOT}"
 STATE_FILE="${NSS_DEPLOY_STATE_FILE:-${DEPLOY_ROOT}/.nss-deploy-state}"
 ENV_FILE="${NSS_ENV_FILE:-/etc/nss/deployment.env}"
+RELEASE_MANIFEST="${NSS_RELEASE_MANIFEST:-${DEPLOY_ROOT}/releases.yaml}"
 
 REPO_DATABASE="${NSS_DATABASE_REPO:-${DEPLOY_ROOT}/../NSS-database}"
 REPO_JAVA="${NSS_JAVA_REPO:-${DEPLOY_ROOT}/../Site-Sala-de-Situa-o-de-Saude-Java}"
@@ -108,6 +109,7 @@ check_prerequisites() {
   require_env
   docker compose --env-file "$ENV_FILE" config --quiet
   require_repositories
+  NSS_RELEASE_MANIFEST="$RELEASE_MANIFEST" scripts/nss-release.sh validate >/dev/null
   log 'Compose válido; imagens e variáveis obrigatórias estão presentes.'
 }
 
