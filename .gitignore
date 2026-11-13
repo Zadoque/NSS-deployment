@@ -1,4 +1,5 @@
 .env
+.env.prod.test
 *.dump
 *.sql.gz
 *.log
