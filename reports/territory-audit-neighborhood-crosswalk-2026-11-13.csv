@@ -157,16 +157,16 @@ municipalityCode,municipality,uf,region,bairroCnes,canonicalNeighborhoodCode,sou
 1100122,Ji-Paraná,RO,N,TERCEIRO DISTRITO,CNES_BAIRRO_1100122_TERCEIRO_DISTRITO,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_queried,
 1100122,Ji-Paraná,RO,N,ZONA R,CNES_BAIRRO_1100122_ZONA_R,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_queried,
 1100122,Ji-Paraná,RO,N,ZONA RURAL,CNES_BAIRRO_1100122_ZONA_RURAL,CNES_TEXTUAL,provisional,10,,UNMATCHED_POSTAL_REFERENCE,not_found,not_queried,
-1100130,Machadinho D'Oeste,RO,N,BOM FUTURO,IBGE_BAIRRO_1100130012,IBGE_CENSO_2022,official,5,1100130012,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/ro/machadinho-d-oeste
-1100130,Machadinho D'Oeste,RO,N,BOM FUTURO E UNIAO,CNES_BAIRRO_1100130_BOM_FUTURO_E_UNIAO,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/ro/machadinho-d-oeste
-1100130,Machadinho D'Oeste,RO,N,CENTRO,IBGE_BAIRRO_1100130011,IBGE_CENSO_2022,official,38,1100130011,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/ro/machadinho-d-oeste
-1100130,Machadinho D'Oeste,RO,N,ZONA RURAL,CNES_BAIRRO_1100130_ZONA_RURAL,CNES_TEXTUAL,provisional,3,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/ro/machadinho-d-oeste
-1100148,Nova Brasilândia D'Oeste,RO,N,CENTRO,CNES_BAIRRO_1100148_CENTRO,CNES_TEXTUAL,provisional,8,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/ro/nova-brasilandia-d-oeste
-1100148,Nova Brasilândia D'Oeste,RO,N,LINHA RURAL,CNES_BAIRRO_1100148_LINHA_RURAL,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/ro/nova-brasilandia-d-oeste
-1100148,Nova Brasilândia D'Oeste,RO,N,SETOR 13,CNES_BAIRRO_1100148_SETOR_13,CNES_TEXTUAL,provisional,24,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/ro/nova-brasilandia-d-oeste
-1100148,Nova Brasilândia D'Oeste,RO,N,SETOR 14,CNES_BAIRRO_1100148_SETOR_14,CNES_TEXTUAL,provisional,12,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/ro/nova-brasilandia-d-oeste
-1100148,Nova Brasilândia D'Oeste,RO,N,SETOR 15,CNES_BAIRRO_1100148_SETOR_15,CNES_TEXTUAL,provisional,5,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/ro/nova-brasilandia-d-oeste
-1100148,Nova Brasilândia D'Oeste,RO,N,ZONA RURAL,CNES_BAIRRO_1100148_ZONA_RURAL,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/ro/nova-brasilandia-d-oeste
+1100130,Machadinho D'Oeste,RO,N,BOM FUTURO,IBGE_BAIRRO_1100130012,IBGE_CENSO_2022,official,5,1100130012,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/ro/machadinho-doeste
+1100130,Machadinho D'Oeste,RO,N,BOM FUTURO E UNIAO,CNES_BAIRRO_1100130_BOM_FUTURO_E_UNIAO,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/ro/machadinho-doeste
+1100130,Machadinho D'Oeste,RO,N,CENTRO,IBGE_BAIRRO_1100130011,IBGE_CENSO_2022,official,38,1100130011,CEP_BAIRRO_1100130_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/ro/machadinho-doeste
+1100130,Machadinho D'Oeste,RO,N,ZONA RURAL,CNES_BAIRRO_1100130_ZONA_RURAL,CNES_TEXTUAL,provisional,3,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/ro/machadinho-doeste
+1100148,Nova Brasilândia D'Oeste,RO,N,CENTRO,CNES_BAIRRO_1100148_CENTRO,CNES_TEXTUAL,provisional,8,,CEP_BAIRRO_1100148_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/ro/nova-brasilandia-doeste
+1100148,Nova Brasilândia D'Oeste,RO,N,LINHA RURAL,CNES_BAIRRO_1100148_LINHA_RURAL,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/ro/nova-brasilandia-doeste
+1100148,Nova Brasilândia D'Oeste,RO,N,SETOR 13,CNES_BAIRRO_1100148_SETOR_13,CNES_TEXTUAL,provisional,24,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/ro/nova-brasilandia-doeste
+1100148,Nova Brasilândia D'Oeste,RO,N,SETOR 14,CNES_BAIRRO_1100148_SETOR_14,CNES_TEXTUAL,provisional,12,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/ro/nova-brasilandia-doeste
+1100148,Nova Brasilândia D'Oeste,RO,N,SETOR 15,CNES_BAIRRO_1100148_SETOR_15,CNES_TEXTUAL,provisional,5,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/ro/nova-brasilandia-doeste
+1100148,Nova Brasilândia D'Oeste,RO,N,ZONA RURAL,CNES_BAIRRO_1100148_ZONA_RURAL,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/ro/nova-brasilandia-doeste
 1100155,Ouro Preto do Oeste,RO,N,AEROPORTO,CNES_BAIRRO_1100155_AEROPORTO,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_queried,
 1100155,Ouro Preto do Oeste,RO,N,CENTRO,CNES_BAIRRO_1100155_CENTRO,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_queried,
 1100155,Ouro Preto do Oeste,RO,N,SETOR 04,CNES_BAIRRO_1100155_SETOR_04,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_queried,
@@ -303,13 +303,13 @@ municipalityCode,municipality,uf,region,bairroCnes,canonicalNeighborhoodCode,sou
 1100338,Nova Mamoré,RO,N,JOAO FRANCISCO CLIMA,CNES_BAIRRO_1100338_JOAO_FRANCISCO_CLIMA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/ro/nova-mamore
 1100338,Nova Mamoré,RO,N,PLANALTO,IBGE_BAIRRO_1100338004,IBGE_CENSO_2022,official,3,1100338004,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/ro/nova-mamore
 1100338,Nova Mamoré,RO,N,ZONA RURAL,CNES_BAIRRO_1100338_ZONA_RURAL,CNES_TEXTUAL,provisional,5,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/ro/nova-mamore
-1100346,Alvorada D'Oeste,RO,N,ALTO ALEGRE,CNES_BAIRRO_1100346_ALTO_ALEGRE,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/ro/alvorada-d-oeste
-1100346,Alvorada D'Oeste,RO,N,CENTRO,CNES_BAIRRO_1100346_CENTRO,CNES_TEXTUAL,provisional,43,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/ro/alvorada-d-oeste
-1100346,Alvorada D'Oeste,RO,N,DIST TERRA BOA ZON,CNES_BAIRRO_1100346_DIST_TERRA_BOA_ZON,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/ro/alvorada-d-oeste
-1100346,Alvorada D'Oeste,RO,N,RESERVA MARTINS PESC,CNES_BAIRRO_1100346_RESERVA_MARTINS_PESC,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/ro/alvorada-d-oeste
-1100346,Alvorada D'Oeste,RO,N,TERRA BOA,CNES_BAIRRO_1100346_TERRA_BOA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/ro/alvorada-d-oeste
-1100346,Alvorada D'Oeste,RO,N,TRES PODERES,CNES_BAIRRO_1100346_TRES_PODERES,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/ro/alvorada-d-oeste
-1100346,Alvorada D'Oeste,RO,N,ZONA RURAL,CNES_BAIRRO_1100346_ZONA_RURAL,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/ro/alvorada-d-oeste
+1100346,Alvorada D'Oeste,RO,N,ALTO ALEGRE,CNES_BAIRRO_1100346_ALTO_ALEGRE,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/ro/alvorada-doeste
+1100346,Alvorada D'Oeste,RO,N,CENTRO,CNES_BAIRRO_1100346_CENTRO,CNES_TEXTUAL,provisional,43,,CEP_BAIRRO_1100346_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/ro/alvorada-doeste
+1100346,Alvorada D'Oeste,RO,N,DIST TERRA BOA ZON,CNES_BAIRRO_1100346_DIST_TERRA_BOA_ZON,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/ro/alvorada-doeste
+1100346,Alvorada D'Oeste,RO,N,RESERVA MARTINS PESC,CNES_BAIRRO_1100346_RESERVA_MARTINS_PESC,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/ro/alvorada-doeste
+1100346,Alvorada D'Oeste,RO,N,TERRA BOA,CNES_BAIRRO_1100346_TERRA_BOA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/ro/alvorada-doeste
+1100346,Alvorada D'Oeste,RO,N,TRES PODERES,CNES_BAIRRO_1100346_TRES_PODERES,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/ro/alvorada-doeste
+1100346,Alvorada D'Oeste,RO,N,ZONA RURAL,CNES_BAIRRO_1100346_ZONA_RURAL,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/ro/alvorada-doeste
 1100379,Alto Alegre dos Parecis,RO,N,CENTRO,CNES_BAIRRO_1100379_CENTRO,CNES_TEXTUAL,provisional,38,,CEP_BAIRRO_1100379_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/ro/alto-alegre-dos-parecis
 1100379,Alto Alegre dos Parecis,RO,N,DISTRITO,CNES_BAIRRO_1100379_DISTRITO,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/ro/alto-alegre-dos-parecis
 1100379,Alto Alegre dos Parecis,RO,N,JARDIM AMERICA,CNES_BAIRRO_1100379_JARDIM_AMERICA,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/ro/alto-alegre-dos-parecis
@@ -406,10 +406,10 @@ municipalityCode,municipality,uf,region,bairroCnes,canonicalNeighborhoodCode,sou
 1101468,Pimenteiras do Oeste,RO,N,CENTRO,CNES_BAIRRO_1101468_CENTRO,CNES_TEXTUAL,provisional,8,,CEP_BAIRRO_1101468_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/ro/pimenteiras-do-oeste
 1101476,Primavera de Rondônia,RO,N,CENTRO,CNES_BAIRRO_1101476_CENTRO,CNES_TEXTUAL,provisional,8,,CEP_BAIRRO_1101476_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/ro/primavera-de-rondonia
 1101476,Primavera de Rondônia,RO,N,ZONA RURAL,CNES_BAIRRO_1101476_ZONA_RURAL,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/ro/primavera-de-rondonia
-1101484,São Felipe D'Oeste,RO,N,CENTRO,CNES_BAIRRO_1101484_CENTRO,CNES_TEXTUAL,provisional,9,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/ro/sao-felipe-d-oeste
-1101484,São Felipe D'Oeste,RO,N,NOVO PARAISO,CNES_BAIRRO_1101484_NOVO_PARAISO,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/ro/sao-felipe-d-oeste
-1101484,São Felipe D'Oeste,RO,N,RUA JOSE AMORIN COST,CNES_BAIRRO_1101484_RUA_JOSE_AMORIN_COST,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/ro/sao-felipe-d-oeste
-1101484,São Felipe D'Oeste,RO,N,ZONA RURAL,CNES_BAIRRO_1101484_ZONA_RURAL,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/ro/sao-felipe-d-oeste
+1101484,São Felipe D'Oeste,RO,N,CENTRO,CNES_BAIRRO_1101484_CENTRO,CNES_TEXTUAL,provisional,9,,CEP_BAIRRO_1101484_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/ro/sao-felipe-doeste
+1101484,São Felipe D'Oeste,RO,N,NOVO PARAISO,CNES_BAIRRO_1101484_NOVO_PARAISO,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/ro/sao-felipe-doeste
+1101484,São Felipe D'Oeste,RO,N,RUA JOSE AMORIN COST,CNES_BAIRRO_1101484_RUA_JOSE_AMORIN_COST,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/ro/sao-felipe-doeste
+1101484,São Felipe D'Oeste,RO,N,ZONA RURAL,CNES_BAIRRO_1101484_ZONA_RURAL,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/ro/sao-felipe-doeste
 1101492,São Francisco do Guaporé,RO,N,ALTO ALEGRE,CNES_BAIRRO_1101492_ALTO_ALEGRE,CNES_TEXTUAL,provisional,4,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/ro/sao-francisco-do-guapore
 1101492,São Francisco do Guaporé,RO,N,CENTRO,CNES_BAIRRO_1101492_CENTRO,CNES_TEXTUAL,provisional,27,,CEP_BAIRRO_1101492_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/ro/sao-francisco-do-guapore
 1101492,São Francisco do Guaporé,RO,N,CIDADE ALTA,CNES_BAIRRO_1101492_CIDADE_ALTA,CNES_TEXTUAL,provisional,14,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/ro/sao-francisco-do-guapore
@@ -3751,7 +3751,7 @@ municipalityCode,municipality,uf,region,bairroCnes,canonicalNeighborhoodCode,sou
 1716208,Paranã,TO,N,SETOR AEROPORTO,CNES_BAIRRO_1716208_SETOR_AEROPORTO,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/to/parana
 1716208,Paranã,TO,N,VILA NOVA,CNES_BAIRRO_1716208_VILA_NOVA,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/to/parana
 1716208,Paranã,TO,N,ZONA RURAL,CNES_BAIRRO_1716208_ZONA_RURAL,CNES_TEXTUAL,provisional,3,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/to/parana
-1716307,Pau D'Arco,TO,N,CENTRO,CNES_BAIRRO_1716307_CENTRO,CNES_TEXTUAL,provisional,4,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/to/pau-d-arco
+1716307,Pau D'Arco,TO,N,CENTRO,CNES_BAIRRO_1716307_CENTRO,CNES_TEXTUAL,provisional,4,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/to/pau-darco
 1716505,Pedro Afonso,TO,N,AEROPORTO I,CNES_BAIRRO_1716505_AEROPORTO_I,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/to/pedro-afonso
 1716505,Pedro Afonso,TO,N,AEROPORTO II,CNES_BAIRRO_1716505_AEROPORTO_II,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/to/pedro-afonso
 1716505,Pedro Afonso,TO,N,ANTONIO JOAQUIM PIRE,CNES_BAIRRO_1716505_ANTONIO_JOAQUIM_PIRE,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/to/pedro-afonso
@@ -5339,13 +5339,13 @@ municipalityCode,municipality,uf,region,bairroCnes,canonicalNeighborhoodCode,sou
 2107357,Nova Olinda do Maranhão,MA,NE,TANCREDO NEVES,CNES_BAIRRO_2107357_TANCREDO_NEVES,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/ma/nova-olinda-do-maranhao
 2107357,Nova Olinda do Maranhão,MA,NE,TRATOR,CNES_BAIRRO_2107357_TRATOR,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/ma/nova-olinda-do-maranhao
 2107357,Nova Olinda do Maranhão,MA,NE,ZONA RURAL,CNES_BAIRRO_2107357_ZONA_RURAL,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/ma/nova-olinda-do-maranhao
-2107407,Olho d'Água das Cunhãs,MA,NE,ANTONIO CAFE,CNES_BAIRRO_2107407_ANTONIO_CAFE,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/ma/olho-d-agua-das-cunhas
-2107407,Olho d'Água das Cunhãs,MA,NE,BAIRRO NOVO,CNES_BAIRRO_2107407_BAIRRO_NOVO,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/ma/olho-d-agua-das-cunhas
-2107407,Olho d'Água das Cunhãs,MA,NE,CENTRO,CNES_BAIRRO_2107407_CENTRO,CNES_TEXTUAL,provisional,10,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/ma/olho-d-agua-das-cunhas
-2107407,Olho d'Água das Cunhãs,MA,NE,RESIDENSCIAL PRIMAVE,CNES_BAIRRO_2107407_RESIDENSCIAL_PRIMAVE,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/ma/olho-d-agua-das-cunhas
-2107407,Olho d'Água das Cunhãs,MA,NE,VILA JAO ALBERTO,CNES_BAIRRO_2107407_VILA_JAO_ALBERTO,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/ma/olho-d-agua-das-cunhas
-2107407,Olho d'Água das Cunhãs,MA,NE,VILVA ELVIRA,CNES_BAIRRO_2107407_VILVA_ELVIRA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/ma/olho-d-agua-das-cunhas
-2107407,Olho d'Água das Cunhãs,MA,NE,ZONA RURAL,CNES_BAIRRO_2107407_ZONA_RURAL,CNES_TEXTUAL,provisional,5,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/ma/olho-d-agua-das-cunhas
+2107407,Olho d'Água das Cunhãs,MA,NE,ANTONIO CAFE,CNES_BAIRRO_2107407_ANTONIO_CAFE,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/ma/olho-dagua-das-cunhas
+2107407,Olho d'Água das Cunhãs,MA,NE,BAIRRO NOVO,CNES_BAIRRO_2107407_BAIRRO_NOVO,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/ma/olho-dagua-das-cunhas
+2107407,Olho d'Água das Cunhãs,MA,NE,CENTRO,CNES_BAIRRO_2107407_CENTRO,CNES_TEXTUAL,provisional,10,,CEP_BAIRRO_2107407_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/ma/olho-dagua-das-cunhas
+2107407,Olho d'Água das Cunhãs,MA,NE,RESIDENSCIAL PRIMAVE,CNES_BAIRRO_2107407_RESIDENSCIAL_PRIMAVE,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/ma/olho-dagua-das-cunhas
+2107407,Olho d'Água das Cunhãs,MA,NE,VILA JAO ALBERTO,CNES_BAIRRO_2107407_VILA_JAO_ALBERTO,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/ma/olho-dagua-das-cunhas
+2107407,Olho d'Água das Cunhãs,MA,NE,VILVA ELVIRA,CNES_BAIRRO_2107407_VILVA_ELVIRA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/ma/olho-dagua-das-cunhas
+2107407,Olho d'Água das Cunhãs,MA,NE,ZONA RURAL,CNES_BAIRRO_2107407_ZONA_RURAL,CNES_TEXTUAL,provisional,5,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/ma/olho-dagua-das-cunhas
 2107456,Olinda Nova do Maranhão,MA,NE,CENTRO,CNES_BAIRRO_2107456_CENTRO,CNES_TEXTUAL,provisional,9,,CEP_BAIRRO_2107456_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/ma/olinda-nova-do-maranhao
 2107456,Olinda Nova do Maranhão,MA,NE,CONCEICAO,CNES_BAIRRO_2107456_CONCEICAO,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/ma/olinda-nova-do-maranhao
 2107456,Olinda Nova do Maranhão,MA,NE,CURVA DE ACENCIO,CNES_BAIRRO_2107456_CURVA_DE_ACENCIO,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/ma/olinda-nova-do-maranhao
@@ -6531,8 +6531,8 @@ municipalityCode,municipality,uf,region,bairroCnes,canonicalNeighborhoodCode,sou
 2201150,Baixa Grande do Ribeiro,PI,NE,FATIMA,CNES_BAIRRO_2201150_FATIMA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_queried,
 2201150,Baixa Grande do Ribeiro,PI,NE,ZONA RUAL,CNES_BAIRRO_2201150_ZONA_RUAL,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_queried,
 2201150,Baixa Grande do Ribeiro,PI,NE,ZONA RURAL,CNES_BAIRRO_2201150_ZONA_RURAL,CNES_TEXTUAL,provisional,3,,UNMATCHED_POSTAL_REFERENCE,not_found,not_queried,
-2201176,Barra D'Alcântara,PI,NE,SANTA FE,CNES_BAIRRO_2201176_SANTA_FE,CNES_TEXTUAL,provisional,3,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/pi/barra-d-alcantara
-2201176,Barra D'Alcântara,PI,NE,SANTO REIS,CNES_BAIRRO_2201176_SANTO_REIS,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/pi/barra-d-alcantara
+2201176,Barra D'Alcântara,PI,NE,SANTA FE,CNES_BAIRRO_2201176_SANTA_FE,CNES_TEXTUAL,provisional,3,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/pi/barra-dalcantara
+2201176,Barra D'Alcântara,PI,NE,SANTO REIS,CNES_BAIRRO_2201176_SANTO_REIS,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/pi/barra-dalcantara
 2201200,Barras,PI,NE,ESPERANCA,CNES_BAIRRO_2201200_ESPERANCA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_queried,
 2201200,Barras,PI,NE,ZONA RURAL,CNES_BAIRRO_2201200_ZONA_RURAL,CNES_TEXTUAL,provisional,6,,UNMATCHED_POSTAL_REFERENCE,not_found,not_queried,
 2201309,Barreiras do Piauí,PI,NE,CENTRO,CNES_BAIRRO_2201309_CENTRO,CNES_TEXTUAL,provisional,2,,CEP_BAIRRO_2201309_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/pi/barreiras-do-piaui
@@ -7036,9 +7036,9 @@ municipalityCode,municipality,uf,region,bairroCnes,canonicalNeighborhoodCode,sou
 2207009,Oeiras,PI,NE,UBERABA I,CNES_BAIRRO_2207009_UBERABA_I,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/pi/oeiras
 2207009,Oeiras,PI,NE,VARZEA,CNES_BAIRRO_2207009_VARZEA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/pi/oeiras
 2207009,Oeiras,PI,NE,ZONA RURAL,CNES_BAIRRO_2207009_ZONA_RURAL,CNES_TEXTUAL,provisional,19,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/pi/oeiras
-2207108,Olho D'Água do Piauí,PI,NE,CENTRO,CNES_BAIRRO_2207108_CENTRO,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/pi/olho-d-agua-do-piaui
-2207108,Olho D'Água do Piauí,PI,NE,ZONA RURAL,CNES_BAIRRO_2207108_ZONA_RURAL,CNES_TEXTUAL,provisional,5,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/pi/olho-d-agua-do-piaui
-2207108,Olho D'Água do Piauí,PI,NE,ZONA URBANA,CNES_BAIRRO_2207108_ZONA_URBANA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/pi/olho-d-agua-do-piaui
+2207108,Olho D'Água do Piauí,PI,NE,CENTRO,CNES_BAIRRO_2207108_CENTRO,CNES_TEXTUAL,provisional,2,,CEP_BAIRRO_2207108_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/pi/olho-dagua-do-piaui
+2207108,Olho D'Água do Piauí,PI,NE,ZONA RURAL,CNES_BAIRRO_2207108_ZONA_RURAL,CNES_TEXTUAL,provisional,5,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/pi/olho-dagua-do-piaui
+2207108,Olho D'Água do Piauí,PI,NE,ZONA URBANA,CNES_BAIRRO_2207108_ZONA_URBANA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/pi/olho-dagua-do-piaui
 2207207,Padre Marcos,PI,NE,CENTRO,CNES_BAIRRO_2207207_CENTRO,CNES_TEXTUAL,provisional,6,,CEP_BAIRRO_2207207_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/pi/padre-marcos
 2207207,Padre Marcos,PI,NE,COHAB,CNES_BAIRRO_2207207_COHAB,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/pi/padre-marcos
 2207207,Padre Marcos,PI,NE,ZONA RURAL,CNES_BAIRRO_2207207_ZONA_RURAL,CNES_TEXTUAL,provisional,5,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/pi/padre-marcos
@@ -7074,9 +7074,9 @@ municipalityCode,municipality,uf,region,bairroCnes,canonicalNeighborhoodCode,sou
 2207751,Passagem Franca do Piauí,PI,NE,ZONA RURAL,CNES_BAIRRO_2207751_ZONA_RURAL,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/pi/passagem-franca-do-piaui
 2207777,Patos do Piauí,PI,NE,CENTRO,CNES_BAIRRO_2207777_CENTRO,CNES_TEXTUAL,provisional,3,,CEP_BAIRRO_2207777_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/pi/patos-do-piaui
 2207777,Patos do Piauí,PI,NE,ZONA RURAL,CNES_BAIRRO_2207777_ZONA_RURAL,CNES_TEXTUAL,provisional,6,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/pi/patos-do-piaui
-2207793,Pau D'Arco do Piauí,PI,NE,CENTRO,CNES_BAIRRO_2207793_CENTRO,CNES_TEXTUAL,provisional,7,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/pi/pau-d-arco-do-piaui
-2207793,Pau D'Arco do Piauí,PI,NE,RESIDENCIAL MARIA DE,CNES_BAIRRO_2207793_RESIDENCIAL_MARIA_DE,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/pi/pau-d-arco-do-piaui
-2207793,Pau D'Arco do Piauí,PI,NE,ZONA RURAL,CNES_BAIRRO_2207793_ZONA_RURAL,CNES_TEXTUAL,provisional,5,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/pi/pau-d-arco-do-piaui
+2207793,Pau D'Arco do Piauí,PI,NE,CENTRO,CNES_BAIRRO_2207793_CENTRO,CNES_TEXTUAL,provisional,7,,CEP_BAIRRO_2207793_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/pi/pau-darco-do-piaui
+2207793,Pau D'Arco do Piauí,PI,NE,RESIDENCIAL MARIA DE,CNES_BAIRRO_2207793_RESIDENCIAL_MARIA_DE,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/pi/pau-darco-do-piaui
+2207793,Pau D'Arco do Piauí,PI,NE,ZONA RURAL,CNES_BAIRRO_2207793_ZONA_RURAL,CNES_TEXTUAL,provisional,5,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/pi/pau-darco-do-piaui
 2207801,Paulistana,PI,NE,SERRA VERMELHA,CNES_BAIRRO_2207801_SERRA_VERMELHA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_queried,
 2207801,Paulistana,PI,NE,ZONA RURAL,CNES_BAIRRO_2207801_ZONA_RURAL,CNES_TEXTUAL,provisional,4,,UNMATCHED_POSTAL_REFERENCE,not_found,not_queried,
 2207850,Pavussu,PI,NE,CENTRO,CNES_BAIRRO_2207850_CENTRO,CNES_TEXTUAL,provisional,3,,CEP_BAIRRO_2207850_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/pi/pavussu
@@ -9583,8 +9583,8 @@ municipalityCode,municipality,uf,region,bairroCnes,canonicalNeighborhoodCode,sou
 2406155,Jundiá,RN,NE,NOVA JUNDIA,CNES_BAIRRO_2406155_NOVA_JUNDIA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/rn/jundia
 2406155,Jundiá,RN,NE,SANTA FE,CNES_BAIRRO_2406155_SANTA_FE,CNES_TEXTUAL,provisional,2,,CEP_BAIRRO_2406155_SANTA_FE,exact,CEP Brasil municipal page,https://cepbrasil.com/rn/jundia
 2406155,Jundiá,RN,NE,ZONA RURAL,CNES_BAIRRO_2406155_ZONA_RURAL,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/rn/jundia
-2406205,Lagoa d'Anta,RN,NE,CENTRO,CNES_BAIRRO_2406205_CENTRO,CNES_TEXTUAL,provisional,6,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/rn/lagoa-d-anta
-2406205,Lagoa d'Anta,RN,NE,ZONA RURAL,CNES_BAIRRO_2406205_ZONA_RURAL,CNES_TEXTUAL,provisional,3,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/rn/lagoa-d-anta
+2406205,Lagoa d'Anta,RN,NE,CENTRO,CNES_BAIRRO_2406205_CENTRO,CNES_TEXTUAL,provisional,6,,CEP_BAIRRO_2406205_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/rn/lagoa-danta
+2406205,Lagoa d'Anta,RN,NE,ZONA RURAL,CNES_BAIRRO_2406205_ZONA_RURAL,CNES_TEXTUAL,provisional,3,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/rn/lagoa-danta
 2406304,Lagoa de Pedras,RN,NE,CENTRO,CNES_BAIRRO_2406304_CENTRO,CNES_TEXTUAL,provisional,8,,CEP_BAIRRO_2406304_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/rn/lagoa-de-pedras
 2406304,Lagoa de Pedras,RN,NE,ZONA RURAL,CNES_BAIRRO_2406304_ZONA_RURAL,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/rn/lagoa-de-pedras
 2406403,Lagoa de Velhos,RN,NE,ZONA RURAL,CNES_BAIRRO_2406403_ZONA_RURAL,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/rn/lagoa-de-velhos
@@ -9711,9 +9711,9 @@ municipalityCode,municipality,uf,region,bairroCnes,canonicalNeighborhoodCode,sou
 2408300,Nova Cruz,RN,NE,SAO SEBASTIAO,CNES_BAIRRO_2408300_SAO_SEBASTIAO,CNES_TEXTUAL,provisional,12,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/rn/nova-cruz
 2408300,Nova Cruz,RN,NE,SONA RURAL,CNES_BAIRRO_2408300_SONA_RURAL,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/rn/nova-cruz
 2408300,Nova Cruz,RN,NE,ZONA RURAL,CNES_BAIRRO_2408300_ZONA_RURAL,CNES_TEXTUAL,provisional,13,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/rn/nova-cruz
-2408409,Olho d'Água do Borges,RN,NE,CENTRO,CNES_BAIRRO_2408409_CENTRO,CNES_TEXTUAL,provisional,5,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/rn/olho-d-agua-do-borges
-2408409,Olho d'Água do Borges,RN,NE,CIDADE NOVA,CNES_BAIRRO_2408409_CIDADE_NOVA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/rn/olho-d-agua-do-borges
-2408409,Olho d'Água do Borges,RN,NE,ZONA RURAL,CNES_BAIRRO_2408409_ZONA_RURAL,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/rn/olho-d-agua-do-borges
+2408409,Olho d'Água do Borges,RN,NE,CENTRO,CNES_BAIRRO_2408409_CENTRO,CNES_TEXTUAL,provisional,5,,CEP_BAIRRO_2408409_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/rn/olho-dagua-do-borges
+2408409,Olho d'Água do Borges,RN,NE,CIDADE NOVA,CNES_BAIRRO_2408409_CIDADE_NOVA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/rn/olho-dagua-do-borges
+2408409,Olho d'Água do Borges,RN,NE,ZONA RURAL,CNES_BAIRRO_2408409_ZONA_RURAL,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/rn/olho-dagua-do-borges
 2408508,Ouro Branco,RN,NE,CASTELO DOS MONTES,CNES_BAIRRO_2408508_CASTELO_DOS_MONTES,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/rn/ouro-branco
 2408508,Ouro Branco,RN,NE,CASTELOS DOS MONTES,CNES_BAIRRO_2408508_CASTELOS_DOS_MONTES,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/rn/ouro-branco
 2408508,Ouro Branco,RN,NE,CENTRO,CNES_BAIRRO_2408508_CENTRO,CNES_TEXTUAL,provisional,5,,CEP_BAIRRO_2408508_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/rn/ouro-branco
@@ -10477,8 +10477,8 @@ municipalityCode,municipality,uf,region,bairroCnes,canonicalNeighborhoodCode,sou
 2508604,Lucena,PB,NE,NOSSA SENHORA DA GUI,CNES_BAIRRO_2508604_NOSSA_SENHORA_DA_GUI,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/pb/lucena
 2508604,Lucena,PB,NE,PONTA DE LUCENA,CNES_BAIRRO_2508604_PONTA_DE_LUCENA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/pb/lucena
 2508604,Lucena,PB,NE,ZONA RURAL,CNES_BAIRRO_2508604_ZONA_RURAL,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/pb/lucena
-2508703,Mãe d'Água,PB,NE,CENTRO,CNES_BAIRRO_2508703_CENTRO,CNES_TEXTUAL,provisional,12,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/pb/mae-d-agua
-2508703,Mãe d'Água,PB,NE,SANTA MARIA GORETE,CNES_BAIRRO_2508703_SANTA_MARIA_GORETE,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/pb/mae-d-agua
+2508703,Mãe d'Água,PB,NE,CENTRO,CNES_BAIRRO_2508703_CENTRO,CNES_TEXTUAL,provisional,12,,CEP_BAIRRO_2508703_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/pb/mae-dagua
+2508703,Mãe d'Água,PB,NE,SANTA MARIA GORETE,CNES_BAIRRO_2508703_SANTA_MARIA_GORETE,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/pb/mae-dagua
 2508802,Malta,PB,NE,ZONA RURAL,CNES_BAIRRO_2508802_ZONA_RURAL,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_queried,
 2508901,Mamanguape,PB,NE,PITANGA,CNES_BAIRRO_2508901_PITANGA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_queried,
 2508901,Mamanguape,PB,NE,ZONA RURAL,CNES_BAIRRO_2508901_ZONA_RURAL,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,not_queried,
@@ -10570,12 +10570,12 @@ municipalityCode,municipality,uf,region,bairroCnes,canonicalNeighborhoodCode,sou
 2510204,Nova Olinda,PB,NE,ZONA RURAL,CNES_BAIRRO_2510204_ZONA_RURAL,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/pb/nova-olinda
 2510303,Nova Palmeira,PB,NE,CENTRO,CNES_BAIRRO_2510303_CENTRO,CNES_TEXTUAL,provisional,15,,CEP_BAIRRO_2510303_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/pb/nova-palmeira
 2510303,Nova Palmeira,PB,NE,ZONA RURAL,CNES_BAIRRO_2510303_ZONA_RURAL,CNES_TEXTUAL,provisional,4,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/pb/nova-palmeira
-2510402,Olho d'Água,PB,NE,CENTRO,CNES_BAIRRO_2510402_CENTRO,CNES_TEXTUAL,provisional,12,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/pb/olho-d-agua
-2510402,Olho d'Água,PB,NE,CONJUNTO LUCIA BRAGA,CNES_BAIRRO_2510402_CONJUNTO_LUCIA_BRAGA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/pb/olho-d-agua
-2510402,Olho d'Água,PB,NE,SITIO,CNES_BAIRRO_2510402_SITIO,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/pb/olho-d-agua
-2510402,Olho d'Água,PB,NE,UMBUZEIRO,CNES_BAIRRO_2510402_UMBUZEIRO,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/pb/olho-d-agua
-2510402,Olho d'Água,PB,NE,ZONA RURAL,CNES_BAIRRO_2510402_ZONA_RURAL,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/pb/olho-d-agua
-2510402,Olho d'Água,PB,NE,ZONA URBANA,CNES_BAIRRO_2510402_ZONA_URBANA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/pb/olho-d-agua
+2510402,Olho d'Água,PB,NE,CENTRO,CNES_BAIRRO_2510402_CENTRO,CNES_TEXTUAL,provisional,12,,CEP_BAIRRO_2510402_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/pb/olho-dagua
+2510402,Olho d'Água,PB,NE,CONJUNTO LUCIA BRAGA,CNES_BAIRRO_2510402_CONJUNTO_LUCIA_BRAGA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/pb/olho-dagua
+2510402,Olho d'Água,PB,NE,SITIO,CNES_BAIRRO_2510402_SITIO,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/pb/olho-dagua
+2510402,Olho d'Água,PB,NE,UMBUZEIRO,CNES_BAIRRO_2510402_UMBUZEIRO,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/pb/olho-dagua
+2510402,Olho d'Água,PB,NE,ZONA RURAL,CNES_BAIRRO_2510402_ZONA_RURAL,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/pb/olho-dagua
+2510402,Olho d'Água,PB,NE,ZONA URBANA,CNES_BAIRRO_2510402_ZONA_URBANA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/pb/olho-dagua
 2510501,Olivedos,PB,NE,CENTRO,CNES_BAIRRO_2510501_CENTRO,CNES_TEXTUAL,provisional,10,,CEP_BAIRRO_2510501_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/pb/olivedos
 2510501,Olivedos,PB,NE,ZONA RURAL,CNES_BAIRRO_2510501_ZONA_RURAL,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/pb/olivedos
 2510600,Ouro Velho,PB,NE,CENTRO,CNES_BAIRRO_2510600_CENTRO,CNES_TEXTUAL,provisional,12,,CEP_BAIRRO_2510600_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/pb/ouro-velho
@@ -12888,14 +12888,14 @@ municipalityCode,municipality,uf,region,bairroCnes,canonicalNeighborhoodCode,sou
 2705606,Novo Lino,AL,NE,CENTRO,CNES_BAIRRO_2705606_CENTRO,CNES_TEXTUAL,provisional,15,,CEP_BAIRRO_2705606_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/al/novo-lino
 2705606,Novo Lino,AL,NE,NAO CONSTA,CNES_BAIRRO_2705606_NAO_CONSTA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/al/novo-lino
 2705606,Novo Lino,AL,NE,ZONA RURAL,CNES_BAIRRO_2705606_ZONA_RURAL,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/al/novo-lino
-2705705,Olho d'Água das Flores,AL,NE,CENTRO,CNES_BAIRRO_2705705_CENTRO,CNES_TEXTUAL,provisional,21,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/al/olho-d-agua-das-flores
-2705705,Olho d'Água das Flores,AL,NE,MANOEL PINTO,CNES_BAIRRO_2705705_MANOEL_PINTO,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/al/olho-d-agua-das-flores
-2705705,Olho d'Água das Flores,AL,NE,NOVA BRASILIA,CNES_BAIRRO_2705705_NOVA_BRASILIA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/al/olho-d-agua-das-flores
-2705705,Olho d'Água das Flores,AL,NE,ZONA RURAL,CNES_BAIRRO_2705705_ZONA_RURAL,CNES_TEXTUAL,provisional,4,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/al/olho-d-agua-das-flores
-2705804,Olho d'Água do Casado,AL,NE,CENTRO,CNES_BAIRRO_2705804_CENTRO,CNES_TEXTUAL,provisional,7,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/al/olho-d-agua-do-casado
-2705804,Olho d'Água do Casado,AL,NE,ZONA RURAL,CNES_BAIRRO_2705804_ZONA_RURAL,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/al/olho-d-agua-do-casado
-2705903,Olho d'Água Grande,AL,NE,CENTRO,CNES_BAIRRO_2705903_CENTRO,CNES_TEXTUAL,provisional,6,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/al/olho-d-agua-grande
-2705903,Olho d'Água Grande,AL,NE,ZONA RURAL,CNES_BAIRRO_2705903_ZONA_RURAL,CNES_TEXTUAL,provisional,7,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/al/olho-d-agua-grande
+2705705,Olho d'Água das Flores,AL,NE,CENTRO,CNES_BAIRRO_2705705_CENTRO,CNES_TEXTUAL,provisional,21,,CEP_BAIRRO_2705705_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/al/olho-dagua-das-flores
+2705705,Olho d'Água das Flores,AL,NE,MANOEL PINTO,CNES_BAIRRO_2705705_MANOEL_PINTO,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/al/olho-dagua-das-flores
+2705705,Olho d'Água das Flores,AL,NE,NOVA BRASILIA,CNES_BAIRRO_2705705_NOVA_BRASILIA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/al/olho-dagua-das-flores
+2705705,Olho d'Água das Flores,AL,NE,ZONA RURAL,CNES_BAIRRO_2705705_ZONA_RURAL,CNES_TEXTUAL,provisional,4,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/al/olho-dagua-das-flores
+2705804,Olho d'Água do Casado,AL,NE,CENTRO,CNES_BAIRRO_2705804_CENTRO,CNES_TEXTUAL,provisional,7,,CEP_BAIRRO_2705804_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/al/olho-dagua-do-casado
+2705804,Olho d'Água do Casado,AL,NE,ZONA RURAL,CNES_BAIRRO_2705804_ZONA_RURAL,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/al/olho-dagua-do-casado
+2705903,Olho d'Água Grande,AL,NE,CENTRO,CNES_BAIRRO_2705903_CENTRO,CNES_TEXTUAL,provisional,6,,CEP_BAIRRO_2705903_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/al/olho-dagua-grande
+2705903,Olho d'Água Grande,AL,NE,ZONA RURAL,CNES_BAIRRO_2705903_ZONA_RURAL,CNES_TEXTUAL,provisional,7,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/al/olho-dagua-grande
 2706000,Olivença,AL,NE,CENTRO,CNES_BAIRRO_2706000_CENTRO,CNES_TEXTUAL,provisional,8,,CEP_BAIRRO_2706000_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/al/olivenca
 2706000,Olivença,AL,NE,CLIMA BOM,CNES_BAIRRO_2706000_CLIMA_BOM,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/al/olivenca
 2706000,Olivença,AL,NE,ZONA RURAL,CNES_BAIRRO_2706000_ZONA_RURAL,CNES_TEXTUAL,provisional,5,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/al/olivenca
@@ -13112,8 +13112,8 @@ municipalityCode,municipality,uf,region,bairroCnes,canonicalNeighborhoodCode,sou
 2708956,Senador Rui Palmeira,AL,NE,CENTRO,CNES_BAIRRO_2708956_CENTRO,CNES_TEXTUAL,provisional,11,,CEP_BAIRRO_2708956_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/al/senador-rui-palmeira
 2708956,Senador Rui Palmeira,AL,NE,POV CANDUNDA,CNES_BAIRRO_2708956_POV_CANDUNDA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/al/senador-rui-palmeira
 2708956,Senador Rui Palmeira,AL,NE,ZONA RURAL,CNES_BAIRRO_2708956_ZONA_RURAL,CNES_TEXTUAL,provisional,3,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/al/senador-rui-palmeira
-2709004,Tanque d'Arca,AL,NE,CENTRO,CNES_BAIRRO_2709004_CENTRO,CNES_TEXTUAL,provisional,9,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/al/tanque-d-arca
-2709004,Tanque d'Arca,AL,NE,ZONA RURAL,CNES_BAIRRO_2709004_ZONA_RURAL,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/al/tanque-d-arca
+2709004,Tanque d'Arca,AL,NE,CENTRO,CNES_BAIRRO_2709004_CENTRO,CNES_TEXTUAL,provisional,9,,CEP_BAIRRO_2709004_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/al/tanque-darca
+2709004,Tanque d'Arca,AL,NE,ZONA RURAL,CNES_BAIRRO_2709004_ZONA_RURAL,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/al/tanque-darca
 2709103,Taquarana,AL,NE,CENTRO,CNES_BAIRRO_2709103_CENTRO,CNES_TEXTUAL,provisional,18,,CEP_BAIRRO_2709103_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/al/taquarana
 2709103,Taquarana,AL,NE,RURAL,CNES_BAIRRO_2709103_RURAL,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/al/taquarana
 2709103,Taquarana,AL,NE,ZONA RURAL,CNES_BAIRRO_2709103_ZONA_RURAL,CNES_TEXTUAL,provisional,11,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/al/taquarana
@@ -13315,8 +13315,8 @@ municipalityCode,municipality,uf,region,bairroCnes,canonicalNeighborhoodCode,sou
 2803104,Itabi,SE,NE,CENTRO,CNES_BAIRRO_2803104_CENTRO,CNES_TEXTUAL,provisional,3,,CEP_BAIRRO_2803104_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/se/itabi
 2803104,Itabi,SE,NE,MATIAS,CNES_BAIRRO_2803104_MATIAS,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/se/itabi
 2803104,Itabi,SE,NE,ZONA RURAL,CNES_BAIRRO_2803104_ZONA_RURAL,CNES_TEXTUAL,provisional,3,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/se/itabi
-2803203,Itaporanga d'Ajuda,SE,NE,CENTRO,CNES_BAIRRO_2803203_CENTRO,CNES_TEXTUAL,provisional,30,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/se/itaporanga-d-ajuda
-2803203,Itaporanga d'Ajuda,SE,NE,ZONA RURAL,CNES_BAIRRO_2803203_ZONA_RURAL,CNES_TEXTUAL,provisional,25,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/se/itaporanga-d-ajuda
+2803203,Itaporanga d'Ajuda,SE,NE,CENTRO,CNES_BAIRRO_2803203_CENTRO,CNES_TEXTUAL,provisional,30,,CEP_BAIRRO_2803203_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/se/itaporanga-dajuda
+2803203,Itaporanga d'Ajuda,SE,NE,ZONA RURAL,CNES_BAIRRO_2803203_ZONA_RURAL,CNES_TEXTUAL,provisional,25,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/se/itaporanga-dajuda
 2803302,Japaratuba,SE,NE,CENTRO,CNES_BAIRRO_2803302_CENTRO,CNES_TEXTUAL,provisional,12,,CEP_BAIRRO_2803302_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/se/japaratuba
 2803302,Japaratuba,SE,NE,LOT MARIA MADALENA,CNES_BAIRRO_2803302_LOT_MARIA_MADALENA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/se/japaratuba
 2803302,Japaratuba,SE,NE,RURAL,CNES_BAIRRO_2803302_RURAL,CNES_TEXTUAL,provisional,13,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/se/japaratuba
@@ -14588,27 +14588,27 @@ municipalityCode,municipality,uf,region,bairroCnes,canonicalNeighborhoodCode,sou
 2910008,Dário Meira,BA,NE,DISTRITO PONTO NOVO,CNES_BAIRRO_2910008_DISTRITO_PONTO_NOVO,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/ba/dario-meira
 2910008,Dário Meira,BA,NE,LAGOAO,CNES_BAIRRO_2910008_LAGOAO,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/ba/dario-meira
 2910008,Dário Meira,BA,NE,NOVA CAJAZEIRA,CNES_BAIRRO_2910008_NOVA_CAJAZEIRA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/ba/dario-meira
-2910057,Dias d'Ávila,BA,NE,ALVORADA,CNES_BAIRRO_2910057_ALVORADA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/ba/dias-d-avila
-2910057,Dias d'Ávila,BA,NE,BIRIBEIRA,CNES_BAIRRO_2910057_BIRIBEIRA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/ba/dias-d-avila
-2910057,Dias d'Ávila,BA,NE,BOSQUE,CNES_BAIRRO_2910057_BOSQUE,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/ba/dias-d-avila
-2910057,Dias d'Ávila,BA,NE,CENTRO,CNES_BAIRRO_2910057_CENTRO,CNES_TEXTUAL,provisional,49,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/ba/dias-d-avila
-2910057,Dias d'Ávila,BA,NE,CIDADE MIRIM,CNES_BAIRRO_2910057_CIDADE_MIRIM,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/ba/dias-d-avila
-2910057,Dias d'Ávila,BA,NE,CONCORDIA,CNES_BAIRRO_2910057_CONCORDIA,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/ba/dias-d-avila
-2910057,Dias d'Ávila,BA,NE,CRISTO REI,CNES_BAIRRO_2910057_CRISTO_REI,CNES_TEXTUAL,provisional,3,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/ba/dias-d-avila
-2910057,Dias d'Ávila,BA,NE,EMBOACICA,CNES_BAIRRO_2910057_EMBOACICA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/ba/dias-d-avila
-2910057,Dias d'Ávila,BA,NE,ENTRONCAMENTO,CNES_BAIRRO_2910057_ENTRONCAMENTO,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/ba/dias-d-avila
-2910057,Dias d'Ávila,BA,NE,GARCIA DAVILA,CNES_BAIRRO_2910057_GARCIA_DAVILA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/ba/dias-d-avila
-2910057,Dias d'Ávila,BA,NE,GENARO,CNES_BAIRRO_2910057_GENARO,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/ba/dias-d-avila
-2910057,Dias d'Ávila,BA,NE,IMBASSAY,CNES_BAIRRO_2910057_IMBASSAY,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/ba/dias-d-avila
-2910057,Dias d'Ávila,BA,NE,JARDIM FUTURAMA,CNES_BAIRRO_2910057_JARDIM_FUTURAMA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/ba/dias-d-avila
-2910057,Dias d'Ávila,BA,NE,LEANDRINHO,CNES_BAIRRO_2910057_LEANDRINHO,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/ba/dias-d-avila
-2910057,Dias d'Ávila,BA,NE,LESSA RIBEIRO,CNES_BAIRRO_2910057_LESSA_RIBEIRO,CNES_TEXTUAL,provisional,13,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/ba/dias-d-avila
-2910057,Dias d'Ávila,BA,NE,NOVA DDA,CNES_BAIRRO_2910057_NOVA_DDA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/ba/dias-d-avila
-2910057,Dias d'Ávila,BA,NE,PARQUE PETROPOLIS,CNES_BAIRRO_2910057_PARQUE_PETROPOLIS,CNES_TEXTUAL,provisional,3,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/ba/dias-d-avila
-2910057,Dias d'Ávila,BA,NE,SANTA HELENA,CNES_BAIRRO_2910057_SANTA_HELENA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/ba/dias-d-avila
-2910057,Dias d'Ávila,BA,NE,SANTA TEREZINHA,CNES_BAIRRO_2910057_SANTA_TEREZINHA,CNES_TEXTUAL,provisional,3,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/ba/dias-d-avila
-2910057,Dias d'Ávila,BA,NE,URBIS,CNES_BAIRRO_2910057_URBIS,CNES_TEXTUAL,provisional,3,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/ba/dias-d-avila
-2910057,Dias d'Ávila,BA,NE,VARGINHA,CNES_BAIRRO_2910057_VARGINHA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/ba/dias-d-avila
+2910057,Dias d'Ávila,BA,NE,ALVORADA,CNES_BAIRRO_2910057_ALVORADA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/ba/dias-davila
+2910057,Dias d'Ávila,BA,NE,BIRIBEIRA,CNES_BAIRRO_2910057_BIRIBEIRA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/ba/dias-davila
+2910057,Dias d'Ávila,BA,NE,BOSQUE,CNES_BAIRRO_2910057_BOSQUE,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/ba/dias-davila
+2910057,Dias d'Ávila,BA,NE,CENTRO,CNES_BAIRRO_2910057_CENTRO,CNES_TEXTUAL,provisional,49,,CEP_BAIRRO_2910057_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/ba/dias-davila
+2910057,Dias d'Ávila,BA,NE,CIDADE MIRIM,CNES_BAIRRO_2910057_CIDADE_MIRIM,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/ba/dias-davila
+2910057,Dias d'Ávila,BA,NE,CONCORDIA,CNES_BAIRRO_2910057_CONCORDIA,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/ba/dias-davila
+2910057,Dias d'Ávila,BA,NE,CRISTO REI,CNES_BAIRRO_2910057_CRISTO_REI,CNES_TEXTUAL,provisional,3,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/ba/dias-davila
+2910057,Dias d'Ávila,BA,NE,EMBOACICA,CNES_BAIRRO_2910057_EMBOACICA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/ba/dias-davila
+2910057,Dias d'Ávila,BA,NE,ENTRONCAMENTO,CNES_BAIRRO_2910057_ENTRONCAMENTO,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/ba/dias-davila
+2910057,Dias d'Ávila,BA,NE,GARCIA DAVILA,CNES_BAIRRO_2910057_GARCIA_DAVILA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/ba/dias-davila
+2910057,Dias d'Ávila,BA,NE,GENARO,CNES_BAIRRO_2910057_GENARO,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/ba/dias-davila
+2910057,Dias d'Ávila,BA,NE,IMBASSAY,CNES_BAIRRO_2910057_IMBASSAY,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/ba/dias-davila
+2910057,Dias d'Ávila,BA,NE,JARDIM FUTURAMA,CNES_BAIRRO_2910057_JARDIM_FUTURAMA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/ba/dias-davila
+2910057,Dias d'Ávila,BA,NE,LEANDRINHO,CNES_BAIRRO_2910057_LEANDRINHO,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/ba/dias-davila
+2910057,Dias d'Ávila,BA,NE,LESSA RIBEIRO,CNES_BAIRRO_2910057_LESSA_RIBEIRO,CNES_TEXTUAL,provisional,13,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/ba/dias-davila
+2910057,Dias d'Ávila,BA,NE,NOVA DDA,CNES_BAIRRO_2910057_NOVA_DDA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/ba/dias-davila
+2910057,Dias d'Ávila,BA,NE,PARQUE PETROPOLIS,CNES_BAIRRO_2910057_PARQUE_PETROPOLIS,CNES_TEXTUAL,provisional,3,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/ba/dias-davila
+2910057,Dias d'Ávila,BA,NE,SANTA HELENA,CNES_BAIRRO_2910057_SANTA_HELENA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/ba/dias-davila
+2910057,Dias d'Ávila,BA,NE,SANTA TEREZINHA,CNES_BAIRRO_2910057_SANTA_TEREZINHA,CNES_TEXTUAL,provisional,3,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/ba/dias-davila
+2910057,Dias d'Ávila,BA,NE,URBIS,CNES_BAIRRO_2910057_URBIS,CNES_TEXTUAL,provisional,3,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/ba/dias-davila
+2910057,Dias d'Ávila,BA,NE,VARGINHA,CNES_BAIRRO_2910057_VARGINHA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/ba/dias-davila
 2910107,Dom Basílio,BA,NE,CENTRO,CNES_BAIRRO_2910107_CENTRO,CNES_TEXTUAL,provisional,25,,CEP_BAIRRO_2910107_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/ba/dom-basilio
 2910107,Dom Basílio,BA,NE,PADRE MANOEL OLIMPIO,CNES_BAIRRO_2910107_PADRE_MANOEL_OLIMPIO,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/ba/dom-basilio
 2910107,Dom Basílio,BA,NE,RURAL,CNES_BAIRRO_2910107_RURAL,CNES_TEXTUAL,provisional,3,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/ba/dom-basilio
@@ -21633,9 +21633,9 @@ municipalityCode,municipality,uf,region,bairroCnes,canonicalNeighborhoodCode,sou
 3145372,Novorizonte,MG,SE,ZONA RURAL,CNES_BAIRRO_3145372_ZONA_RURAL,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/mg/novorizonte
 3145406,Olaria,MG,SE,CENTRO,CNES_BAIRRO_3145406_CENTRO,CNES_TEXTUAL,provisional,5,,CEP_BAIRRO_3145406_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/mg/olaria
 3145406,Olaria,MG,SE,ZONA RURAL,CNES_BAIRRO_3145406_ZONA_RURAL,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/mg/olaria
-3145455,Olhos-d'Água,MG,SE,BELA VISTA,CNES_BAIRRO_3145455_BELA_VISTA,CNES_TEXTUAL,provisional,5,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/mg/olhos-d-agua
-3145455,Olhos-d'Água,MG,SE,CENTRO,CNES_BAIRRO_3145455_CENTRO,CNES_TEXTUAL,provisional,3,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/mg/olhos-d-agua
-3145455,Olhos-d'Água,MG,SE,ZONA RURAL,CNES_BAIRRO_3145455_ZONA_RURAL,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/mg/olhos-d-agua
+3145455,Olhos-d'Água,MG,SE,BELA VISTA,CNES_BAIRRO_3145455_BELA_VISTA,CNES_TEXTUAL,provisional,5,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/mg/olhos-dagua
+3145455,Olhos-d'Água,MG,SE,CENTRO,CNES_BAIRRO_3145455_CENTRO,CNES_TEXTUAL,provisional,3,,CEP_BAIRRO_3145455_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/mg/olhos-dagua
+3145455,Olhos-d'Água,MG,SE,ZONA RURAL,CNES_BAIRRO_3145455_ZONA_RURAL,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/mg/olhos-dagua
 3145505,Olímpio Noronha,MG,SE,CENTRO,CNES_BAIRRO_3145505_CENTRO,CNES_TEXTUAL,provisional,16,,CEP_BAIRRO_3145505_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/mg/olimpio-noronha
 3145604,Oliveira,MG,SE,ALVORADA,CNES_BAIRRO_3145604_ALVORADA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/mg/oliveira
 3145604,Oliveira,MG,SE,APARECIDA,CNES_BAIRRO_3145604_APARECIDA,CNES_TEXTUAL,provisional,10,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/mg/oliveira
@@ -22100,9 +22100,9 @@ municipalityCode,municipality,uf,region,bairroCnes,canonicalNeighborhoodCode,sou
 3150505,Pimenta,MG,SE,JK,CNES_BAIRRO_3150505_JK,CNES_TEXTUAL,provisional,3,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/mg/pimenta
 3150505,Pimenta,MG,SE,SANTA RITA,CNES_BAIRRO_3150505_SANTA_RITA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/mg/pimenta
 3150505,Pimenta,MG,SE,SANTO ANTONIO,CNES_BAIRRO_3150505_SANTO_ANTONIO,CNES_TEXTUAL,provisional,3,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/mg/pimenta
-3150539,Pingo-d'Água,MG,SE,CENTRO,CNES_BAIRRO_3150539_CENTRO,CNES_TEXTUAL,provisional,9,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/mg/pingo-d-agua
-3150539,Pingo-d'Água,MG,SE,FLORESTA,CNES_BAIRRO_3150539_FLORESTA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/mg/pingo-d-agua
-3150539,Pingo-d'Água,MG,SE,SAO SEBASTIAO,CNES_BAIRRO_3150539_SAO_SEBASTIAO,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/mg/pingo-d-agua
+3150539,Pingo-d'Água,MG,SE,CENTRO,CNES_BAIRRO_3150539_CENTRO,CNES_TEXTUAL,provisional,9,,CEP_BAIRRO_3150539_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/mg/pingo-dagua
+3150539,Pingo-d'Água,MG,SE,FLORESTA,CNES_BAIRRO_3150539_FLORESTA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/mg/pingo-dagua
+3150539,Pingo-d'Água,MG,SE,SAO SEBASTIAO,CNES_BAIRRO_3150539_SAO_SEBASTIAO,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/mg/pingo-dagua
 3150570,Pintópolis,MG,SE,CENTRO,CNES_BAIRRO_3150570_CENTRO,CNES_TEXTUAL,provisional,7,,CEP_BAIRRO_3150570_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/mg/pintopolis
 3150570,Pintópolis,MG,SE,SANTA LUZIA,CNES_BAIRRO_3150570_SANTA_LUZIA,CNES_TEXTUAL,provisional,3,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/mg/pintopolis
 3150570,Pintópolis,MG,SE,VICENTE CARDOSO,CNES_BAIRRO_3150570_VICENTE_CARDOSO,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/mg/pintopolis
@@ -27988,8 +27988,8 @@ municipalityCode,municipality,uf,region,bairroCnes,canonicalNeighborhoodCode,sou
 3502507,Aparecida,SP,SE,SAO ROQUE,CNES_BAIRRO_3502507_SAO_ROQUE,CNES_TEXTUAL,provisional,1,,CEP_BAIRRO_3502507_SAO_ROQUE,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/aparecida
 3502507,Aparecida,SP,SE,SAO SEBASTIAO,CNES_BAIRRO_3502507_SAO_SEBASTIAO,CNES_TEXTUAL,provisional,1,,CEP_BAIRRO_3502507_SAO_SEBASTIAO,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/aparecida
 3502507,Aparecida,SP,SE,VILA MARIANA,CNES_BAIRRO_3502507_VILA_MARIANA,CNES_TEXTUAL,provisional,1,,CEP_BAIRRO_3502507_VILA_MARIANA,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/aparecida
-3502606,Aparecida d'Oeste,SP,SE,CENTRO,CNES_BAIRRO_3502606_CENTRO,CNES_TEXTUAL,provisional,6,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/aparecida-d-oeste
-3502606,Aparecida d'Oeste,SP,SE,COHAB FILOGOMES MART,CNES_BAIRRO_3502606_COHAB_FILOGOMES_MART,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/aparecida-d-oeste
+3502606,Aparecida d'Oeste,SP,SE,CENTRO,CNES_BAIRRO_3502606_CENTRO,CNES_TEXTUAL,provisional,6,,CEP_BAIRRO_3502606_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/aparecida-doeste
+3502606,Aparecida d'Oeste,SP,SE,COHAB FILOGOMES MART,CNES_BAIRRO_3502606_COHAB_FILOGOMES_MART,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/aparecida-doeste
 3502705,Apiaí,SP,SE,ALTO DA TENDA,CNES_BAIRRO_3502705_ALTO_DA_TENDA,CNES_TEXTUAL,provisional,2,,CEP_BAIRRO_3502705_ALTO_DA_TENDA,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/apiai
 3502705,Apiaí,SP,SE,ARACAIBA,CNES_BAIRRO_3502705_ARACAIBA,CNES_TEXTUAL,provisional,1,,CEP_BAIRRO_3502705_ARACAIBA,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/apiai
 3502705,Apiaí,SP,SE,CDHU 1,CNES_BAIRRO_3502705_CDHU_1,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/apiai
@@ -31630,15 +31630,15 @@ municipalityCode,municipality,uf,region,bairroCnes,canonicalNeighborhoodCode,sou
 3515186,Espírito Santo do Pinhal,SP,SE,VILA SAO PEDRO,CNES_BAIRRO_3515186_VILA_SAO_PEDRO,CNES_TEXTUAL,provisional,1,,CEP_BAIRRO_3515186_VILA_SAO_PEDRO,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/espirito-santo-do-pinhal
 3515194,Espírito Santo do Turvo,SP,SE,CENTRO,CNES_BAIRRO_3515194_CENTRO,CNES_TEXTUAL,provisional,4,,CEP_BAIRRO_3515194_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/espirito-santo-do-turvo
 3515194,Espírito Santo do Turvo,SP,SE,JARDIM ZANATA,CNES_BAIRRO_3515194_JARDIM_ZANATA,CNES_TEXTUAL,provisional,1,,CEP_BAIRRO_3515194_JARDIM_ZANATA,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/espirito-santo-do-turvo
-3515202,Estrela d'Oeste,SP,SE,CENTRO,CNES_BAIRRO_3515202_CENTRO,CNES_TEXTUAL,provisional,36,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/estrela-d-oeste
-3515202,Estrela d'Oeste,SP,SE,DR GILMAR ALVES FERR,CNES_BAIRRO_3515202_DR_GILMAR_ALVES_FERR,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/estrela-d-oeste
-3515202,Estrela d'Oeste,SP,SE,JARDIM ALVORADA,CNES_BAIRRO_3515202_JARDIM_ALVORADA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/estrela-d-oeste
-3515202,Estrela d'Oeste,SP,SE,JARDIM SANTOS REIS,CNES_BAIRRO_3515202_JARDIM_SANTOS_REIS,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/estrela-d-oeste
-3515202,Estrela d'Oeste,SP,SE,JARDIM SAO LUIS,CNES_BAIRRO_3515202_JARDIM_SAO_LUIS,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/estrela-d-oeste
-3515202,Estrela d'Oeste,SP,SE,JARDIM SAO PAULO,CNES_BAIRRO_3515202_JARDIM_SAO_PAULO,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/estrela-d-oeste
-3515202,Estrela d'Oeste,SP,SE,JARDIM SAO SILVESTRE,CNES_BAIRRO_3515202_JARDIM_SAO_SILVESTRE,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/estrela-d-oeste
-3515202,Estrela d'Oeste,SP,SE,JULIO ANDRE,CNES_BAIRRO_3515202_JULIO_ANDRE,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/estrela-d-oeste
-3515202,Estrela d'Oeste,SP,SE,SANTA CLARA,CNES_BAIRRO_3515202_SANTA_CLARA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/estrela-d-oeste
+3515202,Estrela d'Oeste,SP,SE,CENTRO,CNES_BAIRRO_3515202_CENTRO,CNES_TEXTUAL,provisional,36,,CEP_BAIRRO_3515202_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/estrela-doeste
+3515202,Estrela d'Oeste,SP,SE,DR GILMAR ALVES FERR,CNES_BAIRRO_3515202_DR_GILMAR_ALVES_FERR,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/estrela-doeste
+3515202,Estrela d'Oeste,SP,SE,JARDIM ALVORADA,CNES_BAIRRO_3515202_JARDIM_ALVORADA,CNES_TEXTUAL,provisional,1,,CEP_BAIRRO_3515202_JARDIM_ALVORADA,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/estrela-doeste
+3515202,Estrela d'Oeste,SP,SE,JARDIM SANTOS REIS,CNES_BAIRRO_3515202_JARDIM_SANTOS_REIS,CNES_TEXTUAL,provisional,1,,CEP_BAIRRO_3515202_JARDIM_SANTOS_REIS,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/estrela-doeste
+3515202,Estrela d'Oeste,SP,SE,JARDIM SAO LUIS,CNES_BAIRRO_3515202_JARDIM_SAO_LUIS,CNES_TEXTUAL,provisional,1,,CEP_BAIRRO_3515202_JARDIM_SAO_LUIS,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/estrela-doeste
+3515202,Estrela d'Oeste,SP,SE,JARDIM SAO PAULO,CNES_BAIRRO_3515202_JARDIM_SAO_PAULO,CNES_TEXTUAL,provisional,1,,CEP_BAIRRO_3515202_JARDIM_SAO_PAULO,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/estrela-doeste
+3515202,Estrela d'Oeste,SP,SE,JARDIM SAO SILVESTRE,CNES_BAIRRO_3515202_JARDIM_SAO_SILVESTRE,CNES_TEXTUAL,provisional,1,,CEP_BAIRRO_3515202_JARDIM_SAO_SILVESTRE,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/estrela-doeste
+3515202,Estrela d'Oeste,SP,SE,JULIO ANDRE,CNES_BAIRRO_3515202_JULIO_ANDRE,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/estrela-doeste
+3515202,Estrela d'Oeste,SP,SE,SANTA CLARA,CNES_BAIRRO_3515202_SANTA_CLARA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/estrela-doeste
 3515301,Estrela do Norte,SP,SE,CENTRO,CNES_BAIRRO_3515301_CENTRO,CNES_TEXTUAL,provisional,4,,CEP_BAIRRO_3515301_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/estrela-do-norte
 3515350,Euclides da Cunha Paulista,SP,SE,CENTRO,CNES_BAIRRO_3515350_CENTRO,CNES_TEXTUAL,provisional,16,,CEP_BAIRRO_3515350_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/euclides-da-cunha-paulista
 3515350,Euclides da Cunha Paulista,SP,SE,JARDIM BALNEARIO,CNES_BAIRRO_3515350_JARDIM_BALNEARIO,CNES_TEXTUAL,provisional,1,,CEP_BAIRRO_3515350_JARDIM_BALNEARIO,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/euclides-da-cunha-paulista
@@ -32209,8 +32209,8 @@ municipalityCode,municipality,uf,region,bairroCnes,canonicalNeighborhoodCode,sou
 3517901,Guaraci,SP,SE,JARDIM ACAPULCO,CNES_BAIRRO_3517901_JARDIM_ACAPULCO,CNES_TEXTUAL,provisional,2,,CEP_BAIRRO_3517901_JARDIM_ACAPULCO,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/guaraci
 3517901,Guaraci,SP,SE,PREFEITO ODAIR PASTR,CNES_BAIRRO_3517901_PREFEITO_ODAIR_PASTR,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/guaraci
 3517901,Guaraci,SP,SE,ZONA RURAL,CNES_BAIRRO_3517901_ZONA_RURAL,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/guaraci
-3518008,Guarani d'Oeste,SP,SE,CENTRO,CNES_BAIRRO_3518008_CENTRO,CNES_TEXTUAL,provisional,4,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/guarani-d-oeste
-3518008,Guarani d'Oeste,SP,SE,SAO BENEDITO,CNES_BAIRRO_3518008_SAO_BENEDITO,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/guarani-d-oeste
+3518008,Guarani d'Oeste,SP,SE,CENTRO,CNES_BAIRRO_3518008_CENTRO,CNES_TEXTUAL,provisional,4,,CEP_BAIRRO_3518008_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/guarani-doeste
+3518008,Guarani d'Oeste,SP,SE,SAO BENEDITO,CNES_BAIRRO_3518008_SAO_BENEDITO,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/guarani-doeste
 3518107,Guarantã,SP,SE,CENTRO,CNES_BAIRRO_3518107_CENTRO,CNES_TEXTUAL,provisional,4,,CEP_BAIRRO_3518107_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/guaranta
 3518107,Guarantã,SP,SE,SANTO EXPEDITO,CNES_BAIRRO_3518107_SANTO_EXPEDITO,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/guaranta
 3518107,Guarantã,SP,SE,SOL NASCENTE,CNES_BAIRRO_3518107_SOL_NASCENTE,CNES_TEXTUAL,provisional,1,,CEP_BAIRRO_3518107_SOL_NASCENTE,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/guaranta
@@ -36351,14 +36351,14 @@ municipalityCode,municipality,uf,region,bairroCnes,canonicalNeighborhoodCode,sou
 3535101,Palmares Paulista,SP,SE,CONJ HAB CARMEM RUET,CNES_BAIRRO_3535101_CONJ_HAB_CARMEM_RUET,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/palmares-paulista
 3535101,Palmares Paulista,SP,SE,JARDIM RESIDENCIAL G,CNES_BAIRRO_3535101_JARDIM_RESIDENCIAL_G,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/palmares-paulista
 3535101,Palmares Paulista,SP,SE,JARDIM SAO CARLOS,CNES_BAIRRO_3535101_JARDIM_SAO_CARLOS,CNES_TEXTUAL,provisional,1,,CEP_BAIRRO_3535101_JARDIM_SAO_CARLOS,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/palmares-paulista
-3535200,Palmeira d'Oeste,SP,SE,CENTRO,CNES_BAIRRO_3535200_CENTRO,CNES_TEXTUAL,provisional,20,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/palmeira-d-oeste
-3535200,Palmeira d'Oeste,SP,SE,COHAB JOAO JOSE DIAS,CNES_BAIRRO_3535200_COHAB_JOAO_JOSE_DIAS,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/palmeira-d-oeste
-3535200,Palmeira d'Oeste,SP,SE,COHAB REMIDIO GALBIA,CNES_BAIRRO_3535200_COHAB_REMIDIO_GALBIA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/palmeira-d-oeste
-3535200,Palmeira d'Oeste,SP,SE,DALAS,CNES_BAIRRO_3535200_DALAS,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/palmeira-d-oeste
-3535200,Palmeira d'Oeste,SP,SE,JARDIM PRIMAVERA,CNES_BAIRRO_3535200_JARDIM_PRIMAVERA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/palmeira-d-oeste
-3535200,Palmeira d'Oeste,SP,SE,JARDIM PRIMAVERA II,CNES_BAIRRO_3535200_JARDIM_PRIMAVERA_II,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/palmeira-d-oeste
-3535200,Palmeira d'Oeste,SP,SE,LOTEAMENTO ALTO DAS,CNES_BAIRRO_3535200_LOTEAMENTO_ALTO_DAS,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/palmeira-d-oeste
-3535200,Palmeira d'Oeste,SP,SE,MUTIRAO,CNES_BAIRRO_3535200_MUTIRAO,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/palmeira-d-oeste
+3535200,Palmeira d'Oeste,SP,SE,CENTRO,CNES_BAIRRO_3535200_CENTRO,CNES_TEXTUAL,provisional,20,,CEP_BAIRRO_3535200_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/palmeira-doeste
+3535200,Palmeira d'Oeste,SP,SE,COHAB JOAO JOSE DIAS,CNES_BAIRRO_3535200_COHAB_JOAO_JOSE_DIAS,CNES_TEXTUAL,provisional,1,,CEP_BAIRRO_3535200_COHAB_JOAO_JOSE_DIAS,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/palmeira-doeste
+3535200,Palmeira d'Oeste,SP,SE,COHAB REMIDIO GALBIA,CNES_BAIRRO_3535200_COHAB_REMIDIO_GALBIA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/palmeira-doeste
+3535200,Palmeira d'Oeste,SP,SE,DALAS,CNES_BAIRRO_3535200_DALAS,CNES_TEXTUAL,provisional,1,,CEP_BAIRRO_3535200_DALAS,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/palmeira-doeste
+3535200,Palmeira d'Oeste,SP,SE,JARDIM PRIMAVERA,CNES_BAIRRO_3535200_JARDIM_PRIMAVERA,CNES_TEXTUAL,provisional,1,,CEP_BAIRRO_3535200_JARDIM_PRIMAVERA,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/palmeira-doeste
+3535200,Palmeira d'Oeste,SP,SE,JARDIM PRIMAVERA II,CNES_BAIRRO_3535200_JARDIM_PRIMAVERA_II,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/palmeira-doeste
+3535200,Palmeira d'Oeste,SP,SE,LOTEAMENTO ALTO DAS,CNES_BAIRRO_3535200_LOTEAMENTO_ALTO_DAS,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/palmeira-doeste
+3535200,Palmeira d'Oeste,SP,SE,MUTIRAO,CNES_BAIRRO_3535200_MUTIRAO,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/palmeira-doeste
 3535309,Palmital,SP,SE,218,CNES_BAIRRO_3535309_218,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/palmital
 3535309,Palmital,SP,SE,CENTRO,CNES_BAIRRO_3535309_CENTRO,CNES_TEXTUAL,provisional,53,,CEP_BAIRRO_3535309_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/palmital
 3535309,Palmital,SP,SE,JARDIM ALVORADA,CNES_BAIRRO_3535309_JARDIM_ALVORADA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/palmital
@@ -38203,101 +38203,101 @@ municipalityCode,municipality,uf,region,bairroCnes,canonicalNeighborhoodCode,sou
 3545605,Santa Adélia,SP,SE,VILA TONINHO,CNES_BAIRRO_3545605_VILA_TONINHO,CNES_TEXTUAL,provisional,1,,CEP_BAIRRO_3545605_VILA_TONINHO,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-adelia
 3545704,Santa Albertina,SP,SE,CENTRO,CNES_BAIRRO_3545704_CENTRO,CNES_TEXTUAL,provisional,13,,CEP_BAIRRO_3545704_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-albertina
 3545704,Santa Albertina,SP,SE,CORREGO DO ARARA,CNES_BAIRRO_3545704_CORREGO_DO_ARARA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-albertina
-3545803,Santa Bárbara d'Oeste,SP,SE,2 DISTRITO INDUSTRI,CNES_BAIRRO_3545803_2_DISTRITO_INDUSTRI,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,CENTRO,CNES_BAIRRO_3545803_CENTRO,CNES_TEXTUAL,provisional,227,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,CHACARAS CRUZEIRO DO,CNES_BAIRRO_3545803_CHACARAS_CRUZEIRO_DO,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,CIDADE NOVA,CNES_BAIRRO_3545803_CIDADE_NOVA,CNES_TEXTUAL,provisional,35,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,CIDADE NOVA II,CNES_BAIRRO_3545803_CIDADE_NOVA_II,CNES_TEXTUAL,provisional,3,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,CONJUNTO HAB 31 DE,CNES_BAIRRO_3545803_CONJUNTO_HAB_31_DE,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,CONJUNTO HABITACAO 3,CNES_BAIRRO_3545803_CONJUNTO_HABITACAO_3,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,EUROPA,CNES_BAIRRO_3545803_EUROPA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,FERNANDO MOLLON,CNES_BAIRRO_3545803_FERNANDO_MOLLON,CNES_TEXTUAL,provisional,3,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,FURLAN,CNES_BAIRRO_3545803_FURLAN,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,JARDIM ADELIA II,CNES_BAIRRO_3545803_JARDIM_ADELIA_II,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,JARDIM ALPHACENTER,CNES_BAIRRO_3545803_JARDIM_ALPHACENTER,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,JARDIM AMERICA,CNES_BAIRRO_3545803_JARDIM_AMERICA,CNES_TEXTUAL,provisional,21,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,JARDIM BELO HORIZONT,CNES_BAIRRO_3545803_JARDIM_BELO_HORIZONT,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,JARDIM BOA VISTA,CNES_BAIRRO_3545803_JARDIM_BOA_VISTA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,JARDIM CANDIDO BERTI,CNES_BAIRRO_3545803_JARDIM_CANDIDO_BERTI,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,JARDIM DONA REGINA,CNES_BAIRRO_3545803_JARDIM_DONA_REGINA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,JARDIM ESMERALDA,CNES_BAIRRO_3545803_JARDIM_ESMERALDA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,JARDIM EUROPA,CNES_BAIRRO_3545803_JARDIM_EUROPA,CNES_TEXTUAL,provisional,4,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,JARDIM EUROPA I,CNES_BAIRRO_3545803_JARDIM_EUROPA_I,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,JARDIM FERNANDO MOLL,CNES_BAIRRO_3545803_JARDIM_FERNANDO_MOLL,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,JARDIM FIRENZE,CNES_BAIRRO_3545803_JARDIM_FIRENZE,CNES_TEXTUAL,provisional,3,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,JARDIM LAUDISSE,CNES_BAIRRO_3545803_JARDIM_LAUDISSE,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,JARDIM LAUDISSI,CNES_BAIRRO_3545803_JARDIM_LAUDISSI,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,JARDIM MIGUEL CLAUDI,CNES_BAIRRO_3545803_JARDIM_MIGUEL_CLAUDI,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,JARDIM MOLLON,CNES_BAIRRO_3545803_JARDIM_MOLLON,CNES_TEXTUAL,provisional,4,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,JARDIM PANTANO II,CNES_BAIRRO_3545803_JARDIM_PANTANO_II,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,JARDIM PEROLA,CNES_BAIRRO_3545803_JARDIM_PEROLA,CNES_TEXTUAL,provisional,19,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,JARDIM SAO FRANCISCO,CNES_BAIRRO_3545803_JARDIM_SAO_FRANCISCO,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,JARDIM SAO LUIZ,CNES_BAIRRO_3545803_JARDIM_SAO_LUIZ,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,JARDIM SOUZA QUEIROZ,CNES_BAIRRO_3545803_JARDIM_SOUZA_QUEIROZ,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,JARDIM VISTA ALEGRE,CNES_BAIRRO_3545803_JARDIM_VISTA_ALEGRE,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,JD AMERICA,CNES_BAIRRO_3545803_JD_AMERICA,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,JD BELO HORINZONTE,CNES_BAIRRO_3545803_JD_BELO_HORINZONTE,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,JD CONCEICAO,CNES_BAIRRO_3545803_JD_CONCEICAO,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,JD ESMERALDA,CNES_BAIRRO_3545803_JD_ESMERALDA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,JD EUROPA,CNES_BAIRRO_3545803_JD_EUROPA,CNES_TEXTUAL,provisional,3,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,JD EUROPA IV,CNES_BAIRRO_3545803_JD_EUROPA_IV,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,JD FERNANDO MOLLON,CNES_BAIRRO_3545803_JD_FERNANDO_MOLLON,CNES_TEXTUAL,provisional,3,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,JD FIRENZE,CNES_BAIRRO_3545803_JD_FIRENZE,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,JD LAUDISSE,CNES_BAIRRO_3545803_JD_LAUDISSE,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,JD LAUDISSI,CNES_BAIRRO_3545803_JD_LAUDISSI,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,JD MOLLON,CNES_BAIRRO_3545803_JD_MOLLON,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,JD PANAMBI,CNES_BAIRRO_3545803_JD_PANAMBI,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,JD PEROLA,CNES_BAIRRO_3545803_JD_PEROLA,CNES_TEXTUAL,provisional,5,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,JD SANTA RITA DE CAS,CNES_BAIRRO_3545803_JD_SANTA_RITA_DE_CAS,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,JD SANTA ROSA II,CNES_BAIRRO_3545803_JD_SANTA_ROSA_II,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,JD SAO FERNANDO,CNES_BAIRRO_3545803_JD_SAO_FERNANDO,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,JD SAO FRANCISCO,CNES_BAIRRO_3545803_JD_SAO_FRANCISCO,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,JD SAO FRANCISCO II,CNES_BAIRRO_3545803_JD_SAO_FRANCISCO_II,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,LAGOA SECA,CNES_BAIRRO_3545803_LAGOA_SECA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,LAUDISSI,CNES_BAIRRO_3545803_LAUDISSI,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,LOTEAMENTO ANTONIO Z,CNES_BAIRRO_3545803_LOTEAMENTO_ANTONIO_Z,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,LOTEAMENTO INDUSTRIA,CNES_BAIRRO_3545803_LOTEAMENTO_INDUSTRIA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,LOTEAMENTO PLANALTO,CNES_BAIRRO_3545803_LOTEAMENTO_PLANALTO,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,MOLLON,CNES_BAIRRO_3545803_MOLLON,CNES_TEXTUAL,provisional,5,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,PEROLA,CNES_BAIRRO_3545803_PEROLA,CNES_TEXTUAL,provisional,5,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,PLANALTO DO SOL,CNES_BAIRRO_3545803_PLANALTO_DO_SOL,CNES_TEXTUAL,provisional,8,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,PLANALTO DO SOL I,CNES_BAIRRO_3545803_PLANALTO_DO_SOL_I,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,PLANALTO DO SOL II,CNES_BAIRRO_3545803_PLANALTO_DO_SOL_II,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,PLANLTO DO SOL,CNES_BAIRRO_3545803_PLANLTO_DO_SOL,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,RESIDENCIAL MAC KNIG,CNES_BAIRRO_3545803_RESIDENCIAL_MAC_KNIG,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,SANTA CRUZ,CNES_BAIRRO_3545803_SANTA_CRUZ,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,SANTA RITA DE CASSIA,CNES_BAIRRO_3545803_SANTA_RITA_DE_CASSIA,CNES_TEXTUAL,provisional,4,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,SANTA TEREZINHA,CNES_BAIRRO_3545803_SANTA_TEREZINHA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,SAO FRANCISCO II,CNES_BAIRRO_3545803_SAO_FRANCISCO_II,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,STA RITA DE CASSIA,CNES_BAIRRO_3545803_STA_RITA_DE_CASSIA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,VILA ALVEA,CNES_BAIRRO_3545803_VILA_ALVEA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,VILA ALVES,CNES_BAIRRO_3545803_VILA_ALVES,CNES_TEXTUAL,provisional,6,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,VILA ANTONIO PREZOTT,CNES_BAIRRO_3545803_VILA_ANTONIO_PREZOTT,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,VILA BETICA,CNES_BAIRRO_3545803_VILA_BETICA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,VILA BOLDRIN,CNES_BAIRRO_3545803_VILA_BOLDRIN,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,VILA BORGES,CNES_BAIRRO_3545803_VILA_BORGES,CNES_TEXTUAL,provisional,4,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,VILA BREDA,CNES_BAIRRO_3545803_VILA_BREDA,CNES_TEXTUAL,provisional,6,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,VILA BUFFORD,CNES_BAIRRO_3545803_VILA_BUFFORD,CNES_TEXTUAL,provisional,3,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,VILA DAINESE,CNES_BAIRRO_3545803_VILA_DAINESE,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,VILA FERRAREZI,CNES_BAIRRO_3545803_VILA_FERRAREZI,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,VILA GARRIDO,CNES_BAIRRO_3545803_VILA_GARRIDO,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,VILA GODOY,CNES_BAIRRO_3545803_VILA_GODOY,CNES_TEXTUAL,provisional,3,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,VILA LINOPOLIS,CNES_BAIRRO_3545803_VILA_LINOPOLIS,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,VILA MAC KNIGHT,CNES_BAIRRO_3545803_VILA_MAC_KNIGHT,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,VILA MAC NIGHT,CNES_BAIRRO_3545803_VILA_MAC_NIGHT,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,VILA MACK NIGHT,CNES_BAIRRO_3545803_VILA_MACK_NIGHT,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,VILA MACKNICHT,CNES_BAIRRO_3545803_VILA_MACKNICHT,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,VILA MACKNIGHT,CNES_BAIRRO_3545803_VILA_MACKNIGHT,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,VILA MACNIGHT,CNES_BAIRRO_3545803_VILA_MACNIGHT,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,VILA MARIA,CNES_BAIRRO_3545803_VILA_MARIA,CNES_TEXTUAL,provisional,36,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,VILA MOLLON,CNES_BAIRRO_3545803_VILA_MOLLON,CNES_TEXTUAL,provisional,6,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,VILA OZEIAS,CNES_BAIRRO_3545803_VILA_OZEIAS,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,VILA PACHECO,CNES_BAIRRO_3545803_VILA_PACHECO,CNES_TEXTUAL,provisional,5,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,VILA PIRES,CNES_BAIRRO_3545803_VILA_PIRES,CNES_TEXTUAL,provisional,13,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,VILA PLANALTO DO SOL,CNES_BAIRRO_3545803_VILA_PLANALTO_DO_SOL,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,VILA SANTA BARBARA,CNES_BAIRRO_3545803_VILA_SANTA_BARBARA,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,VILA SANTA CRUZ,CNES_BAIRRO_3545803_VILA_SANTA_CRUZ,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
-3545803,Santa Bárbara d'Oeste,SP,SE,VL SANTA CRUZ,CNES_BAIRRO_3545803_VL_SANTA_CRUZ,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-barbara-d-oeste
+3545803,Santa Bárbara d'Oeste,SP,SE,2 DISTRITO INDUSTRI,CNES_BAIRRO_3545803_2_DISTRITO_INDUSTRI,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,CENTRO,CNES_BAIRRO_3545803_CENTRO,CNES_TEXTUAL,provisional,227,,CEP_BAIRRO_3545803_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,CHACARAS CRUZEIRO DO,CNES_BAIRRO_3545803_CHACARAS_CRUZEIRO_DO,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,CIDADE NOVA,CNES_BAIRRO_3545803_CIDADE_NOVA,CNES_TEXTUAL,provisional,35,,CEP_BAIRRO_3545803_CIDADE_NOVA,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,CIDADE NOVA II,CNES_BAIRRO_3545803_CIDADE_NOVA_II,CNES_TEXTUAL,provisional,3,,CEP_BAIRRO_3545803_CIDADE_NOVA_II,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,CONJUNTO HAB 31 DE,CNES_BAIRRO_3545803_CONJUNTO_HAB_31_DE,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,CONJUNTO HABITACAO 3,CNES_BAIRRO_3545803_CONJUNTO_HABITACAO_3,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,EUROPA,CNES_BAIRRO_3545803_EUROPA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,FERNANDO MOLLON,CNES_BAIRRO_3545803_FERNANDO_MOLLON,CNES_TEXTUAL,provisional,3,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,FURLAN,CNES_BAIRRO_3545803_FURLAN,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,JARDIM ADELIA II,CNES_BAIRRO_3545803_JARDIM_ADELIA_II,CNES_TEXTUAL,provisional,1,,CEP_BAIRRO_3545803_JARDIM_ADELIA_II,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,JARDIM ALPHACENTER,CNES_BAIRRO_3545803_JARDIM_ALPHACENTER,CNES_TEXTUAL,provisional,2,,CEP_BAIRRO_3545803_JARDIM_ALPHACENTER,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,JARDIM AMERICA,CNES_BAIRRO_3545803_JARDIM_AMERICA,CNES_TEXTUAL,provisional,21,,CEP_BAIRRO_3545803_JARDIM_AMERICA,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,JARDIM BELO HORIZONT,CNES_BAIRRO_3545803_JARDIM_BELO_HORIZONT,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,JARDIM BOA VISTA,CNES_BAIRRO_3545803_JARDIM_BOA_VISTA,CNES_TEXTUAL,provisional,1,,CEP_BAIRRO_3545803_JARDIM_BOA_VISTA,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,JARDIM CANDIDO BERTI,CNES_BAIRRO_3545803_JARDIM_CANDIDO_BERTI,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,JARDIM DONA REGINA,CNES_BAIRRO_3545803_JARDIM_DONA_REGINA,CNES_TEXTUAL,provisional,1,,CEP_BAIRRO_3545803_JARDIM_DONA_REGINA,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,JARDIM ESMERALDA,CNES_BAIRRO_3545803_JARDIM_ESMERALDA,CNES_TEXTUAL,provisional,1,,CEP_BAIRRO_3545803_JARDIM_ESMERALDA,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,JARDIM EUROPA,CNES_BAIRRO_3545803_JARDIM_EUROPA,CNES_TEXTUAL,provisional,4,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,JARDIM EUROPA I,CNES_BAIRRO_3545803_JARDIM_EUROPA_I,CNES_TEXTUAL,provisional,1,,CEP_BAIRRO_3545803_JARDIM_EUROPA_I,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,JARDIM FERNANDO MOLL,CNES_BAIRRO_3545803_JARDIM_FERNANDO_MOLL,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,JARDIM FIRENZE,CNES_BAIRRO_3545803_JARDIM_FIRENZE,CNES_TEXTUAL,provisional,3,,CEP_BAIRRO_3545803_JARDIM_FIRENZE,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,JARDIM LAUDISSE,CNES_BAIRRO_3545803_JARDIM_LAUDISSE,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,JARDIM LAUDISSI,CNES_BAIRRO_3545803_JARDIM_LAUDISSI,CNES_TEXTUAL,provisional,2,,CEP_BAIRRO_3545803_JARDIM_LAUDISSI,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,JARDIM MIGUEL CLAUDI,CNES_BAIRRO_3545803_JARDIM_MIGUEL_CLAUDI,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,JARDIM MOLLON,CNES_BAIRRO_3545803_JARDIM_MOLLON,CNES_TEXTUAL,provisional,4,,CEP_BAIRRO_3545803_JARDIM_MOLLON,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,JARDIM PANTANO II,CNES_BAIRRO_3545803_JARDIM_PANTANO_II,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,JARDIM PEROLA,CNES_BAIRRO_3545803_JARDIM_PEROLA,CNES_TEXTUAL,provisional,19,,CEP_BAIRRO_3545803_JARDIM_PEROLA,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,JARDIM SAO FRANCISCO,CNES_BAIRRO_3545803_JARDIM_SAO_FRANCISCO,CNES_TEXTUAL,provisional,2,,CEP_BAIRRO_3545803_JARDIM_SAO_FRANCISCO,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,JARDIM SAO LUIZ,CNES_BAIRRO_3545803_JARDIM_SAO_LUIZ,CNES_TEXTUAL,provisional,2,,CEP_BAIRRO_3545803_JARDIM_SAO_LUIZ,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,JARDIM SOUZA QUEIROZ,CNES_BAIRRO_3545803_JARDIM_SOUZA_QUEIROZ,CNES_TEXTUAL,provisional,1,,CEP_BAIRRO_3545803_JARDIM_SOUZA_QUEIROZ,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,JARDIM VISTA ALEGRE,CNES_BAIRRO_3545803_JARDIM_VISTA_ALEGRE,CNES_TEXTUAL,provisional,1,,CEP_BAIRRO_3545803_JARDIM_VISTA_ALEGRE,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,JD AMERICA,CNES_BAIRRO_3545803_JD_AMERICA,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,JD BELO HORINZONTE,CNES_BAIRRO_3545803_JD_BELO_HORINZONTE,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,JD CONCEICAO,CNES_BAIRRO_3545803_JD_CONCEICAO,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,JD ESMERALDA,CNES_BAIRRO_3545803_JD_ESMERALDA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,JD EUROPA,CNES_BAIRRO_3545803_JD_EUROPA,CNES_TEXTUAL,provisional,3,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,JD EUROPA IV,CNES_BAIRRO_3545803_JD_EUROPA_IV,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,JD FERNANDO MOLLON,CNES_BAIRRO_3545803_JD_FERNANDO_MOLLON,CNES_TEXTUAL,provisional,3,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,JD FIRENZE,CNES_BAIRRO_3545803_JD_FIRENZE,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,JD LAUDISSE,CNES_BAIRRO_3545803_JD_LAUDISSE,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,JD LAUDISSI,CNES_BAIRRO_3545803_JD_LAUDISSI,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,JD MOLLON,CNES_BAIRRO_3545803_JD_MOLLON,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,JD PANAMBI,CNES_BAIRRO_3545803_JD_PANAMBI,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,JD PEROLA,CNES_BAIRRO_3545803_JD_PEROLA,CNES_TEXTUAL,provisional,5,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,JD SANTA RITA DE CAS,CNES_BAIRRO_3545803_JD_SANTA_RITA_DE_CAS,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,JD SANTA ROSA II,CNES_BAIRRO_3545803_JD_SANTA_ROSA_II,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,JD SAO FERNANDO,CNES_BAIRRO_3545803_JD_SAO_FERNANDO,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,JD SAO FRANCISCO,CNES_BAIRRO_3545803_JD_SAO_FRANCISCO,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,JD SAO FRANCISCO II,CNES_BAIRRO_3545803_JD_SAO_FRANCISCO_II,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,LAGOA SECA,CNES_BAIRRO_3545803_LAGOA_SECA,CNES_TEXTUAL,provisional,1,,CEP_BAIRRO_3545803_LAGOA_SECA,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,LAUDISSI,CNES_BAIRRO_3545803_LAUDISSI,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,LOTEAMENTO ANTONIO Z,CNES_BAIRRO_3545803_LOTEAMENTO_ANTONIO_Z,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,LOTEAMENTO INDUSTRIA,CNES_BAIRRO_3545803_LOTEAMENTO_INDUSTRIA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,LOTEAMENTO PLANALTO,CNES_BAIRRO_3545803_LOTEAMENTO_PLANALTO,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,MOLLON,CNES_BAIRRO_3545803_MOLLON,CNES_TEXTUAL,provisional,5,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,PEROLA,CNES_BAIRRO_3545803_PEROLA,CNES_TEXTUAL,provisional,5,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,PLANALTO DO SOL,CNES_BAIRRO_3545803_PLANALTO_DO_SOL,CNES_TEXTUAL,provisional,8,,CEP_BAIRRO_3545803_PLANALTO_DO_SOL,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,PLANALTO DO SOL I,CNES_BAIRRO_3545803_PLANALTO_DO_SOL_I,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,PLANALTO DO SOL II,CNES_BAIRRO_3545803_PLANALTO_DO_SOL_II,CNES_TEXTUAL,provisional,1,,CEP_BAIRRO_3545803_PLANALTO_DO_SOL_II,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,PLANLTO DO SOL,CNES_BAIRRO_3545803_PLANLTO_DO_SOL,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,RESIDENCIAL MAC KNIG,CNES_BAIRRO_3545803_RESIDENCIAL_MAC_KNIG,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,SANTA CRUZ,CNES_BAIRRO_3545803_SANTA_CRUZ,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,SANTA RITA DE CASSIA,CNES_BAIRRO_3545803_SANTA_RITA_DE_CASSIA,CNES_TEXTUAL,provisional,4,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,SANTA TEREZINHA,CNES_BAIRRO_3545803_SANTA_TEREZINHA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,SAO FRANCISCO II,CNES_BAIRRO_3545803_SAO_FRANCISCO_II,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,STA RITA DE CASSIA,CNES_BAIRRO_3545803_STA_RITA_DE_CASSIA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,VILA ALVEA,CNES_BAIRRO_3545803_VILA_ALVEA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,VILA ALVES,CNES_BAIRRO_3545803_VILA_ALVES,CNES_TEXTUAL,provisional,6,,CEP_BAIRRO_3545803_VILA_ALVES,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,VILA ANTONIO PREZOTT,CNES_BAIRRO_3545803_VILA_ANTONIO_PREZOTT,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,VILA BETICA,CNES_BAIRRO_3545803_VILA_BETICA,CNES_TEXTUAL,provisional,1,,CEP_BAIRRO_3545803_VILA_BETICA,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,VILA BOLDRIN,CNES_BAIRRO_3545803_VILA_BOLDRIN,CNES_TEXTUAL,provisional,1,,CEP_BAIRRO_3545803_VILA_BOLDRIN,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,VILA BORGES,CNES_BAIRRO_3545803_VILA_BORGES,CNES_TEXTUAL,provisional,4,,CEP_BAIRRO_3545803_VILA_BORGES,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,VILA BREDA,CNES_BAIRRO_3545803_VILA_BREDA,CNES_TEXTUAL,provisional,6,,CEP_BAIRRO_3545803_VILA_BREDA,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,VILA BUFFORD,CNES_BAIRRO_3545803_VILA_BUFFORD,CNES_TEXTUAL,provisional,3,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,VILA DAINESE,CNES_BAIRRO_3545803_VILA_DAINESE,CNES_TEXTUAL,provisional,1,,CEP_BAIRRO_3545803_VILA_DAINESE,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,VILA FERRAREZI,CNES_BAIRRO_3545803_VILA_FERRAREZI,CNES_TEXTUAL,provisional,1,,CEP_BAIRRO_3545803_VILA_FERRAREZI,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,VILA GARRIDO,CNES_BAIRRO_3545803_VILA_GARRIDO,CNES_TEXTUAL,provisional,2,,CEP_BAIRRO_3545803_VILA_GARRIDO,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,VILA GODOY,CNES_BAIRRO_3545803_VILA_GODOY,CNES_TEXTUAL,provisional,3,,CEP_BAIRRO_3545803_VILA_GODOY,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,VILA LINOPOLIS,CNES_BAIRRO_3545803_VILA_LINOPOLIS,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,VILA MAC KNIGHT,CNES_BAIRRO_3545803_VILA_MAC_KNIGHT,CNES_TEXTUAL,provisional,2,,CEP_BAIRRO_3545803_VILA_MAC_KNIGHT,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,VILA MAC NIGHT,CNES_BAIRRO_3545803_VILA_MAC_NIGHT,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,VILA MACK NIGHT,CNES_BAIRRO_3545803_VILA_MACK_NIGHT,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,VILA MACKNICHT,CNES_BAIRRO_3545803_VILA_MACKNICHT,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,VILA MACKNIGHT,CNES_BAIRRO_3545803_VILA_MACKNIGHT,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,VILA MACNIGHT,CNES_BAIRRO_3545803_VILA_MACNIGHT,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,VILA MARIA,CNES_BAIRRO_3545803_VILA_MARIA,CNES_TEXTUAL,provisional,36,,CEP_BAIRRO_3545803_VILA_MARIA,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,VILA MOLLON,CNES_BAIRRO_3545803_VILA_MOLLON,CNES_TEXTUAL,provisional,6,,CEP_BAIRRO_3545803_VILA_MOLLON,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,VILA OZEIAS,CNES_BAIRRO_3545803_VILA_OZEIAS,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,VILA PACHECO,CNES_BAIRRO_3545803_VILA_PACHECO,CNES_TEXTUAL,provisional,5,,CEP_BAIRRO_3545803_VILA_PACHECO,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,VILA PIRES,CNES_BAIRRO_3545803_VILA_PIRES,CNES_TEXTUAL,provisional,13,,CEP_BAIRRO_3545803_VILA_PIRES,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,VILA PLANALTO DO SOL,CNES_BAIRRO_3545803_VILA_PLANALTO_DO_SOL,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,VILA SANTA BARBARA,CNES_BAIRRO_3545803_VILA_SANTA_BARBARA,CNES_TEXTUAL,provisional,2,,CEP_BAIRRO_3545803_VILA_SANTA_BARBARA,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,VILA SANTA CRUZ,CNES_BAIRRO_3545803_VILA_SANTA_CRUZ,CNES_TEXTUAL,provisional,2,,CEP_BAIRRO_3545803_VILA_SANTA_CRUZ,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
+3545803,Santa Bárbara d'Oeste,SP,SE,VL SANTA CRUZ,CNES_BAIRRO_3545803_VL_SANTA_CRUZ,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-barbara-doeste
 3546009,Santa Branca,SP,SE,CENTRO,CNES_BAIRRO_3546009_CENTRO,CNES_TEXTUAL,provisional,19,,CEP_BAIRRO_3546009_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-branca
 3546009,Santa Branca,SP,SE,COSTAO,CNES_BAIRRO_3546009_COSTAO,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-branca
 3546009,Santa Branca,SP,SE,JACARE,CNES_BAIRRO_3546009_JACARE,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-branca
@@ -38305,8 +38305,8 @@ municipalityCode,municipality,uf,region,bairroCnes,canonicalNeighborhoodCode,sou
 3546009,Santa Branca,SP,SE,JARDIM SAO JOSE,CNES_BAIRRO_3546009_JARDIM_SAO_JOSE,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-branca
 3546009,Santa Branca,SP,SE,MONOS,CNES_BAIRRO_3546009_MONOS,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-branca
 3546009,Santa Branca,SP,SE,SERROTE,CNES_BAIRRO_3546009_SERROTE,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-branca
-3546108,Santa Clara d'Oeste,SP,SE,CENTRO,CNES_BAIRRO_3546108_CENTRO,CNES_TEXTUAL,provisional,4,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-clara-d-oeste
-3546108,Santa Clara d'Oeste,SP,SE,CORREGO DO CONTRA,CNES_BAIRRO_3546108_CORREGO_DO_CONTRA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-clara-d-oeste
+3546108,Santa Clara d'Oeste,SP,SE,CENTRO,CNES_BAIRRO_3546108_CENTRO,CNES_TEXTUAL,provisional,4,,CEP_BAIRRO_3546108_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-clara-doeste
+3546108,Santa Clara d'Oeste,SP,SE,CORREGO DO CONTRA,CNES_BAIRRO_3546108_CORREGO_DO_CONTRA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-clara-doeste
 3546207,Santa Cruz da Conceição,SP,SE,CENTRO,CNES_BAIRRO_3546207_CENTRO,CNES_TEXTUAL,provisional,8,,CEP_BAIRRO_3546207_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-cruz-da-conceicao
 3546207,Santa Cruz da Conceição,SP,SE,PARAISO,CNES_BAIRRO_3546207_PARAISO,CNES_TEXTUAL,provisional,1,,CEP_BAIRRO_3546207_PARAISO,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-cruz-da-conceicao
 3546256,Santa Cruz da Esperança,SP,SE,CENTRO,CNES_BAIRRO_3546256_CENTRO,CNES_TEXTUAL,provisional,4,,CEP_BAIRRO_3546256_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-cruz-da-esperanca
@@ -38470,7 +38470,7 @@ municipalityCode,municipality,uf,region,bairroCnes,canonicalNeighborhoodCode,sou
 3547304,Santana de Parnaíba,SP,SE,VILA NOVA,CNES_BAIRRO_3547304_VILA_NOVA,CNES_TEXTUAL,provisional,2,,CEP_BAIRRO_3547304_VILA_NOVA,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/santana-de-parnaiba
 3547304,Santana de Parnaíba,SP,SE,VILA POUPANCA,CNES_BAIRRO_3547304_VILA_POUPANCA,CNES_TEXTUAL,provisional,3,,CEP_BAIRRO_3547304_VILA_POUPANCA,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/santana-de-parnaiba
 3547304,Santana de Parnaíba,SP,SE,VOTUPARIM,CNES_BAIRRO_3547304_VOTUPARIM,CNES_TEXTUAL,provisional,1,,CEP_BAIRRO_3547304_VOTUPARIM,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/santana-de-parnaiba
-3547403,Santa Rita d'Oeste,SP,SE,CENTRO,CNES_BAIRRO_3547403_CENTRO,CNES_TEXTUAL,provisional,4,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/sp/santa-rita-d-oeste
+3547403,Santa Rita d'Oeste,SP,SE,CENTRO,CNES_BAIRRO_3547403_CENTRO,CNES_TEXTUAL,provisional,4,,CEP_BAIRRO_3547403_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-rita-doeste
 3547502,Santa Rita do Passa Quatro,SP,SE,BAIRRO JARDIM,CNES_BAIRRO_3547502_BAIRRO_JARDIM,CNES_TEXTUAL,provisional,1,,CEP_BAIRRO_3547502_BAIRRO_JARDIM,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-rita-do-passa-quatro
 3547502,Santa Rita do Passa Quatro,SP,SE,BELEM,CNES_BAIRRO_3547502_BELEM,CNES_TEXTUAL,provisional,2,,CEP_BAIRRO_3547502_BELEM,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-rita-do-passa-quatro
 3547502,Santa Rita do Passa Quatro,SP,SE,BOTAFOGO,CNES_BAIRRO_3547502_BOTAFOGO,CNES_TEXTUAL,provisional,1,,CEP_BAIRRO_3547502_BOTAFOGO,exact,CEP Brasil municipal page,https://cepbrasil.com/sp/santa-rita-do-passa-quatro
@@ -44426,10 +44426,10 @@ municipalityCode,municipality,uf,region,bairroCnes,canonicalNeighborhoodCode,sou
 4107108,Diamante do Norte,PR,S,CJTO JOSE BORGHI,CNES_BAIRRO_4107108_CJTO_JOSE_BORGHI,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/pr/diamante-do-norte
 4107108,Diamante do Norte,PR,S,CONJUNTO BAHIA,CNES_BAIRRO_4107108_CONJUNTO_BAHIA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/pr/diamante-do-norte
 4107124,Diamante do Sul,PR,S,CENTRO,CNES_BAIRRO_4107124_CENTRO,CNES_TEXTUAL,provisional,4,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/pr/diamante-do-sul
-4107157,Diamante D'Oeste,PR,S,AREA DE RESERVA INDI,CNES_BAIRRO_4107157_AREA_DE_RESERVA_INDI,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/pr/diamante-d-oeste
-4107157,Diamante D'Oeste,PR,S,AREA INDIGENA,CNES_BAIRRO_4107157_AREA_INDIGENA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/pr/diamante-d-oeste
-4107157,Diamante D'Oeste,PR,S,CENTRO,CNES_BAIRRO_4107157_CENTRO,CNES_TEXTUAL,provisional,14,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/pr/diamante-d-oeste
-4107157,Diamante D'Oeste,PR,S,SAO FRANCISCO,CNES_BAIRRO_4107157_SAO_FRANCISCO,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/pr/diamante-d-oeste
+4107157,Diamante D'Oeste,PR,S,AREA DE RESERVA INDI,CNES_BAIRRO_4107157_AREA_DE_RESERVA_INDI,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/pr/diamante-doeste
+4107157,Diamante D'Oeste,PR,S,AREA INDIGENA,CNES_BAIRRO_4107157_AREA_INDIGENA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/pr/diamante-doeste
+4107157,Diamante D'Oeste,PR,S,CENTRO,CNES_BAIRRO_4107157_CENTRO,CNES_TEXTUAL,provisional,14,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/pr/diamante-doeste
+4107157,Diamante D'Oeste,PR,S,SAO FRANCISCO,CNES_BAIRRO_4107157_SAO_FRANCISCO,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/pr/diamante-doeste
 4107207,Dois Vizinhos,PR,S,COMUNID S CRISTOVAO,CNES_BAIRRO_4107207_COMUNID_S_CRISTOVAO,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_queried,
 4107256,Douradina,PR,S,CENTRO,CNES_BAIRRO_4107256_CENTRO,CNES_TEXTUAL,provisional,31,,CEP_BAIRRO_4107256_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/pr/douradina
 4107256,Douradina,PR,S,JARDIM ESPERANCA,CNES_BAIRRO_4107256_JARDIM_ESPERANCA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/pr/douradina
@@ -44926,14 +44926,14 @@ municipalityCode,municipality,uf,region,bairroCnes,canonicalNeighborhoodCode,sou
 4111001,Itambaracá,PR,S,RAUL MARINHO,CNES_BAIRRO_4111001_RAUL_MARINHO,CNES_TEXTUAL,provisional,1,,CEP_BAIRRO_4111001_RAUL_MARINHO,exact,CEP Brasil municipal page,https://cepbrasil.com/pr/itambaraca
 4111001,Itambaracá,PR,S,SAO JOAQUIM DO PONTA,CNES_BAIRRO_4111001_SAO_JOAQUIM_DO_PONTA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/pr/itambaraca
 4111100,Itambé,PR,S,CENTRO,CNES_BAIRRO_4111100_CENTRO,CNES_TEXTUAL,provisional,17,,CEP_BAIRRO_4111100_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/pr/itambe
-4111209,Itapejara d'Oeste,PR,S,BEM VIVER,CNES_BAIRRO_4111209_BEM_VIVER,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/pr/itapejara-d-oeste
-4111209,Itapejara d'Oeste,PR,S,CENTRO,CNES_BAIRRO_4111209_CENTRO,CNES_TEXTUAL,provisional,49,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/pr/itapejara-d-oeste
-4111209,Itapejara d'Oeste,PR,S,GUARANI,CNES_BAIRRO_4111209_GUARANI,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/pr/itapejara-d-oeste
-4111209,Itapejara d'Oeste,PR,S,INDUSTRIAL,CNES_BAIRRO_4111209_INDUSTRIAL,CNES_TEXTUAL,provisional,4,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/pr/itapejara-d-oeste
-4111209,Itapejara d'Oeste,PR,S,INTERIOR,CNES_BAIRRO_4111209_INTERIOR,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/pr/itapejara-d-oeste
-4111209,Itapejara d'Oeste,PR,S,IPIRANGA,CNES_BAIRRO_4111209_IPIRANGA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/pr/itapejara-d-oeste
-4111209,Itapejara d'Oeste,PR,S,PALMEIRINHA,CNES_BAIRRO_4111209_PALMEIRINHA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/pr/itapejara-d-oeste
-4111209,Itapejara d'Oeste,PR,S,ZONA RURAL,CNES_BAIRRO_4111209_ZONA_RURAL,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/pr/itapejara-d-oeste
+4111209,Itapejara d'Oeste,PR,S,BEM VIVER,CNES_BAIRRO_4111209_BEM_VIVER,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/pr/itapejara-doeste
+4111209,Itapejara d'Oeste,PR,S,CENTRO,CNES_BAIRRO_4111209_CENTRO,CNES_TEXTUAL,provisional,49,,CEP_BAIRRO_4111209_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/pr/itapejara-doeste
+4111209,Itapejara d'Oeste,PR,S,GUARANI,CNES_BAIRRO_4111209_GUARANI,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/pr/itapejara-doeste
+4111209,Itapejara d'Oeste,PR,S,INDUSTRIAL,CNES_BAIRRO_4111209_INDUSTRIAL,CNES_TEXTUAL,provisional,4,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/pr/itapejara-doeste
+4111209,Itapejara d'Oeste,PR,S,INTERIOR,CNES_BAIRRO_4111209_INTERIOR,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/pr/itapejara-doeste
+4111209,Itapejara d'Oeste,PR,S,IPIRANGA,CNES_BAIRRO_4111209_IPIRANGA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/pr/itapejara-doeste
+4111209,Itapejara d'Oeste,PR,S,PALMEIRINHA,CNES_BAIRRO_4111209_PALMEIRINHA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/pr/itapejara-doeste
+4111209,Itapejara d'Oeste,PR,S,ZONA RURAL,CNES_BAIRRO_4111209_ZONA_RURAL,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/pr/itapejara-doeste
 4111258,Itaperuçu,PR,S,BUTIERINHO,CNES_BAIRRO_4111258_BUTIERINHO,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_queried,
 4111308,Itaúna do Sul,PR,S,CENTRO,CNES_BAIRRO_4111308_CENTRO,CNES_TEXTUAL,provisional,12,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/pr/itauna-do-sul
 4111308,Itaúna do Sul,PR,S,ZIMARE,CNES_BAIRRO_4111308_ZIMARE,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/pr/itauna-do-sul
@@ -45834,9 +45834,9 @@ municipalityCode,municipality,uf,region,bairroCnes,canonicalNeighborhoodCode,sou
 4118857,Perobal,PR,S,JD BELA VISTA,CNES_BAIRRO_4118857_JD_BELA_VISTA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/pr/perobal
 4118857,Perobal,PR,S,JD CANADA,CNES_BAIRRO_4118857_JD_CANADA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/pr/perobal
 4118907,Pérola,PR,S,CENTRO,CNES_BAIRRO_4118907_CENTRO,CNES_TEXTUAL,provisional,35,,CEP_BAIRRO_4118907_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/pr/perola
-4119004,Pérola d'Oeste,PR,S,CENTRO,CNES_BAIRRO_4119004_CENTRO,CNES_TEXTUAL,provisional,18,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/pr/perola-d-oeste
-4119004,Pérola d'Oeste,PR,S,DISTRITO,CNES_BAIRRO_4119004_DISTRITO,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/pr/perola-d-oeste
-4119004,Pérola d'Oeste,PR,S,ZONA RURAL,CNES_BAIRRO_4119004_ZONA_RURAL,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/pr/perola-d-oeste
+4119004,Pérola d'Oeste,PR,S,CENTRO,CNES_BAIRRO_4119004_CENTRO,CNES_TEXTUAL,provisional,18,,CEP_BAIRRO_4119004_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/pr/perola-doeste
+4119004,Pérola d'Oeste,PR,S,DISTRITO,CNES_BAIRRO_4119004_DISTRITO,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/pr/perola-doeste
+4119004,Pérola d'Oeste,PR,S,ZONA RURAL,CNES_BAIRRO_4119004_ZONA_RURAL,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/pr/perola-doeste
 4119103,Piên,PR,S,CAMPINA DOS CRESPINS,CNES_BAIRRO_4119103_CAMPINA_DOS_CRESPINS,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/pr/pien
 4119103,Piên,PR,S,CAMPINA DOS MAIA,CNES_BAIRRO_4119103_CAMPINA_DOS_MAIA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/pr/pien
 4119103,Piên,PR,S,CAMPO NOVO,CNES_BAIRRO_4119103_CAMPO_NOVO,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/pr/pien
@@ -46129,8 +46129,8 @@ municipalityCode,municipality,uf,region,bairroCnes,canonicalNeighborhoodCode,sou
 4121208,Quitandinha,PR,S,TURVO,CNES_BAIRRO_4121208_TURVO,CNES_TEXTUAL,provisional,1,,CEP_BAIRRO_4121208_TURVO,exact,CEP Brasil municipal page,https://cepbrasil.com/pr/quitandinha
 4121257,Ramilândia,PR,S,CENTRO,CNES_BAIRRO_4121257_CENTRO,CNES_TEXTUAL,provisional,9,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/pr/ramilandia
 4121307,Rancho Alegre,PR,S,CENTRO,CNES_BAIRRO_4121307_CENTRO,CNES_TEXTUAL,provisional,14,,CEP_BAIRRO_4121307_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/pr/rancho-alegre
-4121356,Rancho Alegre D'Oeste,PR,S,CENTRO,CNES_BAIRRO_4121356_CENTRO,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/pr/rancho-alegre-d-oeste
-4121356,Rancho Alegre D'Oeste,PR,S,VILA MARIA,CNES_BAIRRO_4121356_VILA_MARIA,CNES_TEXTUAL,provisional,7,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/pr/rancho-alegre-d-oeste
+4121356,Rancho Alegre D'Oeste,PR,S,CENTRO,CNES_BAIRRO_4121356_CENTRO,CNES_TEXTUAL,provisional,1,,CEP_BAIRRO_4121356_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/pr/rancho-alegre-doeste
+4121356,Rancho Alegre D'Oeste,PR,S,VILA MARIA,CNES_BAIRRO_4121356_VILA_MARIA,CNES_TEXTUAL,provisional,7,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/pr/rancho-alegre-doeste
 4121406,Realeza,PR,S,ACESSO BR 182 KM 466,CNES_BAIRRO_4121406_ACESSO_BR_182_KM_466,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_queried,
 4121406,Realeza,PR,S,JARDIM PRIMAVERA,CNES_BAIRRO_4121406_JARDIM_PRIMAVERA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_queried,
 4121406,Realeza,PR,S,LINHA SAO JUDAS TADE,CNES_BAIRRO_4121406_LINHA_SAO_JUDAS_TADE,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_queried,
@@ -46421,13 +46421,13 @@ municipalityCode,municipality,uf,region,bairroCnes,canonicalNeighborhoodCode,sou
 4125100,São João do Triunfo,PR,S,LADEIRA,CNES_BAIRRO_4125100_LADEIRA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/pr/sao-joao-do-triunfo
 4125100,São João do Triunfo,PR,S,RIO BAIO,CNES_BAIRRO_4125100_RIO_BAIO,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/pr/sao-joao-do-triunfo
 4125100,São João do Triunfo,PR,S,ZONA RURAL,CNES_BAIRRO_4125100_ZONA_RURAL,CNES_TEXTUAL,provisional,7,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/pr/sao-joao-do-triunfo
-4125209,São Jorge d'Oeste,PR,S,CENTRO,CNES_BAIRRO_4125209_CENTRO,CNES_TEXTUAL,provisional,34,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/pr/sao-jorge-d-oeste
-4125209,São Jorge d'Oeste,PR,S,DISTRITO DOUTOR PARA,CNES_BAIRRO_4125209_DISTRITO_DOUTOR_PARA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/pr/sao-jorge-d-oeste
-4125209,São Jorge d'Oeste,PR,S,DR ANTONIO PARANHOS,CNES_BAIRRO_4125209_DR_ANTONIO_PARANHOS,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/pr/sao-jorge-d-oeste
-4125209,São Jorge d'Oeste,PR,S,INTERIOR,CNES_BAIRRO_4125209_INTERIOR,CNES_TEXTUAL,provisional,3,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/pr/sao-jorge-d-oeste
-4125209,São Jorge d'Oeste,PR,S,LAPA,CNES_BAIRRO_4125209_LAPA,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/pr/sao-jorge-d-oeste
-4125209,São Jorge d'Oeste,PR,S,RURAL,CNES_BAIRRO_4125209_RURAL,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/pr/sao-jorge-d-oeste
-4125209,São Jorge d'Oeste,PR,S,ZONA RURAL,CNES_BAIRRO_4125209_ZONA_RURAL,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/pr/sao-jorge-d-oeste
+4125209,São Jorge d'Oeste,PR,S,CENTRO,CNES_BAIRRO_4125209_CENTRO,CNES_TEXTUAL,provisional,34,,CEP_BAIRRO_4125209_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/pr/sao-jorge-doeste
+4125209,São Jorge d'Oeste,PR,S,DISTRITO DOUTOR PARA,CNES_BAIRRO_4125209_DISTRITO_DOUTOR_PARA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/pr/sao-jorge-doeste
+4125209,São Jorge d'Oeste,PR,S,DR ANTONIO PARANHOS,CNES_BAIRRO_4125209_DR_ANTONIO_PARANHOS,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/pr/sao-jorge-doeste
+4125209,São Jorge d'Oeste,PR,S,INTERIOR,CNES_BAIRRO_4125209_INTERIOR,CNES_TEXTUAL,provisional,3,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/pr/sao-jorge-doeste
+4125209,São Jorge d'Oeste,PR,S,LAPA,CNES_BAIRRO_4125209_LAPA,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/pr/sao-jorge-doeste
+4125209,São Jorge d'Oeste,PR,S,RURAL,CNES_BAIRRO_4125209_RURAL,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/pr/sao-jorge-doeste
+4125209,São Jorge d'Oeste,PR,S,ZONA RURAL,CNES_BAIRRO_4125209_ZONA_RURAL,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/pr/sao-jorge-doeste
 4125308,São Jorge do Ivaí,PR,S,CENTRO,CNES_BAIRRO_4125308_CENTRO,CNES_TEXTUAL,provisional,12,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/pr/sao-jorge-do-ivai
 4125308,São Jorge do Ivaí,PR,S,JARDIM CASTILHO,CNES_BAIRRO_4125308_JARDIM_CASTILHO,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/pr/sao-jorge-do-ivai
 4125308,São Jorge do Ivaí,PR,S,JARDIM DA FLORES,CNES_BAIRRO_4125308_JARDIM_DA_FLORES,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/pr/sao-jorge-do-ivai
@@ -51036,10 +51036,10 @@ municipalityCode,municipality,uf,region,bairroCnes,canonicalNeighborhoodCode,sou
 5103304,Comodoro,MT,CO,SAO FRANCISCO,CNES_BAIRRO_5103304_SAO_FRANCISCO,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_queried,
 5103304,Comodoro,MT,CO,ZONA RURAL,CNES_BAIRRO_5103304_ZONA_RURAL,CNES_TEXTUAL,provisional,14,,UNMATCHED_POSTAL_REFERENCE,not_found,not_queried,
 5103353,Confresa,MT,CO,ZONA RURAL,CNES_BAIRRO_5103353_ZONA_RURAL,CNES_TEXTUAL,provisional,3,,UNMATCHED_POSTAL_REFERENCE,not_found,not_queried,
-5103361,Conquista D'Oeste,MT,CO,ALDEIA INDIGENA,CNES_BAIRRO_5103361_ALDEIA_INDIGENA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/mt/conquista-d-oeste
-5103361,Conquista D'Oeste,MT,CO,CENTRO,CNES_BAIRRO_5103361_CENTRO,CNES_TEXTUAL,provisional,18,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/mt/conquista-d-oeste
-5103361,Conquista D'Oeste,MT,CO,RURAL,CNES_BAIRRO_5103361_RURAL,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/mt/conquista-d-oeste
-5103361,Conquista D'Oeste,MT,CO,SETOR 2,CNES_BAIRRO_5103361_SETOR_2,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/mt/conquista-d-oeste
+5103361,Conquista D'Oeste,MT,CO,ALDEIA INDIGENA,CNES_BAIRRO_5103361_ALDEIA_INDIGENA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/mt/conquista-doeste
+5103361,Conquista D'Oeste,MT,CO,CENTRO,CNES_BAIRRO_5103361_CENTRO,CNES_TEXTUAL,provisional,18,,CEP_BAIRRO_5103361_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/mt/conquista-doeste
+5103361,Conquista D'Oeste,MT,CO,RURAL,CNES_BAIRRO_5103361_RURAL,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/mt/conquista-doeste
+5103361,Conquista D'Oeste,MT,CO,SETOR 2,CNES_BAIRRO_5103361_SETOR_2,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/mt/conquista-doeste
 5103379,Cotriguaçu,MT,CO,CENTRO,CNES_BAIRRO_5103379_CENTRO,CNES_TEXTUAL,provisional,16,,CEP_BAIRRO_5103379_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/mt/cotriguacu
 5103379,Cotriguaçu,MT,CO,DISTRITO OURO VERDE,CNES_BAIRRO_5103379_DISTRITO_OURO_VERDE,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/mt/cotriguacu
 5103379,Cotriguaçu,MT,CO,GLEBA OURO VERDE,CNES_BAIRRO_5103379_GLEBA_OURO_VERDE,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/mt/cotriguacu
@@ -51115,7 +51115,7 @@ municipalityCode,municipality,uf,region,bairroCnes,canonicalNeighborhoodCode,sou
 5103700,Feliz Natal,MT,CO,BELA VISTA,CNES_BAIRRO_5103700_BELA_VISTA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/mt/feliz-natal
 5103700,Feliz Natal,MT,CO,CENTRO,CNES_BAIRRO_5103700_CENTRO,CNES_TEXTUAL,provisional,30,,CEP_BAIRRO_5103700_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/mt/feliz-natal
 5103700,Feliz Natal,MT,CO,RURAL,CNES_BAIRRO_5103700_RURAL,CNES_TEXTUAL,provisional,5,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/mt/feliz-natal
-5103809,Figueirópolis D'Oeste,MT,CO,CENTRO,CNES_BAIRRO_5103809_CENTRO,CNES_TEXTUAL,provisional,10,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/mt/figueiropolis-d-oeste
+5103809,Figueirópolis D'Oeste,MT,CO,CENTRO,CNES_BAIRRO_5103809_CENTRO,CNES_TEXTUAL,provisional,10,,CEP_BAIRRO_5103809_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/mt/figueiropolis-doeste
 5103858,Gaúcha do Norte,MT,CO,ALVORADA,CNES_BAIRRO_5103858_ALVORADA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/mt/gaucha-do-norte
 5103858,Gaúcha do Norte,MT,CO,CENTRO,CNES_BAIRRO_5103858_CENTRO,CNES_TEXTUAL,provisional,34,,CEP_BAIRRO_5103858_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/mt/gaucha-do-norte
 5103858,Gaúcha do Norte,MT,CO,CENTRO 1,CNES_BAIRRO_5103858_CENTRO_1,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/mt/gaucha-do-norte
@@ -51235,11 +51235,11 @@ municipalityCode,municipality,uf,region,bairroCnes,canonicalNeighborhoodCode,sou
 5105200,Juscimeira,MT,CO,FATIMA DE SAO LOUREN,CNES_BAIRRO_5105200_FATIMA_DE_SAO_LOUREN,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/mt/juscimeira
 5105200,Juscimeira,MT,CO,SANTA ELVIRA,CNES_BAIRRO_5105200_SANTA_ELVIRA,CNES_TEXTUAL,provisional,1,,CEP_BAIRRO_5105200_SANTA_ELVIRA,exact,CEP Brasil municipal page,https://cepbrasil.com/mt/juscimeira
 5105200,Juscimeira,MT,CO,ZONA RURAL,CNES_BAIRRO_5105200_ZONA_RURAL,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/mt/juscimeira
-5105234,Lambari D'Oeste,MT,CO,CENTRO,CNES_BAIRRO_5105234_CENTRO,CNES_TEXTUAL,provisional,10,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/mt/lambari-d-oeste
-5105234,Lambari D'Oeste,MT,CO,CIDERLANDIA,CNES_BAIRRO_5105234_CIDERLANDIA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/mt/lambari-d-oeste
-5105234,Lambari D'Oeste,MT,CO,LAGO AZUL,CNES_BAIRRO_5105234_LAGO_AZUL,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/mt/lambari-d-oeste
-5105234,Lambari D'Oeste,MT,CO,LAMBARI,CNES_BAIRRO_5105234_LAMBARI,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/mt/lambari-d-oeste
-5105234,Lambari D'Oeste,MT,CO,ZONA RURAL,CNES_BAIRRO_5105234_ZONA_RURAL,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/mt/lambari-d-oeste
+5105234,Lambari D'Oeste,MT,CO,CENTRO,CNES_BAIRRO_5105234_CENTRO,CNES_TEXTUAL,provisional,10,,CEP_BAIRRO_5105234_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/mt/lambari-doeste
+5105234,Lambari D'Oeste,MT,CO,CIDERLANDIA,CNES_BAIRRO_5105234_CIDERLANDIA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/mt/lambari-doeste
+5105234,Lambari D'Oeste,MT,CO,LAGO AZUL,CNES_BAIRRO_5105234_LAGO_AZUL,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/mt/lambari-doeste
+5105234,Lambari D'Oeste,MT,CO,LAMBARI,CNES_BAIRRO_5105234_LAMBARI,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/mt/lambari-doeste
+5105234,Lambari D'Oeste,MT,CO,ZONA RURAL,CNES_BAIRRO_5105234_ZONA_RURAL,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/mt/lambari-doeste
 5105259,Lucas do Rio Verde,MT,CO,ALVORADA,IBGE_BAIRRO_5105259005,IBGE_CENSO_2022,official,20,5105259005,UNMATCHED_POSTAL_REFERENCE,not_found,not_queried,
 5105259,Lucas do Rio Verde,MT,CO,COMUNIDADE ITAMBIQUA,CNES_BAIRRO_5105259_COMUNIDADE_ITAMBIQUA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_queried,
 5105259,Lucas do Rio Verde,MT,CO,DISTRITO GROSLANDIA,CNES_BAIRRO_5105259_DISTRITO_GROSLANDIA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_queried,
@@ -51293,25 +51293,25 @@ municipalityCode,municipality,uf,region,bairroCnes,canonicalNeighborhoodCode,sou
 5105606,Matupá,MT,CO,ZONA RURAL,CNES_BAIRRO_5105606_ZONA_RURAL,CNES_TEXTUAL,provisional,3,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/mt/matupa
 5105606,Matupá,MT,CO,ZP002,CNES_BAIRRO_5105606_ZP002,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/mt/matupa
 5105606,Matupá,MT,CO,ZR,CNES_BAIRRO_5105606_ZR,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/mt/matupa
-5105622,Mirassol d'Oeste,MT,CO,AEROPORTO,CNES_BAIRRO_5105622_AEROPORTO,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/mt/mirassol-d-oeste
-5105622,Mirassol d'Oeste,MT,CO,ALTO BOA VISTA,CNES_BAIRRO_5105622_ALTO_BOA_VISTA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/mt/mirassol-d-oeste
-5105622,Mirassol d'Oeste,MT,CO,CENTRO,CNES_BAIRRO_5105622_CENTRO,CNES_TEXTUAL,provisional,101,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/mt/mirassol-d-oeste
-5105622,Mirassol d'Oeste,MT,CO,CIDADE TAMANDARE,CNES_BAIRRO_5105622_CIDADE_TAMANDARE,CNES_TEXTUAL,provisional,10,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/mt/mirassol-d-oeste
-5105622,Mirassol d'Oeste,MT,CO,JARDIM APARECIDA,CNES_BAIRRO_5105622_JARDIM_APARECIDA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/mt/mirassol-d-oeste
-5105622,Mirassol d'Oeste,MT,CO,JARDIM DAS FLORES,CNES_BAIRRO_5105622_JARDIM_DAS_FLORES,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/mt/mirassol-d-oeste
-5105622,Mirassol d'Oeste,MT,CO,JARDIM FAVO DE MEL,CNES_BAIRRO_5105622_JARDIM_FAVO_DE_MEL,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/mt/mirassol-d-oeste
-5105622,Mirassol d'Oeste,MT,CO,JARDIM PLANALTO,CNES_BAIRRO_5105622_JARDIM_PLANALTO,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/mt/mirassol-d-oeste
-5105622,Mirassol d'Oeste,MT,CO,JARDIM SAO JOSE,CNES_BAIRRO_5105622_JARDIM_SAO_JOSE,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/mt/mirassol-d-oeste
-5105622,Mirassol d'Oeste,MT,CO,JARDIM SAO PAULO,CNES_BAIRRO_5105622_JARDIM_SAO_PAULO,CNES_TEXTUAL,provisional,7,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/mt/mirassol-d-oeste
-5105622,Mirassol d'Oeste,MT,CO,MIRASSOL II,CNES_BAIRRO_5105622_MIRASSOL_II,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/mt/mirassol-d-oeste
-5105622,Mirassol d'Oeste,MT,CO,MUTIRAO,CNES_BAIRRO_5105622_MUTIRAO,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/mt/mirassol-d-oeste
-5105622,Mirassol d'Oeste,MT,CO,PARQUE DA SERRA,CNES_BAIRRO_5105622_PARQUE_DA_SERRA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/mt/mirassol-d-oeste
-5105622,Mirassol d'Oeste,MT,CO,PARQUE MORUMBI,CNES_BAIRRO_5105622_PARQUE_MORUMBI,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/mt/mirassol-d-oeste
-5105622,Mirassol d'Oeste,MT,CO,PERIMETRO URBANO,CNES_BAIRRO_5105622_PERIMETRO_URBANO,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/mt/mirassol-d-oeste
-5105622,Mirassol d'Oeste,MT,CO,PLANALTO,CNES_BAIRRO_5105622_PLANALTO,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/mt/mirassol-d-oeste
-5105622,Mirassol d'Oeste,MT,CO,SAO JOSE,CNES_BAIRRO_5105622_SAO_JOSE,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/mt/mirassol-d-oeste
-5105622,Mirassol d'Oeste,MT,CO,SONHO AZUL,CNES_BAIRRO_5105622_SONHO_AZUL,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/mt/mirassol-d-oeste
-5105622,Mirassol d'Oeste,MT,CO,ZONA RURAL,CNES_BAIRRO_5105622_ZONA_RURAL,CNES_TEXTUAL,provisional,3,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/mt/mirassol-d-oeste
+5105622,Mirassol d'Oeste,MT,CO,AEROPORTO,CNES_BAIRRO_5105622_AEROPORTO,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/mt/mirassol-doeste
+5105622,Mirassol d'Oeste,MT,CO,ALTO BOA VISTA,CNES_BAIRRO_5105622_ALTO_BOA_VISTA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/mt/mirassol-doeste
+5105622,Mirassol d'Oeste,MT,CO,CENTRO,CNES_BAIRRO_5105622_CENTRO,CNES_TEXTUAL,provisional,101,,CEP_BAIRRO_5105622_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/mt/mirassol-doeste
+5105622,Mirassol d'Oeste,MT,CO,CIDADE TAMANDARE,CNES_BAIRRO_5105622_CIDADE_TAMANDARE,CNES_TEXTUAL,provisional,10,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/mt/mirassol-doeste
+5105622,Mirassol d'Oeste,MT,CO,JARDIM APARECIDA,CNES_BAIRRO_5105622_JARDIM_APARECIDA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/mt/mirassol-doeste
+5105622,Mirassol d'Oeste,MT,CO,JARDIM DAS FLORES,CNES_BAIRRO_5105622_JARDIM_DAS_FLORES,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/mt/mirassol-doeste
+5105622,Mirassol d'Oeste,MT,CO,JARDIM FAVO DE MEL,CNES_BAIRRO_5105622_JARDIM_FAVO_DE_MEL,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/mt/mirassol-doeste
+5105622,Mirassol d'Oeste,MT,CO,JARDIM PLANALTO,CNES_BAIRRO_5105622_JARDIM_PLANALTO,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/mt/mirassol-doeste
+5105622,Mirassol d'Oeste,MT,CO,JARDIM SAO JOSE,CNES_BAIRRO_5105622_JARDIM_SAO_JOSE,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/mt/mirassol-doeste
+5105622,Mirassol d'Oeste,MT,CO,JARDIM SAO PAULO,CNES_BAIRRO_5105622_JARDIM_SAO_PAULO,CNES_TEXTUAL,provisional,7,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/mt/mirassol-doeste
+5105622,Mirassol d'Oeste,MT,CO,MIRASSOL II,CNES_BAIRRO_5105622_MIRASSOL_II,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/mt/mirassol-doeste
+5105622,Mirassol d'Oeste,MT,CO,MUTIRAO,CNES_BAIRRO_5105622_MUTIRAO,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/mt/mirassol-doeste
+5105622,Mirassol d'Oeste,MT,CO,PARQUE DA SERRA,CNES_BAIRRO_5105622_PARQUE_DA_SERRA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/mt/mirassol-doeste
+5105622,Mirassol d'Oeste,MT,CO,PARQUE MORUMBI,CNES_BAIRRO_5105622_PARQUE_MORUMBI,CNES_TEXTUAL,provisional,2,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/mt/mirassol-doeste
+5105622,Mirassol d'Oeste,MT,CO,PERIMETRO URBANO,CNES_BAIRRO_5105622_PERIMETRO_URBANO,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/mt/mirassol-doeste
+5105622,Mirassol d'Oeste,MT,CO,PLANALTO,CNES_BAIRRO_5105622_PLANALTO,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/mt/mirassol-doeste
+5105622,Mirassol d'Oeste,MT,CO,SAO JOSE,CNES_BAIRRO_5105622_SAO_JOSE,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/mt/mirassol-doeste
+5105622,Mirassol d'Oeste,MT,CO,SONHO AZUL,CNES_BAIRRO_5105622_SONHO_AZUL,CNES_TEXTUAL,provisional,1,,CEP_BAIRRO_5105622_SONHO_AZUL,exact,CEP Brasil municipal page,https://cepbrasil.com/mt/mirassol-doeste
+5105622,Mirassol d'Oeste,MT,CO,ZONA RURAL,CNES_BAIRRO_5105622_ZONA_RURAL,CNES_TEXTUAL,provisional,3,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/mt/mirassol-doeste
 5105903,Nobres,MT,CO,ZONA RURAL,CNES_BAIRRO_5105903_ZONA_RURAL,CNES_TEXTUAL,provisional,3,,UNMATCHED_POSTAL_REFERENCE,not_found,not_queried,
 5106000,Nortelândia,MT,CO,BANDEIRANTE,CNES_BAIRRO_5106000_BANDEIRANTE,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_queried,
 5106000,Nortelândia,MT,CO,PONTE,CNES_BAIRRO_5106000_PONTE,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_queried,
@@ -54350,12 +54350,12 @@ municipalityCode,municipality,uf,region,bairroCnes,canonicalNeighborhoodCode,sou
 5219902,São Francisco de Goiás,GO,CO,LUZIA RIBEIRO,CNES_BAIRRO_5219902_LUZIA_RIBEIRO,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/go/sao-francisco-de-goias
 5219902,São Francisco de Goiás,GO,CO,OITAVO CENTENARIO,CNES_BAIRRO_5219902_OITAVO_CENTENARIO,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/go/sao-francisco-de-goias
 5219902,São Francisco de Goiás,GO,CO,SETOR CENTRAL,CNES_BAIRRO_5219902_SETOR_CENTRAL,CNES_TEXTUAL,provisional,1,,CEP_BAIRRO_5219902_SETOR_CENTRAL,exact,CEP Brasil municipal page,https://cepbrasil.com/go/sao-francisco-de-goias
-5220009,São João d'Aliança,GO,CO,BOA ESPERANCA,CNES_BAIRRO_5220009_BOA_ESPERANCA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/go/sao-joao-d-alianca
-5220009,São João d'Aliança,GO,CO,CENTRO,CNES_BAIRRO_5220009_CENTRO,CNES_TEXTUAL,provisional,5,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/go/sao-joao-d-alianca
-5220009,São João d'Aliança,GO,CO,LABEL,CNES_BAIRRO_5220009_LABEL,CNES_TEXTUAL,provisional,4,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/go/sao-joao-d-alianca
-5220009,São João d'Aliança,GO,CO,SETOR AEROPORTO,CNES_BAIRRO_5220009_SETOR_AEROPORTO,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/go/sao-joao-d-alianca
-5220009,São João d'Aliança,GO,CO,SETOR CENTRAL,CNES_BAIRRO_5220009_SETOR_CENTRAL,CNES_TEXTUAL,provisional,3,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/go/sao-joao-d-alianca
-5220009,São João d'Aliança,GO,CO,ZONA RURAL,CNES_BAIRRO_5220009_ZONA_RURAL,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/go/sao-joao-d-alianca
+5220009,São João d'Aliança,GO,CO,BOA ESPERANCA,CNES_BAIRRO_5220009_BOA_ESPERANCA,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/go/sao-joao-dalianca
+5220009,São João d'Aliança,GO,CO,CENTRO,CNES_BAIRRO_5220009_CENTRO,CNES_TEXTUAL,provisional,5,,CEP_BAIRRO_5220009_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/go/sao-joao-dalianca
+5220009,São João d'Aliança,GO,CO,LABEL,CNES_BAIRRO_5220009_LABEL,CNES_TEXTUAL,provisional,4,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/go/sao-joao-dalianca
+5220009,São João d'Aliança,GO,CO,SETOR AEROPORTO,CNES_BAIRRO_5220009_SETOR_AEROPORTO,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/go/sao-joao-dalianca
+5220009,São João d'Aliança,GO,CO,SETOR CENTRAL,CNES_BAIRRO_5220009_SETOR_CENTRAL,CNES_TEXTUAL,provisional,3,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/go/sao-joao-dalianca
+5220009,São João d'Aliança,GO,CO,ZONA RURAL,CNES_BAIRRO_5220009_ZONA_RURAL,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/go/sao-joao-dalianca
 5220058,São João da Paraúna,GO,CO,CENTRO,CNES_BAIRRO_5220058_CENTRO,CNES_TEXTUAL,provisional,5,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/go/sao-joao-da-parauna
 5220058,São João da Paraúna,GO,CO,GENUINO MESSIAS,CNES_BAIRRO_5220058_GENUINO_MESSIAS,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/go/sao-joao-da-parauna
 5220058,São João da Paraúna,GO,CO,MOISES DOMINGOS,CNES_BAIRRO_5220058_MOISES_DOMINGOS,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/go/sao-joao-da-parauna
@@ -54471,9 +54471,9 @@ municipalityCode,municipality,uf,region,bairroCnes,canonicalNeighborhoodCode,sou
 5220603,Silvânia,GO,CO,ZONA RURAL,CNES_BAIRRO_5220603_ZONA_RURAL,CNES_TEXTUAL,provisional,3,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/go/silvania
 5220686,Simolândia,GO,CO,CENTRO,CNES_BAIRRO_5220686_CENTRO,CNES_TEXTUAL,provisional,6,,CEP_BAIRRO_5220686_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/go/simolandia
 5220686,Simolândia,GO,CO,JARDIM BRASIL,CNES_BAIRRO_5220686_JARDIM_BRASIL,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/go/simolandia
-5220702,Sítio d'Abadia,GO,CO,CENTRO,CNES_BAIRRO_5220702_CENTRO,CNES_TEXTUAL,provisional,4,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/go/sitio-d-abadia
-5220702,Sítio d'Abadia,GO,CO,SETOR AEROPORTO,CNES_BAIRRO_5220702_SETOR_AEROPORTO,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/go/sitio-d-abadia
-5220702,Sítio d'Abadia,GO,CO,ZONA RURAL,CNES_BAIRRO_5220702_ZONA_RURAL,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,not_found,https://cepbrasil.com/go/sitio-d-abadia
+5220702,Sítio d'Abadia,GO,CO,CENTRO,CNES_BAIRRO_5220702_CENTRO,CNES_TEXTUAL,provisional,4,,CEP_BAIRRO_5220702_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/go/sitio-dabadia
+5220702,Sítio d'Abadia,GO,CO,SETOR AEROPORTO,CNES_BAIRRO_5220702_SETOR_AEROPORTO,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/go/sitio-dabadia
+5220702,Sítio d'Abadia,GO,CO,ZONA RURAL,CNES_BAIRRO_5220702_ZONA_RURAL,CNES_TEXTUAL,provisional,1,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/go/sitio-dabadia
 5221007,Taquaral de Goiás,GO,CO,CENTRO,CNES_BAIRRO_5221007_CENTRO,CNES_TEXTUAL,provisional,8,,UNMATCHED_POSTAL_REFERENCE,not_found,CEP Brasil municipal page,https://cepbrasil.com/go/taquaral-de-goias
 5221007,Taquaral de Goiás,GO,CO,SETOR CENTRAL,CNES_BAIRRO_5221007_SETOR_CENTRAL,CNES_TEXTUAL,provisional,1,,CEP_BAIRRO_5221007_SETOR_CENTRAL,exact,CEP Brasil municipal page,https://cepbrasil.com/go/taquaral-de-goias
 5221080,Teresina de Goiás,GO,CO,CENTRO,CNES_BAIRRO_5221080_CENTRO,CNES_TEXTUAL,provisional,6,,CEP_BAIRRO_5221080_CENTRO,exact,CEP Brasil municipal page,https://cepbrasil.com/go/teresina-de-goias

@@ -77,12 +77,18 @@ municipalityCode,municipality,uf,cnesUnits,postalNeighborhoodCount,postalName,po
 1100072,Corumbiara,RO,24,4,Terra Indígena Rio Omerê,CEP_BAIRRO_1100072_TERRA_INDIGENA_RIO_OMERE,https://cepbrasil.com/ro/corumbiara,200,none
 1100072,Corumbiara,RO,24,4,Terra Indígena Tanaru,CEP_BAIRRO_1100072_TERRA_INDIGENA_TANARU,https://cepbrasil.com/ro/corumbiara,200,none
 1100056,Cerejeiras,RO,62,2,Centro,CEP_BAIRRO_1100056_CENTRO,https://cepbrasil.com/ro/cerejeiras,200,none
+1100130,Machadinho D'Oeste,RO,48,3,Centro,CEP_BAIRRO_1100130_CENTRO,https://cepbrasil.com/ro/machadinho-doeste,200,none
+1100130,Machadinho D'Oeste,RO,48,3,Tabajara,CEP_BAIRRO_1100130_TABAJARA,https://cepbrasil.com/ro/machadinho-doeste,200,none
 1100114,Jaru,RO,286,7,Bom Jesus,CEP_BAIRRO_1100114_BOM_JESUS,https://cepbrasil.com/ro/jaru,200,none
 1100114,Jaru,RO,286,7,Centro,CEP_BAIRRO_1100114_CENTRO,https://cepbrasil.com/ro/jaru,200,none
 1100114,Jaru,RO,286,7,Santa Cruz,CEP_BAIRRO_1100114_SANTA_CRUZ,https://cepbrasil.com/ro/jaru,200,none
 1100114,Jaru,RO,286,7,Setor 01,CEP_BAIRRO_1100114_SETOR_01,https://cepbrasil.com/ro/jaru,200,none
 1100114,Jaru,RO,286,7,Tarilândia,CEP_BAIRRO_1100114_TARILANDIA,https://cepbrasil.com/ro/jaru,200,none
 1100114,Jaru,RO,286,7,Terra Indígena Uru-Eu-Wau-Wau,CEP_BAIRRO_1100114_TERRA_INDIGENA_URU_EU_WAU_WAU,https://cepbrasil.com/ro/jaru,200,none
+1100148,Nova Brasilândia D'Oeste,RO,52,3,Centro,CEP_BAIRRO_1100148_CENTRO,https://cepbrasil.com/ro/nova-brasilandia-doeste,200,none
+1100148,Nova Brasilândia D'Oeste,RO,52,3,Terra Indígena Rio Branco,CEP_BAIRRO_1100148_TERRA_INDIGENA_RIO_BRANCO,https://cepbrasil.com/ro/nova-brasilandia-doeste,200,none
+1100346,Alvorada D'Oeste,RO,51,3,Centro,CEP_BAIRRO_1100346_CENTRO,https://cepbrasil.com/ro/alvorada-doeste,200,none
+1100346,Alvorada D'Oeste,RO,51,3,Terra Indígena Uru-Eu-Wau-Wau,CEP_BAIRRO_1100346_TERRA_INDIGENA_URU_EU_WAU_WAU,https://cepbrasil.com/ro/alvorada-doeste,200,none
 1100254,Presidente Médici,RO,68,2,Centro,CEP_BAIRRO_1100254_CENTRO,https://cepbrasil.com/ro/presidente-medici,200,none
 1100262,Rio Crespo,RO,20,2,Centro,CEP_BAIRRO_1100262_CENTRO,https://cepbrasil.com/ro/rio-crespo,200,none
 1100338,Nova Mamoré,RO,31,6,Centro,CEP_BAIRRO_1100338_CENTRO,https://cepbrasil.com/ro/nova-mamore,200,none
@@ -111,6 +117,7 @@ municipalityCode,municipality,uf,cnesUnits,postalNeighborhoodCount,postalName,po
 1101203,Ministro Andreazza,RO,19,2,Centro,CEP_BAIRRO_1101203_CENTRO,https://cepbrasil.com/ro/ministro-andreazza,200,none
 1101302,Mirante da Serra,RO,27,3,Centro,CEP_BAIRRO_1101302_CENTRO,https://cepbrasil.com/ro/mirante-da-serra,200,none
 1101302,Mirante da Serra,RO,27,3,Terra Indígena Uru-Eu-Wau-Wau,CEP_BAIRRO_1101302_TERRA_INDIGENA_URU_EU_WAU_WAU,https://cepbrasil.com/ro/mirante-da-serra,200,none
+1101484,São Felipe D'Oeste,RO,12,2,Centro,CEP_BAIRRO_1101484_CENTRO,https://cepbrasil.com/ro/sao-felipe-doeste,200,none
 1101468,Pimenteiras do Oeste,RO,8,3,Centro,CEP_BAIRRO_1101468_CENTRO,https://cepbrasil.com/ro/pimenteiras-do-oeste,200,none
 1101468,Pimenteiras do Oeste,RO,8,3,Terra Indígena Tanaru,CEP_BAIRRO_1101468_TERRA_INDIGENA_TANARU,https://cepbrasil.com/ro/pimenteiras-do-oeste,200,none
 1101401,Monte Negro,RO,44,3,Centro,CEP_BAIRRO_1101401_CENTRO,https://cepbrasil.com/ro/monte-negro,200,none
@@ -1353,6 +1360,7 @@ municipalityCode,municipality,uf,cnesUnits,postalNeighborhoodCount,postalName,po
 1702901,Axixá do Tocantins,TO,15,2,Setor Central,CEP_BAIRRO_1702901_SETOR_CENTRAL,https://cepbrasil.com/to/axixa-do-tocantins,200,none
 1715259,Novo Jardim,TO,3,2,Setor Central,CEP_BAIRRO_1715259_SETOR_CENTRAL,https://cepbrasil.com/to/novo-jardim,200,none
 1715002,Nova Rosalândia,TO,6,2,Setor Central,CEP_BAIRRO_1715002_SETOR_CENTRAL,https://cepbrasil.com/to/nova-rosalandia,200,none
+1716307,Pau D'Arco,TO,4,2,Setor Central,CEP_BAIRRO_1716307_SETOR_CENTRAL,https://cepbrasil.com/to/pau-darco,200,none
 1715754,Palmeirópolis,TO,21,2,Setor Central,CEP_BAIRRO_1715754_SETOR_CENTRAL,https://cepbrasil.com/to/palmeiropolis,200,none
 1715705,Palmeirante,TO,4,2,Setor Central,CEP_BAIRRO_1715705_SETOR_CENTRAL,https://cepbrasil.com/to/palmeirante,200,none
 1715507,Oliveira de Fátima,TO,3,2,Setor Central,CEP_BAIRRO_1715507_SETOR_CENTRAL,https://cepbrasil.com/to/oliveira-de-fatima,200,none
@@ -1769,6 +1777,7 @@ municipalityCode,municipality,uf,cnesUnits,postalNeighborhoodCount,postalName,po
 2102101,Brejo,MA,26,2,Centro,CEP_BAIRRO_2102101_CENTRO,https://cepbrasil.com/ma/brejo,200,none
 2106359,Marajá do Sena,MA,9,2,Centro,CEP_BAIRRO_2106359_CENTRO,https://cepbrasil.com/ma/maraja-do-sena,200,none
 2107258,Nova Colinas,MA,9,2,Centro,CEP_BAIRRO_2107258_CENTRO,https://cepbrasil.com/ma/nova-colinas,200,none
+2107407,Olho d'Água das Cunhãs,MA,21,2,Centro,CEP_BAIRRO_2107407_CENTRO,https://cepbrasil.com/ma/olho-dagua-das-cunhas,200,none
 2107308,Nova Iorque,MA,6,2,Centro,CEP_BAIRRO_2107308_CENTRO,https://cepbrasil.com/ma/nova-iorque,200,none
 2107357,Nova Olinda do Maranhão,MA,13,4,Centro,CEP_BAIRRO_2107357_CENTRO,https://cepbrasil.com/ma/nova-olinda-do-maranhao,200,none
 2107357,Nova Olinda do Maranhão,MA,13,4,Terra Indígena Alto Turiaçu,CEP_BAIRRO_2107357_TERRA_INDIGENA_ALTO_TURIACU,https://cepbrasil.com/ma/nova-olinda-do-maranhao,200,none
@@ -2236,6 +2245,7 @@ municipalityCode,municipality,uf,cnesUnits,postalNeighborhoodCount,postalName,po
 2201408,Barro Duro,PI,10,2,Centro,CEP_BAIRRO_2201408_CENTRO,https://cepbrasil.com/pi/barro-duro,200,none
 2201101,Avelino Lopes,PI,18,2,Centro,CEP_BAIRRO_2201101_CENTRO,https://cepbrasil.com/pi/avelino-lopes,200,none
 2201002,Arraial,PI,16,2,Centro,CEP_BAIRRO_2201002_CENTRO,https://cepbrasil.com/pi/arraial,200,none
+2201176,Barra D'Alcântara,PI,4,2,Centro,CEP_BAIRRO_2201176_CENTRO,https://cepbrasil.com/pi/barra-dalcantara,200,none
 2201556,Bela Vista do Piauí,PI,7,2,Centro,CEP_BAIRRO_2201556_CENTRO,https://cepbrasil.com/pi/bela-vista-do-piaui,200,none
 2201770,Boa Hora,PI,9,2,Centro,CEP_BAIRRO_2201770_CENTRO,https://cepbrasil.com/pi/boa-hora,200,none
 2201804,Bocaina,PI,16,2,Centro,CEP_BAIRRO_2201804_CENTRO,https://cepbrasil.com/pi/bocaina,200,none
@@ -2347,12 +2357,14 @@ municipalityCode,municipality,uf,cnesUnits,postalNeighborhoodCount,postalName,po
 2207009,Oeiras,PI,98,2,Centro,CEP_BAIRRO_2207009_CENTRO,https://cepbrasil.com/pi/oeiras,200,none
 2206902,Novo Oriente do Piauí,PI,17,2,Centro,CEP_BAIRRO_2206902_CENTRO,https://cepbrasil.com/pi/novo-oriente-do-piaui,200,none
 2206001,Marcos Parente,PI,6,2,Centro,CEP_BAIRRO_2206001_CENTRO,https://cepbrasil.com/pi/marcos-parente,200,none
+2207108,Olho D'Água do Piauí,PI,8,2,Centro,CEP_BAIRRO_2207108_CENTRO,https://cepbrasil.com/pi/olho-dagua-do-piaui,200,none
 2207306,Paes Landim,PI,12,2,Centro,CEP_BAIRRO_2207306_CENTRO,https://cepbrasil.com/pi/paes-landim,200,none
 2207207,Padre Marcos,PI,13,2,Centro,CEP_BAIRRO_2207207_CENTRO,https://cepbrasil.com/pi/padre-marcos,200,none
 2207504,Palmeirais,PI,23,2,Centro,CEP_BAIRRO_2207504_CENTRO,https://cepbrasil.com/pi/palmeirais,200,none
 2207405,Palmeira do Piauí,PI,14,2,Centro,CEP_BAIRRO_2207405_CENTRO,https://cepbrasil.com/pi/palmeira-do-piaui,200,none
 2207355,Pajeú do Piauí,PI,10,2,Centro,CEP_BAIRRO_2207355_CENTRO,https://cepbrasil.com/pi/pajeu-do-piaui,200,none
 2207553,Paquetá,PI,9,2,Centro,CEP_BAIRRO_2207553_CENTRO,https://cepbrasil.com/pi/paqueta,200,none
+2207793,Pau D'Arco do Piauí,PI,13,2,Centro,CEP_BAIRRO_2207793_CENTRO,https://cepbrasil.com/pi/pau-darco-do-piaui,200,none
 2207751,Passagem Franca do Piauí,PI,6,2,Centro,CEP_BAIRRO_2207751_CENTRO,https://cepbrasil.com/pi/passagem-franca-do-piaui,200,none
 2207603,Parnaguá,PI,20,2,Centro,CEP_BAIRRO_2207603_CENTRO,https://cepbrasil.com/pi/parnagua,200,none
 2207777,Patos do Piauí,PI,9,2,Centro,CEP_BAIRRO_2207777_CENTRO,https://cepbrasil.com/pi/patos-do-piaui,200,none
@@ -3174,6 +3186,7 @@ municipalityCode,municipality,uf,cnesUnits,postalNeighborhoodCount,postalName,po
 2405108,Jandaíra,RN,9,2,Centro,CEP_BAIRRO_2405108_CENTRO,https://cepbrasil.com/rn/jandaira,200,none
 2406155,Jundiá,RN,13,3,Centro,CEP_BAIRRO_2406155_CENTRO,https://cepbrasil.com/rn/jundia,200,none
 2406155,Jundiá,RN,13,3,Santa Fé,CEP_BAIRRO_2406155_SANTA_FE,https://cepbrasil.com/rn/jundia,200,none
+2406205,Lagoa d'Anta,RN,9,2,Centro,CEP_BAIRRO_2406205_CENTRO,https://cepbrasil.com/rn/lagoa-danta,200,none
 2405405,Japi,RN,6,2,Centro,CEP_BAIRRO_2405405_CENTRO,https://cepbrasil.com/rn/japi,200,none
 2406304,Lagoa de Pedras,RN,11,2,Centro,CEP_BAIRRO_2406304_CENTRO,https://cepbrasil.com/rn/lagoa-de-pedras,200,none
 2406403,Lagoa de Velhos,RN,8,4,Bom Descanso,CEP_BAIRRO_2406403_BOM_DESCANSO,https://cepbrasil.com/rn/lagoa-de-velhos,200,none
@@ -3200,6 +3213,7 @@ municipalityCode,municipality,uf,cnesUnits,postalNeighborhoodCount,postalName,po
 2406601,Lagoa Salgada,RN,13,3,Cajueiro,CEP_BAIRRO_2406601_CAJUEIRO,https://cepbrasil.com/rn/lagoa-salgada,200,none
 2406601,Lagoa Salgada,RN,13,3,Centro,CEP_BAIRRO_2406601_CENTRO,https://cepbrasil.com/rn/lagoa-salgada,200,none
 2407708,Montanhas,RN,15,2,Centro,CEP_BAIRRO_2407708_CENTRO,https://cepbrasil.com/rn/montanhas,200,none
+2408409,Olho d'Água do Borges,RN,8,2,Centro,CEP_BAIRRO_2408409_CENTRO,https://cepbrasil.com/rn/olho-dagua-do-borges,200,none
 2407906,Monte das Gameleiras,RN,9,2,Centro,CEP_BAIRRO_2407906_CENTRO,https://cepbrasil.com/rn/monte-das-gameleiras,200,none
 2408300,Nova Cruz,RN,53,3,Centro,CEP_BAIRRO_2408300_CENTRO,https://cepbrasil.com/rn/nova-cruz,200,none
 2408300,Nova Cruz,RN,53,3,Lagoa Limpa,CEP_BAIRRO_2408300_LAGOA_LIMPA,https://cepbrasil.com/rn/nova-cruz,200,none
@@ -3453,6 +3467,7 @@ municipalityCode,municipality,uf,cnesUnits,postalNeighborhoodCount,postalName,po
 2508307,Lagoa Seca,PB,35,6,Povoado São Pedro,CEP_BAIRRO_2508307_POVOADO_SAO_PEDRO,https://cepbrasil.com/pb/lagoa-seca,200,none
 2508307,Lagoa Seca,PB,35,6,Sítio,CEP_BAIRRO_2508307_SITIO,https://cepbrasil.com/pb/lagoa-seca,200,none
 2508406,Lastro,PB,15,2,Centro,CEP_BAIRRO_2508406_CENTRO,https://cepbrasil.com/pb/lastro,200,none
+2508703,Mãe d'Água,PB,13,2,Centro,CEP_BAIRRO_2508703_CENTRO,https://cepbrasil.com/pb/mae-dagua,200,none
 2508604,Lucena,PB,21,2,Centro,CEP_BAIRRO_2508604_CENTRO,https://cepbrasil.com/pb/lucena,200,none
 2508505,Livramento,PB,20,2,Centro,CEP_BAIRRO_2508505_CENTRO,https://cepbrasil.com/pb/livramento,200,none
 2508554,Logradouro,PB,14,2,Centro,CEP_BAIRRO_2508554_CENTRO,https://cepbrasil.com/pb/logradouro,200,none
@@ -3481,6 +3496,7 @@ municipalityCode,municipality,uf,cnesUnits,postalNeighborhoodCount,postalName,po
 2510303,Nova Palmeira,PB,19,2,Centro,CEP_BAIRRO_2510303_CENTRO,https://cepbrasil.com/pb/nova-palmeira,200,none
 2510204,Nova Olinda,PB,17,2,Centro,CEP_BAIRRO_2510204_CENTRO,https://cepbrasil.com/pb/nova-olinda,200,none
 2510006,Nazarezinho,PB,14,2,Centro,CEP_BAIRRO_2510006_CENTRO,https://cepbrasil.com/pb/nazarezinho,200,none
+2510402,Olho d'Água,PB,18,2,Centro,CEP_BAIRRO_2510402_CENTRO,https://cepbrasil.com/pb/olho-dagua,200,none
 2510501,Olivedos,PB,12,2,Centro,CEP_BAIRRO_2510501_CENTRO,https://cepbrasil.com/pb/olivedos,200,none
 2510600,Ouro Velho,PB,12,2,Centro,CEP_BAIRRO_2510600_CENTRO,https://cepbrasil.com/pb/ouro-velho,200,none
 2510659,Parari,PB,10,2,Centro,CEP_BAIRRO_2510659_CENTRO,https://cepbrasil.com/pb/parari,200,none
@@ -4633,7 +4649,10 @@ municipalityCode,municipality,uf,cnesUnits,postalNeighborhoodCount,postalName,po
 2705408,Monteirópolis,AL,16,2,Centro,CEP_BAIRRO_2705408_CENTRO,https://cepbrasil.com/al/monteiropolis,200,none
 2705507,Murici,AL,33,2,Centro,CEP_BAIRRO_2705507_CENTRO,https://cepbrasil.com/al/murici,200,none
 2705606,Novo Lino,AL,18,2,Centro,CEP_BAIRRO_2705606_CENTRO,https://cepbrasil.com/al/novo-lino,200,none
+2705705,Olho d'Água das Flores,AL,27,2,Centro,CEP_BAIRRO_2705705_CENTRO,https://cepbrasil.com/al/olho-dagua-das-flores,200,none
+2705804,Olho d'Água do Casado,AL,9,2,Centro,CEP_BAIRRO_2705804_CENTRO,https://cepbrasil.com/al/olho-dagua-do-casado,200,none
 2706000,Olivença,AL,15,2,Centro,CEP_BAIRRO_2706000_CENTRO,https://cepbrasil.com/al/olivenca,200,none
+2705903,Olho d'Água Grande,AL,13,2,Centro,CEP_BAIRRO_2705903_CENTRO,https://cepbrasil.com/al/olho-dagua-grande,200,none
 2706109,Ouro Branco,AL,14,2,Centro,CEP_BAIRRO_2706109_CENTRO,https://cepbrasil.com/al/ouro-branco,200,none
 2706208,Palestina,AL,7,2,Centro,CEP_BAIRRO_2706208_CENTRO,https://cepbrasil.com/al/palestina,200,none
 2706406,Pão de Açúcar,AL,30,4,Centro,CEP_BAIRRO_2706406_CENTRO,https://cepbrasil.com/al/pao-de-acucar,200,none
@@ -4709,6 +4728,7 @@ municipalityCode,municipality,uf,cnesUnits,postalNeighborhoodCount,postalName,po
 2708600,São Miguel dos Campos,AL,85,13,Rui Palmeira,CEP_BAIRRO_2708600_RUI_PALMEIRA,https://cepbrasil.com/al/sao-miguel-dos-campos,200,none
 2701803,Carneiros,AL,14,2,Centro,CEP_BAIRRO_2701803_CENTRO,https://cepbrasil.com/al/carneiros,200,none
 2701506,Campo Grande,AL,12,2,Centro,CEP_BAIRRO_2701506_CENTRO,https://cepbrasil.com/al/campo-grande,200,none
+2709004,Tanque d'Arca,AL,11,2,Centro,CEP_BAIRRO_2709004_CENTRO,https://cepbrasil.com/al/tanque-darca,200,none
 2709103,Taquarana,AL,31,3,Centro,CEP_BAIRRO_2709103_CENTRO,https://cepbrasil.com/al/taquarana,200,none
 2709103,Taquarana,AL,31,3,Lagoa Grande,CEP_BAIRRO_2709103_LAGOA_GRANDE,https://cepbrasil.com/al/taquarana,200,none
 2709152,Teotônio Vilela,AL,59,33,Aboboreira,CEP_BAIRRO_2709152_ABOBOREIRA,https://cepbrasil.com/al/teotonio-vilela,200,none
@@ -4780,6 +4800,7 @@ municipalityCode,municipality,uf,cnesUnits,postalNeighborhoodCount,postalName,po
 2802809,Indiaroba,SE,24,2,Centro,CEP_BAIRRO_2802809_CENTRO,https://cepbrasil.com/se/indiaroba,200,none
 2704401,Major Isidoro,AL,16,3,Centro,CEP_BAIRRO_2704401_CENTRO,https://cepbrasil.com/al/major-isidoro,200,none
 2704401,Major Isidoro,AL,16,3,Riacho do Sertão,CEP_BAIRRO_2704401_RIACHO_DO_SERTAO,https://cepbrasil.com/al/major-isidoro,200,none
+2803203,Itaporanga d'Ajuda,SE,55,2,Centro,CEP_BAIRRO_2803203_CENTRO,https://cepbrasil.com/se/itaporanga-dajuda,200,none
 2803807,Malhada dos Bois,SE,9,2,Centro,CEP_BAIRRO_2803807_CENTRO,https://cepbrasil.com/se/malhada-dos-bois,200,none
 2803401,Japoatã,SE,18,2,Centro,CEP_BAIRRO_2803401_CENTRO,https://cepbrasil.com/se/japoata,200,none
 2803104,Itabi,SE,8,2,Centro,CEP_BAIRRO_2803104_CENTRO,https://cepbrasil.com/se/itabi,200,none
@@ -5313,6 +5334,7 @@ municipalityCode,municipality,uf,cnesUnits,postalNeighborhoodCount,postalName,po
 2910008,Dário Meira,BA,17,5,Centro,CEP_BAIRRO_2910008_CENTRO,https://cepbrasil.com/ba/dario-meira,200,none
 2910008,Dário Meira,BA,17,5,Idelfonso Maroto,CEP_BAIRRO_2910008_IDELFONSO_MAROTO,https://cepbrasil.com/ba/dario-meira,200,none
 2910008,Dário Meira,BA,17,5,Planalto Iris,CEP_BAIRRO_2910008_PLANALTO_IRIS,https://cepbrasil.com/ba/dario-meira,200,none
+2910057,Dias d'Ávila,BA,93,2,Centro,CEP_BAIRRO_2910057_CENTRO,https://cepbrasil.com/ba/dias-davila,200,none
 2910305,Elísio Medrado,BA,18,3,Centro,CEP_BAIRRO_2910305_CENTRO,https://cepbrasil.com/ba/elisio-medrado,200,none
 2910305,Elísio Medrado,BA,18,3,Monte Cruzeiro,CEP_BAIRRO_2910305_MONTE_CRUZEIRO,https://cepbrasil.com/ba/elisio-medrado,200,none
 2910206,Dom Macedo Costa,BA,7,2,Centro,CEP_BAIRRO_2910206_CENTRO,https://cepbrasil.com/ba/dom-macedo-costa,200,none
@@ -9154,6 +9176,7 @@ municipalityCode,municipality,uf,cnesUnits,postalNeighborhoodCount,postalName,po
 3144805,Nova Lima,MG,526,134,Village Terrasse I,CEP_BAIRRO_3144805_VILLAGE_TERRASSE_I,https://cepbrasil.com/mg/nova-lima,200,none
 3144805,Nova Lima,MG,526,134,Village Terrasse II,CEP_BAIRRO_3144805_VILLAGE_TERRASSE_II,https://cepbrasil.com/mg/nova-lima,200,none
 3144805,Nova Lima,MG,526,134,Ville de Montagne,CEP_BAIRRO_3144805_VILLE_DE_MONTAGNE,https://cepbrasil.com/mg/nova-lima,200,none
+3145455,Olhos-d'Água,MG,10,2,Centro,CEP_BAIRRO_3145455_CENTRO,https://cepbrasil.com/mg/olhos-dagua,200,none
 3145877,Orizânia,MG,16,2,Centro,CEP_BAIRRO_3145877_CENTRO,https://cepbrasil.com/mg/orizania,200,none
 3145802,Onça de Pitangui,MG,10,3,Centro,CEP_BAIRRO_3145802_CENTRO,https://cepbrasil.com/mg/onca-de-pitangui,200,none
 3145802,Onça de Pitangui,MG,10,3,Jaguara,CEP_BAIRRO_3145802_JAGUARA,https://cepbrasil.com/mg/onca-de-pitangui,200,none
@@ -9483,6 +9506,7 @@ municipalityCode,municipality,uf,cnesUnits,postalNeighborhoodCount,postalName,po
 3149705,Perdigão,MG,23,2,Centro,CEP_BAIRRO_3149705_CENTRO,https://cepbrasil.com/mg/perdigao,200,none
 3149903,Perdões,MG,72,2,Centro,CEP_BAIRRO_3149903_CENTRO,https://cepbrasil.com/mg/perdoes,200,none
 3149606,Pequi,MG,17,2,Centro,CEP_BAIRRO_3149606_CENTRO,https://cepbrasil.com/mg/pequi,200,none
+3150539,Pingo-d'Água,MG,11,2,Centro,CEP_BAIRRO_3150539_CENTRO,https://cepbrasil.com/mg/pingo-dagua,200,none
 3150000,Pescador,MG,21,2,Centro,CEP_BAIRRO_3150000_CENTRO,https://cepbrasil.com/mg/pescador,200,none
 3150307,Piedade do Rio Grande,MG,17,5,Centro,CEP_BAIRRO_3150307_CENTRO,https://cepbrasil.com/mg/piedade-do-rio-grande,200,none
 3150307,Piedade do Rio Grande,MG,17,5,Jardim da Piedade,CEP_BAIRRO_3150307_JARDIM_DA_PIEDADE,https://cepbrasil.com/mg/piedade-do-rio-grande,200,none
@@ -12909,6 +12933,26 @@ municipalityCode,municipality,uf,cnesUnits,postalNeighborhoodCount,postalName,po
 3501103,Alto Alegre,SP,8,9,Centro (São Martinho D'Oeste),CEP_BAIRRO_3501103_CENTRO_SAO_MARTINHO_D_OESTE,https://cepbrasil.com/sp/alto-alegre,200,none
 3501103,Alto Alegre,SP,8,9,Jatobá,CEP_BAIRRO_3501103_JATOBA,https://cepbrasil.com/sp/alto-alegre,200,none
 3501103,Alto Alegre,SP,8,9,São Martinho D'Oeste,CEP_BAIRRO_3501103_SAO_MARTINHO_D_OESTE,https://cepbrasil.com/sp/alto-alegre,200,none
+3502606,Aparecida d'Oeste,SP,8,21,Agenor Mogentali,CEP_BAIRRO_3502606_AGENOR_MOGENTALI,https://cepbrasil.com/sp/aparecida-doeste,200,none
+3502606,Aparecida d'Oeste,SP,8,21,Área Rural de Aparecida D'Oeste,CEP_BAIRRO_3502606_AREA_RURAL_DE_APARECIDA_D_OESTE,https://cepbrasil.com/sp/aparecida-doeste,200,none
+3502606,Aparecida d'Oeste,SP,8,21,Centro,CEP_BAIRRO_3502606_CENTRO,https://cepbrasil.com/sp/aparecida-doeste,200,none
+3502606,Aparecida d'Oeste,SP,8,21,Conjunto Habitacional Antonio Reche Peres,CEP_BAIRRO_3502606_CONJUNTO_HABITACIONAL_ANTONIO_RECHE_PERES,https://cepbrasil.com/sp/aparecida-doeste,200,none
+3502606,Aparecida d'Oeste,SP,8,21,Conjunto Habitacional Filogomes Martins,CEP_BAIRRO_3502606_CONJUNTO_HABITACIONAL_FILOGOMES_MARTINS,https://cepbrasil.com/sp/aparecida-doeste,200,none
+3502606,Aparecida d'Oeste,SP,8,21,Ernesto Maria Spinola,CEP_BAIRRO_3502606_ERNESTO_MARIA_SPINOLA,https://cepbrasil.com/sp/aparecida-doeste,200,none
+3502606,Aparecida d'Oeste,SP,8,21,Gobbi,CEP_BAIRRO_3502606_GOBBI,https://cepbrasil.com/sp/aparecida-doeste,200,none
+3502606,Aparecida d'Oeste,SP,8,21,Hokhitof da Silva,CEP_BAIRRO_3502606_HOKHITOF_DA_SILVA,https://cepbrasil.com/sp/aparecida-doeste,200,none
+3502606,Aparecida d'Oeste,SP,8,21,Jardim Bela Vista,CEP_BAIRRO_3502606_JARDIM_BELA_VISTA,https://cepbrasil.com/sp/aparecida-doeste,200,none
+3502606,Aparecida d'Oeste,SP,8,21,Jardim Maria Cristina,CEP_BAIRRO_3502606_JARDIM_MARIA_CRISTINA,https://cepbrasil.com/sp/aparecida-doeste,200,none
+3502606,Aparecida d'Oeste,SP,8,21,Jardim Nossa Senhora Aparecida,CEP_BAIRRO_3502606_JARDIM_NOSSA_SENHORA_APARECIDA,https://cepbrasil.com/sp/aparecida-doeste,200,none
+3502606,Aparecida d'Oeste,SP,8,21,Jardim Santa Luzia,CEP_BAIRRO_3502606_JARDIM_SANTA_LUZIA,https://cepbrasil.com/sp/aparecida-doeste,200,none
+3502606,Aparecida d'Oeste,SP,8,21,João Ramos da Silva,CEP_BAIRRO_3502606_JOAO_RAMOS_DA_SILVA,https://cepbrasil.com/sp/aparecida-doeste,200,none
+3502606,Aparecida d'Oeste,SP,8,21,Manoel Rodrigues Fernandes,CEP_BAIRRO_3502606_MANOEL_RODRIGUES_FERNANDES,https://cepbrasil.com/sp/aparecida-doeste,200,none
+3502606,Aparecida d'Oeste,SP,8,21,Manoel Rodrigues Fernandes II,CEP_BAIRRO_3502606_MANOEL_RODRIGUES_FERNANDES_II,https://cepbrasil.com/sp/aparecida-doeste,200,none
+3502606,Aparecida d'Oeste,SP,8,21,Manuel Fernandes,CEP_BAIRRO_3502606_MANUEL_FERNANDES,https://cepbrasil.com/sp/aparecida-doeste,200,none
+3502606,Aparecida d'Oeste,SP,8,21,Residencial Itália,CEP_BAIRRO_3502606_RESIDENCIAL_ITALIA,https://cepbrasil.com/sp/aparecida-doeste,200,none
+3502606,Aparecida d'Oeste,SP,8,21,Sol Nascente,CEP_BAIRRO_3502606_SOL_NASCENTE,https://cepbrasil.com/sp/aparecida-doeste,200,none
+3502606,Aparecida d'Oeste,SP,8,21,Vila Bela Vista,CEP_BAIRRO_3502606_VILA_BELA_VISTA,https://cepbrasil.com/sp/aparecida-doeste,200,none
+3502606,Aparecida d'Oeste,SP,8,21,Zevoli,CEP_BAIRRO_3502606_ZEVOLI,https://cepbrasil.com/sp/aparecida-doeste,200,none
 3502408,Anhumas,SP,13,14,Área Rural de Anhumas,CEP_BAIRRO_3502408_AREA_RURAL_DE_ANHUMAS,https://cepbrasil.com/sp/anhumas,200,none
 3502408,Anhumas,SP,13,14,Centro,CEP_BAIRRO_3502408_CENTRO,https://cepbrasil.com/sp/anhumas,200,none
 3502408,Anhumas,SP,13,14,Conjunto Habitacional João Mingroni,CEP_BAIRRO_3502408_CONJUNTO_HABITACIONAL_JOAO_MINGRONI,https://cepbrasil.com/sp/anhumas,200,none
@@ -18341,6 +18385,38 @@ municipalityCode,municipality,uf,cnesUnits,postalNeighborhoodCount,postalName,po
 3514957,Embaúba,SP,6,6,Conjunto Habitacional Edgar Alexandre,CEP_BAIRRO_3514957_CONJUNTO_HABITACIONAL_EDGAR_ALEXANDRE,https://cepbrasil.com/sp/embauba,200,none
 3514957,Embaúba,SP,6,6,Conjunto Habitacional Engenheiro Lourival Botos,CEP_BAIRRO_3514957_CONJUNTO_HABITACIONAL_ENGENHEIRO_LOURIVAL_BOTOS,https://cepbrasil.com/sp/embauba,200,none
 3514957,Embaúba,SP,6,6,Conjunto Habitacional Prefeito Jesus Natalino Peres,CEP_BAIRRO_3514957_CONJUNTO_HABITACIONAL_PREFEITO_JESUS_NATALINO_PERES,https://cepbrasil.com/sp/embauba,200,none
+3515202,Estrela d'Oeste,SP,44,33,Área Rural de Estrela D'Oeste,CEP_BAIRRO_3515202_AREA_RURAL_DE_ESTRELA_D_OESTE,https://cepbrasil.com/sp/estrela-doeste,200,none
+3515202,Estrela d'Oeste,SP,44,33,Centro,CEP_BAIRRO_3515202_CENTRO,https://cepbrasil.com/sp/estrela-doeste,200,none
+3515202,Estrela d'Oeste,SP,44,33,Conjunto Habitacional Ângelo Parminondi,CEP_BAIRRO_3515202_CONJUNTO_HABITACIONAL_ANGELO_PARMINONDI,https://cepbrasil.com/sp/estrela-doeste,200,none
+3515202,Estrela d'Oeste,SP,44,33,Conjunto Habitacional Doutor Gilmar Alves Ferreira,CEP_BAIRRO_3515202_CONJUNTO_HABITACIONAL_DOUTOR_GILMAR_ALVES_FERREIRA,https://cepbrasil.com/sp/estrela-doeste,200,none
+3515202,Estrela d'Oeste,SP,44,33,Conjunto Habitacional Romildo Zoccal,CEP_BAIRRO_3515202_CONJUNTO_HABITACIONAL_ROMILDO_ZOCCAL,https://cepbrasil.com/sp/estrela-doeste,200,none
+3515202,Estrela d'Oeste,SP,44,33,Di Senzi,CEP_BAIRRO_3515202_DI_SENZI,https://cepbrasil.com/sp/estrela-doeste,200,none
+3515202,Estrela d'Oeste,SP,44,33,Distrito Industrial,CEP_BAIRRO_3515202_DISTRITO_INDUSTRIAL,https://cepbrasil.com/sp/estrela-doeste,200,none
+3515202,Estrela d'Oeste,SP,44,33,Distrito Industrial Paulo Afonso de Almeida Pena,CEP_BAIRRO_3515202_DISTRITO_INDUSTRIAL_PAULO_AFONSO_DE_ALMEIDA_PENA,https://cepbrasil.com/sp/estrela-doeste,200,none
+3515202,Estrela d'Oeste,SP,44,33,Distrito Industrial/Comercial Estrela d'Oeste II Prefeito José Martins,CEP_BAIRRO_3515202_DISTRITO_INDUSTRIAL_COMERCIAL_ESTRELA_D_OESTE_II_PREFEITO_JOSE_MARTINS,https://cepbrasil.com/sp/estrela-doeste,200,none
+3515202,Estrela d'Oeste,SP,44,33,Doutor Custódio Rodrigues de Castro,CEP_BAIRRO_3515202_DOUTOR_CUSTODIO_RODRIGUES_DE_CASTRO,https://cepbrasil.com/sp/estrela-doeste,200,none
+3515202,Estrela d'Oeste,SP,44,33,EPLATZ,CEP_BAIRRO_3515202_EPLATZ,https://cepbrasil.com/sp/estrela-doeste,200,none
+3515202,Estrela d'Oeste,SP,44,33,Jardim Alvorada,CEP_BAIRRO_3515202_JARDIM_ALVORADA,https://cepbrasil.com/sp/estrela-doeste,200,none
+3515202,Estrela d'Oeste,SP,44,33,Jardim Estrela,CEP_BAIRRO_3515202_JARDIM_ESTRELA,https://cepbrasil.com/sp/estrela-doeste,200,none
+3515202,Estrela d'Oeste,SP,44,33,Jardim Estrela de Ouro,CEP_BAIRRO_3515202_JARDIM_ESTRELA_DE_OURO,https://cepbrasil.com/sp/estrela-doeste,200,none
+3515202,Estrela d'Oeste,SP,44,33,Jardim Euclides Maraia,CEP_BAIRRO_3515202_JARDIM_EUCLIDES_MARAIA,https://cepbrasil.com/sp/estrela-doeste,200,none
+3515202,Estrela d'Oeste,SP,44,33,Jardim Luiz,CEP_BAIRRO_3515202_JARDIM_LUIZ,https://cepbrasil.com/sp/estrela-doeste,200,none
+3515202,Estrela d'Oeste,SP,44,33,Jardim Primavera,CEP_BAIRRO_3515202_JARDIM_PRIMAVERA,https://cepbrasil.com/sp/estrela-doeste,200,none
+3515202,Estrela d'Oeste,SP,44,33,Jardim Santos Reis,CEP_BAIRRO_3515202_JARDIM_SANTOS_REIS,https://cepbrasil.com/sp/estrela-doeste,200,none
+3515202,Estrela d'Oeste,SP,44,33,Jardim São Jorge,CEP_BAIRRO_3515202_JARDIM_SAO_JORGE,https://cepbrasil.com/sp/estrela-doeste,200,none
+3515202,Estrela d'Oeste,SP,44,33,Jardim São José,CEP_BAIRRO_3515202_JARDIM_SAO_JOSE,https://cepbrasil.com/sp/estrela-doeste,200,none
+3515202,Estrela d'Oeste,SP,44,33,Jardim São Luis,CEP_BAIRRO_3515202_JARDIM_SAO_LUIS,https://cepbrasil.com/sp/estrela-doeste,200,none
+3515202,Estrela d'Oeste,SP,44,33,Jardim São Paulo,CEP_BAIRRO_3515202_JARDIM_SAO_PAULO,https://cepbrasil.com/sp/estrela-doeste,200,none
+3515202,Estrela d'Oeste,SP,44,33,Jardim São Silvestre,CEP_BAIRRO_3515202_JARDIM_SAO_SILVESTRE,https://cepbrasil.com/sp/estrela-doeste,200,none
+3515202,Estrela d'Oeste,SP,44,33,Osquer Scapin,CEP_BAIRRO_3515202_OSQUER_SCAPIN,https://cepbrasil.com/sp/estrela-doeste,200,none
+3515202,Estrela d'Oeste,SP,44,33,Pedro Cândido Miranda,CEP_BAIRRO_3515202_PEDRO_CANDIDO_MIRANDA,https://cepbrasil.com/sp/estrela-doeste,200,none
+3515202,Estrela d'Oeste,SP,44,33,Residencial Boa Ideia,CEP_BAIRRO_3515202_RESIDENCIAL_BOA_IDEIA,https://cepbrasil.com/sp/estrela-doeste,200,none
+3515202,Estrela d'Oeste,SP,44,33,Residencial Jardim São Pedro,CEP_BAIRRO_3515202_RESIDENCIAL_JARDIM_SAO_PEDRO,https://cepbrasil.com/sp/estrela-doeste,200,none
+3515202,Estrela d'Oeste,SP,44,33,Residencial Magôlo,CEP_BAIRRO_3515202_RESIDENCIAL_MAGOLO,https://cepbrasil.com/sp/estrela-doeste,200,none
+3515202,Estrela d'Oeste,SP,44,33,Residencial Vale do Sol,CEP_BAIRRO_3515202_RESIDENCIAL_VALE_DO_SOL,https://cepbrasil.com/sp/estrela-doeste,200,none
+3515202,Estrela d'Oeste,SP,44,33,Vereador Júlio André,CEP_BAIRRO_3515202_VEREADOR_JULIO_ANDRE,https://cepbrasil.com/sp/estrela-doeste,200,none
+3515202,Estrela d'Oeste,SP,44,33,Vila Santa Clara,CEP_BAIRRO_3515202_VILA_SANTA_CLARA,https://cepbrasil.com/sp/estrela-doeste,200,none
+3515202,Estrela d'Oeste,SP,44,33,Vila Santa Terezinha,CEP_BAIRRO_3515202_VILA_SANTA_TEREZINHA,https://cepbrasil.com/sp/estrela-doeste,200,none
 3515103,Embu-Guaçu,SP,62,53,Área Rural de Embu-Guaçu,CEP_BAIRRO_3515103_AREA_RURAL_DE_EMBU_GUACU,https://cepbrasil.com/sp/embu-guacu,200,none
 3515103,Embu-Guaçu,SP,62,53,Boa Vista,CEP_BAIRRO_3515103_BOA_VISTA,https://cepbrasil.com/sp/embu-guacu,200,none
 3515103,Embu-Guaçu,SP,62,53,Bonanza,CEP_BAIRRO_3515103_BONANZA,https://cepbrasil.com/sp/embu-guacu,200,none
@@ -19693,6 +19769,11 @@ municipalityCode,municipality,uf,cnesUnits,postalNeighborhoodCount,postalName,po
 3517000,Getulina,SP,22,34,Vila Falqueiro,CEP_BAIRRO_3517000_VILA_FALQUEIRO,https://cepbrasil.com/sp/getulina,200,none
 3517000,Getulina,SP,22,34,Vila Nakamura,CEP_BAIRRO_3517000_VILA_NAKAMURA,https://cepbrasil.com/sp/getulina,200,none
 3517000,Getulina,SP,22,34,Vila Vivan,CEP_BAIRRO_3517000_VILA_VIVAN,https://cepbrasil.com/sp/getulina,200,none
+3518008,Guarani d'Oeste,SP,5,6,Área Rural de Guarani D'Oeste,CEP_BAIRRO_3518008_AREA_RURAL_DE_GUARANI_D_OESTE,https://cepbrasil.com/sp/guarani-doeste,200,none
+3518008,Guarani d'Oeste,SP,5,6,Centro,CEP_BAIRRO_3518008_CENTRO,https://cepbrasil.com/sp/guarani-doeste,200,none
+3518008,Guarani d'Oeste,SP,5,6,Conjunto Habitacional Sonho Meu,CEP_BAIRRO_3518008_CONJUNTO_HABITACIONAL_SONHO_MEU,https://cepbrasil.com/sp/guarani-doeste,200,none
+3518008,Guarani d'Oeste,SP,5,6,Jardim das Flores,CEP_BAIRRO_3518008_JARDIM_DAS_FLORES,https://cepbrasil.com/sp/guarani-doeste,200,none
+3518008,Guarani d'Oeste,SP,5,6,Jardim Progresso,CEP_BAIRRO_3518008_JARDIM_PROGRESSO,https://cepbrasil.com/sp/guarani-doeste,200,none
 3517406,Guaíra,SP,149,97,Aniceto Carlos Nogueira,CEP_BAIRRO_3517406_ANICETO_CARLOS_NOGUEIRA,https://cepbrasil.com/sp/guaira,200,none
 3517406,Guaíra,SP,149,97,Área Rural de Guaíra,CEP_BAIRRO_3517406_AREA_RURAL_DE_GUAIRA,https://cepbrasil.com/sp/guaira,200,none
 3517406,Guaíra,SP,149,97,Associação Nipo Brasileira,CEP_BAIRRO_3517406_ASSOCIACAO_NIPO_BRASILEIRA,https://cepbrasil.com/sp/guaira,200,none
@@ -27022,6 +27103,32 @@ municipalityCode,municipality,uf,cnesUnits,postalNeighborhoodCount,postalName,po
 3534609,Osvaldo Cruz,SP,144,81,Vila Santa Helena,CEP_BAIRRO_3534609_VILA_SANTA_HELENA,https://cepbrasil.com/sp/osvaldo-cruz,200,none
 3534609,Osvaldo Cruz,SP,144,81,Vila São Jorge,CEP_BAIRRO_3534609_VILA_SAO_JORGE,https://cepbrasil.com/sp/osvaldo-cruz,200,none
 3534609,Osvaldo Cruz,SP,144,81,Vila São Luis,CEP_BAIRRO_3534609_VILA_SAO_LUIS,https://cepbrasil.com/sp/osvaldo-cruz,200,none
+3535200,Palmeira d'Oeste,SP,29,27,Área Rural de Dalas,CEP_BAIRRO_3535200_AREA_RURAL_DE_DALAS,https://cepbrasil.com/sp/palmeira-doeste,200,none
+3535200,Palmeira d'Oeste,SP,29,27,Área Rural de Palmeira D'Oeste,CEP_BAIRRO_3535200_AREA_RURAL_DE_PALMEIRA_D_OESTE,https://cepbrasil.com/sp/palmeira-doeste,200,none
+3535200,Palmeira d'Oeste,SP,29,27,Centro,CEP_BAIRRO_3535200_CENTRO,https://cepbrasil.com/sp/palmeira-doeste,200,none
+3535200,Palmeira d'Oeste,SP,29,27,Centro (Dalas),CEP_BAIRRO_3535200_CENTRO_DALAS,https://cepbrasil.com/sp/palmeira-doeste,200,none
+3535200,Palmeira d'Oeste,SP,29,27,COHAB João Antonio Ribeiro,CEP_BAIRRO_3535200_COHAB_JOAO_ANTONIO_RIBEIRO,https://cepbrasil.com/sp/palmeira-doeste,200,none
+3535200,Palmeira d'Oeste,SP,29,27,COHAB João José Dias,CEP_BAIRRO_3535200_COHAB_JOAO_JOSE_DIAS,https://cepbrasil.com/sp/palmeira-doeste,200,none
+3535200,Palmeira d'Oeste,SP,29,27,COHAB José Antônio Sparapani,CEP_BAIRRO_3535200_COHAB_JOSE_ANTONIO_SPARAPANI,https://cepbrasil.com/sp/palmeira-doeste,200,none
+3535200,Palmeira d'Oeste,SP,29,27,COHAB José Pedro Pereira,CEP_BAIRRO_3535200_COHAB_JOSE_PEDRO_PEREIRA,https://cepbrasil.com/sp/palmeira-doeste,200,none
+3535200,Palmeira d'Oeste,SP,29,27,COHAB Limentino Caldeira Brazão,CEP_BAIRRO_3535200_COHAB_LIMENTINO_CALDEIRA_BRAZAO,https://cepbrasil.com/sp/palmeira-doeste,200,none
+3535200,Palmeira d'Oeste,SP,29,27,COHAB Luiz Palata,CEP_BAIRRO_3535200_COHAB_LUIZ_PALATA,https://cepbrasil.com/sp/palmeira-doeste,200,none
+3535200,Palmeira d'Oeste,SP,29,27,COHAB Remidio Galbiati,CEP_BAIRRO_3535200_COHAB_REMIDIO_GALBIATI,https://cepbrasil.com/sp/palmeira-doeste,200,none
+3535200,Palmeira d'Oeste,SP,29,27,COHAB Roberto Arantes Marques,CEP_BAIRRO_3535200_COHAB_ROBERTO_ARANTES_MARQUES,https://cepbrasil.com/sp/palmeira-doeste,200,none
+3535200,Palmeira d'Oeste,SP,29,27,Dalas,CEP_BAIRRO_3535200_DALAS,https://cepbrasil.com/sp/palmeira-doeste,200,none
+3535200,Palmeira d'Oeste,SP,29,27,Jardim Alto das Palmeiras,CEP_BAIRRO_3535200_JARDIM_ALTO_DAS_PALMEIRAS,https://cepbrasil.com/sp/palmeira-doeste,200,none
+3535200,Palmeira d'Oeste,SP,29,27,Jardim do Bosque,CEP_BAIRRO_3535200_JARDIM_DO_BOSQUE,https://cepbrasil.com/sp/palmeira-doeste,200,none
+3535200,Palmeira d'Oeste,SP,29,27,Jardim Primavera,CEP_BAIRRO_3535200_JARDIM_PRIMAVERA,https://cepbrasil.com/sp/palmeira-doeste,200,none
+3535200,Palmeira d'Oeste,SP,29,27,Jardim São Pedro,CEP_BAIRRO_3535200_JARDIM_SAO_PEDRO,https://cepbrasil.com/sp/palmeira-doeste,200,none
+3535200,Palmeira d'Oeste,SP,29,27,Loteamento Boa Esperança,CEP_BAIRRO_3535200_LOTEAMENTO_BOA_ESPERANCA,https://cepbrasil.com/sp/palmeira-doeste,200,none
+3535200,Palmeira d'Oeste,SP,29,27,Loteamento Industrial,CEP_BAIRRO_3535200_LOTEAMENTO_INDUSTRIAL,https://cepbrasil.com/sp/palmeira-doeste,200,none
+3535200,Palmeira d'Oeste,SP,29,27,Loteamento Residencial Sabião,CEP_BAIRRO_3535200_LOTEAMENTO_RESIDENCIAL_SABIAO,https://cepbrasil.com/sp/palmeira-doeste,200,none
+3535200,Palmeira d'Oeste,SP,29,27,Parque dos Limoeiros,CEP_BAIRRO_3535200_PARQUE_DOS_LIMOEIROS,https://cepbrasil.com/sp/palmeira-doeste,200,none
+3535200,Palmeira d'Oeste,SP,29,27,Pôr do Sol,CEP_BAIRRO_3535200_POR_DO_SOL,https://cepbrasil.com/sp/palmeira-doeste,200,none
+3535200,Palmeira d'Oeste,SP,29,27,Primavera II,CEP_BAIRRO_3535200_PRIMAVERA_II,https://cepbrasil.com/sp/palmeira-doeste,200,none
+3535200,Palmeira d'Oeste,SP,29,27,Residencial das Araucárias,CEP_BAIRRO_3535200_RESIDENCIAL_DAS_ARAUCARIAS,https://cepbrasil.com/sp/palmeira-doeste,200,none
+3535200,Palmeira d'Oeste,SP,29,27,Residencial Segobia,CEP_BAIRRO_3535200_RESIDENCIAL_SEGOBIA,https://cepbrasil.com/sp/palmeira-doeste,200,none
+3535200,Palmeira d'Oeste,SP,29,27,Sabion II,CEP_BAIRRO_3535200_SABION_II,https://cepbrasil.com/sp/palmeira-doeste,200,none
 3535507,Paraguaçu Paulista,SP,196,45,Área Rural de Conceição de Monte Alegre,CEP_BAIRRO_3535507_AREA_RURAL_DE_CONCEICAO_DE_MONTE_ALEGRE,https://cepbrasil.com/sp/paraguacu-paulista,200,none
 3535507,Paraguaçu Paulista,SP,196,45,Área Rural de Paraguaçu Paulista,CEP_BAIRRO_3535507_AREA_RURAL_DE_PARAGUACU_PAULISTA,https://cepbrasil.com/sp/paraguacu-paulista,200,none
 3535507,Paraguaçu Paulista,SP,196,45,Área Rural de Roseta,CEP_BAIRRO_3535507_AREA_RURAL_DE_ROSETA,https://cepbrasil.com/sp/paraguacu-paulista,200,none
@@ -30537,6 +30644,206 @@ municipalityCode,municipality,uf,cnesUnits,postalNeighborhoodCount,postalName,po
 3545407,Salto Grande,SP,12,17,Vila São João,CEP_BAIRRO_3545407_VILA_SAO_JOAO,https://cepbrasil.com/sp/salto-grande,200,none
 3545407,Salto Grande,SP,12,17,Vila São Paulo,CEP_BAIRRO_3545407_VILA_SAO_PAULO,https://cepbrasil.com/sp/salto-grande,200,none
 3545407,Salto Grande,SP,12,17,Vila São Sebastião,CEP_BAIRRO_3545407_VILA_SAO_SEBASTIAO,https://cepbrasil.com/sp/salto-grande,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Acampamento Presbiteriano,CEP_BAIRRO_3545803_ACAMPAMENTO_PRESBITERIANO,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Área Rural de Santa Bárbara D'Oeste,CEP_BAIRRO_3545803_AREA_RURAL_DE_SANTA_BARBARA_D_OESTE,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Beira Rio,CEP_BAIRRO_3545803_BEIRA_RIO,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Caiubi,CEP_BAIRRO_3545803_CAIUBI,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Centro,CEP_BAIRRO_3545803_CENTRO,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Centro Industrial Mamoré,CEP_BAIRRO_3545803_CENTRO_INDUSTRIAL_MAMORE,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Chácara Pedroso,CEP_BAIRRO_3545803_CHACARA_PEDROSO,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Chácara São Carlos,CEP_BAIRRO_3545803_CHACARA_SAO_CARLOS,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Chácara São Lucas,CEP_BAIRRO_3545803_CHACARA_SAO_LUCAS,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Chácara São Sebastião,CEP_BAIRRO_3545803_CHACARA_SAO_SEBASTIAO,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Chácara Taver,CEP_BAIRRO_3545803_CHACARA_TAVER,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Chácaras de Recreio Cruzeiro do Sul,CEP_BAIRRO_3545803_CHACARAS_DE_RECREIO_CRUZEIRO_DO_SUL,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Chácaras de Recreio Paraíso,CEP_BAIRRO_3545803_CHACARAS_DE_RECREIO_PARAISO,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Chácaras de Recreio Recanto das Andorinhas,CEP_BAIRRO_3545803_CHACARAS_DE_RECREIO_RECANTO_DAS_ANDORINHAS,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Chácaras Pinheirinho,CEP_BAIRRO_3545803_CHACARAS_PINHEIRINHO,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Cidade Industrial,CEP_BAIRRO_3545803_CIDADE_INDUSTRIAL,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Cidade Nova,CEP_BAIRRO_3545803_CIDADE_NOVA,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Cidade Nova II,CEP_BAIRRO_3545803_CIDADE_NOVA_II,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Cillo,CEP_BAIRRO_3545803_CILLO,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,CINTEC - Centro Industrial e Tecnológico de Santa Bárbara D'Oeste,CEP_BAIRRO_3545803_CINTEC_CENTRO_INDUSTRIAL_E_TECNOLOGICO_DE_SANTA_BARBARA_D_OESTE,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Colina de Santa Bárbara,CEP_BAIRRO_3545803_COLINA_DE_SANTA_BARBARA,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Conjunto Habitacional 31 de Março,CEP_BAIRRO_3545803_CONJUNTO_HABITACIONAL_31_DE_MARCO,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Conjunto Habitacional dos Trabalhadores,CEP_BAIRRO_3545803_CONJUNTO_HABITACIONAL_DOS_TRABALHADORES,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Conjunto Habitacional Prefeito Ângelo Giubbina,CEP_BAIRRO_3545803_CONJUNTO_HABITACIONAL_PREFEITO_ANGELO_GIUBBINA,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Conjunto Habitacional Roberto Romano,CEP_BAIRRO_3545803_CONJUNTO_HABITACIONAL_ROBERTO_ROMANO,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Conjunto Habitacional Santa Terezinha,CEP_BAIRRO_3545803_CONJUNTO_HABITACIONAL_SANTA_TEREZINHA,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Distrito Industrial,CEP_BAIRRO_3545803_DISTRITO_INDUSTRIAL,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Distrito Industrial Norte,CEP_BAIRRO_3545803_DISTRITO_INDUSTRIAL_NORTE,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Glebas Califórnia,CEP_BAIRRO_3545803_GLEBAS_CALIFORNIA,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,II Distrito Industrial,CEP_BAIRRO_3545803_II_DISTRITO_INDUSTRIAL,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim Adélia,CEP_BAIRRO_3545803_JARDIM_ADELIA,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim Adélia II,CEP_BAIRRO_3545803_JARDIM_ADELIA_II,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim Alfa,CEP_BAIRRO_3545803_JARDIM_ALFA,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim Alphacenter,CEP_BAIRRO_3545803_JARDIM_ALPHACENTER,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim Amélia,CEP_BAIRRO_3545803_JARDIM_AMELIA,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim América,CEP_BAIRRO_3545803_JARDIM_AMERICA,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim Aranha Oliveira,CEP_BAIRRO_3545803_JARDIM_ARANHA_OLIVEIRA,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim Augusto Cavalheiro,CEP_BAIRRO_3545803_JARDIM_AUGUSTO_CAVALHEIRO,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim Batagin,CEP_BAIRRO_3545803_JARDIM_BATAGIN,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim Bela Vista,CEP_BAIRRO_3545803_JARDIM_BELA_VISTA,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim Belo Horizonte,CEP_BAIRRO_3545803_JARDIM_BELO_HORIZONTE,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim Belo Horizonte II,CEP_BAIRRO_3545803_JARDIM_BELO_HORIZONTE_II,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim Bernardo,CEP_BAIRRO_3545803_JARDIM_BERNARDO,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim Boa Esperança,CEP_BAIRRO_3545803_JARDIM_BOA_ESPERANCA,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim Boa Vista,CEP_BAIRRO_3545803_JARDIM_BOA_VISTA,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim Brasília,CEP_BAIRRO_3545803_JARDIM_BRASILIA,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim Cândido Bertini,CEP_BAIRRO_3545803_JARDIM_CANDIDO_BERTINI,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim Cândido Bertini II,CEP_BAIRRO_3545803_JARDIM_CANDIDO_BERTINI_II,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim Carolina,CEP_BAIRRO_3545803_JARDIM_CAROLINA,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim Conceição,CEP_BAIRRO_3545803_JARDIM_CONCEICAO,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim das Flores,CEP_BAIRRO_3545803_JARDIM_DAS_FLORES,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim das Laranjeiras,CEP_BAIRRO_3545803_JARDIM_DAS_LARANJEIRAS,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim das Orquídeas,CEP_BAIRRO_3545803_JARDIM_DAS_ORQUIDEAS,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim das Palmeiras,CEP_BAIRRO_3545803_JARDIM_DAS_PALMEIRAS,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim das Turmalinas,CEP_BAIRRO_3545803_JARDIM_DAS_TURMALINAS,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim do Barão,CEP_BAIRRO_3545803_JARDIM_DO_BARAO,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim Dona Regina,CEP_BAIRRO_3545803_JARDIM_DONA_REGINA,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim dos Cedros,CEP_BAIRRO_3545803_JARDIM_DOS_CEDROS,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim dos Manacás,CEP_BAIRRO_3545803_JARDIM_DOS_MANACAS,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim dos Manacás II,CEP_BAIRRO_3545803_JARDIM_DOS_MANACAS_II,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim Dulce,CEP_BAIRRO_3545803_JARDIM_DULCE,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim Esmeralda,CEP_BAIRRO_3545803_JARDIM_ESMERALDA,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim Europa I,CEP_BAIRRO_3545803_JARDIM_EUROPA_I,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim Europa IV,CEP_BAIRRO_3545803_JARDIM_EUROPA_IV,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim Fernando Mollon,CEP_BAIRRO_3545803_JARDIM_FERNANDO_MOLLON,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim Firenze,CEP_BAIRRO_3545803_JARDIM_FIRENZE,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim Firenze II,CEP_BAIRRO_3545803_JARDIM_FIRENZE_II,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim Flamboyant,CEP_BAIRRO_3545803_JARDIM_FLAMBOYANT,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim Geriva,CEP_BAIRRO_3545803_JARDIM_GERIVA,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim Icaraí,CEP_BAIRRO_3545803_JARDIM_ICARAI,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim Industrial,CEP_BAIRRO_3545803_JARDIM_INDUSTRIAL,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim Itália,CEP_BAIRRO_3545803_JARDIM_ITALIA,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim Itamaraty,CEP_BAIRRO_3545803_JARDIM_ITAMARATY,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim Itapuã,CEP_BAIRRO_3545803_JARDIM_ITAPUA,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim Laudissi,CEP_BAIRRO_3545803_JARDIM_LAUDISSI,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim Miguel Cláudio Grego,CEP_BAIRRO_3545803_JARDIM_MIGUEL_CLAUDIO_GREGO,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim Mollon,CEP_BAIRRO_3545803_JARDIM_MOLLON,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim Monte Líbano,CEP_BAIRRO_3545803_JARDIM_MONTE_LIBANO,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim Nova Conquista,CEP_BAIRRO_3545803_JARDIM_NOVA_CONQUISTA,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim Panambi,CEP_BAIRRO_3545803_JARDIM_PANAMBI,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim Paraíso,CEP_BAIRRO_3545803_JARDIM_PARAISO,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim Paulista,CEP_BAIRRO_3545803_JARDIM_PAULISTA,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim Pérola,CEP_BAIRRO_3545803_JARDIM_PEROLA,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim Primavera,CEP_BAIRRO_3545803_JARDIM_PRIMAVERA,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim Residencial Mariana,CEP_BAIRRO_3545803_JARDIM_RESIDENCIAL_MARIANA,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim Rosemary,CEP_BAIRRO_3545803_JARDIM_ROSEMARY,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim San Marino,CEP_BAIRRO_3545803_JARDIM_SAN_MARINO,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim Sans,CEP_BAIRRO_3545803_JARDIM_SANS,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim Santa Alice,CEP_BAIRRO_3545803_JARDIM_SANTA_ALICE,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim Santa Cecília,CEP_BAIRRO_3545803_JARDIM_SANTA_CECILIA,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim Santa Fé,CEP_BAIRRO_3545803_JARDIM_SANTA_FE,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim Santa Luzia,CEP_BAIRRO_3545803_JARDIM_SANTA_LUZIA,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim Santa Rita de Cássia,CEP_BAIRRO_3545803_JARDIM_SANTA_RITA_DE_CASSIA,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim Santo Antônio,CEP_BAIRRO_3545803_JARDIM_SANTO_ANTONIO,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim São Camilo,CEP_BAIRRO_3545803_JARDIM_SAO_CAMILO,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim São Fernando,CEP_BAIRRO_3545803_JARDIM_SAO_FERNANDO,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim São Francisco,CEP_BAIRRO_3545803_JARDIM_SAO_FRANCISCO,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim São Luiz,CEP_BAIRRO_3545803_JARDIM_SAO_LUIZ,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim Sartori,CEP_BAIRRO_3545803_JARDIM_SARTORI,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim Souza Queiroz,CEP_BAIRRO_3545803_JARDIM_SOUZA_QUEIROZ,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim Vila Rica,CEP_BAIRRO_3545803_JARDIM_VILA_RICA,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim Vila Rica II,CEP_BAIRRO_3545803_JARDIM_VILA_RICA_II,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jardim Vista Alegre,CEP_BAIRRO_3545803_JARDIM_VISTA_ALEGRE,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Jóias de Santa Bárbara,CEP_BAIRRO_3545803_JOIAS_DE_SANTA_BARBARA,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Lagoa Seca,CEP_BAIRRO_3545803_LAGOA_SECA,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Linópolis 1ª Gleba,CEP_BAIRRO_3545803_LINOPOLIS_1A_GLEBA,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Loteamento Hélico,CEP_BAIRRO_3545803_LOTEAMENTO_HELICO,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Loteamento Industrial,CEP_BAIRRO_3545803_LOTEAMENTO_INDUSTRIAL,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Loteamento Santa Bárbara,CEP_BAIRRO_3545803_LOTEAMENTO_SANTA_BARBARA,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Parque Amarílis,CEP_BAIRRO_3545803_PARQUE_AMARILIS,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Parque das Nações,CEP_BAIRRO_3545803_PARQUE_DAS_NACOES,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Parque Eldorado,CEP_BAIRRO_3545803_PARQUE_ELDORADO,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Parque Industrial Bandeirantes,CEP_BAIRRO_3545803_PARQUE_INDUSTRIAL_BANDEIRANTES,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Parque Industrial de Cillo,CEP_BAIRRO_3545803_PARQUE_INDUSTRIAL_DE_CILLO,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Parque Industrial Francisco de Cillo,CEP_BAIRRO_3545803_PARQUE_INDUSTRIAL_FRANCISCO_DE_CILLO,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Parque Industrial Solaris,CEP_BAIRRO_3545803_PARQUE_INDUSTRIAL_SOLARIS,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Parque Olaria,CEP_BAIRRO_3545803_PARQUE_OLARIA,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Parque Planalto,CEP_BAIRRO_3545803_PARQUE_PLANALTO,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Parque Planalto II,CEP_BAIRRO_3545803_PARQUE_PLANALTO_II,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Parque Residencial do Lago,CEP_BAIRRO_3545803_PARQUE_RESIDENCIAL_DO_LAGO,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Parque Residencial Frezzarin,CEP_BAIRRO_3545803_PARQUE_RESIDENCIAL_FREZZARIN,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Parque Residencial Jacyra 3ª Parte,CEP_BAIRRO_3545803_PARQUE_RESIDENCIAL_JACYRA_3A_PARTE,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Parque Residencial Rochele,CEP_BAIRRO_3545803_PARQUE_RESIDENCIAL_ROCHELE,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Parque Residencial Rochele II,CEP_BAIRRO_3545803_PARQUE_RESIDENCIAL_ROCHELE_II,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Parque Residencial Santa Inês,CEP_BAIRRO_3545803_PARQUE_RESIDENCIAL_SANTA_INES,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Parque Residencial São Joaquim,CEP_BAIRRO_3545803_PARQUE_RESIDENCIAL_SAO_JOAQUIM,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Parque Residencial São Joaquim II,CEP_BAIRRO_3545803_PARQUE_RESIDENCIAL_SAO_JOAQUIM_II,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Planalto do Sol,CEP_BAIRRO_3545803_PLANALTO_DO_SOL,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Planalto do Sol II,CEP_BAIRRO_3545803_PLANALTO_DO_SOL_II,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Polo Industrial,CEP_BAIRRO_3545803_POLO_INDUSTRIAL,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Recreio Alvorada,CEP_BAIRRO_3545803_RECREIO_ALVORADA,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Reserva Centenária,CEP_BAIRRO_3545803_RESERVA_CENTENARIA,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Residencial Bom Jardim,CEP_BAIRRO_3545803_RESIDENCIAL_BOM_JARDIM,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Residencial Bosque das Árvores,CEP_BAIRRO_3545803_RESIDENCIAL_BOSQUE_DAS_ARVORES,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Residencial Cachoeira,CEP_BAIRRO_3545803_RESIDENCIAL_CACHOEIRA,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Residencial Dona Margarida,CEP_BAIRRO_3545803_RESIDENCIAL_DONA_MARGARIDA,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Residencial Furlan,CEP_BAIRRO_3545803_RESIDENCIAL_FURLAN,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Residencial Mac Knight,CEP_BAIRRO_3545803_RESIDENCIAL_MAC_KNIGHT,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Residencial Parque Santa Rosa I,CEP_BAIRRO_3545803_RESIDENCIAL_PARQUE_SANTA_ROSA_I,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Residencial Parque Santa Rosa II,CEP_BAIRRO_3545803_RESIDENCIAL_PARQUE_SANTA_ROSA_II,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Residencial Parque Zabani,CEP_BAIRRO_3545803_RESIDENCIAL_PARQUE_ZABANI,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Residencial Terras di Siena,CEP_BAIRRO_3545803_RESIDENCIAL_TERRAS_DI_SIENA,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Residencial Vila Romi,CEP_BAIRRO_3545803_RESIDENCIAL_VILA_ROMI,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Santo Antônio do Sapezeiro,CEP_BAIRRO_3545803_SANTO_ANTONIO_DO_SAPEZEIRO,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Terra Santa,CEP_BAIRRO_3545803_TERRA_SANTA,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Terramérica SB,CEP_BAIRRO_3545803_TERRAMERICA_SB,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Terras de Cillo,CEP_BAIRRO_3545803_TERRAS_DE_CILLO,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Terras de Santa Bárbara,CEP_BAIRRO_3545803_TERRAS_DE_SANTA_BARBARA,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Terrazul SM,CEP_BAIRRO_3545803_TERRAZUL_SM,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Vale das Cigarras,CEP_BAIRRO_3545803_VALE_DAS_CIGARRAS,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Vila Alves,CEP_BAIRRO_3545803_VILA_ALVES,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Vila Aparecida,CEP_BAIRRO_3545803_VILA_APARECIDA,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Vila Balan,CEP_BAIRRO_3545803_VILA_BALAN,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Vila Bética,CEP_BAIRRO_3545803_VILA_BETICA,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Vila Boldrin,CEP_BAIRRO_3545803_VILA_BOLDRIN,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Vila Borges,CEP_BAIRRO_3545803_VILA_BORGES,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Vila Bortoletto,CEP_BAIRRO_3545803_VILA_BORTOLETTO,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Vila Brasil,CEP_BAIRRO_3545803_VILA_BRASIL,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Vila Breda,CEP_BAIRRO_3545803_VILA_BREDA,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Vila Dainese,CEP_BAIRRO_3545803_VILA_DAINESE,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Vila Diva,CEP_BAIRRO_3545803_VILA_DIVA,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Vila Ferrarezi,CEP_BAIRRO_3545803_VILA_FERRAREZI,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Vila Garrido,CEP_BAIRRO_3545803_VILA_GARRIDO,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Vila Godoy,CEP_BAIRRO_3545803_VILA_GODOY,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Vila Grego,CEP_BAIRRO_3545803_VILA_GREGO,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Vila Grego II,CEP_BAIRRO_3545803_VILA_GREGO_II,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Vila Mac Knight,CEP_BAIRRO_3545803_VILA_MAC_KNIGHT,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Vila Maria,CEP_BAIRRO_3545803_VILA_MARIA,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Vila Mollon,CEP_BAIRRO_3545803_VILA_MOLLON,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Vila Mollon IV,CEP_BAIRRO_3545803_VILA_MOLLON_IV,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Vila Oliveira,CEP_BAIRRO_3545803_VILA_OLIVEIRA,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Vila Pacheco,CEP_BAIRRO_3545803_VILA_PACHECO,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Vila Pântano,CEP_BAIRRO_3545803_VILA_PANTANO,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Vila Pântano II,CEP_BAIRRO_3545803_VILA_PANTANO_II,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Vila Pântano III,CEP_BAIRRO_3545803_VILA_PANTANO_III,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Vila Pires,CEP_BAIRRO_3545803_VILA_PIRES,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Vila Romi,CEP_BAIRRO_3545803_VILA_ROMI,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Vila Santa Bárbara,CEP_BAIRRO_3545803_VILA_SANTA_BARBARA,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Vila Santa Cruz,CEP_BAIRRO_3545803_VILA_SANTA_CRUZ,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Vila Santana,CEP_BAIRRO_3545803_VILA_SANTANA,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Vila São José,CEP_BAIRRO_3545803_VILA_SAO_JOSE,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Vila Siqueira Campos,CEP_BAIRRO_3545803_VILA_SIQUEIRA_CAMPOS,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3545803,Santa Bárbara d'Oeste,SP,518,183,Vila Tereza,CEP_BAIRRO_3545803_VILA_TEREZA,https://cepbrasil.com/sp/santa-barbara-doeste,200,none
+3546108,Santa Clara d'Oeste,SP,5,18,Área Rural de Santa Clara D'Oeste,CEP_BAIRRO_3546108_AREA_RURAL_DE_SANTA_CLARA_D_OESTE,https://cepbrasil.com/sp/santa-clara-doeste,200,none
+3546108,Santa Clara d'Oeste,SP,5,18,Centro,CEP_BAIRRO_3546108_CENTRO,https://cepbrasil.com/sp/santa-clara-doeste,200,none
+3546108,Santa Clara d'Oeste,SP,5,18,Conjunto Habitacional José Amâncio da Conceição,CEP_BAIRRO_3546108_CONJUNTO_HABITACIONAL_JOSE_AMANCIO_DA_CONCEICAO,https://cepbrasil.com/sp/santa-clara-doeste,200,none
+3546108,Santa Clara d'Oeste,SP,5,18,Conjunto Santa Clara D'Oeste B,CEP_BAIRRO_3546108_CONJUNTO_SANTA_CLARA_D_OESTE_B,https://cepbrasil.com/sp/santa-clara-doeste,200,none
+3546108,Santa Clara d'Oeste,SP,5,18,Distrito Industrial II,CEP_BAIRRO_3546108_DISTRITO_INDUSTRIAL_II,https://cepbrasil.com/sp/santa-clara-doeste,200,none
+3546108,Santa Clara d'Oeste,SP,5,18,Jardim Amália,CEP_BAIRRO_3546108_JARDIM_AMALIA,https://cepbrasil.com/sp/santa-clara-doeste,200,none
+3546108,Santa Clara d'Oeste,SP,5,18,Jardim Planalto,CEP_BAIRRO_3546108_JARDIM_PLANALTO,https://cepbrasil.com/sp/santa-clara-doeste,200,none
+3546108,Santa Clara d'Oeste,SP,5,18,Nossa Senhora da Aparecida,CEP_BAIRRO_3546108_NOSSA_SENHORA_DA_APARECIDA,https://cepbrasil.com/sp/santa-clara-doeste,200,none
+3546108,Santa Clara d'Oeste,SP,5,18,Residencial Aconchego,CEP_BAIRRO_3546108_RESIDENCIAL_ACONCHEGO,https://cepbrasil.com/sp/santa-clara-doeste,200,none
+3546108,Santa Clara d'Oeste,SP,5,18,Residencial Adusco,CEP_BAIRRO_3546108_RESIDENCIAL_ADUSCO,https://cepbrasil.com/sp/santa-clara-doeste,200,none
+3546108,Santa Clara d'Oeste,SP,5,18,Residencial Primavera,CEP_BAIRRO_3546108_RESIDENCIAL_PRIMAVERA,https://cepbrasil.com/sp/santa-clara-doeste,200,none
+3546108,Santa Clara d'Oeste,SP,5,18,Residencial Santo Antônio,CEP_BAIRRO_3546108_RESIDENCIAL_SANTO_ANTONIO,https://cepbrasil.com/sp/santa-clara-doeste,200,none
+3546108,Santa Clara d'Oeste,SP,5,18,Residencial Sonho Meu,CEP_BAIRRO_3546108_RESIDENCIAL_SONHO_MEU,https://cepbrasil.com/sp/santa-clara-doeste,200,none
+3546108,Santa Clara d'Oeste,SP,5,18,Residencial Vila Belmiro,CEP_BAIRRO_3546108_RESIDENCIAL_VILA_BELMIRO,https://cepbrasil.com/sp/santa-clara-doeste,200,none
+3546108,Santa Clara d'Oeste,SP,5,18,Residencial Vila Rica,CEP_BAIRRO_3546108_RESIDENCIAL_VILA_RICA,https://cepbrasil.com/sp/santa-clara-doeste,200,none
+3546108,Santa Clara d'Oeste,SP,5,18,Vila Fátima,CEP_BAIRRO_3546108_VILA_FATIMA,https://cepbrasil.com/sp/santa-clara-doeste,200,none
+3546108,Santa Clara d'Oeste,SP,5,18,Vila São João,CEP_BAIRRO_3546108_VILA_SAO_JOAO,https://cepbrasil.com/sp/santa-clara-doeste,200,none
 3545605,Santa Adélia,SP,66,48,Área Rural de Botelho,CEP_BAIRRO_3545605_AREA_RURAL_DE_BOTELHO,https://cepbrasil.com/sp/santa-adelia,200,none
 3545605,Santa Adélia,SP,66,48,Área Rural de Santa Adélia,CEP_BAIRRO_3545605_AREA_RURAL_DE_SANTA_ADELIA,https://cepbrasil.com/sp/santa-adelia,200,none
 3545605,Santa Adélia,SP,66,48,Área Rural de Santa Rosa,CEP_BAIRRO_3545605_AREA_RURAL_DE_SANTA_ROSA,https://cepbrasil.com/sp/santa-adelia,200,none
@@ -31280,6 +31587,29 @@ municipalityCode,municipality,uf,cnesUnits,postalNeighborhoodCount,postalName,po
 3548054,Santo Antônio do Aracanguá,SP,5,23,Major Prado,CEP_BAIRRO_3548054_MAJOR_PRADO,https://cepbrasil.com/sp/santo-antonio-do-aracangua,200,none
 3548054,Santo Antônio do Aracanguá,SP,5,23,Vicentinópolis,CEP_BAIRRO_3548054_VICENTINOPOLIS,https://cepbrasil.com/sp/santo-antonio-do-aracangua,200,none
 3548054,Santo Antônio do Aracanguá,SP,5,23,Vista Alegre,CEP_BAIRRO_3548054_VISTA_ALEGRE,https://cepbrasil.com/sp/santo-antonio-do-aracangua,200,none
+3547403,Santa Rita d'Oeste,SP,4,24,Aparecida do Bonito,CEP_BAIRRO_3547403_APARECIDA_DO_BONITO,https://cepbrasil.com/sp/santa-rita-doeste,200,none
+3547403,Santa Rita d'Oeste,SP,4,24,Área Rural de Aparecida do Bonito,CEP_BAIRRO_3547403_AREA_RURAL_DE_APARECIDA_DO_BONITO,https://cepbrasil.com/sp/santa-rita-doeste,200,none
+3547403,Santa Rita d'Oeste,SP,4,24,Área Rural de Santa Rita D'Oeste,CEP_BAIRRO_3547403_AREA_RURAL_DE_SANTA_RITA_D_OESTE,https://cepbrasil.com/sp/santa-rita-doeste,200,none
+3547403,Santa Rita d'Oeste,SP,4,24,Centro,CEP_BAIRRO_3547403_CENTRO,https://cepbrasil.com/sp/santa-rita-doeste,200,none
+3547403,Santa Rita d'Oeste,SP,4,24,Centro (Aparecida do Bonito),CEP_BAIRRO_3547403_CENTRO_APARECIDA_DO_BONITO,https://cepbrasil.com/sp/santa-rita-doeste,200,none
+3547403,Santa Rita d'Oeste,SP,4,24,Distrito Industrial I,CEP_BAIRRO_3547403_DISTRITO_INDUSTRIAL_I,https://cepbrasil.com/sp/santa-rita-doeste,200,none
+3547403,Santa Rita d'Oeste,SP,4,24,Jardim Clemente,CEP_BAIRRO_3547403_JARDIM_CLEMENTE,https://cepbrasil.com/sp/santa-rita-doeste,200,none
+3547403,Santa Rita d'Oeste,SP,4,24,Jardim das Oliveiras,CEP_BAIRRO_3547403_JARDIM_DAS_OLIVEIRAS,https://cepbrasil.com/sp/santa-rita-doeste,200,none
+3547403,Santa Rita d'Oeste,SP,4,24,Jardim Eldorado,CEP_BAIRRO_3547403_JARDIM_ELDORADO,https://cepbrasil.com/sp/santa-rita-doeste,200,none
+3547403,Santa Rita d'Oeste,SP,4,24,Jardim Paraíso,CEP_BAIRRO_3547403_JARDIM_PARAISO,https://cepbrasil.com/sp/santa-rita-doeste,200,none
+3547403,Santa Rita d'Oeste,SP,4,24,Jardim Planalto,CEP_BAIRRO_3547403_JARDIM_PLANALTO,https://cepbrasil.com/sp/santa-rita-doeste,200,none
+3547403,Santa Rita d'Oeste,SP,4,24,Parque das Flores,CEP_BAIRRO_3547403_PARQUE_DAS_FLORES,https://cepbrasil.com/sp/santa-rita-doeste,200,none
+3547403,Santa Rita d'Oeste,SP,4,24,Residencial Boa Vista,CEP_BAIRRO_3547403_RESIDENCIAL_BOA_VISTA,https://cepbrasil.com/sp/santa-rita-doeste,200,none
+3547403,Santa Rita d'Oeste,SP,4,24,Residencial Bom Sucesso,CEP_BAIRRO_3547403_RESIDENCIAL_BOM_SUCESSO,https://cepbrasil.com/sp/santa-rita-doeste,200,none
+3547403,Santa Rita d'Oeste,SP,4,24,Residencial Cidade Jardim,CEP_BAIRRO_3547403_RESIDENCIAL_CIDADE_JARDIM,https://cepbrasil.com/sp/santa-rita-doeste,200,none
+3547403,Santa Rita d'Oeste,SP,4,24,Residencial Jardim do Cedro,CEP_BAIRRO_3547403_RESIDENCIAL_JARDIM_DO_CEDRO,https://cepbrasil.com/sp/santa-rita-doeste,200,none
+3547403,Santa Rita d'Oeste,SP,4,24,Residencial Mirante,CEP_BAIRRO_3547403_RESIDENCIAL_MIRANTE,https://cepbrasil.com/sp/santa-rita-doeste,200,none
+3547403,Santa Rita d'Oeste,SP,4,24,Residencial São Clemente,CEP_BAIRRO_3547403_RESIDENCIAL_SAO_CLEMENTE,https://cepbrasil.com/sp/santa-rita-doeste,200,none
+3547403,Santa Rita d'Oeste,SP,4,24,Residencial São Francisco,CEP_BAIRRO_3547403_RESIDENCIAL_SAO_FRANCISCO,https://cepbrasil.com/sp/santa-rita-doeste,200,none
+3547403,Santa Rita d'Oeste,SP,4,24,Residencial São Luiz,CEP_BAIRRO_3547403_RESIDENCIAL_SAO_LUIZ,https://cepbrasil.com/sp/santa-rita-doeste,200,none
+3547403,Santa Rita d'Oeste,SP,4,24,Vila Cruzeiro,CEP_BAIRRO_3547403_VILA_CRUZEIRO,https://cepbrasil.com/sp/santa-rita-doeste,200,none
+3547403,Santa Rita d'Oeste,SP,4,24,Vila Luiz Zolin,CEP_BAIRRO_3547403_VILA_LUIZ_ZOLIN,https://cepbrasil.com/sp/santa-rita-doeste,200,none
+3547403,Santa Rita d'Oeste,SP,4,24,Vila São José,CEP_BAIRRO_3547403_VILA_SAO_JOSE,https://cepbrasil.com/sp/santa-rita-doeste,200,none
 3548401,Santópolis do Aguapeí,SP,7,5,Área Rural de Santópolis do Aguapeí,CEP_BAIRRO_3548401_AREA_RURAL_DE_SANTOPOLIS_DO_AGUAPEI,https://cepbrasil.com/sp/santopolis-do-aguapei,200,none
 3548401,Santópolis do Aguapeí,SP,7,5,Centro,CEP_BAIRRO_3548401_CENTRO,https://cepbrasil.com/sp/santopolis-do-aguapei,200,none
 3548401,Santópolis do Aguapeí,SP,7,5,Conjunto Habitacional Francisco Neto Correia,CEP_BAIRRO_3548401_CONJUNTO_HABITACIONAL_FRANCISCO_NETO_CORREIA,https://cepbrasil.com/sp/santopolis-do-aguapei,200,none
@@ -35084,6 +35414,8 @@ municipalityCode,municipality,uf,cnesUnits,postalNeighborhoodCount,postalName,po
 4106803,Cruz Machado,PR,36,4,Centro,CEP_BAIRRO_4106803_CENTRO,https://cepbrasil.com/pr/cruz-machado,200,none
 4106803,Cruz Machado,PR,36,4,Pinaré,CEP_BAIRRO_4106803_PINARE,https://cepbrasil.com/pr/cruz-machado,200,none
 4106803,Cruz Machado,PR,36,4,Santana,CEP_BAIRRO_4106803_SANTANA,https://cepbrasil.com/pr/cruz-machado,200,none
+4107157,Diamante D'Oeste,PR,17,2,Área Rural Diamante D'Oeste,CEP_BAIRRO_4107157_AREA_RURAL_DIAMANTE_D_OESTE,https://cepbrasil.com/pr/diamante-doeste,200,none
+4107157,Diamante D'Oeste,PR,17,2,Diamante D'Oeste,CEP_BAIRRO_4107157_DIAMANTE_D_OESTE,https://cepbrasil.com/pr/diamante-doeste,200,none
 4107306,Doutor Camargo,PR,24,2,Centro,CEP_BAIRRO_4107306_CENTRO,https://cepbrasil.com/pr/doutor-camargo,200,none
 4107405,Enéas Marques,PR,23,4,Centro,CEP_BAIRRO_4107405_CENTRO,https://cepbrasil.com/pr/eneas-marques,200,none
 4107405,Enéas Marques,PR,23,4,Pinhalzinho,CEP_BAIRRO_4107405_PINHALZINHO,https://cepbrasil.com/pr/eneas-marques,200,none
@@ -35436,6 +35768,9 @@ municipalityCode,municipality,uf,cnesUnits,postalNeighborhoodCount,postalName,po
 4110805,Iretama,PR,39,4,Centro,CEP_BAIRRO_4110805_CENTRO,https://cepbrasil.com/pr/iretama,200,none
 4110805,Iretama,PR,39,4,Marilu,CEP_BAIRRO_4110805_MARILU,https://cepbrasil.com/pr/iretama,200,none
 4110904,Itaguajé,PR,10,2,Centro,CEP_BAIRRO_4110904_CENTRO,https://cepbrasil.com/pr/itaguaje,200,none
+4111209,Itapejara d'Oeste,PR,61,4,Barra Grande,CEP_BAIRRO_4111209_BARRA_GRANDE,https://cepbrasil.com/pr/itapejara-doeste,200,none
+4111209,Itapejara d'Oeste,PR,61,4,Centro,CEP_BAIRRO_4111209_CENTRO,https://cepbrasil.com/pr/itapejara-doeste,200,none
+4111209,Itapejara d'Oeste,PR,61,4,Coxilha Rica,CEP_BAIRRO_4111209_COXILHA_RICA,https://cepbrasil.com/pr/itapejara-doeste,200,none
 4111001,Itambaracá,PR,8,5,Área Rural de Itambaracá,CEP_BAIRRO_4111001_AREA_RURAL_DE_ITAMBARACA,https://cepbrasil.com/pr/itambaraca,200,none
 4111001,Itambaracá,PR,8,5,Itambaracá,CEP_BAIRRO_4111001_ITAMBARACA,https://cepbrasil.com/pr/itambaraca,200,none
 4111001,Itambaracá,PR,8,5,Raul Marinho,CEP_BAIRRO_4111001_RAUL_MARINHO,https://cepbrasil.com/pr/itambaraca,200,none
@@ -35886,6 +36221,8 @@ municipalityCode,municipality,uf,cnesUnits,postalNeighborhoodCount,postalName,po
 4118105,Paranacity,PR,33,4,Vila Silva Jardim,CEP_BAIRRO_4118105_VILA_SILVA_JARDIM,https://cepbrasil.com/pr/paranacity,200,none
 4118303,Paranapoema,PR,5,3,Área Rural,CEP_BAIRRO_4118303_AREA_RURAL,https://cepbrasil.com/pr/paranapoema,200,none
 4118303,Paranapoema,PR,5,3,Paranapoema,CEP_BAIRRO_4118303_PARANAPOEMA,https://cepbrasil.com/pr/paranapoema,200,none
+4119004,Pérola d'Oeste,PR,20,3,Centro,CEP_BAIRRO_4119004_CENTRO,https://cepbrasil.com/pr/perola-doeste,200,none
+4119004,Pérola d'Oeste,PR,20,3,Conciolândia,CEP_BAIRRO_4119004_CONCIOLANDIA,https://cepbrasil.com/pr/perola-doeste,200,none
 4118808,Peabiru,PR,45,2,Centro,CEP_BAIRRO_4118808_CENTRO,https://cepbrasil.com/pr/peabiru,200,none
 4118451,Pato Bragado,PR,17,3,Área Rural de Pato Bragado,CEP_BAIRRO_4118451_AREA_RURAL_DE_PATO_BRAGADO,https://cepbrasil.com/pr/pato-bragado,200,none
 4118451,Pato Bragado,PR,17,3,Centro,CEP_BAIRRO_4118451_CENTRO,https://cepbrasil.com/pr/pato-bragado,200,none
@@ -36110,6 +36447,9 @@ municipalityCode,municipality,uf,cnesUnits,postalNeighborhoodCount,postalName,po
 4120507,Primeiro de Maio,PR,28,4,Centro,CEP_BAIRRO_4120507_CENTRO,https://cepbrasil.com/pr/primeiro-de-maio,200,none
 4120507,Primeiro de Maio,PR,28,4,Ibiaci,CEP_BAIRRO_4120507_IBIACI,https://cepbrasil.com/pr/primeiro-de-maio,200,none
 4120507,Primeiro de Maio,PR,28,4,Vila Gandhi,CEP_BAIRRO_4120507_VILA_GANDHI,https://cepbrasil.com/pr/primeiro-de-maio,200,none
+4121356,Rancho Alegre D'Oeste,PR,8,4,Área Rural,CEP_BAIRRO_4121356_AREA_RURAL,https://cepbrasil.com/pr/rancho-alegre-doeste,200,none
+4121356,Rancho Alegre D'Oeste,PR,8,4,Centro,CEP_BAIRRO_4121356_CENTRO,https://cepbrasil.com/pr/rancho-alegre-doeste,200,none
+4121356,Rancho Alegre D'Oeste,PR,8,4,Rancho Alegre d'Oeste,CEP_BAIRRO_4121356_RANCHO_ALEGRE_D_OESTE,https://cepbrasil.com/pr/rancho-alegre-doeste,200,none
 4121208,Quitandinha,PR,36,21,Área Rural,CEP_BAIRRO_4121208_AREA_RURAL,https://cepbrasil.com/pr/quitandinha,200,none
 4121208,Quitandinha,PR,36,21,Bom Jesus,CEP_BAIRRO_4121208_BOM_JESUS,https://cepbrasil.com/pr/quitandinha,200,none
 4121208,Quitandinha,PR,36,21,Campina de Quitandinha,CEP_BAIRRO_4121208_CAMPINA_DE_QUITANDINHA,https://cepbrasil.com/pr/quitandinha,200,none
@@ -36300,6 +36640,10 @@ municipalityCode,municipality,uf,cnesUnits,postalNeighborhoodCount,postalName,po
 4124400,Santo Antônio do Sudoeste,PR,79,22,Vila Catarina,CEP_BAIRRO_4124400_VILA_CATARINA,https://cepbrasil.com/pr/santo-antonio-do-sudoeste,200,none
 4124400,Santo Antônio do Sudoeste,PR,79,22,Vila Nova,CEP_BAIRRO_4124400_VILA_NOVA,https://cepbrasil.com/pr/santo-antonio-do-sudoeste,200,none
 4124905,São João do Caiuá,PR,10,2,Centro,CEP_BAIRRO_4124905_CENTRO,https://cepbrasil.com/pr/sao-joao-do-caiua,200,none
+4125209,São Jorge d'Oeste,PR,43,5,Centro,CEP_BAIRRO_4125209_CENTRO,https://cepbrasil.com/pr/sao-jorge-doeste,200,none
+4125209,São Jorge d'Oeste,PR,43,5,Doutor Antônio Paranhos,CEP_BAIRRO_4125209_DOUTOR_ANTONIO_PARANHOS,https://cepbrasil.com/pr/sao-jorge-doeste,200,none
+4125209,São Jorge d'Oeste,PR,43,5,Iolópolis,CEP_BAIRRO_4125209_IOLOPOLIS,https://cepbrasil.com/pr/sao-jorge-doeste,200,none
+4125209,São Jorge d'Oeste,PR,43,5,Sede Nova Sant'Ana,CEP_BAIRRO_4125209_SEDE_NOVA_SANT_ANA,https://cepbrasil.com/pr/sao-jorge-doeste,200,none
 4125100,São João do Triunfo,PR,34,3,Centro,CEP_BAIRRO_4125100_CENTRO,https://cepbrasil.com/pr/sao-joao-do-triunfo,200,none
 4125100,São João do Triunfo,PR,34,3,Palmira,CEP_BAIRRO_4125100_PALMIRA,https://cepbrasil.com/pr/sao-joao-do-triunfo,200,none
 4125357,São Jorge do Patrocínio,PR,29,2,Centro,CEP_BAIRRO_4125357_CENTRO,https://cepbrasil.com/pr/sao-jorge-do-patrocinio,200,none
@@ -38962,6 +39306,7 @@ municipalityCode,municipality,uf,cnesUnits,postalNeighborhoodCount,postalName,po
 5103502,Diamantino,MT,96,7,Del Rios,CEP_BAIRRO_5103502_DEL_RIOS,https://cepbrasil.com/mt/diamantino,200,none
 5103502,Diamantino,MT,96,7,Novo Diamantino,CEP_BAIRRO_5103502_NOVO_DIAMANTINO,https://cepbrasil.com/mt/diamantino,200,none
 5103502,Diamantino,MT,96,7,Sumidouro,CEP_BAIRRO_5103502_SUMIDOURO,https://cepbrasil.com/mt/diamantino,200,none
+5103809,Figueirópolis D'Oeste,MT,10,2,Centro,CEP_BAIRRO_5103809_CENTRO,https://cepbrasil.com/mt/figueiropolis-doeste,200,none
 5103601,Dom Aquino,MT,16,4,Centro,CEP_BAIRRO_5103601_CENTRO,https://cepbrasil.com/mt/dom-aquino,200,none
 5103601,Dom Aquino,MT,16,4,Entre Rios,CEP_BAIRRO_5103601_ENTRE_RIOS,https://cepbrasil.com/mt/dom-aquino,200,none
 5103601,Dom Aquino,MT,16,4,Pombas,CEP_BAIRRO_5103601_POMBAS,https://cepbrasil.com/mt/dom-aquino,200,none
@@ -38989,6 +39334,8 @@ municipalityCode,municipality,uf,cnesUnits,postalNeighborhoodCount,postalName,po
 5105200,Juscimeira,MT,29,6,Placa de Santo Antônio,CEP_BAIRRO_5105200_PLACA_DE_SANTO_ANTONIO,https://cepbrasil.com/mt/juscimeira,200,none
 5105200,Juscimeira,MT,29,6,Santa Elvira,CEP_BAIRRO_5105200_SANTA_ELVIRA,https://cepbrasil.com/mt/juscimeira,200,none
 5105200,Juscimeira,MT,29,6,São Lourenço de Fátima,CEP_BAIRRO_5105200_SAO_LOURENCO_DE_FATIMA,https://cepbrasil.com/mt/juscimeira,200,none
+5105234,Lambari D'Oeste,MT,15,3,Centro,CEP_BAIRRO_5105234_CENTRO,https://cepbrasil.com/mt/lambari-doeste,200,none
+5105234,Lambari D'Oeste,MT,15,3,São José do Pingador,CEP_BAIRRO_5105234_SAO_JOSE_DO_PINGADOR,https://cepbrasil.com/mt/lambari-doeste,200,none
 5105309,Luciara,MT,12,2,Centro,CEP_BAIRRO_5105309_CENTRO,https://cepbrasil.com/mt/luciara,200,none
 5105507,Vila Bela da Santíssima Trindade,MT,34,4,Aguapeí,CEP_BAIRRO_5105507_AGUAPEI,https://cepbrasil.com/mt/vila-bela-da-santissima-trindade,200,none
 5105507,Vila Bela da Santíssima Trindade,MT,34,4,Centro,CEP_BAIRRO_5105507_CENTRO,https://cepbrasil.com/mt/vila-bela-da-santissima-trindade,200,none
@@ -38998,6 +39345,8 @@ municipalityCode,municipality,uf,cnesUnits,postalNeighborhoodCount,postalName,po
 5105580,Marcelândia,MT,28,4,Vila Atlântica,CEP_BAIRRO_5105580_VILA_ATLANTICA,https://cepbrasil.com/mt/marcelandia,200,none
 5105606,Matupá,MT,76,3,Centro,CEP_BAIRRO_5105606_CENTRO,https://cepbrasil.com/mt/matupa,200,none
 5105606,Matupá,MT,76,3,Flor da Serra,CEP_BAIRRO_5105606_FLOR_DA_SERRA,https://cepbrasil.com/mt/matupa,200,none
+5105622,Mirassol d'Oeste,MT,138,3,Centro,CEP_BAIRRO_5105622_CENTRO,https://cepbrasil.com/mt/mirassol-doeste,200,none
+5105622,Mirassol d'Oeste,MT,138,3,Sonho Azul,CEP_BAIRRO_5105622_SONHO_AZUL,https://cepbrasil.com/mt/mirassol-doeste,200,none
 5106109,Nossa Senhora do Livramento,MT,12,5,Centro,CEP_BAIRRO_5106109_CENTRO,https://cepbrasil.com/mt/nossa-senhora-do-livramento,200,none
 5106109,Nossa Senhora do Livramento,MT,12,5,Faval,CEP_BAIRRO_5106109_FAVAL,https://cepbrasil.com/mt/nossa-senhora-do-livramento,200,none
 5106109,Nossa Senhora do Livramento,MT,12,5,Pirizal,CEP_BAIRRO_5106109_PIRIZAL,https://cepbrasil.com/mt/nossa-senhora-do-livramento,200,none
@@ -39038,6 +39387,7 @@ municipalityCode,municipality,uf,cnesUnits,postalNeighborhoodCount,postalName,po
 5103379,Cotriguaçu,MT,25,4,Ouro Verde dos Pioneiros,CEP_BAIRRO_5103379_OURO_VERDE_DOS_PIONEIROS,https://cepbrasil.com/mt/cotriguacu,200,none
 5103205,Colíder,MT,141,3,Centro,CEP_BAIRRO_5103205_CENTRO,https://cepbrasil.com/mt/colider,200,none
 5103205,Colíder,MT,141,3,Nonoai do Norte,CEP_BAIRRO_5103205_NONOAI_DO_NORTE,https://cepbrasil.com/mt/colider,200,none
+5103361,Conquista D'Oeste,MT,22,2,Centro,CEP_BAIRRO_5103361_CENTRO,https://cepbrasil.com/mt/conquista-doeste,200,none
 5103106,Cocalinho,MT,27,2,Centro,CEP_BAIRRO_5103106_CENTRO,https://cepbrasil.com/mt/cocalinho,200,none
 5106315,Novo Santo Antônio,MT,9,2,Centro,CEP_BAIRRO_5106315_CENTRO,https://cepbrasil.com/mt/novo-santo-antonio,200,none
 5106422,Peixoto de Azevedo,MT,93,3,Centro,CEP_BAIRRO_5106422_CENTRO,https://cepbrasil.com/mt/peixoto-de-azevedo,200,none
@@ -40820,6 +41170,7 @@ municipalityCode,municipality,uf,cnesUnits,postalNeighborhoodCount,postalName,po
 5213707,Montes Claros de Goiás,GO,17,9,Loteamento Portal da Serra,CEP_BAIRRO_5213707_LOTEAMENTO_PORTAL_DA_SERRA,https://cepbrasil.com/go/montes-claros-de-goias,200,none
 5213707,Montes Claros de Goiás,GO,17,9,Registro do Araguaia,CEP_BAIRRO_5213707_REGISTRO_DO_ARAGUAIA,https://cepbrasil.com/go/montes-claros-de-goias,200,none
 5213707,Montes Claros de Goiás,GO,17,9,Setor Central,CEP_BAIRRO_5213707_SETOR_CENTRAL,https://cepbrasil.com/go/montes-claros-de-goias,200,none
+5220702,Sítio d'Abadia,GO,6,2,Centro,CEP_BAIRRO_5220702_CENTRO,https://cepbrasil.com/go/sitio-dabadia,200,none
 5221007,Taquaral de Goiás,GO,9,15,Área Rural de Taquaral de Goiás,CEP_BAIRRO_5221007_AREA_RURAL_DE_TAQUARAL_DE_GOIAS,https://cepbrasil.com/go/taquaral-de-goias,200,none
 5221007,Taquaral de Goiás,GO,9,15,Benedito Lobo de Sena,CEP_BAIRRO_5221007_BENEDITO_LOBO_DE_SENA,https://cepbrasil.com/go/taquaral-de-goias,200,none
 5221007,Taquaral de Goiás,GO,9,15,Novo Taquaral,CEP_BAIRRO_5221007_NOVO_TAQUARAL,https://cepbrasil.com/go/taquaral-de-goias,200,none
@@ -40865,4 +41216,6 @@ municipalityCode,municipality,uf,cnesUnits,postalNeighborhoodCount,postalName,po
 5222302,Vila Propício,GO,6,4,Dois Irmãos,CEP_BAIRRO_5222302_DOIS_IRMAOS,https://cepbrasil.com/go/vila-propicio,200,none
 5222302,Vila Propício,GO,6,4,Setor Central,CEP_BAIRRO_5222302_SETOR_CENTRAL,https://cepbrasil.com/go/vila-propicio,200,none
 5221908,Varjão,GO,9,2,Setor Central,CEP_BAIRRO_5221908_SETOR_CENTRAL,https://cepbrasil.com/go/varjao,200,none
+5220009,São João d'Aliança,GO,15,3,Centro,CEP_BAIRRO_5220009_CENTRO,https://cepbrasil.com/go/sao-joao-dalianca,200,none
+5220009,São João d'Aliança,GO,15,3,Forte,CEP_BAIRRO_5220009_FORTE,https://cepbrasil.com/go/sao-joao-dalianca,200,none
 5219902,São Francisco de Goiás,GO,10,2,Setor Central,CEP_BAIRRO_5219902_SETOR_CENTRAL,https://cepbrasil.com/go/sao-francisco-de-goias,200,none
