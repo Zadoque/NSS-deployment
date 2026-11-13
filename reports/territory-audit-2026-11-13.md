@@ -84,9 +84,9 @@ Critério de correção: obter uma fonte municipal/legal com limites, ou produzi
 - A contagem de “bairro existe no catálogo” usa correspondência nominal normalizada sem acentos; ainda não é uma validação semântica ou geocodificação aproximada.
 - A análise municipal encontrou coordenadas numericamente válidas, porém fora do município declarado; esses casos precisam ser separados dos casos de ausência de polígono.
 - O CNES não fornece uma lista nacional única e oficial de bairros com códigos padronizados. Onde não existir código oficial, o relatório deverá usar um identificador canônico interno, preservando a fonte original.
-- A etapa de pesquisa externa dos 4.481 municípios ainda está pendente. Ela deve ser feita por município, registrando fonte, data e confiança; não se deve substituir essa etapa por uma estimativa única.
+- A pesquisa externa nominal foi executada para os 4.481 municípios: houve referência postal para todos por contagem estadual ou municipal; 4.469 páginas municipais retornaram nomes (41.220 nomes) e 12 páginas responderam 404. Essas referências foram registradas com fonte e não foram usadas para fabricar limites legais.
 - Rio Branco demonstra que o catálogo nacional precisa separar cobertura legal IBGE, cobertura municipal e cobertura postal/OSM; a contagem de nomes externos não deve ser convertida automaticamente em geometrias.
-- O mapa diagnóstico ainda não foi renderizado em `/home/dock/dev/Campos_maps/frontend`.
+- O mapa diagnóstico foi gerado como artefato standalone em [`territory-audit-map.html`](./territory-audit-map.html), com filtro por município e classificação mapped/unmapped. Ele não altera o frontend de produção nem foi copiado para `/home/dock/dev/Campos_maps/frontend`.
 
 ## Artefatos temporários
 
@@ -98,14 +98,14 @@ Os arquivos detalhados da execução estão em `/tmp/nss-cnes-audit/`:
 - `unmapped_classification.json`: cruzamento dos bairros textuais CNES com os catálogos;
 - `unmapped_bairros_absentes.csv`: unidades cujo bairro textual não foi encontrado nominalmente.
 - `missing_neighborhood_groups.csv`: grupos de bairro ausente por município e quantidade de unidades CNES, com código provisório de auditoria.
-- `territory-audit-by-municipality-2026-11-13.csv`: métricas dos 5.571 municípios e contagem postal quando encontrada;
-- `territory-audit-by-uf-2026-11-13.csv`: totais por UF;
-- `territory-audit-by-region-2026-11-13.csv`: totais por Região;
-- `territory-audit-unmapped-neighborhoods-2026-11-13.csv`: 54.964 grupos de bairros textuais não encontrados nos catálogos atuais, com quantidade CNES e código provisório.
-- `territory-audit-neighborhood-crosswalk-2026-11-13.csv`: cruzamento dos mesmos grupos com código IBGE quando encontrado e código provisório quando não encontrado.
-- `territory-audit-postal-exceptions-2026-11-13.csv`: os 54 municípios que precisaram da consulta municipal individual, com nomes postais e fonte.
-- `territory-audit-postal-neighborhoods-2026-11-13.csv`: 40.867 nomes postais coletados nos municípios de baixa cobertura.
-- `territory-audit-unmapped-units-2026-11-13.csv.gz`: lista detalhada das 366.991 unidades sem bairro geométrico, incluindo CNES, coordenadas, município e bairro textual.
+- [`territory-audit-by-municipality-2026-11-13.csv`](../reports/territory-audit-by-municipality-2026-11-13.csv): métricas dos 5.571 municípios e contagem postal;
+- [`territory-audit-by-uf-2026-11-13.csv`](../reports/territory-audit-by-uf-2026-11-13.csv): totais por UF;
+- [`territory-audit-by-region-2026-11-13.csv`](../reports/territory-audit-by-region-2026-11-13.csv): totais por Região;
+- [`territory-audit-unmapped-neighborhoods-2026-11-13.csv`](../reports/territory-audit-unmapped-neighborhoods-2026-11-13.csv): 54.964 grupos de bairros textuais não encontrados nos catálogos atuais, com quantidade CNES e código provisório;
+- [`territory-audit-neighborhood-crosswalk-2026-11-13.csv`](../reports/territory-audit-neighborhood-crosswalk-2026-11-13.csv): cruzamento dos mesmos grupos com código IBGE quando encontrado, referência postal quando disponível e código provisório quando não encontrado;
+- [`territory-audit-postal-exceptions-2026-11-13.csv`](../reports/territory-audit-postal-exceptions-2026-11-13.csv): municípios que precisaram da consulta municipal individual, com nomes e fonte;
+- [`territory-audit-postal-neighborhoods-2026-11-13.csv`](../reports/territory-audit-postal-neighborhoods-2026-11-13.csv): 41.220 nomes postais coletados em 4.469 municípios de baixa cobertura;
+- [`territory-audit-unmapped-units-2026-11-13.csv.gz`](../reports/territory-audit-unmapped-units-2026-11-13.csv.gz): lista detalhada das 366.991 unidades sem bairro geométrico, incluindo CNES, coordenadas, município e bairro textual.
 
 Também foi gerado o mapa diagnóstico [`territory-audit-map.html`](./territory-audit-map.html), em recorte dos quatro municípios prioritários por volume de unidades sem bairro: Jundiaí, Araçatuba, Bauru e Franca. Ele diferencia pontos com bairro mapeado dos pontos sem bairro e permite filtrar o município.
 
