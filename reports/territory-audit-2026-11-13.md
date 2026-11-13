@@ -58,7 +58,7 @@ O cruzamento nominal gerou 54.964 grupos distintos de `município + bairro CNES`
 
 O cruzamento adicional com a malha de bairros do Censo 2022 do IBGE encontrou nome correspondente para 26.744 dessas unidades e atribuiu o código oficial do bairro quando disponível. As outras 302.703 unidades continuam com código provisório `CNES_BAIRRO_*`; não foram convertidas em códigos IBGE por aproximação textual.
 
-Para os 4.481 municípios com até três nomes IBGE+OSM, foi consultada uma fonte postal derivada do e-DNE dos Correios. A página estadual permitiu obter contagem para 4.427 municípios por slug; os 54 restantes foram consultados em páginas municipais do CEP Brasil. Assim, os 4.481 possuem agora uma contagem postal de referência. Essa fonte serve para comparar cobertura nominal/espacial esperada, não para fabricar limites legais. Por exemplo, a página municipal de Santana do Araguaia explicita quatro bairros postais e suas faixas de CEP ([fonte](https://cepbrasil.com/pa/santana-do-araguaia)).
+Para os 4.481 municípios com até três nomes IBGE+OSM, foi consultada uma fonte postal derivada do e-DNE dos Correios. A página estadual permitiu obter contagem para 4.427 municípios por slug; os 54 restantes foram consultados em páginas municipais do CEP Brasil. Assim, os 4.481 possuem agora uma contagem postal de referência, totalizando 42.672 entradas postais. Essa fonte serve para comparar cobertura nominal/espacial esperada, não para fabricar limites legais. Por exemplo, a página municipal de Santana do Araguaia explicita quatro bairros postais e suas faixas de CEP ([fonte](https://cepbrasil.com/pa/santana-do-araguaia)).
 
 ## Caso Rio Branco (AC)
 
