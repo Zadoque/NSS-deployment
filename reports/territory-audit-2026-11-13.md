@@ -12,6 +12,8 @@ Observação: nos pacotes OSM atuais, os arquivos de distrito são, em praticame
 
 ## Resultado nacional
 
+A auditoria estrutural independente passou: 5 regiões, 27 UFs, 5.571 municípios, 10.699 distritos, 28.465 bairros/localidades, 39.164 geometrias e zero violações de geometria, duplicidade ou paridade entre pipeline e Java.
+
 | Métrica | Quantidade | Percentual do CNES |
 |---|---:|---:|
 | Unidades CNES | 642.268 | 100,00% |
