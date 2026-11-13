@@ -38,6 +38,8 @@ Entre as 366.991 unidades sem bairro geométrico:
 
 Portanto, a resposta preliminar à terceira tarefa é **329.447 unidades CNES** em bairros que não existem nominalmente nos catálogos atuais. Esse número ainda deve passar por normalização/aproximação de nomes e revisão de homônimos antes de ser tratado como número final.
 
+Uma segunda triagem, removendo prefixos usuais (`JARDIM`, `VILA`, `PARQUE`, `RESIDENCIAL` etc.) e usando similaridade textual de 0,88 ou maior, encontrou 3.948 unidades potencialmente correspondentes a nomes abreviados ou com erro de digitação. Isso não foi subtraído do total: é uma fila de revisão, não uma prova de correspondência.
+
 ## Municípios com baixa cobertura
 
 Considerando a união dos nomes de bairros IBGE e OSM:
