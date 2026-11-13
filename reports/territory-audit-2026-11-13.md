@@ -48,6 +48,8 @@ Considerando a união dos nomes de bairros IBGE e OSM:
 
 Os 4.481 municípios possuem 201.098 unidades CNES no lote; 197.021 dessas unidades não têm bairro geométrico encontrado na união IBGE/OSM.
 
+O cruzamento nominal gerou 54.964 grupos distintos de `município + bairro CNES` ausente, cada um com um identificador provisório no formato `CNES_BAIRRO_<código do município>_<nome normalizado>`. Esses identificadores são auxiliares de auditoria, não códigos oficiais de bairro.
+
 ## Limitações atuais
 
 - A contagem de “bairro existe no catálogo” usa correspondência nominal normalizada sem acentos; ainda não é uma validação semântica ou geocodificação aproximada.
@@ -64,5 +66,6 @@ Os arquivos detalhados da execução estão em `/tmp/nss-cnes-audit/`:
 - `cnes_units.csv`: classificação individual das 642.268 unidades;
 - `unmapped_classification.json`: cruzamento dos bairros textuais CNES com os catálogos;
 - `unmapped_bairros_absentes.csv`: unidades cujo bairro textual não foi encontrado nominalmente.
+- `missing_neighborhood_groups.csv`: grupos de bairro ausente por município e quantidade de unidades CNES, com código provisório de auditoria.
 
 Os artefatos detalhados não foram adicionados ao Git por conterem aproximadamente 100 MB e dados operacionais; a reprodução deve usar os comandos e o lote registrados acima.
