@@ -73,4 +73,6 @@ Os arquivos detalhados da execução estão em `/tmp/nss-cnes-audit/`:
 - `unmapped_bairros_absentes.csv`: unidades cujo bairro textual não foi encontrado nominalmente.
 - `missing_neighborhood_groups.csv`: grupos de bairro ausente por município e quantidade de unidades CNES, com código provisório de auditoria.
 
+Também foi gerado o mapa diagnóstico [`territory-audit-map.html`](./territory-audit-map.html), em recorte dos quatro municípios prioritários por volume de unidades sem bairro: Jundiaí, Araçatuba, Bauru e Franca. Ele diferencia pontos com bairro mapeado dos pontos sem bairro e permite filtrar o município.
+
 Os artefatos detalhados não foram adicionados ao Git por conterem aproximadamente 100 MB e dados operacionais; a reprodução deve usar os comandos e o lote registrados acima.
