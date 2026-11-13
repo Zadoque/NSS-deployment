@@ -56,6 +56,10 @@ Os 4.481 municípios possuem 201.098 unidades CNES no lote; 197.021 dessas unida
 
 O cruzamento nominal gerou 54.964 grupos distintos de `município + bairro CNES` ausente, cada um com um identificador provisório no formato `CNES_BAIRRO_<código do município>_<nome normalizado>`. Esses identificadores são auxiliares de auditoria, não códigos oficiais de bairro.
 
+O cruzamento adicional com a malha de bairros do Censo 2022 do IBGE encontrou nome correspondente para 26.744 dessas unidades e atribuiu o código oficial do bairro quando disponível. As outras 302.703 unidades continuam com código provisório `CNES_BAIRRO_*`; não foram convertidas em códigos IBGE por aproximação textual.
+
+Para os 4.481 municípios com até três nomes IBGE+OSM, foi consultada uma fonte postal derivada do e-DNE dos Correios. A página estadual permitiu obter contagem para 4.427 municípios por slug; 54 municípios não apareceram nessa listagem e foram mantidos como `not_found`, nunca como zero. Essa fonte serve para comparar cobertura nominal/espacial esperada, não para fabricar limites legais.
+
 ## Caso Rio Branco (AC)
 
 O município `1200401` reproduz o problema de forma clara:
@@ -94,6 +98,9 @@ Os arquivos detalhados da execução estão em `/tmp/nss-cnes-audit/`:
 - `unmapped_classification.json`: cruzamento dos bairros textuais CNES com os catálogos;
 - `unmapped_bairros_absentes.csv`: unidades cujo bairro textual não foi encontrado nominalmente.
 - `missing_neighborhood_groups.csv`: grupos de bairro ausente por município e quantidade de unidades CNES, com código provisório de auditoria.
+- `territory-audit-by-municipality-2026-11-13.csv`: métricas dos 5.571 municípios e contagem postal quando encontrada;
+- `territory-audit-by-uf-2026-11-13.csv`: totais por UF;
+- `territory-audit-unmapped-neighborhoods-2026-11-13.csv`: 54.964 grupos de bairros textuais não encontrados nos catálogos atuais, com quantidade CNES e código provisório.
 
 Também foi gerado o mapa diagnóstico [`territory-audit-map.html`](./territory-audit-map.html), em recorte dos quatro municípios prioritários por volume de unidades sem bairro: Jundiaí, Araçatuba, Bauru e Franca. Ele diferencia pontos com bairro mapeado dos pontos sem bairro e permite filtrar o município.
 
