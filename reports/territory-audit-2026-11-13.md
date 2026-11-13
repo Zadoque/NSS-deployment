@@ -56,12 +56,32 @@ Os 4.481 municípios possuem 201.098 unidades CNES no lote; 197.021 dessas unida
 
 O cruzamento nominal gerou 54.964 grupos distintos de `município + bairro CNES` ausente, cada um com um identificador provisório no formato `CNES_BAIRRO_<código do município>_<nome normalizado>`. Esses identificadores são auxiliares de auditoria, não códigos oficiais de bairro.
 
+## Caso Rio Branco (AC)
+
+O município `1200401` reproduz o problema de forma clara:
+
+| Evidência | Quantidade |
+|---|---:|
+| Unidades CNES no lote | 1.425 |
+| Unidades com coordenadas válidas | 1.293 |
+| Bairros IBGE no pacote | 0 |
+| Bairros OSM no pacote | 1 |
+| Unidades dentro do único bairro OSM (`Cidade do Povo`) | 4 |
+| Nomes de bairro textual no CNES | 176 |
+
+O arquivo oficial do frontend `public/maps/national/neighborhoods/1200401.geojson` contém somente o polígono OSM `Cidade do Povo`; o arquivo de bairros IBGE está vazio. A resolução de ativos da pipeline seleciona `territories/osm/1200401` porque ele é o primeiro pacote completo com bairros. Assim, Java e pipeline não recebem geometrias para `Centro`, `Bosque`, `Cerâmica`, `Ipase` e os demais nomes presentes no CNES.
+
+Isso não é causado pelo body da requisição nem pelo parquet Gold: é ausência de catálogo intramunicipal. A Prefeitura de Rio Branco informa 231 bairros em publicação recente, enquanto uma fonte postal consultada lista 147 bairros com CEP; a diferença mostra que “bairro postal”, “bairro municipal” e “polígono oficial” não são conjuntos intercambiáveis. Esses números servem como evidência de cobertura esperada, não como fonte geométrica automática. Ver [Prefeitura de Rio Branco](https://www.riobranco.ac.gov.br/turismo/rio-branco-coracao-do-acre-terra-de-resistencia-e-de-encantos/) e [lista postal consultada](https://www.diariocidade.com/ac/rio-branco/cep/).
+
+Critério de correção: obter uma fonte municipal/legal com limites, ou produzir uma camada explicitamente marcada como `POSTAL`/`MUNICIPAL`, validar topologia e parent district, exportar a mesma camada para pipeline e frontend e então reprocessar CNES/Gold. Não é seguro transformar os nomes textuais do CNES em polígonos sem fonte de fronteira.
+
 ## Limitações atuais
 
 - A contagem de “bairro existe no catálogo” usa correspondência nominal normalizada sem acentos; ainda não é uma validação semântica ou geocodificação aproximada.
 - A análise municipal encontrou coordenadas numericamente válidas, porém fora do município declarado; esses casos precisam ser separados dos casos de ausência de polígono.
 - O CNES não fornece uma lista nacional única e oficial de bairros com códigos padronizados. Onde não existir código oficial, o relatório deverá usar um identificador canônico interno, preservando a fonte original.
 - A etapa de pesquisa externa dos 4.481 municípios ainda está pendente. Ela deve ser feita por município, registrando fonte, data e confiança; não se deve substituir essa etapa por uma estimativa única.
+- Rio Branco demonstra que o catálogo nacional precisa separar cobertura legal IBGE, cobertura municipal e cobertura postal/OSM; a contagem de nomes externos não deve ser convertida automaticamente em geometrias.
 - O mapa diagnóstico ainda não foi renderizado em `/home/dock/dev/Campos_maps/frontend`.
 
 ## Artefatos temporários
