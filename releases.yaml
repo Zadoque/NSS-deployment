@@ -1,0 +1,26 @@
+# Release lock for the four source repositories. `commit` is authoritative;
+# `branch` records where the candidate was selected from.
+frontend:
+  repository: Zadoque/NSS-front-end
+  branch: feat/national-coverage-validation
+  commit: c5be3c9c078f3285b3f01763403eac694f39d987
+java:
+  repository: Zadoque/Site-Sala-de-Situa-o-de-Saude-Java
+  branch: feat/national-coverage-validation
+  commit: a984996c5fd731b5b8f778ac26d0529fe2bc3b15
+pipeline:
+  repository: Zadoque/NSS-pipeline
+  branch: feat/national-coverage-validation
+  commit: 94eeb8cfc39e2fd4017cc1d1aebb5e8abf1b6db2
+database:
+  repository: Zadoque/NSS-database
+  branch: feat/national-coverage-validation
+  commit: 9c69d8b54963b04900d81a90a714ce4243f4ad2b
+ibge:
+  catalogId: ibge-dtb-2025
+  referenceYear: 2025
+  dtbUrl: https://geoftp.ibge.gov.br/organizacao_do_territorio/estrutura_territorial/divisao_territorial/2025/DTB_2025.zip
+  expectedSha256: d077a0e48c36cf18bcc96268b4a436200c014c6b8522c1a62d894acaf39dad27
+cnes:
+  workers: 8
+  checkpoint: cnes-national-ibge-2025.json
