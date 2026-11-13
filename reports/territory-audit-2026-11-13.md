@@ -101,6 +101,7 @@ Os arquivos detalhados da execução estão em `/tmp/nss-cnes-audit/`:
 - `territory-audit-by-municipality-2026-11-13.csv`: métricas dos 5.571 municípios e contagem postal quando encontrada;
 - `territory-audit-by-uf-2026-11-13.csv`: totais por UF;
 - `territory-audit-unmapped-neighborhoods-2026-11-13.csv`: 54.964 grupos de bairros textuais não encontrados nos catálogos atuais, com quantidade CNES e código provisório.
+- `territory-audit-neighborhood-crosswalk-2026-11-13.csv`: cruzamento dos mesmos grupos com código IBGE quando encontrado e código provisório quando não encontrado.
 
 Também foi gerado o mapa diagnóstico [`territory-audit-map.html`](./territory-audit-map.html), em recorte dos quatro municípios prioritários por volume de unidades sem bairro: Jundiaí, Araçatuba, Bauru e Franca. Ele diferencia pontos com bairro mapeado dos pontos sem bairro e permite filtrar o município.
 
