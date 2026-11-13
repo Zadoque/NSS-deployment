@@ -24,6 +24,8 @@ Observação: nos pacotes OSM atuais, os arquivos de distrito são, em praticame
 | Ponto em distrito IBGE | 568.838 | 88,57% |
 | Ponto em distrito do pacote OSM | 413.879 | 64,44% |
 
+QA adicional usando os 5.571 polígonos municipais do frontend: 559.368 unidades estão dentro do município declarado; 24.113 têm coordenadas dentro da faixa numérica válida, mas fora do polígono do município declarado; 58.787 não possuem coordenada válida. Portanto, **82.900 unidades** não podem ser usadas diretamente para inferir bairro, sendo 24.113 casos de provável inconsistência espacial CNES/geocodificação.
+
 Entre as 366.991 unidades sem bairro geométrico:
 
 | Classificação do bairro textual CNES | Quantidade |
@@ -53,6 +55,7 @@ O cruzamento nominal gerou 54.964 grupos distintos de `município + bairro CNES`
 ## Limitações atuais
 
 - A contagem de “bairro existe no catálogo” usa correspondência nominal normalizada sem acentos; ainda não é uma validação semântica ou geocodificação aproximada.
+- A análise municipal encontrou coordenadas numericamente válidas, porém fora do município declarado; esses casos precisam ser separados dos casos de ausência de polígono.
 - O CNES não fornece uma lista nacional única e oficial de bairros com códigos padronizados. Onde não existir código oficial, o relatório deverá usar um identificador canônico interno, preservando a fonte original.
 - A etapa de pesquisa externa dos 4.481 municípios ainda está pendente. Ela deve ser feita por município, registrando fonte, data e confiança; não se deve substituir essa etapa por uma estimativa única.
 - O mapa diagnóstico ainda não foi renderizado em `/home/dock/dev/Campos_maps/frontend`.
