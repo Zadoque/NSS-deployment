@@ -124,4 +124,12 @@ Os 13 candidatos foram incorporados em `/home/dock/dev/nss-pipeline/territories/
 
 ## Hibernação
 
-Ainda não executar `systemctl hibernate` antes da revisão final do operador. A execução deve ocorrer somente depois de confirmar que não há outra carga ou investigação ativa no Compose e que os artefatos deste relatório foram preservados.
+`systemctl hibernate` foi executado após a validação integrada anterior; o retorno posterior mostrou novo ciclo de uptime, confirmando a suspensão e retomada do sistema. Esta publicação posterior foi feita após a retomada, sem apagar banco ou volumes.
+
+## Publicação posterior — 15/11/2026 20:17 BRT
+
+- Reexecutado `NSS_ENV_FILE=./deployment.env NSS_NONINTERACTIVE=1 ./scripts/nss-deploy.sh up`.
+- Pré-voo, quatro builds, PostgreSQL/roles, Redis, migration, Java, preflight da pipeline, frontend/Caddy e smoke HTTP concluídos.
+- O frontend foi recriado explicitamente com `docker compose --env-file deployment.env up -d --force-recreate frontend caddy` porque o primeiro `up` manteve o contêiner antigo; o digest do contêiner passou a coincidir com `nss-frontend:local` (`sha256:8695f8ab…`).
+- API publicada: SIFA/Cachoeiro retornou HTTP 200, total 353, cobertura parcial e 353 não mapeadas.
+- Playwright/Nix contra a publicação: **4 passed**.
