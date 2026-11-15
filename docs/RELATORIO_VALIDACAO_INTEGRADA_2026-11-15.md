@@ -133,3 +133,12 @@ Os 13 candidatos foram incorporados em `/home/dock/dev/nss-pipeline/territories/
 - O frontend foi recriado explicitamente com `docker compose --env-file deployment.env up -d --force-recreate frontend caddy` porque o primeiro `up` manteve o contêiner antigo; o digest do contêiner passou a coincidir com `nss-frontend:local` (`sha256:8695f8ab…`).
 - API publicada: SIFA/Cachoeiro retornou HTTP 200, total 353, cobertura parcial e 353 não mapeadas.
 - Playwright/Nix contra a publicação: **4 passed**.
+
+## Correção posterior — Campos dos Goytacazes / Distrito Sede
+
+- O nível `CAMPOS_NEIGHBORHOODS` passou a filtrar os bairros pelo distrito selecionado; antes, o enquadramento usava todos os bairros do município.
+- O `fitMap` agora enquadra a coleção efetiva do distrito, e o estado do viewport só é atualizado no fim do gesto de arraste.
+- Pontos CNES acima de 120 unidades são agrupados por uma grade adaptativa ao zoom; bairros usam raio SVG 1,15 e menor opacidade.
+- O teste real mediu a área dos polígonos, limitou os marcadores renderizados a menos de 400 e rejeitou tarefas longas acima de 300 ms durante o arraste.
+- Playwright/Nix após a publicação: **5 passed**; suíte dashboard/cache: **28 passed**.
+- Screenshot revisado: [/tmp/nss-campos-sede-neighborhoods-real.png](/tmp/nss-campos-sede-neighborhoods-real.png).
