@@ -9,8 +9,8 @@ RELEASE_MANIFEST="${NSS_RELEASE_MANIFEST:-${DEPLOY_ROOT}/releases.yaml}"
 
 REPO_DATABASE="${NSS_DATABASE_REPO:-${DEPLOY_ROOT}/../NSS-database}"
 REPO_JAVA="${NSS_JAVA_REPO:-${DEPLOY_ROOT}/../Site-Sala-de-Situa-o-de-Saude-Java}"
-REPO_FRONTEND="${NSS_FRONTEND_REPO:-${DEPLOY_ROOT}/../NSS-front-end}"
-REPO_PIPELINE="${NSS_PIPELINE_REPO:-${DEPLOY_ROOT}/../NSS-pipeline}"
+REPO_FRONTEND="${NSS_FRONTEND_REPO:-${DEPLOY_ROOT}/../nss-front-end}"
+REPO_PIPELINE="${NSS_PIPELINE_REPO:-${DEPLOY_ROOT}/../nss-pipeline}"
 
 timestamp() { date '+%Y-%m-%d %H:%M:%S'; }
 log() { printf '[%s] %s\n' "$(timestamp)" "$*"; }
@@ -28,6 +28,18 @@ purge_docker() {
   docker system prune --all --volumes --force
   state_reset
   log 'CONCLUÍDO: limpeza completa do Docker'
+}
+
+erase_database() {
+  command -v docker >/dev/null || die 'docker não encontrado'
+  read -r -p 'Isso apagará o banco PostgreSQL deste projeto Compose. Digite APAGAR BANCO: ' confirm
+  [[ "$confirm" == 'APAGAR BANCO' ]] || { log 'Apagamento do banco cancelado; nada foi removido.'; return 0; }
+  log 'Parando os serviços do projeto Compose'
+  docker compose down
+  log 'Removendo o volume PostgreSQL do projeto nss-v1'
+  docker volume rm nss-v1_pgdata
+  state_reset
+  log 'Banco PostgreSQL apagado; o próximo start_database criará um banco novo.'
 }
 
 require_repositories() {
@@ -698,43 +710,45 @@ menu() {
 NSS deployment
   1) verificar pré-requisitos e Compose
   2) construir imagens Java/frontend/pipeline
-  3) subir PostgreSQL e provisionar roles
-  4) subir Redis, schema central e Java
-  5) preflight da pipeline
-  6) verificar catálogo IBGE ativo
-  7) atualizar release/catálogo IBGE
-  8) verificar carga CNES
-  9) baixar/atualizar carga CNES nacional
-  10) verificar manifestos Parquet SINAN
-  11) verificar/baixar atualizações Parquet SINAN
-  12) executar Gold Serving/PostgreSQL
-  13) subir frontend, Caddy e observabilidade
-  14) status e diagnóstico
-  15) mostrar máquina de estados
-  16) limpar estado persistido
-  17) sair
-  18) apagar todos os recursos Docker
+  3) Apagar o Banco de dados
+  4) subir PostgreSQL e provisionar roles
+  5) subir Redis, schema central e Java
+  6) preflight da pipeline
+  7) verificar catálogo IBGE ativo
+  8) atualizar release/catálogo IBGE
+  9) verificar carga CNES
+  10) baixar/atualizar carga CNES nacional
+  11) verificar manifestos Parquet SINAN
+  12) verificar/baixar atualizações Parquet SINAN
+  13) executar Gold Serving/PostgreSQL
+  14) subir frontend, Caddy e observabilidade
+  15) status e diagnóstico
+  16) mostrar máquina de estados
+  17) limpar estado persistido
+  18) sair
+  19) apagar todos os recursos Docker
 EOF
     read -r -p 'Escolha: ' choice
     case "${choice}" in
       1) step 'pré-requisitos' check_prerequisites ;;
       2) build_images ;;
-      3) start_database ;;
-      4) start_java ;;
-      5) pipeline_preflight ;;
-      6) catalog_status ;;
-      7) refresh_ibge ;;
-      8) cnes_status ;;
-      9) run_cnes ;;
-      10) parquet_status ;;
-      11) update_sinan ;;
-      12) run_serving_load ;;
-      13) start_web ;;
-      14) status; diagnose ;;
-      15) show_state ;;
-      16) read -r -p 'Digite LIMPAR para confirmar: ' confirm; [[ "$confirm" == LIMPAR ]] && state_reset || log 'Estado preservado.' ;;
-      17) return 0 ;;
-      18) purge_docker ;;
+      3) erase_database ;;
+      4) start_database ;;
+      5) start_java ;;
+      6) pipeline_preflight ;;
+      7) catalog_status ;;
+      8) refresh_ibge ;;
+      9) cnes_status ;;
+      10) run_cnes ;;
+      11) parquet_status ;;
+      12) update_sinan ;;
+      13) run_serving_load ;;
+      14) start_web ;;
+      15) status; diagnose ;;
+      16) show_state ;;
+      17) read -r -p 'Digite LIMPAR para confirmar: ' confirm; [[ "$confirm" == LIMPAR ]] && state_reset || log 'Estado preservado.' ;;
+      18) return 0 ;;
+      19) purge_docker ;;
       *) log 'Opção inválida.' ;;
     esac
   done
