@@ -91,6 +91,8 @@ O print de bairro revisado mostra o polígono ampliado, pontos discretos, rankin
 
 - Java Maven: **113 testes, 0 falhas**.
 - Pipeline CNES/mapeamento/geocodificação: **87 testes, 0 falhas** e **36 testes, 0 falhas** na rodada complementar.
+- Frontend de produção: `npm run build` concluído; o bundler emitiu apenas o aviso já conhecido de chunk principal acima de 500 kB.
+- Imagem do pipeline: conferidos **13 candidatos CNES web únicos** dentro da imagem `nss-pipeline:local`.
 - PostgreSQL real: consultas de reconciliação para SIFA e DENG executadas.
 - Redis real: saúde dos três serviços e TTL de refresh verificados.
 - Containers `java`, `db`, `redis`, `redis-rate-limit`, `redis-analytics`, `frontend` e Caddy saudáveis após a recriação.
@@ -109,10 +111,10 @@ Os 13 candidatos foram incorporados em `/home/dock/dev/nss-pipeline/territories/
 
 ## Commits desta validação
 
-- Front: `79aabfd0`, `bb40cd6e`, `e75479ed`, `11ed19fc`, `c09f55ff`, `4ee1eeba`, `638637f7`.
+- Front: `79aabfd0`, `bb40cd6e`, `e75479ed`, `11ed19fc`, `c09f55ff`, `4ee1eeba`, `638637f7`, `b68ddceb`.
 - Java: `473dd78`.
 - Pipeline: `bb0a0d21`, `5363d418`.
-- Deployment/auth: `d73646d`, `ef2f859`.
+- Deployment/auth: `d73646d`, `ef2f859`, `9ed95b1`.
 
 ## Limitações explicitamente mantidas
 
