@@ -89,8 +89,8 @@ O print de bairro revisado mostra o polígono ampliado, pontos discretos, rankin
 
 ## Testes de código e infraestrutura
 
-- Java Maven: **113 testes, 0 falhas**.
-- Pipeline CNES/mapeamento/geocodificação: **87 testes, 0 falhas** e **36 testes, 0 falhas** na rodada complementar.
+- Java Maven (rodada final): **113 testes, 0 falhas**.
+- Pipeline CNES/mapeamento/geocodificação (rodada final): **87 testes, 0 falhas** e **36 testes, 0 falhas** na rodada complementar.
 - Frontend de produção: `npm run build` concluído; o bundler emitiu apenas o aviso já conhecido de chunk principal acima de 500 kB.
 - Imagem do pipeline: conferidos **13 candidatos CNES web únicos** dentro da imagem `nss-pipeline:local`.
 - PostgreSQL real: consultas de reconciliação para SIFA e DENG executadas.
