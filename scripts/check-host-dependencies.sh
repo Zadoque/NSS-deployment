@@ -8,6 +8,7 @@ required_commands=(
   date
   docker
   git
+  jq
   awk
   grep
   mktemp

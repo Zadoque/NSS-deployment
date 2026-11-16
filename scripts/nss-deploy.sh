@@ -164,7 +164,7 @@ build_images() {
     local-build)
       [[ "${NSS_PIPELINE_IMAGE_MODE:-local-build}" == local-build ]] ||
         die 'NSS_PIPELINE_IMAGE_MODE deve ser local-build quando NSS_IMAGE_MODE=local-build'
-      step 'imagem do banco central' docker build -t "${NSS_DATABASE_IMAGE:-nss-database:0001}" "$REPO_DATABASE"
+      step 'imagem do banco central' docker build -t "${NSS_DATABASE_IMAGE:-nss-database:0002}" "$REPO_DATABASE"
       step 'imagem Java' docker build -t "${NSS_JAVA_IMAGE:-nss-java:local}" "$REPO_JAVA"
       step 'imagem frontend' docker build --build-arg VITE_USE_MOCKS=false --build-arg VITE_API_BASE_URL= -t "${NSS_FRONTEND_IMAGE:-nss-frontend:local}" "$REPO_FRONTEND"
       step 'imagem pipeline' docker build -t "${NSS_PIPELINE_IMAGE:-nss-pipeline:local}" "$REPO_PIPELINE"
@@ -206,7 +206,7 @@ start_java() {
   step 'health Redis' docker compose exec -T redis redis-cli ping
   step 'health Redis de limites' docker compose exec -T redis-rate-limit redis-cli ping
   step 'health Redis de analytics' docker compose exec -T redis-analytics redis-cli ping
-  step 'schema central NSS 0001' docker compose run --rm migrate
+  step 'schema central NSS 0002' docker compose run --rm migrate
   step 'Java'  docker compose up -d java
   step 'health Java' bash -c '
     container=$(docker compose ps -q java)
@@ -668,6 +668,88 @@ start_web() {
   step 'smoke Caddy' smoke_caddy
 }
 
+contract_test() {
+  local base_url="${NSS_CONTRACT_BASE_URL:-http://127.0.0.1:${NSS_HTTP_PORT:-8080}}"
+  local email="${NSS_CONTRACT_EMAIL:-${BOOTSTRAP_ADMIN_EMAIL:-}}"
+  local password="${NSS_CONTRACT_PASSWORD:-${BOOTSTRAP_ADMIN_PASSWORD:-}}"
+  local samples="${NSS_CONTRACT_SAMPLES:-20}" max_time="${NSS_CONTRACT_MAX_TIME:-20}"
+  local tmp login_body login_status token
+  [[ -n "$email" && -n "$password" ]] || die 'configure NSS_CONTRACT_EMAIL/PASSWORD ou BOOTSTRAP_ADMIN_EMAIL/PASSWORD'
+  [[ "$samples" =~ ^[1-9][0-9]*$ ]] || die 'NSS_CONTRACT_SAMPLES deve ser inteiro positivo'
+  tmp=$(mktemp -d "${TMPDIR:-/tmp}/nss-contract.XXXXXX")
+  trap 'rm -rf "${tmp:-}"; trap - RETURN' RETURN
+  log "Contrato HTTP: base=${base_url}; amostras=${samples}; timeout=${max_time}s"
+
+  login_status=$(curl -sS -o "$tmp/login.json" -w '%{http_code}' --max-time "$max_time" \
+    -H 'Content-Type: application/json' -X POST "$base_url/api/v1/auth/login" \
+    --data "$(jq -nc --arg email "$email" --arg password "$password" '{email:$email,password:$password,replaceExistingSession:true}')") || {
+      log 'FALHA transporte/timeout: login não concluiu'; return 1;
+    }
+  [[ "$login_status" == 200 ]] || {
+    log "FALHA aplicação: login retornou HTTP ${login_status}"; sed -n '1,3p' "$tmp/login.json" >&2; return 1;
+  }
+  token=$(jq -er '.accessToken // empty' "$tmp/login.json") || die 'FALHA contrato: login 200 sem accessToken'
+
+  local request_name="$1" request_path="$2" response_file="$tmp/response.json" timings="$tmp/timings" \
+    i status elapsed curl_error
+  : >"$timings"
+  for ((i=1; i<=samples; i++)); do
+    curl_error=''
+    if ! response_meta=$(curl -sS -o "$response_file" -w '%{http_code} %{time_total}' \
+      --max-time "$max_time" -H "Authorization: Bearer ${token}" "$base_url${request_path}" 2>"$tmp/curl.err"); then
+      curl_error=$(cat "$tmp/curl.err")
+      if grep -qi 'timed out' <<<"$curl_error"; then
+        log "FALHA timeout: ${request_name} (amostra ${i}/${samples})"; return 1
+      fi
+      log "FALHA transporte: ${request_name}: ${curl_error}"; return 1
+    fi
+    read -r status elapsed <<<"$response_meta"
+    [[ "$status" == 200 ]] || {
+      log "FALHA aplicação: ${request_name} retornou HTTP ${status} (amostra ${i}/${samples})"
+      sed -n '1,3p' "$response_file" >&2
+      return 1
+    }
+    awk -v value="$elapsed" 'BEGIN { printf "%.3f\n", value * 1000 }' >>"$timings"
+  done
+  local p95
+  p95=$(sort -n "$timings" | awk -v n="$samples" 'NR == int((n * 95 + 99) / 100) { print; exit }')
+  log "${request_name}: HTTP 200; p95=${p95}ms; amostras=${samples}"
+
+  case "$request_name" in
+    metadata)
+      jq -e '
+        (.availableYears | type == "array") and
+        (.availableMonthsByYear | type == "object") and
+        (.supportedGeographies | type == "array") and
+        (.supportedAgeBands | type == "array") and
+        (.supportedSexes | type == "array") and
+        (.municipalityOnlyScopes | type == "array") and
+        ([2023,2024,2025,2026] - .availableYears | length == 0) and
+        (.availableMonthsByYear["2023"] | type == "array") and
+        (.availableMonthsByYear["2024"] | type == "array") and
+        (.availableMonthsByYear["2025"] | type == "array") and
+        (.availableMonthsByYear["2026"] | type == "array") and
+        ([.municipalityOnlyScopes[] | select(.disease == "SIFA" and .year == 2025)] | length == 1)
+      ' "$response_file" >/dev/null || die 'FALHA contrato: metadata sem schema/anos/escopo esperado'
+      ;;
+    diseases)
+      jq -e '(.items | type == "array") and (all(.items[]; type == "string"))' "$response_file" >/dev/null \
+        || die 'FALHA contrato: diseases sem items[] de strings'
+      ;;
+    epidemiology)
+      jq -e '(.metric == "notifications") and (.totalNotifications | type == "number") and (.items | type == "array")' "$response_file" >/dev/null \
+        || die 'FALHA contrato: epidemiologia sem metric/totalNotifications/items'
+      ;;
+  esac
+}
+
+contract_test_all() {
+  contract_test metadata '/api/v1/metadata'
+  contract_test diseases '/api/v1/diseases'
+  contract_test epidemiology '/api/v1/epidemiology/municipalities?disease=DENG&year=2026&month=1'
+  log 'CONCLUÍDO: contrato HTTP metadata, diseases e epidemiologia'
+}
+
 status() {
   docker compose ps || log 'Não foi possível consultar os serviços; verifique Docker/Compose e o .env.'
   printf '\nPortas locais:\n'
@@ -702,6 +784,7 @@ if [[ "${1:-}" == "up" || "${1:-}" == "resume" ]]; then
 fi
 if [[ "${1:-}" == "status" ]]; then show_state; status; exit 0; fi
 if [[ "${1:-}" == "reset-state" ]]; then state_reset; exit 0; fi
+if [[ "${1:-}" == "contract-test" ]]; then require_env; contract_test_all; exit 0; fi
 
 menu() {
   while true; do
@@ -722,11 +805,12 @@ NSS deployment
   12) verificar/baixar atualizações Parquet SINAN
   13) executar Gold Serving/PostgreSQL
   14) subir frontend, Caddy e observabilidade
-  15) status e diagnóstico
-  16) mostrar máquina de estados
-  17) limpar estado persistido
-  18) sair
-  19) apagar todos os recursos Docker
+  15) validar contrato HTTP e p95
+  16) status e diagnóstico
+  17) mostrar máquina de estados
+  18) limpar estado persistido
+  19) sair
+  20) apagar todos os recursos Docker
 EOF
     read -r -p 'Escolha: ' choice
     case "${choice}" in
@@ -744,11 +828,12 @@ EOF
       12) update_sinan ;;
       13) run_serving_load ;;
       14) start_web ;;
-      15) status; diagnose ;;
-      16) show_state ;;
-      17) read -r -p 'Digite LIMPAR para confirmar: ' confirm; [[ "$confirm" == LIMPAR ]] && state_reset || log 'Estado preservado.' ;;
-      18) return 0 ;;
-      19) purge_docker ;;
+      15) contract_test_all ;;
+      16) status; diagnose ;;
+      17) show_state ;;
+      18) read -r -p 'Digite LIMPAR para confirmar: ' confirm; [[ "$confirm" == LIMPAR ]] && state_reset || log 'Estado preservado.' ;;
+      19) return 0 ;;
+      20) purge_docker ;;
       *) log 'Opção inválida.' ;;
     esac
   done

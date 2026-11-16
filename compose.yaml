@@ -33,6 +33,7 @@ services:
       ANALYTICS_CACHE_REDIS_URL: redis://redis-analytics:6379
       ANALYTICS_CACHE_ENABLED: ${ANALYTICS_CACHE_ENABLED:-false}
       AUTH_RATE_LIMIT_KEY_SECRET: ${AUTH_RATE_LIMIT_KEY_SECRET:-${JWT_SECRET}}
+      AUTH_RATE_LIMIT_LOGIN_MAXIMUM: ${AUTH_RATE_LIMIT_LOGIN_MAXIMUM:-50}
       AUTH_TRUSTED_PROXY_REGEX: '${AUTH_TRUSTED_PROXY_REGEX:-172\.30\.254\.2}'
       SPRING_JPA_HIBERNATE_DDL_AUTO: validate
       SPRING_PROFILES_ACTIVE: prod
@@ -117,7 +118,7 @@ services:
     networks: [nss_internal, nss_proxy]
 
   db-permissions:
-    image: ${NSS_DATABASE_IMAGE:-nss-database:0001}
+    image: ${NSS_DATABASE_IMAGE:-nss-database:0002}
     command: ["provision"]
     environment: &database_job_env
       POSTGRES_HOST: db
@@ -143,7 +144,7 @@ services:
     networks: [nss_internal]
 
   migrate:
-    image: ${NSS_DATABASE_IMAGE:-nss-database:0001}
+    image: ${NSS_DATABASE_IMAGE:-nss-database:0002}
     command: ["migrate"]
     environment: *database_job_env
     depends_on:

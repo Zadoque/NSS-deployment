@@ -13,7 +13,7 @@ docker info >/dev/null 2>&1 || die 'Docker daemon indisponível'
 docker version >/dev/null 2>&1 || die 'Docker indisponível'
 
 declare -A source_images=(
-  [database]="${NSS_DATABASE_BUILD_IMAGE:-nss-database:0001}"
+  [database]="${NSS_DATABASE_BUILD_IMAGE:-nss-database:0002}"
   [java]="${NSS_JAVA_BUILD_IMAGE:-nss-java:local}"
   [frontend]="${NSS_FRONTEND_BUILD_IMAGE:-nss-frontend:local}"
   [pipeline]="${NSS_PIPELINE_BUILD_IMAGE:-nss-pipeline:local}"

@@ -122,6 +122,20 @@ Depois da confirmação, o script constrói as imagens, sobe PostgreSQL, espera
 migration central do `NSS-database`, inicia Java, aguarda seu healthcheck, sobe
 frontend/Caddy/Prometheus/Grafana e executa o smoke test HTTP.
 
+Para validar o contrato materializado após uma publicação, execute:
+
+```bash
+NSS_ENV_FILE=/etc/nss/deployment.env ./scripts/nss-deploy.sh contract-test
+```
+
+Essa etapa autentica, testa `/api/v1/metadata`, `/api/v1/diseases` e uma
+consulta epidemiológica, valida o JSON com `jq` e registra p95 separado para
+metadata e diseases. `NSS_CONTRACT_BASE_URL` permite repetir o mesmo teste via
+ngrok; `NSS_CONTRACT_SAMPLES` controla o número de amostras. HTTP diferente de
+200 é reportado como erro de aplicação, código 28 como timeout e falha de
+conexão como erro de transporte. A validação exige os anos 2023–2026 e
+SIFA/2025 em `municipalityOnlyScopes`.
+
 O Java usa PostgreSQL operacional e analytics, Redis de sessões, Redis de rate
 limit e Redis de cache. O frontend acessa somente Caddy; não acessa banco ou
 Parquet.
