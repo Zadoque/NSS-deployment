@@ -5,7 +5,7 @@ set -Eeuo pipefail
 # único ponto HTTP público no Caddy, em 127.0.0.1:8080.
 
 DEPLOY_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-ENV_FILE="${DEPLOY_ROOT}/.env"
+ENV_FILE="${NSS_ENV_FILE:-${DEPLOY_ROOT}/deployment.env}"
 NGROK_ORIGIN="${1:-${NGROK_ORIGIN:-}}"
 
 if [[ -z "${NGROK_ORIGIN}" ]]; then
@@ -44,8 +44,8 @@ set_env NSS_HTTP_PORT 8080
 set_env CORS_ALLOWED_ORIGINS "${NGROK_ORIGIN}"
 
 cd "${DEPLOY_ROOT}"
-docker compose config --quiet
-docker compose up -d --force-recreate java caddy
+docker compose --env-file "${ENV_FILE}" config --quiet
+docker compose --env-file "${ENV_FILE}" up -d --force-recreate java caddy
 
 printf '\nConfigurado com sucesso.\n'
 printf '%s\n' "- origem CORS: ${NGROK_ORIGIN}" \
