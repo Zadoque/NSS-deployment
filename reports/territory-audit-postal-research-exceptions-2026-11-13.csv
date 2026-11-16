@@ -1,0 +1,13 @@
+municipalityCode,municipality,uf,postalNeighborhoodCount,source,sourceUrl,confidence,notes
+1400605,São Luiz do Anauá,RR,25,CEP Brasil/Painel CEP,https://painelcep.com/rr/sao-luiz-do-anaua,reference,"CNEFE/Censo 2022; source route now available"
+1706001,Couto Magalhães,TO,72,CEP Brasil/Painel CEP,https://painelcep.com/to/couto-magalhaes,reference,"CNEFE/Censo 2022; source route now available"
+1720499,São Valério,TO,20,CEP Brasil/Painel CEP,https://painelcep.com/to/sao-valerio,reference,"CNEFE/Censo 2022; source route now available"
+2405306,Januário Cicco,RN,70,CEP Brasil/Painel CEP,https://painelcep.com/rn/januario-cicco,reference,"CNEFE/Censo 2022; source route now available"
+2608503,Lagoa de Itaenga,PE,44,CEP Brasil/Painel CEP,https://painelcep.com/pe/lagoa-de-itaenga,reference,"CNEFE/Censo 2022; source route now available"
+2800100,Amparo de São Francisco,SE,1,CorreiosWeb,https://www.correiosweb.com.br/livro-cep/se/amparo-de-sao-francisco/,low,"Alternative postal source; municipal/legal count not confirmed"
+2922250,Muquém do São Francisco,BA,111,CEP Brasil/Painel CEP,https://painelcep.com/ba/muquem-do-sao-francisco,reference,"CNEFE/Censo 2022; source route now available"
+2928505,Santa Terezinha,BA,118,CEP Brasil/Painel CEP,https://painelcep.com/ba/santa-terezinha,reference,"CNEFE/Censo 2022; source route now available"
+3102506,Amparo do Serra,MG,54,CEP Brasil/Painel CEP,https://painelcep.com/mg/amparo-do-serra,reference,"CNEFE/Censo 2022; source route now available"
+3105509,Barão do Monte Alto,MG,66,CEP Brasil/Painel CEP,https://painelcep.com/mg/barao-do-monte-alto,reference,"CNEFE/Censo 2022; source route now available"
+3165206,São Tomé das Letras,MG,78,CEP Brasil/Painel CEP,https://painelcep.com/mg/sao-tome-das-letras,reference,"CNEFE/Censo 2022; source route now available"
+5107800,Santo Antônio de Leverger,MT,153,CEP Brasil/Painel CEP,https://painelcep.com/mt/santo-antonio-de-leverger,reference,"CNEFE/Censo 2022; source route now available"

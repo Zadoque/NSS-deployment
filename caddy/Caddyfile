@@ -1,8 +1,17 @@
+{
+    servers {
+        trusted_proxies static 172.30.254.1/32
+        trusted_proxies_strict
+    }
+}
+
 :80 {
     encode zstd gzip
 
     handle /api/* {
-        reverse_proxy java:8080
+        reverse_proxy java:8080 {
+            header_up X-Forwarded-For {client_ip}
+        }
     }
 
     handle {

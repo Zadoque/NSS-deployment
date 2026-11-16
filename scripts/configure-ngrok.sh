@@ -5,7 +5,7 @@ set -Eeuo pipefail
 # único ponto HTTP público no Caddy, em 127.0.0.1:8080.
 
 DEPLOY_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-ENV_FILE="${DEPLOY_ROOT}/.env"
+ENV_FILE="${NSS_ENV_FILE:-${DEPLOY_ROOT}/deployment.env}"
 NGROK_ORIGIN="${1:-${NGROK_ORIGIN:-}}"
 
 if [[ -z "${NGROK_ORIGIN}" ]]; then
@@ -18,6 +18,7 @@ if [[ ! "${NGROK_ORIGIN}" =~ ^https://[^/[:space:]]+$ ]]; then
   printf 'Erro: informe somente a origem HTTPS, por exemplo https://exemplo.ngrok-free.dev\n' >&2
   exit 2
 fi
+NGROK_HOST="${NGROK_ORIGIN#https://}"
 
 if [[ ! -f "${ENV_FILE}" ]]; then
   cp "${DEPLOY_ROOT}/.env.example" "${ENV_FILE}"
@@ -42,13 +43,16 @@ set_env() {
 
 set_env NSS_HTTP_PORT 8080
 set_env CORS_ALLOWED_ORIGINS "${NGROK_ORIGIN}"
+set_env URL_TOKEN_SENDER_SCHEME https
+set_env URL_TOKEN_SENDER "${NGROK_HOST}"
 
 cd "${DEPLOY_ROOT}"
-docker compose config --quiet
-docker compose up -d --force-recreate java caddy
+docker compose --env-file "${ENV_FILE}" config --quiet
+docker compose --env-file "${ENV_FILE}" up -d --force-recreate java caddy
 
 printf '\nConfigurado com sucesso.\n'
 printf '%s\n' "- origem CORS: ${NGROK_ORIGIN}" \
+  "- links de convite: ${NGROK_ORIGIN}" \
   '- entrada pública: somente Caddy em 127.0.0.1:8080' \
   '- Java, PostgreSQL e Grafana continuam sem exposição externa'
 printf '\nValide com:\n  curl -I http://127.0.0.1:8080/\n  docker compose ps\n'
