@@ -142,3 +142,10 @@ Os 13 candidatos foram incorporados em `/home/dock/dev/nss-pipeline/territories/
 - O teste real mediu a área dos polígonos, limitou os marcadores renderizados a menos de 400 e rejeitou tarefas longas acima de 300 ms durante o arraste.
 - Playwright/Nix após a publicação: **5 passed**; suíte dashboard/cache: **28 passed**.
 - Screenshot revisado: [/tmp/nss-campos-sede-neighborhoods-real.png](/tmp/nss-campos-sede-neighborhoods-real.png).
+
+## Mira móvel e seleção exclusiva de CNES
+
+- Em telas de até 767 px, o mapa exibe uma mira central com linhas de referência e rótulo ampliado do território sob o centro (`Município`, `Distrito` ou `Bairro`). A identificação usa o GeoJSON local e ponto-em-polígono, sem dependência externa.
+- Ao clicar em uma unidade ou agrupamento CNES, a seleção anterior é substituída imediatamente; permanece no máximo um painel de seleção aberto. O botão `Fechar` continua como ação opcional.
+- Playwright/Nix após a publicação: **6 passed**.
+- Screenshot móvel revisado: [/tmp/nss-campos-mobile-crosshair-real.png](/tmp/nss-campos-mobile-crosshair-real.png).
