@@ -1,0 +1,13 @@
+digraph VET {
+  graph [rankdir=LR, pad=0.12, nodesep=0.4, ranksep=0.6, bgcolor="white", fontname="DejaVu Sans", label="Esporotricose: duas fontes distintas, sem soma automática", labelloc=t, fontsize=15];
+  node [shape=box, style="rounded,filled", fontname="DejaVu Sans", fontsize=10, color="#174A7E", fillcolor="#F3F6F8"];
+  edge [color="#607585", arrowsize=0.7,fontname="DejaVu Sans",fontsize=9];
+  Hist [label="Arquivo legado Gabriel\n5 colunas normalizadas", fillcolor="#E0EBF9"];
+  Web [label="Notificações web\nvínculo de clínica verificado",fillcolor="#E0EBF9"];
+  Eval [label="Validação / revisão\nterritório e raça opcionais"];
+  GoldHist [label="Gold histórica\nESPORO_HISTORICAL_GABRIEL",fillcolor="#EDF8ED"];
+  GoldWeb [label="Gold clínica versionada\nVET_WEB_VERIFIED",fillcolor="#EDF8ED"];
+  API [label="API animal protegida\nsourceDataset obrigatório"];
+  UI [label="Mapa e boletim\nfonte e cobertura visíveis"];
+  Hist -> GoldHist; Web -> Eval -> GoldWeb; GoldHist -> API; GoldWeb -> API; API -> UI;
+}

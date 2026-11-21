@@ -1,0 +1,2003 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Auditoria Integral do RFC NSS v1.4 e Manual de Marca v1.0</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+/* Utilitarian / Deep Research · Answer-first compact hero · Parts A through I (mandatory 9-part audit structure) · IBM Plex Sans + IBM Plex Mono · Crisp White (#FFFFFF) + NSS Deep Cobalt (#113B66 / #174A7E) · 0px radius · Verdict metric row · 2 inline SVG analytical charts + 3 open structured tables */
+
+:root {
+  --paper: #FFFFFF;
+  --ink: #111827;
+  --ink2: #374151;
+  --mute: #475569;
+  --hair: #D5DCE4;
+  --accent: #174A7E;
+  --accent-text: #113B66;
+  --accent-2: #B45309;
+  --accent-2-text: #7C2D12;
+  --p0-text: #991B1B;
+  --p0-fill: #B91C1C;
+  --p1-text: #7C2D12;
+  --p1-fill: #C2410C;
+  --p2-text: #113B66;
+  --p2-fill: #174A7E;
+  --p3-text: #334155;
+  --p3-fill: #64748B;
+  --ok-text: #14532D;
+  --ok-fill: #15803D;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 16px;
+  line-height: 1.62;
+  padding: 56px clamp(20px, 7vw, 96px) 88px;
+}
+
+.page {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+/* Typography */
+h1 {
+  font-size: clamp(32px, 4.2vw, 48px);
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0 0 18px 0;
+  text-wrap: balance;
+  max-width: 28ch;
+}
+
+.deck {
+  font-size: 18px;
+  line-height: 1.55;
+  color: var(--ink2);
+  max-width: 72ch;
+  margin: 0 0 32px 0;
+}
+
+h2 {
+  font-size: clamp(22px, 2.5vw, 28px);
+  line-height: 1.22;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0 0 16px 0;
+  text-wrap: balance;
+}
+
+h3 {
+  font-size: 18px;
+  line-height: 1.3;
+  font-weight: 600;
+  color: var(--accent-text);
+  margin: 28px 0 10px 0;
+}
+
+p {
+  margin: 0 0 14px 0;
+  color: var(--ink2);
+}
+
+.measure {
+  max-width: 68ch;
+}
+
+strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+code {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.86em;
+  color: var(--accent-text);
+}
+
+/* Sections */
+.sec {
+  margin-top: 64px;
+  padding-top: 28px;
+  border-top: 1px solid var(--hair);
+}
+
+.sec-first {
+  margin-top: 36px;
+  padding-top: 28px;
+  border-top: 2px solid var(--ink);
+}
+
+/* Hero Metrics Strip (open canvas, hairlines only) */
+.metrics-strip {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 24px;
+  padding: 20px 0;
+  border-top: 1px solid var(--hair);
+  border-bottom: 1px solid var(--hair);
+  margin-bottom: 28px;
+}
+
+.metric-val {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(28px, 3.2vw, 40px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+.metric-val.p0 { color: var(--p0-text); }
+.metric-val.accent { color: var(--accent-text); }
+
+.metric-desc {
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--mute);
+  margin-top: 6px;
+}
+
+/* Split & Multi-column layouts */
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+  gap: 32px;
+  align-items: start;
+}
+
+.cols-2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px 36px;
+  align-items: start;
+}
+
+.cols-3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px 32px;
+  align-items: start;
+}
+
+/* Editorial Callout / Verdict */
+.verdict-quote {
+  margin: 24px 0 28px 0;
+  padding: 4px 0 4px 20px;
+  border-left: 3px solid var(--accent);
+  font-size: 19px;
+  line-height: 1.48;
+  font-weight: 500;
+  color: var(--ink);
+  max-width: 68ch;
+}
+
+/* Navigation Index (open horizontal strip) */
+.toc {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--hair);
+  margin-bottom: 28px;
+  font-size: 14px;
+}
+
+.toc a {
+  color: var(--accent-text);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.toc a:hover {
+  text-decoration: underline;
+}
+
+/* Lists */
+ul, ol {
+  margin: 0 0 18px 0;
+  padding-left: 20px;
+  color: var(--ink2);
+}
+
+li {
+  margin-bottom: 8px;
+}
+
+.ranked-list {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0 24px 0;
+  counter-reset: topdec;
+}
+
+.ranked-list li {
+  counter-increment: topdec;
+  position: relative;
+  padding: 12px 0 12px 40px;
+  border-top: 1px solid var(--hair);
+  margin: 0;
+}
+
+.ranked-list li::before {
+  content: counter(topdec, decimal-leading-zero);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--accent-text);
+  position: absolute;
+  left: 0;
+  top: 14px;
+}
+
+/* Open Tables (strictly 3 tables in the whole report) */
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  margin: 20px 0 28px 0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+  line-height: 1.45;
+  text-align: left;
+}
+
+thead th {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ink);
+  padding: 10px 10px 10px 0;
+  border-bottom: 2px solid var(--ink);
+  vertical-align: bottom;
+  white-space: nowrap;
+}
+
+tbody td {
+  padding: 10px 10px 10px 0;
+  border-bottom: 1px solid var(--hair);
+  vertical-align: top;
+  color: var(--ink2);
+}
+
+.col-id {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+.prio {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.prio-p0 { color: var(--p0-text); }
+.prio-p1 { color: var(--p1-text); }
+.prio-p2 { color: var(--p2-text); }
+.prio-p3 { color: var(--p3-text); }
+.status-sim { color: var(--ok-text); font-weight: 600; }
+.status-parcial { color: var(--p1-text); font-weight: 600; }
+.status-nao { color: var(--p0-text); font-weight: 600; }
+
+/* Decision Records (Parte C) */
+.dec-item {
+  padding: 20px 0;
+  border-top: 1px solid var(--hair);
+}
+
+.dec-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px 14px;
+  margin-bottom: 10px;
+}
+
+.dec-id {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--accent-text);
+  white-space: nowrap;
+}
+
+.dec-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.dec-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 28px;
+  font-size: 14.5px;
+  line-height: 1.52;
+}
+
+.dec-grid p {
+  margin: 0 0 6px 0;
+}
+
+.dec-full {
+  grid-column: 1 / -1;
+}
+
+/* Deep Use Case Details, Test Items & Readiness Rows */
+.detail-row {
+  padding: 16px 0;
+  border-top: 1px solid var(--hair);
+}
+
+.test-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px 32px;
+  margin-top: 16px;
+}
+
+.test-item {
+  padding-top: 14px;
+  border-top: 1px solid var(--hair);
+  font-size: 14.5px;
+}
+
+.test-item p {
+  margin: 0 0 6px 0;
+}
+
+.readiness-item {
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 1.4fr) minmax(0, 6.6fr);
+  gap: 16px 24px;
+  padding: 14px 0;
+  border-top: 1px solid var(--hair);
+  align-items: baseline;
+  font-size: 14.5px;
+}
+
+.wave-block {
+  padding-top: 16px;
+  border-top: 1px solid var(--hair);
+  margin-bottom: 24px;
+}
+
+/* Figures & SVGs */
+figure {
+  margin: 28px 0 32px 0;
+  padding: 0;
+}
+
+.fig-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--ink);
+  margin: 0 0 12px 0;
+}
+
+figcaption {
+  font-size: 13px;
+  color: var(--mute);
+  margin-top: 10px;
+}
+
+svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+@media (max-width: 900px) {
+  .metrics-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .split, .cols-2, .cols-3, .dec-grid, .test-grid, .readiness-item {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <h1>O RFC NSS v1.4 tem arquitetura sólida, mas 23 decisões críticas ainda impedem implementar a V1 sem improviso</h1>
+    <p class="deck">Auditoria integral de arquitetura, modelagem, concorrência, semântica epidemiológica, UX e governança sobre o <em>RFC da Plataforma NSS v1.4</em> (92 págs. PDF / 79 págs. internas) e o <em>Manual de Marca NSS v1.0</em> (7 págs. PDF), com corte documental em 20 de novembro de 2026.</p>
+
+    <nav class="toc" aria-label="Seções do relatório">
+      <a href="#parte-a">A. Parecer executivo</a>
+      <a href="#parte-b">B. Matriz de lacunas (32)</a>
+      <a href="#parte-c">C. Registro de decisões (22)</a>
+      <a href="#parte-d">D. Casos de uso descobertos (18)</a>
+      <a href="#parte-e">E. Contradições e semântica</a>
+      <a href="#parte-f">F. Estados e concorrência</a>
+      <a href="#parte-g">G. Testes que faltam (22)</a>
+      <a href="#parte-h">H. Plano de fechamento</a>
+      <a href="#parte-i">I. Avaliação de prontidão</a>
+    </nav>
+
+    <div class="metrics-strip">
+      <div>
+        <div class="metric-val p0">9 P0 · 14 P1</div>
+        <div class="metric-desc">23 achados bloqueantes ou de alta prioridade entre 32 identificados</div>
+      </div>
+      <div>
+        <div class="metric-val accent">14,6%</div>
+        <div class="metric-desc">6 de 41 blocos normativos completos sem decisões adicionais</div>
+      </div>
+      <div>
+        <div class="metric-val">68,3%</div>
+        <div class="metric-desc">28 de 41 blocos parcialmente especificados (faltam invariantes/fluxos)</div>
+      </div>
+      <div>
+        <div class="metric-val">5 + 2</div>
+        <div class="metric-desc">5 blocos abertos intencionalmente e 2 com contradição de escopo V1</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- PARTE A -->
+  <section id="parte-a" class="sec-first">
+    <h2>Parte A — Parecer executivo</h2>
+
+    <div class="verdict-quote">
+      A arquitetura de referência do NSS está bem orientada para uma equipe universitária (monólito modular Java, PostgreSQL centralizado, pipeline Python desacoplada e 4 serviços Redis isolados), mas a especificação <strong>não está pronta para implementação direta da V1</strong> sem que desenvolvedores inventem regras críticas de negócio, protocolos de integração e mecanismos de concorrência.
+    </div>
+
+    <div class="cols-2">
+      <div>
+        <h3>1. Avaliação geral e metodologia de completude</h3>
+        <p>A avaliação foi executada em cinco passagens sobre todos os <strong>41 blocos normativos</strong> do RFC (<code>P-01</code> a <code>P-20</code>, <code>T-01</code> a <code>T-09</code>, <code>DT-02</code> a <code>DT-13</code>), os Anexos A a K e o Manual de Marca v1.0. Cada bloco foi classificado segundo suficiência para implementação e teste sem decisões pendentes:</p>
+        <ul>
+          <li><strong>Completo (6 blocos — 14,6%):</strong> <code>P-13</code>, <code>P-14</code>, <code>DT-04</code>, <code>DT-07</code>, <code>DT-08</code>, <code>T-09</code>.</li>
+          <li><strong>Parcialmente especificado (28 blocos — 68,3%):</strong> <code>P-01</code> a <code>P-11</code>, <code>P-17</code> a <code>P-20</code>, <code>T-02</code>, <code>T-03</code>, <code>T-05</code> a <code>T-08</code>, <code>DT-02</code>, <code>DT-03</code>, <code>DT-05</code>, <code>DT-06</code>, <code>DT-09</code>, <code>DT-11</code>, <code>DT-12</code>.</li>
+          <li><strong>Aberto intencionalmente (5 blocos — 12,2%):</strong> <code>P-12</code>, <code>T-01</code>, <code>T-04</code>, <code>DT-10</code>, <code>DT-13</code>.</li>
+          <li><strong>Contraditório no escopo V1 (2 blocos — 4,9%):</strong> <code>P-15</code> e <code>P-16</code> (conflito direto entre contrato aprovado de mapa por bairro / boletim por raça e a Gold animal real do Gabriel em <code>T-04</code>/<code>T-07</code>).</li>
+        </ul>
+
+        <h3>2. Nível de confiança da avaliação</h3>
+        <p><strong>Alto para a camada documental e contratual</strong> (leitura integral das 92 páginas do RFC e 7 páginas do Manual de Marca, com validação cruzada contra anexos para eliminar falsos positivos). <strong>Limitado para código-fonte e ambiente operacional</strong>: em conformidade com a regra de escopo, não foram inspecionados os commits nos repositórios GitHub nem executados testes, migrations ou instâncias em produção; toda referência ao estado de código decorre estritamente das evidências declaradas no próprio RFC (Apêndice E, págs. 63–65 internas / PDF págs. 76–78).</p>
+      </div>
+
+      <div>
+        <h3>3. Principais pontos fortes do RFC</h3>
+        <ul>
+          <li><strong>Honestidade epistêmica rara:</strong> separa explicitamente código observado, decisões aprovadas, propostas técnicas e pendências de homologação (Controle documental, pág. ix / PDF pág. 10; <code>T-09</code>, págs. 34–35).</li>
+          <li><strong>Semântica epidemiológica madura na visão humana:</strong> distingue notificações de casos confirmados, zero de ausência, e preserva bairros nominais sem fabricar polígonos (<code>P-13</code>, <code>P-14</code>, Apêndice A.4).</li>
+          <li><strong>Arquitetura proporcional à equipe:</strong> rejeita complexidade gratuita (Neo4j para CEP, object storage externo, microsserviços) e isola o cache editorial público em um quarto Redis (<code>DT-09</code>) sem contaminar sessões ou rate limiting.</li>
+          <li><strong>Defesa em profundidade no acesso e taxa:</strong> validação server-side obrigatória, HMAC de e-mail em chaves Redis antes de quota (<code>DT-04</code>), dupla conferência com idempotência (<code>DT-07</code>) e independência entre <code>map.human.view</code> e <code>map.animal.view</code> (<code>DT-02</code>).</li>
+        </ul>
+
+        <h3>4. Principais riscos identificados</h3>
+        <ul>
+          <li><strong>Fratura do domínio veterinário:</strong> notificações web das clínicas (<code>veterinary.notifications</code>) não têm ponte definida para a Gold animal (<code>analytics_animal.fato_esporo</code>), que por sua vez não contém raça nem bairro exigidos por <code>P-15</code>/<code>P-16</code>.</li>
+          <li><strong>Janelas de inconsistência de segurança:</strong> revogação imediata de papéis/grants com JWT de 15 min sem mecanismo especificado; proteção do último Chefe Geral vulnerável a corrida em <code>READ COMMITTED</code> sem lock transacional.</li>
+          <li><strong>Gargalo inter-serviços sem protocolo:</strong> pipeline Python escreve em <code>analytics</code> e Java lê <code>analytics</code> em <em>read-only</em>, mas não há protocolo definido para disparar boletins (<code>T-03</code>) nem invalidar <code>redis-analytics</code> e <code>IndexedDB</code>.</li>
+          <li><strong>Lacuna operacional de continuidade:</strong> ausência de RPO/RTO, backup sincronizado (PostgreSQL + HD 12 TB), fallback de <code>redis-rate-limit</code> e procedimento de contingência para perda do último Chefe Geral ou único Escritor-Chefe.</li>
+        </ul>
+      </div>
+    </div>
+
+    <figure>
+      <p class="fig-title">Decisões críticas (P0 e P1) concentram 72% dos achados e bloqueiam modelagem, contratos e segurança da V1</p>
+      <svg viewBox="0 0 680 330" role="img" aria-label="Gráfico de barras horizontais mostrando os 32 achados por prioridade e categoria">
+        <!-- Gridlines -->
+        <line x1="210" y1="28" x2="210" y2="270" stroke="#D5DCE4" stroke-width="1"/>
+        <line x1="290" y1="28" x2="290" y2="270" stroke="#D5DCE4" stroke-width="1" stroke-dasharray="3,3"/>
+        <line x1="370" y1="28" x2="370" y2="270" stroke="#D5DCE4" stroke-width="1" stroke-dasharray="3,3"/>
+        <line x1="450" y1="28" x2="450" y2="270" stroke="#D5DCE4" stroke-width="1" stroke-dasharray="3,3"/>
+        <line x1="530" y1="28" x2="530" y2="270" stroke="#D5DCE4" stroke-width="1" stroke-dasharray="3,3"/>
+        <line x1="610" y1="28" x2="610" y2="270" stroke="#D5DCE4" stroke-width="1" stroke-dasharray="3,3"/>
+
+        <!-- X Axis ticks (0 to 15, 26.67px per unit -> 5 units = 133.3px; let's use 28px per unit: 0=210, 3=294, 6=378, 9=462, 12=546, 15=630) -->
+        <text x="210" y="290" font-family="IBM Plex Mono, monospace" font-size="13" fill="#475569" text-anchor="middle">0</text>
+        <text x="290" y="290" font-family="IBM Plex Mono, monospace" font-size="13" fill="#475569" text-anchor="middle">3</text>
+        <text x="370" y="290" font-family="IBM Plex Mono, monospace" font-size="13" fill="#475569" text-anchor="middle">6</text>
+        <text x="450" y="290" font-family="IBM Plex Mono, monospace" font-size="13" fill="#475569" text-anchor="middle">9</text>
+        <text x="530" y="290" font-family="IBM Plex Mono, monospace" font-size="13" fill="#475569" text-anchor="middle">12</text>
+        <text x="610" y="290" font-family="IBM Plex Mono, monospace" font-size="13" fill="#475569" text-anchor="middle">15</text>
+        <text x="410" y="315" font-family="IBM Plex Sans, sans-serif" font-size="13" fill="#475569" text-anchor="middle">Quantidade de achados independentes (total = 32)</text>
+
+        <!-- Scale: 1 unit = 26.67px (80px per 3 units) -->
+        <!-- Row 1: P0 Bloqueante = 9 (240px) -->
+        <text x="198" y="64" font-family="IBM Plex Sans, sans-serif" font-size="14" font-weight="600" fill="#991B1B" text-anchor="end">P0 — Bloqueante</text>
+        <rect x="210" y="42" width="240" height="32" fill="#B91C1C"/>
+        <text x="460" y="63" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="500" fill="#111827">9 (28,1%)</text>
+
+        <!-- Row 2: P1 Alta = 14 (373.3px) -->
+        <text x="198" y="124" font-family="IBM Plex Sans, sans-serif" font-size="14" font-weight="600" fill="#7C2D12" text-anchor="end">P1 — Alta</text>
+        <rect x="210" y="102" width="373" height="32" fill="#C2410C"/>
+        <text x="593" y="123" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="500" fill="#111827">14 (43,8%)</text>
+
+        <!-- Row 3: P2 Média = 7 (186.7px) -->
+        <text x="198" y="184" font-family="IBM Plex Sans, sans-serif" font-size="14" font-weight="600" fill="#113B66" text-anchor="end">P2 — Média</text>
+        <rect x="210" y="162" width="187" height="32" fill="#174A7E"/>
+        <text x="407" y="183" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="500" fill="#111827">7 (21,9%)</text>
+
+        <!-- Row 4: P3 Baixa = 2 (53.3px) -->
+        <text x="198" y="244" font-family="IBM Plex Sans, sans-serif" font-size="14" font-weight="600" fill="#334155" text-anchor="end">P3 — Baixa</text>
+        <rect x="210" y="222" width="53" height="32" fill="#64748B"/>
+        <text x="273" y="243" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="500" fill="#111827">2 (6,2%)</text>
+      </svg>
+      <figcaption>Distribuição por severidade dos 32 achados consolidados na Parte B: 13 especificações insuficientes, 6 lacunas implícitas, 5 contradições, 4 inconsistências semânticas, 1 lacuna explícita consolidada, 1 risco arquitetural e 2 melhorias opcionais.</figcaption>
+    </figure>
+
+    <h3>5. As dez decisões mais importantes ainda necessárias</h3>
+    <ol class="ranked-list">
+      <li><strong>Resolver o escopo da visão veterinária na V1 (<code>DEC-AUD-001</code>):</strong> conciliar <code>P-15</code>/<code>P-16</code> (mapa por bairro e boletim de cães por raça) com o contrato real da Gold do Gabriel (<code>T-04</code>, sem raça/bairro) e definir como notificações web das clínicas alimentam a camada analítica.</li>
+      <li><strong>Definir o mecanismo de revogação imediata de JWT de 15 min (<code>DEC-AUD-002</code>):</strong> especificar validação de <code>permission_version</code> por requisição (Redis + fallback PostgreSQL) para que perda de papel ou grant revogue acesso aos mapas imediatamente.</li>
+      <li><strong>Especificar lock transacional e procedimento break-glass do último Chefe Geral (<code>DEC-AUD-003</code>):</strong> impedir condição de corrida em <code>READ COMMITTED</code> e definir recuperação institucional se o último Chefe Geral perder acesso.</li>
+      <li><strong>Fechar o protocolo entre Pipeline Python e Java para boletins e invalidação de cache (<code>DEC-AUD-004</code>):</strong> resolver o conflito de permissões SQL (<code>analytics_writer</code> vs <code>analytics_reader</code>) para disparo de boletins (<code>T-03</code>) e invalidação de <code>redis-analytics</code>/<code>IndexedDB</code>.</li>
+      <li><strong>Modelar completamente vínculos municipais, uploads, quarentena e duplicidade (<code>DEC-AUD-005</code>):</strong> preencher a ausência no Apêndice G (<code>municipality_memberships</code>, <code>municipal_uploads</code>), regras de reenvio corrigido e proteção contra ZIP-bomb/formula injection.</li>
+      <li><strong>Definir modelo de gestão de clínicas por Agentes Epidemiológicos e sucessão (<code>DEC-AUD-006</code>):</strong> decidir gestão 1:N vs N:M, reatribuição quando um Agente sai, e esclarecer se Agentes podem submeter notificações veterinárias.</li>
+      <li><strong>Especificar todos os TTLs e fluxos de transição da solicitação pública até o primeiro acesso (<code>DEC-AUD-007</code>):</strong> definir comportamento quando o e-mail já existe em <code>users</code>, TTL de verificação/protocolo/convite e impacto de pedidos expirados na quota de 3/30 dias.</li>
+      <li><strong>Fixar regras epidemiológicas faltantes de idade fracionária, data nula, espécie em boletins e escopo territorial (<code>DEC-AUD-008</code>):</strong> eliminar ambiguidade de cálculo antes de codificar boletins e agregações.</li>
+      <li><strong>Definir política <code>fail-open</code>/<code>fail-closed</code> do <code>redis-rate-limit</code> e invalidação por namespace no <code>redis-public-cache</code> (<code>DEC-AUD-009</code>):</strong> garantir segurança previsível sob falha de Redis e consistência garantida após despublicação.</li>
+      <li><strong>Estabelecer RPO/RTO, backup sincronizado (PostgreSQL + HD 12 TB) e fluxo LGPD de anonimização/tombstone (<code>DEC-AUD-010</code>):</strong> viabilizar operação institucional segura sem comprometer integridade referencial histórica.</li>
+    </ol>
+
+    <h3>6. Conclusão sobre prontidão para implementação da V1</h3>
+    <p class="measure">A equipe <strong>pode iniciar imediatamente</strong> tarefas de infraestrutura base já estáveis (integração do código veterinário de Gabriel na branch nacional conforme <code>T-07</code>, centralização da migration <code>0003</code> com guarda de tabela vazia e manutenção da visão humana nacional). Entretanto, <strong>não deve iniciar</strong> migrations dos novos schemas (<code>identity</code>, <code>cms</code>, <code>bulletins</code>, <code>veterinary</code>, <code>audit</code>) nem contratos HTTP da V1 ampliada antes de fechar as decisões da Onda 1 e Onda 2 (Parte H). Sem esse fechamento prévio, há alta probabilidade de retrabalho em schema, vazamento de permissão em sessões ativas e entrega de módulos veterinários desconexos.</p>
+  </section>
+
+  <!-- PARTE B -->
+  <section id="parte-b" class="sec">
+    <h2>Parte B — Matriz completa de lacunas</h2>
+    <p class="measure">Inventário exaustivo de 32 achados independentes, sem duplicações, rastreados à seção e página do RFC v1.4 (numeração PDF e numeração interna <code>X/79</code>) ou do Manual de Marca v1.0 (<code>X/6</code>).</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Categoria</th>
+            <th>Requisito afetado</th>
+            <th>Problema</th>
+            <th>Evidência / página</th>
+            <th>Consequência</th>
+            <th>Prioridade</th>
+            <th>Decisão necessária</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="col-id">AUD-001</td>
+            <td>Contradição</td>
+            <td>P-15, P-16, T-03, T-04, T-07</td>
+            <td>P-15 e P-16 aprovam mapa animal por bairro e boletim de cães por raça/SRD na V1, mas a Gold animal do Gabriel (oráculo em T-07) não possui colunas de raça, bairro nem clínica; além disso, <code>veterinary.notifications</code> não tem integração definida com <code>analytics_animal.fato_esporo</code>.</td>
+            <td>RFC P-15/P-16 (p. 12–13 / PDF 25–26); T-03 (p. 23 / PDF 36); T-04 (p. 25 / PDF 38); Ap. G.4 (p. 70 / PDF 83); Ap. I.4 (p. 74 / PDF 87).</td>
+            <td>Escopo V1 contraditório: ou o time viola T-07 alterando o contrato do Gabriel sem homologação, ou entrega tela/boletim sem raça e bairro e formulário de clínicas desconectado do mapa.</td>
+            <td class="prio prio-p0">P0</td>
+            <td>DEC-AUD-001</td>
+          </tr>
+          <tr>
+            <td class="col-id">AUD-002</td>
+            <td>Especificação insuficiente</td>
+            <td>P-03, P-17, P-20, DT-02</td>
+            <td>Exige-se reavaliação imediata de sessão/tokens ao revogar papel, grant de mapa ou conta, mas o access token é JWT de 15 min e o RFC não define o mecanismo de verificação por requisição (claim <code>perm_ver</code> vs Redis/DB, nem comportamento em falha do Redis).</td>
+            <td>RFC P-03 (p. 3 / PDF 16); P-17 (p. 13–14 / PDF 26–27); P-20 (p. 16 / PDF 29).</td>
+            <td>Usuário suspenso ou com grant revogado continua acessando APIs epidemiológicas protegidas por até 15 minutos, ou o time implementa consulta síncrona pesada sem cache/fallback.</td>
+            <td class="prio prio-p0">P0</td>
+            <td>DEC-AUD-002</td>
+          </tr>
+          <tr>
+            <td class="col-id">AUD-003</td>
+            <td>Especificação insuficiente</td>
+            <td>P-03, P-20, Ap. C.3</td>
+            <td>Proíbe desativar ou rebaixar o último Chefe Geral ativo "mesmo com requisições concorrentes", mas não define lock transacional no PostgreSQL (em <code>READ COMMITTED</code>, duas transações simultâneas leem contagem 2 e zeram os Chefes Gerais), nem procedimento break-glass.</td>
+            <td>RFC P-03 (p. 3 / PDF 16); P-20 (p. 16 / PDF 29); Teste T-05 (p. 61 / PDF 74).</td>
+            <td>Risco real de lockout administrativo total por condição de corrida ou saída/perda de e-mail do último Chefe Geral ativo.</td>
+            <td class="prio prio-p0">P0</td>
+            <td>DEC-AUD-003</td>
+          </tr>
+          <tr>
+            <td class="col-id">AUD-004</td>
+            <td>Especificação insuficiente</td>
+            <td>P-02, P-17, DT-05, DT-06, DT-12</td>
+            <td>Faltam todos os TTLs de tokens (verificação de e-mail, protocolo de acompanhamento, convite de clínica, primeiro acesso, reset de senha) e a regra quando uma solicitação pública usa e-mail já existente em <code>users</code> (ativo, suspenso ou convidado).</td>
+            <td>RFC P-02 (p. 2 / PDF 15); P-08 (p. 7 / PDF 20); DT-05/06 (p. 39 / PDF 52); DT-12 (p. 48 / PDF 61).</td>
+            <td>Desenvolvedores improvisam janelas de expiração, risco de vazamento de existência de conta ou travamento de usuários já cadastrados tentando solicitar novos papéis.</td>
+            <td class="prio prio-p0">P0</td>
+            <td>DEC-AUD-007</td>
+          </tr>
+          <tr>
+            <td class="col-id">AUD-005</td>
+            <td>Lacuna implícita</td>
+            <td>P-07, P-08, P-20, T-04, Ap. G</td>
+            <td>O modelo não define se a gestão de clínica por Agente Epidemiológico é 1:N ou N:M, quem reatribui clínicas quando o Agente sai ou é suspenso, nem o efeito de inativar clínica sobre vínculos, rascunhos e histórico.</td>
+            <td>RFC P-07/P-08 (p. 6–7 / PDF 19–20); P-20 (p. 16 / PDF 29); T-04 (p. 24 / PDF 37); Ap. G.3 (p. 69 / PDF 82).</td>
+            <td>Clínicas ficam "órfãs" sem ninguém autorizado a gerenciar representantes ou conceder <code>map.animal.view</code> quando um Agente deixa o núcleo.</td>
+            <td class="prio prio-p0">P0</td>
+            <td>DEC-AUD-006</td>
+          </tr>
+          <tr>
+            <td class="col-id">AUD-006</td>
+            <td>Lacuna implícita</td>
+            <td>P-10, P-11, P-12, Ap. G</td>
+            <td>O Apêndice G omite integralmente as tabelas de vínculo municipal (<code>municipality_memberships</code>), uploads (<code>municipal_uploads</code>), relatórios de validação e configuração de limite. Faltam regras de atribuição de município, reenvio corrigido, download em quarentena e defesa contra ZIP-bomb/formula injection.</td>
+            <td>RFC P-10/P-11/P-12 (p. 8–10 / PDF 21–23); Ap. G.1–G.3 (p. 69–70 / PDF 82–83).</td>
+            <td>Impossibilidade de construir migration e regras de autorização/idempotência municipal sem inventar cardinalidade (1:1 vs N:M) e política de segurança de arquivos.</td>
+            <td class="prio prio-p0">P0</td>
+            <td>DEC-AUD-005</td>
+          </tr>
+          <tr>
+            <td class="col-id">AUD-007</td>
+            <td>Especificação insuficiente</td>
+            <td>P-04, P-12, T-05, DT-13</td>
+            <td>Não há modelo técnico para exercício de direitos de titulares (LGPD: correção, anonimização, eliminação) diante de tabelas imutáveis (<code>post_revisions</code>, <code>bulletins.approvals</code>, <code>audit</code>) e planilhas municipais brutas retidas indefinidamente.</td>
+            <td>RFC P-04 (p. 4 / PDF 17); P-12 (p. 10 / PDF 23); DT-13 itens 9 e 10 (p. 50–51 / PDF 63–64).</td>
+            <td>Risco de violação legal ou quebra de integridade referencial (FK) caso seja necessária exclusão ou desidentificação de usuário ou dados pessoais em planilhas.</td>
+            <td class="prio prio-p0">P0</td>
+            <td>DEC-AUD-010</td>
+          </tr>
+          <tr>
+            <td class="col-id">AUD-008</td>
+            <td>Risco arquitetural</td>
+            <td>T-01, T-03, P-05, P-14</td>
+            <td>Conflito de permissões SQL no disparo de boletins: a pipeline escreve em <code>analytics</code> com <code>analytics_writer</code>, mas o Java lê <code>analytics</code> em modo <code>readOnly</code> (<code>analytics_reader</code>) e escreve em <code>bulletins</code>. Não está definido onde fica a <code>outbox</code> nem como o Java consome o evento de publicação Gold.</td>
+            <td>RFC T-01 (p. 17–18 / PDF 30–31); T-03 (p. 22 / PDF 35).</td>
+            <td>Acoplamento quebrado entre pipeline Python e gerador de boletins Java, levando o time a conceder escrita indevida ao Java no schema analítico ou à pipeline no schema operacional.</td>
+            <td class="prio prio-p0">P0</td>
+            <td>DEC-AUD-004</td>
+          </tr>
+          <tr>
+            <td class="col-id">AUD-009</td>
+            <td>Especificação insuficiente</td>
+            <td>P-17, DT-03, Ap. J (DT03-09)</td>
+            <td>Determina "fallback seguro por tipo de rota" quando <code>redis-rate-limit</code> ou <code>redis</code> de sessão cai, sem definir a matriz <code>fail-open</code> vs <code>fail-closed</code> vs limiter local JVM por classe de endpoint.</td>
+            <td>RFC DT-03 (p. 37 / PDF 50); Teste DT03-09 (p. 76 / PDF 89).</td>
+            <td>Sob queda de Redis, login pode ficar completamente aberto a força bruta ou o portal público inteiro cair desnecessariamente.</td>
+            <td class="prio prio-p0">P0</td>
+            <td>DEC-AUD-009</td>
+          </tr>
+          <tr>
+            <td class="col-id">AUD-010</td>
+            <td>Lacuna implícita</td>
+            <td>P-14, Ap. A.5, Ap. F.4</td>
+            <td>A invalidação do <code>redis-analytics</code> e do cache <code>IndexedDB</code> no frontend após nova publicação Gold não tem protocolo definido (listada apenas como pendência de Prioridade 2).</td>
+            <td>RFC Ap. A.5 (p. 54 / PDF 67); Ap. F.4 item 2 (p. 67 / PDF 80).</td>
+            <td>Após publicação Gold, boletim novo exibe números atualizados enquanto mapa e indicadores exibem snapshot obsoleto em cache, gerando divergência epidemiológica visível.</td>
+            <td class="prio prio-p1">P1</td>
+            <td>DEC-AUD-004</td>
+          </tr>
+          <tr>
+            <td class="col-id">AUD-011</td>
+            <td>Especificação insuficiente</td>
+            <td>P-05, P-19, T-03</td>
+            <td>Faltam regras críticas da máquina de estados de boletins: (a) o que ocorre com <code>v2</code> em <code>PENDING_REVIEW</code> quando surge <code>v3</code>; (b) se despublicar <code>v2</code> restaura <code>v1</code> ou retira a competência do ar; (c) qual escopo territorial e calendário disparam geração automática na V1.</td>
+            <td>RFC P-05 (p. 4–5 / PDF 17–18); P-19 (p. 15 / PDF 28); T-03 (p. 22 / PDF 35); Ap. F.5 (p. 67 / PDF 80).</td>
+            <td>Risco de explosão de boletins (ex: 5.571 municípios), aprovação acidental de revisão obsoleta ou comportamento imprevisível após despublicação.</td>
+            <td class="prio prio-p1">P1</td>
+            <td>DEC-AUD-011</td>
+          </tr>
+          <tr>
+            <td class="col-id">AUD-012</td>
+            <td>Especificação insuficiente</td>
+            <td>P-05A, P-06, T-02</td>
+            <td>Fluxo de notícias omite: estado <code>REJECTED</code> (citado em P-05A mas ausente da máquina de estados em T-02), papel do estado <code>APPROVED</code> separado de <code>PUBLISHED</code>, se um Escritor pode editar rascunho de outro Escritor ou iniciar revisão de notícia já publicada, e limite de rascunhos paralelos por post.</td>
+            <td>RFC P-05A (p. 4 / PDF 17); P-06 (p. 5 / PDF 18); T-02 (p. 20–21 / PDF 33–34).</td>
+            <td>Divergência entre UI, API e permissões editoriais; risco de colisão de rascunhos ou impossibilidade de rejeitar definitivamente uma pauta.</td>
+            <td class="prio prio-p1">P1</td>
+            <td>DEC-AUD-012</td>
+          </tr>
+          <tr>
+            <td class="col-id">AUD-013</td>
+            <td>Especificação insuficiente</td>
+            <td>P-19, T-02, T-08</td>
+            <td>Mídias editoriais aprovadas servidas por URL estática pública podem permanecer acessíveis após despublicação da notícia; não há definição de limites de tamanho (MB) para imagens editoriais/PDFs, contagem de referências compartilhadas entre posts, nem coleta de lixo de mídias órfãs.</td>
+            <td>RFC T-02 (p. 20 / PDF 33); T-08 (p. 32 / PDF 45); P-19 (p. 15 / PDF 28).</td>
+            <td>Vazamento de imagens de notícias retiradas do ar e crescimento descontrolado do armazenamento por rascunhos abandonados.</td>
+            <td class="prio prio-p1">P1</td>
+            <td>DEC-AUD-013</td>
+          </tr>
+          <tr>
+            <td class="col-id">AUD-014</td>
+            <td>Especificação insuficiente</td>
+            <td>DT-09, DT-11, Ap. K.1</td>
+            <td>DT-09 propõe modo <em>bypass</em> se falhar invalidação no <code>redis-public-cache</code> sem definir persistência desse estado; deixa aberta escolha entre invalidação por chave vs <em>namespace</em> de versão; e omite chaves/TTLs da página <code>/sobre</code> e páginas legais, embora DT-11 e Ap. K.1 exijam invalidá-las no mesmo Redis.</td>
+            <td>RFC DT-09 (p. 42–43 / PDF 55–56); DT-11 (p. 47 / PDF 60); Ap. K.1 (p. 79 / PDF 92).</td>
+            <td>Invalidação incompleta de listagens filtradas ou página Sobre desatualizada após edição pelo Chefe Geral; modo bypass perdido em restart da JVM.</td>
+            <td class="prio prio-p1">P1</td>
+            <td>DEC-AUD-009</td>
+          </tr>
+          <tr>
+            <td class="col-id">AUD-015</td>
+            <td>Especificação insuficiente</td>
+            <td>P-03, P-17, DT-03</td>
+            <td>P-03 exige "verificação reforçada" ao conceder acesso administrativo sem defini-la (re-senha? OTP?); P-17 não define política mínima de senha, limite de sessões simultâneas, nem se login bem-sucedido zera o contador de falhas de 15 min; DT-03 não define serialização contra corrida no incremento de falhas.</td>
+            <td>RFC P-03 (p. 3 / PDF 16); P-17 (p. 13–14 / PDF 26–27); DT-03 (p. 37 / PDF 50).</td>
+            <td>Controle administrativo crítico fica sem critério verificável e proteção contra força bruta paralela pode permitir rajadas acima de 10 tentativas.</td>
+            <td class="prio prio-p1">P1</td>
+            <td>DEC-AUD-014</td>
+          </tr>
+          <tr>
+            <td class="col-id">AUD-016</td>
+            <td>Especificação insuficiente</td>
+            <td>P-16, T-03, T-04, Ap. I.4</td>
+            <td>Semântica epidemiológica incompleta: (a) falta regra de arredondamento/truncamento para idades veterinárias fracionárias/meses; (b) P-16 restringe boletim veterinário a cães enquanto Gold cobre felinos e caninos; (c) <code>data_notificacao</code> pode ser nula na Gold animal sem definir em qual competência entra; (d) SINAN não fixa qual campo de data define a competência (<code>DT_NOTIFIC</code> vs <code>DT_SIN_PRI</code>).</td>
+            <td>RFC P-16 (p. 12–13 / PDF 25–26); T-03 (p. 23 / PDF 36); T-04 (p. 25 / PDF 38); Ap. I.4 (p. 74 / PDF 87).</td>
+            <td>Boletins e dashboards podem divergir em totais e faixas etárias mesmo passando nos testes técnicos de software.</td>
+            <td class="prio prio-p1">P1</td>
+            <td>DEC-AUD-008</td>
+          </tr>
+          <tr>
+            <td class="col-id">AUD-017</td>
+            <td>Lacuna implícita</td>
+            <td>P-18, T-01, Ap. D.4</td>
+            <td>Ausência de RPO, RTO, estratégia de consistência entre backup do PostgreSQL e arquivos binários no HD de 12 TB, política de rollback de migrations incompatíveis, alertas de capacidade de disco e destino real do backup externo institucional.</td>
+            <td>RFC P-18 (p. 14 / PDF 27); T-01 (p. 18 / PDF 31); Ap. D.4 (p. 60 / PDF 73).</td>
+            <td>Após restauração de desastre, metadados no banco podem apontar para arquivos inexistentes no HD (ou vice-versa) e deploys com DDL destrutiva ficam sem plano de reversão.</td>
+            <td class="prio prio-p1">P1</td>
+            <td>DEC-AUD-010</td>
+          </tr>
+          <tr>
+            <td class="col-id">AUD-018</td>
+            <td>Especificação insuficiente</td>
+            <td>P-01, P-02, P-11, T-08, DT-07</td>
+            <td>Contratos HTTP novos sem especificação de: envelope padrão de erros (400/401/403/404/409/413/422/503), protocolo de <code>Idempotency-Key</code> (header, TTL, conflito de payload), endpoint/mecanismo de busca pública em notícias/boletins e estratégia de upload resiliente para 100 MB (streaming vs chunks).</td>
+            <td>RFC P-01 (p. 1 / PDF 14); P-11 (p. 9 / PDF 22); T-08 (p. 31–32 / PDF 44–45); DT-07 (p. 40 / PDF 53).</td>
+            <td>Frontend e backend implementam contratos divergentes de erro, busca e idempotência; uploads de 100 MB falham em conexões municipais instáveis.</td>
+            <td class="prio prio-p1">P1</td>
+            <td>DEC-AUD-015</td>
+          </tr>
+          <tr>
+            <td class="col-id">AUD-019</td>
+            <td>Contradição</td>
+            <td>Stakeholders, T-08, Ap. C</td>
+            <td>Tabela de Stakeholders atribui "notificações veterinárias" ao Agente Epidemiológico, mas Apêndice C e T-08 restringem <code>POST /api/v1/animal/notifications</code> exclusivamente a <code>Representante de Clínica</code>.</td>
+            <td>RFC Stakeholders (p. x / PDF 11); T-08 (p. 32 / PDF 45); Ap. C (p. 58–59 / PDF 71–72).</td>
+            <td>Agente Epidemiológico pode ficar bloqueado (403) ao tentar registrar notificação veterinária sem acumular artificialmente o papel de Representante de Clínica.</td>
+            <td class="prio prio-p1">P1</td>
+            <td>DEC-AUD-006</td>
+          </tr>
+          <tr>
+            <td class="col-id">AUD-020</td>
+            <td>Especificação insuficiente</td>
+            <td>T-06, Manual de Marca §3 e §9</td>
+            <td>T-06 exige preservar rascunho local após expiração de sessão sem definir proteção contra vazamento em computadores compartilhados de clínicas/prefeituras nem recuperação de upload de arquivo interrompido; Manual de Marca exige testar <em>dark mode</em> (§9) sem definir paleta dark nem tokens semânticos (erro/sucesso/alerta/mapas).</td>
+            <td>RFC T-06 (p. 29 / PDF 42); Manual de Marca §3 e §9 (p. 2 e 5 / PDF 3 e 6).</td>
+            <td>Risco de exposição de rascunho clínico para o próximo usuário do mesmo PC e implementação visual inconsistente de estados de erro e modo escuro.</td>
+            <td class="prio prio-p1">P1</td>
+            <td>DEC-AUD-016</td>
+          </tr>
+          <tr>
+            <td class="col-id">AUD-021</td>
+            <td>Especificação insuficiente</td>
+            <td>DT-06, DT-12, Manual §7.1</td>
+            <td>Fila durável SMTP não define máximo de tentativas, backoff, tratamento de bounce permanente nem reenvio manual via UI; DT-12 exige e-mail de "Notificação veterinária" sem definir destinatário (representante? agente?), e o Manual de Marca §7.1 omite esse 9º template.</td>
+            <td>RFC DT-06 (p. 39 / PDF 52); DT-12 (p. 48–49 / PDF 61–62); Manual §7.1 (p. 4 / PDF 5).</td>
+            <td>E-mails críticos perdidos silenciosamente após esgotar retries e divergência entre catálogo de templates do backend e do Manual de Marca.</td>
+            <td class="prio prio-p1">P1</td>
+            <td>DEC-AUD-017</td>
+          </tr>
+          <tr>
+            <td class="col-id">AUD-022</td>
+            <td>Lacuna implícita</td>
+            <td>T-05, DT-03</td>
+            <td>Proxy de CEP (<code>GET /api/v1/addresses/postal-code/{cep}</code>) não define quem tem permissão de chamá-lo, qual serviço armazena o cache de CEP, timeout máximo ao ViaCEP nem quota de rate limiting (ausente na tabela de DT-03).</td>
+            <td>RFC T-05 (p. 26 / PDF 39); DT-03 (p. 36 / PDF 49).</td>
+            <td>Risco de abuso do endpoint para esgotar quota do provedor externo de CEP ou armazenamento indevido no Redis de sessão/público.</td>
+            <td class="prio prio-p1">P1</td>
+            <td>DEC-AUD-018</td>
+          </tr>
+          <tr>
+            <td class="col-id">AUD-023</td>
+            <td>Inconsistência semântica</td>
+            <td>Ap. G.3, P-08, P-09, P-20</td>
+            <td>Exemplo DDL de <code>veterinary.clinic_memberships</code> usa <code>PRIMARY KEY (user_id, clinic_id)</code>, impedindo histórico de revogação e posterior re-convite do mesmo par, embora o texto logo abaixo sugira chave substituta + índice único parcial sem bater o martelo.</td>
+            <td>RFC Ap. G.3 (p. 69–70 / PDF 82–83); P-08 (p. 7 / PDF 20).</td>
+            <td>Se o desenvolvedor copiar a PK composta, um representante removido nunca mais poderá ser re-vinculado à clínica sem apagar o histórico de revogação.</td>
+            <td class="prio prio-p1">P1</td>
+            <td>DEC-AUD-006</td>
+          </tr>
+          <tr>
+            <td class="col-id">AUD-024</td>
+            <td>Contradição</td>
+            <td>P-01, P-03, P-20, DT-02, Ap. C</td>
+            <td>Resumo executivo, P-01 e P-20 referem-se a "oito papéis", enquanto P-03 e Apêndice C definem nove papéis (incluindo <code>Representante Municipal</code>). Além disso, P-15.3 ainda contém a frase obsoleta "O acesso ao mapa é único".</td>
+            <td>RFC Resumo (p. xii / PDF 13); P-03 (p. 3 / PDF 16); P-15.3 (p. 12 / PDF 25); P-20 (p. 15 / PDF 28); Ap. C (p. 58–59 / PDF 71–72).</td>
+            <td>Ambiguidade na modelagem de enums, matriz de testes de autorização e documentação de produto.</td>
+            <td class="prio prio-p2">P2</td>
+            <td>DEC-AUD-019</td>
+          </tr>
+          <tr>
+            <td class="col-id">AUD-025</td>
+            <td>Contradição</td>
+            <td>T-04, T-06, DT-07, Ap. B, Ap. H, Ap. I</td>
+            <td>Três divergências entre texto normativo e wireframes/contratos: (a) Tela B (Ap. B) desenha solicitação em etapa única sem checkbox de DT-07; (b) formulário veterinário tem 6 etapas em T-04 vs 4 etapas em T-06/Ap. H.4; (c) Ap. H.2 exige "Página 1 de N" mas Ap. I.2 retorna apenas <code>hasNext</code> sem <code>totalPages</code>.</td>
+            <td>RFC T-04 (p. 24–25 / PDF 37–38); T-06 (p. 28 / PDF 41); Ap. B (p. 55 / PDF 68); Ap. H.2/H.4 (p. 71–72 / PDF 84–85); Ap. I.2 (p. 73 / PDF 86).</td>
+            <td>Frontend e backend implementam contratos incompatíveis de paginação e fluxos de tela em desacordo com as decisões aprovadas.</td>
+            <td class="prio prio-p2">P2</td>
+            <td>DEC-AUD-015</td>
+          </tr>
+          <tr>
+            <td class="col-id">AUD-026</td>
+            <td>Contradição</td>
+            <td>DT-11, Ap. K.1, Controle Documental, Ap. F.6</td>
+            <td>Sobreposição editorial na Página Sobre: DT-11 restringe edição ao Chefe Geral, mas Ap. K.1 atribui o passo 1 à "Área editorial" e <code>about_revisions</code> prevê <code>edited_by</code>/<code>approved_by</code>/<code>published_by</code> distintos. Metadados do RFC ainda dizem "revisão 1.3" e omitem DT-10..DT-13 no Controle Documental e Ap. F.6.</td>
+            <td>RFC Controle (p. ix / PDF 10); DT-11 (p. 47 / PDF 60); Ap. F.6 (p. 68 / PDF 81); Ap. K.1 (p. 78 / PDF 91).</td>
+            <td>Dúvida se Escritor-Chefe pode propor rascunhos da página Sobre para aprovação do Chefe Geral, além de rastreabilidade documental incompleta.</td>
+            <td class="prio prio-p2">P2</td>
+            <td>DEC-AUD-019</td>
+          </tr>
+          <tr>
+            <td class="col-id">AUD-027</td>
+            <td>Lacuna implícita</td>
+            <td>P-02, P-05A, P-11, P-19</td>
+            <td>Faltam guardas operacionais de continuidade: (a) lista de destinatários de solicitações (P-02) pode ficar vazia se o último destinatário perder o papel; (b) alteração de limite de upload (P-11) durante streaming ativo sem versionamento otimista; (c) indisponibilidade do único Escritor-Chefe ou Analista de Dados.</td>
+            <td>RFC P-02 (p. 2 / PDF 15); P-05A (p. 4 / PDF 17); P-11 (p. 9 / PDF 22); P-19 (p. 15 / PDF 28).</td>
+            <td>Pedidos de acesso sem notificação a ninguém, rejeição abrupta de uploads válidos em andamento e paralisação de despublicação urgente.</td>
+            <td class="prio prio-p2">P2</td>
+            <td>DEC-AUD-020</td>
+          </tr>
+          <tr>
+            <td class="col-id">AUD-028</td>
+            <td>Especificação insuficiente</td>
+            <td>P-19, T-02, T-05, Ap. B (Tela C)</td>
+            <td>Omissões de contrato fino: (a) código HTTP de despublicação (<code>404</code> vs <code>410</code>) e reserva de slug; (b) escopo exato de leitura de <code>audit.user_activity_events</code> (Admin vê eventos de Chefe Geral?); (c) formato, colunas de proveniência e permissão de "[Baixar tabela autorizada]" na Tela C.</td>
+            <td>RFC P-19 (p. 15 / PDF 28); T-02 (p. 20 / PDF 33); T-05 (p. 26 / PDF 39); Ap. B Tela C (p. 56 / PDF 69).</td>
+            <td>Exposição indevida de trilhas administrativas, quebra de SEO/links históricos e exportações de tabela sem aviso epidemiológico obrigatório.</td>
+            <td class="prio prio-p2">P2</td>
+            <td>DEC-AUD-021</td>
+          </tr>
+          <tr>
+            <td class="col-id">AUD-029</td>
+            <td>Inconsistência semântica</td>
+            <td>P-13, P-14, T-03, Resumo Executivo</td>
+            <td>Notificações sem vínculo territorial (1.000 notificações / 150 CNES ausentes no relatório de 15-11) não têm regra definida de apresentação em boletins nem se uma atualização tardia de CNES (que não altera o total municipal) deve disparar nova versão de boletim.</td>
+            <td>RFC Resumo (p. xii / PDF 13); T-03 (p. 22 / PDF 35); Ap. A.4 (p. 54 / PDF 67).</td>
+            <td>Boletins podem divergir da soma dos bairros ou disparar reaprovações desnecessárias a cada ajuste cartográfico de CNES.</td>
+            <td class="prio prio-p2">P2</td>
+            <td>DEC-AUD-008</td>
+          </tr>
+          <tr>
+            <td class="col-id">AUD-030</td>
+            <td>Lacuna explícita</td>
+            <td>T-01, T-04, T-09, DT-10, DT-11, DT-13, Manual §2/§5/§8</td>
+            <td>Pacote de homologações explicitamente abertas no RFC/Manual que condicionam produção: 1 vs 2 bancos lógicos (<code>T-01</code>), editor Tiptap (<code>T-02</code>), direitos da marca IA e logos oficiais/LRB (<code>DT-10</code>/<code>DT-11</code>), parecer LGPD/Marco Civil/rodapé (<code>DT-13</code>), ficha clínica veterinária (<code>T-04</code>) e calibração QA de p95/128 MB.</td>
+            <td>RFC T-09 (p. 35 / PDF 48); DT-10/11/13 (p. 44–52 / PDF 57–65); Manual §2, §5, §8, §9.</td>
+            <td>Bloqueio institucional de publicação em produção caso a tramitação com Comunicação, Jurídico/LGPD e Veterinária da UENF não comece em paralelo.</td>
+            <td class="prio prio-p2">P2</td>
+            <td>DEC-AUD-022</td>
+          </tr>
+          <tr>
+            <td class="col-id">AUD-031</td>
+            <td>Melhoria opcional</td>
+            <td>T-02</td>
+            <td><code>schemaVersion: 1</code> está previsto no JSONB de notícias, mas sem estratégia formal de evolução de versões futuras (renderização multi-versão no React vs migração em lote).</td>
+            <td>RFC T-02 (p. 19 / PDF 32).</td>
+            <td>Baixo impacto na V1 (apenas versão 1), mas pode exigir migração ad-hoc quando novos blocos forem introduzidos na V2.</td>
+            <td class="prio prio-p3">P3</td>
+            <td>Pós-V1 (rejeitar versão != 1 na V1)</td>
+          </tr>
+          <tr>
+            <td class="col-id">AUD-032</td>
+            <td>Melhoria opcional</td>
+            <td>T-05, T-07, DT-03</td>
+            <td>Correlação de <code>requestId</code> existe isoladamente no 429 e na auditoria, mas sem padronização transversal de header <code>X-Request-Id</code> (Caddy → Java → logs → auditoria) nem política de rotação via stdout de container em vez de arquivos locais na pipeline.</td>
+            <td>RFC T-05 (p. 26 / PDF 39); T-07 (p. 30 / PDF 43); DT-03 (p. 37 / PDF 50).</td>
+            <td>Diagnóstico de incidentes mais lento e risco de crescimento de arquivos de log dentro de containers da pipeline.</td>
+            <td class="prio prio-p3">P3</td>
+            <td>Pós-V1 / Hardening QA</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- PARTE C -->
+  <section id="parte-c" class="sec">
+    <h2>Parte C — Registro de decisões a tomar</h2>
+    <p class="measure">Cada registro diferencia recomendações técnicas (arquitetura/engenharia) de decisões de negócio ou governança que exigem confirmação formal dos responsáveis. Nenhuma recomendação abaixo deve ser tratada como decisão aprovada até homologação.</p>
+
+    <div class="dec-item">
+      <div class="dec-head">
+        <span class="dec-id">DEC-AUD-001</span>
+        <span class="dec-title">Escopo veterinário V1 e ponte entre notificações web de clínicas e Gold animal</span>
+      </div>
+      <div class="dec-grid">
+        <p><strong>Origem:</strong> AUD-001 (P-15, P-16, T-03, T-04, T-07).</p>
+        <p><strong>Autoridade de decisão:</strong> Coordenação NSS + Epidemiologia Veterinária + Arquitetura.</p>
+        <p class="dec-full"><strong>Problema:</strong> Definir se a V1 entrega o mapa animal de Campos por bairro e boletim de cães por raça (exigindo evolução prévia da Gold do Gabriel) ou se a V1 opera com o contrato atual da Gold (espécie, sexo, idade, castração) sem mapa por bairro, e como os registros de <code>veterinary.notifications</code> chegam à camada analítica.</p>
+        <p class="dec-full"><strong>Cenário motivador:</strong> Um representante envia 15 notificações de esporotricose pelo formulário da clínica ProntoVet e abre o mapa animal de Campos: sem ponte definida, os casos nunca aparecem no mapa nem no boletim, e o filtro de raça/bairro retorna erro ou vazio.</p>
+        <p><strong>Alternativas:</strong> (A) <em>V1 em duas fases:</em> manter contrato atual do Gabriel para indicadores globais de Campos na V1.0 e evoluir Gold + integração de <code>veterinary.notifications</code> (via exportação/pipeline validada) na V1.1; (B) <em>Bloquear V1</em> até homologar ficha clínica com veterinária e expandir Gold do Gabriel com raça e bairro; (C) <em>API animal ler <code>veterinary.notifications</code> diretamente</em> (não recomendado: viola separação operacional/analítica).</p>
+        <p><strong>Trade-offs:</strong> (A) preserva o oráculo do Gabriel e destrava entrega rápida, mas reduz o escopo inicialmente prometido em P-15/P-16; (B) mantém promessa integral da V1, mas adiciona dependência de validação veterinária e ETL antes do lançamento.</p>
+        <p><strong>Recomendação:</strong> <strong>Alternativa A (ou B formalmente assumida no cronograma)</strong> — nunca C. Adotar explícito "contrato de ingestão veterinária" onde notificações web passam por validação/reconciliação em lote pela pipeline do Gabriel antes de compor a Gold.</p>
+        <p><strong>Impacto no RFC:</strong> Atualizar P-15, P-16, T-03 (23.6), T-04 (24.5) e Apêndice G.4.</p>
+        <p class="dec-full"><strong>Critério de aceite:</strong> Documento de escopo V1 sem contradição entre P-15/P-16 e T-04; teste de integração comprovando origem exata de cada indicador exibido na API <code>/api/v1/animal/...</code>.</p>
+      </div>
+    </div>
+
+    <div class="dec-item">
+      <div class="dec-head">
+        <span class="dec-id">DEC-AUD-002</span>
+        <span class="dec-title">Mecanismo de revogação e reavaliação imediata de permissões em JWTs ativos</span>
+      </div>
+      <div class="dec-grid">
+        <p><strong>Origem:</strong> AUD-002 (P-03, P-17, P-20, DT-02).</p>
+        <p><strong>Autoridade de decisão:</strong> Arquitetura / Desenvolvimento Java.</p>
+        <p class="dec-full"><strong>Problema:</strong> Como garantir efeito imediato na revogação de conta, papel ou grant (<code>map.human.view</code>/<code>map.animal.view</code>) quando o access token JWT tem validade de 15 minutos?</p>
+        <p class="dec-full"><strong>Cenário motivador:</strong> Um Agente revoga <code>map.animal.view</code> de um ex-representante às 10:00. Às 10:02, o usuário ainda possui JWT válido até 10:14 e consulta <code>GET /api/v1/animal/epidemiology/...</code> diretamente via curl.</p>
+        <p><strong>Alternativas:</strong> (A) <em>Versionamento no Redis de sessão:</em> JWT carrega <code>authz_ver</code>; a cada requisição protegida o filtro Java compara com <code>authz:ver:{userId}</code> no Redis (TTL longo, atualizado na mesma operação que altera papel/grant/status), com fallback para PostgreSQL em cache miss ou queda do Redis; (B) <em>Access token opaco</em> validado integralmente no Redis; (C) <em>JWT ultra-curto (1–2 min)</em> sem checagem por requisição.</p>
+        <p><strong>Trade-offs:</strong> (A) preserva arquitetura JWT atual com 1 GET O(1) em Redis (<1 ms) e revogação instantânea; (B) simplifica modelo mas exige refatorar camada JWT já implementada; (C) ainda deixa janela de vazamento.</p>
+        <p><strong>Recomendação:</strong> <strong>Alternativa A</strong> — manter JWT em memória + claim <code>authz_ver</code> verificado contra Redis de sessão (com <code>fail-closed</code> via leitura no PostgreSQL se o Redis estiver indisponível). Quando houver divergência de versão, retornar <code>401</code> (forçando refresh que emite novo JWT com permissões atualizadas) ou recarregar grants do banco na hora.</p>
+        <p><strong>Impacto no RFC:</strong> P-03 (3.3), P-17 (17.2), P-20 (20.3) e T-08 (28.2).</p>
+        <p class="dec-full"><strong>Critério de aceite:</strong> Teste de integração: revogar <code>map.animal.view</code> e, 100 ms depois, repetir chamada com o mesmo JWT anterior recebendo obrigatoriamente <code>403</code> (ou <code>401</code> seguido de refresh que resulta em <code>403</code>).</p>
+      </div>
+    </div>
+
+    <div class="dec-item">
+      <div class="dec-head">
+        <span class="dec-id">DEC-AUD-003</span>
+        <span class="dec-title">Lock transacional e recuperação break-glass do último Chefe Geral ativo</span>
+      </div>
+      <div class="dec-grid">
+        <p><strong>Origem:</strong> AUD-003 (P-03, P-20, Teste T-05).</p>
+        <p><strong>Autoridade de decisão:</strong> Arquitetura (lock) + Coordenação NSS / TI UENF (break-glass).</p>
+        <p class="dec-full"><strong>Problema:</strong> Impedir que duas requisições concorrentes rebaixem/desativem os dois últimos Chefes Gerais simultaneamente e definir recuperação caso o único Chefe Geral perca acesso.</p>
+        <p class="dec-full"><strong>Cenário motivador:</strong> Chefes Gerais A e B clicam simultaneamente para rebaixar um ao outro; sem lock explícito, ambas as transações veem 2 Chefes Gerais ativos e commitam, deixando zero Chefes Gerais no sistema.</p>
+        <p><strong>Alternativas:</strong> (A) <code>SELECT pg_advisory_xact_lock(hashtext('nss:last_chief_guard'))</code> no início de qualquer transação que altere papel <code>CHEFE_GERAL</code> ou desative conta com esse papel, seguido de <code>COUNT(*)</code>; (B) Nível de isolamento <code>SERIALIZABLE</code> com retry automático de <code>40001</code>; (C) Trigger <code>CONSTRAINT DEFERRABLE</code> + lock na linha do papel <code>CHEFE_GERAL</code> em <code>roles</code> (<code>SELECT id FROM roles WHERE code='CHEFE_GERAL' FOR UPDATE</code>).</p>
+        <p><strong>Trade-offs:</strong> (C) e (A) têm contenção desprezível (operação rara) e funcionam em <code>READ COMMITTED</code> sem complexidade de retry de serialização. Para break-glass: procedimento auditado via CLI/SQL pela TI UENF mediante chamado formal da direção do núcleo.</p>
+        <p><strong>Recomendação:</strong> <strong>Alternativa C</strong> (lock na linha de <code>roles</code> para <code>CHEFE_GERAL</code>) combinada com runbook formal de break-glass em <code>NSS-deployment/runbooks/</code>.</p>
+        <p><strong>Impacto no RFC:</strong> P-03 (3.2), P-20 (20.4) e Apêndice G.4.</p>
+        <p class="dec-full"><strong>Critério de aceite:</strong> Teste de concorrência com 2 threads simultâneas tentando desativar os 2 últimos Chefes Gerais: exatamente 1 falha com <code>409</code>/<code>422</code> e resta 1 Chefe Geral ativo.</p>
+      </div>
+    </div>
+
+    <div class="dec-item">
+      <div class="dec-head">
+        <span class="dec-id">DEC-AUD-004</span>
+        <span class="dec-title">Protocolo de integração Pipeline Python → Java (disparo de boletins e invalidação de cache analítico)</span>
+      </div>
+      <div class="dec-grid">
+        <p><strong>Origem:</strong> AUD-008, AUD-010 (T-01, T-03, P-14, Ap. F.4).</p>
+        <p><strong>Autoridade de decisão:</strong> Arquitetura + Desenvolvimento Java/Python.</p>
+        <p class="dec-full"><strong>Problema:</strong> Permitir que o Java detecte novas publicações Gold da pipeline sem violar o isolamento de permissões SQL (<code>analytics_reader</code> read-only) e invalide <code>redis-analytics</code> e <code>IndexedDB</code>.</p>
+        <p class="dec-full"><strong>Cenário motivador:</strong> Pipeline conclui carga de Dengue/2026 no PostgreSQL; Java não tem permissão para atualizar status em <code>analytics</code>, o boletim não é gerado e o mapa continua exibindo dados antigos em <code>redis-analytics</code>.</p>
+        <p><strong>Alternativas:</strong> (A) <em>Polling com checkpoint operacional:</em> Worker Java lê periodicamente (ex: a cada 60s) <code>analytics.pipeline_publications</code> (somente leitura) comparando com o último <code>publication_id</code> processado salvo em <code>bulletins.publication_checkpoints</code>; ao detectar novo lote, atualiza um <code>analytics_cache_epoch</code> no Redis (invalidando chaves antigas por prefixo/versão) e dispara geração de boletim; (B) <em>Webhook interno autenticado</em> da pipeline para endpoint privado Java; (C) <code>LISTEN/NOTIFY</code> do PostgreSQL.</p>
+        <p><strong>Trade-offs:</strong> (A) é 100% durável, não exige credencial de escrita cruzada, sobrevive a quedas do Java durante a execução da pipeline e resolve simultaneamente boletins e cache analítico; (B) requer token M2M e fila de retry na pipeline caso o Java esteja fora do ar; (C) perde notificações se o listener desconectar.</p>
+        <p><strong>Recomendação:</strong> <strong>Alternativa A</strong> (polling leve com checkpoint em <code>bulletins</code> + inclusão de <code>batch_id</code>/<code>epoch</code> nas chaves do <code>redis-analytics</code> e no payload de <code>/metadata</code> para invalidar <code>IndexedDB</code> no React).</p>
+        <p><strong>Impacto no RFC:</strong> T-01 (21.4), T-03 (23.4), Apêndice A.5 e Apêndice F.4.</p>
+        <p class="dec-full"><strong>Critério de aceite:</strong> Publicar novo lote Gold em QA e verificar, sem intervenção manual: (1) minuta de boletim gerada com fingerprint único; (2) consulta subsequente à API analítica retorna dados do novo lote (sem cache obsoleto); (3) <code>analytics_reader</code> permanece 100% read-only.</p>
+      </div>
+    </div>
+
+    <div class="dec-item">
+      <div class="dec-head">
+        <span class="dec-id">DEC-AUD-005</span>
+        <span class="dec-title">Modelagem, autorização, reenvio e segurança de quarentena dos uploads municipais</span>
+      </div>
+      <div class="dec-grid">
+        <p><strong>Origem:</strong> AUD-006 (P-10, P-11, P-12, Ap. G).</p>
+        <p><strong>Autoridade de decisão:</strong> Arquitetura + Coordenação NSS + Analistas de Dados.</p>
+        <p class="dec-full"><strong>Problema:</strong> Definir schema de vínculo municipal e uploads, quem vincula Representantes Municipais, como tratar reenvio de planilha corrigida ou hash duplicado, se arquivos em <code>QUARANTINED</code> podem ser baixados e controles exatos contra ZIP-bomb e formula injection.</p>
+        <p class="dec-full"><strong>Cenário motivador:</strong> Prefeitura envia <code>dengue_out.xlsx</code> com erro em uma coluna, depois reenvia versão corrigida; ou envia o mesmo arquivo duas vezes por instabilidade de rede; ou um arquivo corrompido vai para quarentena.</p>
+        <p><strong>Alternativas:</strong> (A) Vínculo N:M <code>identity.municipality_memberships</code> gerido por Chefe Geral/Admin; duplicata exata (<code>municipality_id + sha256</code>) rejeitada com <code>409</code> apontando o <code>upload_id</code> original; reenvio corrigido (hash diferente, mesmo período) aceito como novo upload com campo opcional <code>supersedes_upload_id</code>; quarentena bloqueia download padrão e permite inspeção apenas mediante ação explícita auditada de Analista; limite de expansão XLSX de 10x / teto de 500 MB descompactado e bloqueio/alerta de macros/DDE.</p>
+        <p><strong>Trade-offs:</strong> Vínculo N:M evita refatoração futura caso um técnico atenda consórcio intermunicipal; rejeição por hash evita lixo duplicado sem bloquear retificações legítimas.</p>
+        <p><strong>Recomendação:</strong> <strong>Alternativa A</strong>, documentando o DDL completo no Apêndice G e decidindo se ClamAV fará parte do compose na V1 ou se a validação estrutural + isolamento fora do webroot será o escopo inicial.</p>
+        <p><strong>Impacto no RFC:</strong> P-10 (10.1–10.2), P-11 (11.1–11.3) e Apêndice G.</p>
+        <p class="dec-full"><strong>Critério de aceite:</strong> Migration com tabelas municipais criada; teste automatizado validando <code>409</code> em hash idêntico, aceite de correção com referência ao anterior, <code>403</code> ao enviar para município não vinculado e quarentena de XLSX malformado/zip-bomb.</p>
+      </div>
+    </div>
+
+    <div class="dec-item">
+      <div class="dec-head">
+        <span class="dec-id">DEC-AUD-006</span>
+        <span class="dec-title">Modelo de gestão de clínicas por Agentes, sucessão, histórico de vínculos e notificação por Agente</span>
+      </div>
+      <div class="dec-grid">
+        <p><strong>Origem:</strong> AUD-005, AUD-019, AUD-023 (P-07, P-08, P-09, T-04, Ap. C, Ap. G.3).</p>
+        <p><strong>Autoridade de decisão:</strong> Coordenação NSS + Epidemiologia + Arquitetura.</p>
+        <p class="dec-full"><strong>Problema:</strong> Definir: (1) gestão de clínica é 1:N ou N:M (<code>clinic_agents</code>)? (2) Quem reatribui clínica quando um Agente sai? (3) Agente Epidemiológico pode enviar notificações veterinárias diretamente ou apenas via papel acumulado? (4) Substituir PK composta de <code>clinic_memberships</code> por chave substituta + índice único parcial.</p>
+        <p class="dec-full"><strong>Cenário motivador:</strong> Agente Maria cadastra 12 clínicas e se forma/deixa a UENF. Sem co-gestão nem fluxo de transferência pelo Chefe Geral, nenhum outro Agente consegue convidar novos representantes ou revogar <code>map.animal.view</code> dessas 12 clínicas.</p>
+        <p><strong>Alternativas:</strong> (A) Tabela N:M <code>veterinary.clinic_agents</code> (criador entra automaticamente como gestor; Chefe Geral pode adicionar/remover Agentes gestores de qualquer clínica); <code>clinic_memberships</code> com <code>id BIGSERIAL PK</code> + <code>UNIQUE (user_id, clinic_id) WHERE status = 'ACTIVE'</code>; (B) Apenas 1 <code>owner_agent_id</code> na clínica com transferência exclusiva pelo Chefe Geral.</p>
+        <p><strong>Trade-offs:</strong> (A) suporta férias, substituições e trabalho em equipe sem retrabalho de schema, com mínima complexidade extra. Quanto à notificação por Agente: requer confirmação de negócio para alinhar Tabela de Stakeholders (p. x) com Apêndice C (p. 58–59).</p>
+        <p><strong>Recomendação:</strong> <strong>Alternativa A</strong> para gestão e histórico de vínculos; explicitar na matriz de permissões se Agente notifica apenas quando acumula papel ou se possui permissão própria vinculada às suas clínicas.</p>
+        <p><strong>Impacto no RFC:</strong> Stakeholders (p. x), P-07, P-08, T-04, Apêndice C e Apêndice G.3.</p>
+        <p class="dec-full"><strong>Critério de aceite:</strong> Chefe Geral transfere gestão de clínica de Agente desativado para novo Agente; representante removido pode ser re-convidado preservando linha histórica de revogação.</p>
+      </div>
+    </div>
+
+    <div class="dec-item">
+      <div class="dec-head">
+        <span class="dec-id">DEC-AUD-007</span>
+        <span class="dec-title">TTLs de tokens e fluxo completo de solicitação pública para e-mail existente ou expirado</span>
+      </div>
+      <div class="dec-grid">
+        <p><strong>Origem:</strong> AUD-004 (P-02, P-08, P-17, DT-05, DT-06, DT-12).</p>
+        <p><strong>Autoridade de decisão:</strong> Arquitetura / Segurança + Coordenação NSS.</p>
+        <p class="dec-full"><strong>Problema:</strong> Fixar todos os prazos de validade de tokens e definir o fluxo quando um solicitante informa e-mail já cadastrado (sem vazar existência da conta na resposta pública).</p>
+        <p class="dec-full"><strong>Cenário motivador:</strong> Usuário comum já cadastrado tenta pedir acesso adicional pelo formulário público, ou deixa o link de confirmação de e-mail expirar e tenta de novo 48h depois.</p>
+        <p><strong>Alternativas:</strong> (A) Fixar tabela padrão de TTLs: verificação de e-mail da solicitação = <strong>24h</strong>; protocolo de acompanhamento = <strong>30 dias</strong> após decisão final; convite de clínica / primeiro acesso após aprovação = <strong>72h</strong>; reset de senha = <strong>1h</strong>. Se e-mail já existir em <code>users</code>, a resposta HTTP pública permanece idêntica (anti-enumeração), mas o e-mail enviado orienta a fazer login ou recuperar senha (ou, se política permitir upgrade via solicitação, marca o pedido internamente como "conta existente" para o aprovador apenas atribuir papéis sem criar conta duplicada).</p>
+        <p><strong>Trade-offs:</strong> Permitir que o aprovador adicione papéis a conta existente evita fricção operacional, mantendo resposta pública neutra; pedidos expirados sem verificação de e-mail não devem queimar a quota de 3/30 dias de e-mails confirmados (mas respeitam 5/h/IP).</p>
+        <p><strong>Recomendação:</strong> <strong>Alternativa A</strong>, adotando tabela única de TTLs configuráveis por variável de ambiente com valores padrão documentados no RFC.</p>
+        <p><strong>Impacto no RFC:</strong> P-02 (2.1–2.3), P-08 (8.1), P-17 (17.2), DT-05 e DT-12.</p>
+        <p class="dec-full"><strong>Critério de aceite:</strong> Testes automatizados com relógio controlável validam expiração exata de cada token, anti-enumeração para e-mail já cadastrado e ausência de criação de usuário duplicado.</p>
+      </div>
+    </div>
+
+    <div class="dec-item">
+      <div class="dec-head">
+        <span class="dec-id">DEC-AUD-008</span>
+        <span class="dec-title">Regras de semântica epidemiológica: idade fracionária, data nula, espécie e CNES não mapeado</span>
+      </div>
+      <div class="dec-grid">
+        <p><strong>Origem:</strong> AUD-016, AUD-029 (P-13, P-16, T-03, T-04, Ap. A.4, Ap. I.4).</p>
+        <p><strong>Autoridade de decisão:</strong> Epidemiologia / Equipe Veterinária + Engenharia de Dados.</p>
+        <p class="dec-full"><strong>Problema:</strong> Definir: (1) conversão determinística de idade em meses/frações para faixas 0–5; (2) escopo de espécies nos boletins veterinários (apenas cães ou quadros separados para felinos e NI); (3) tratamento de <code>data_notificacao IS NULL</code> na Gold animal; (4) data de competência no SINAN; (5) se ajustes cartográficos de CNES (sem mudança de total) disparam nova versão de boletim.</p>
+        <p class="dec-full"><strong>Cenário motivador:</strong> Um cão de 3 anos e 8 meses é classificado na faixa 2 (1–3 anos) por truncamento (anos completos) ou na faixa 3 (4–6 anos) por arredondamento? E 12 registros com <code>data_notificacao</code> nula somem do boletim mensal ou entram em nota de qualidade?</p>
+        <p><strong>Alternativas:</strong> (A) Adotar regra padrão demográfica de <strong>anos completos (truncamento <code>floor</code>)</strong>: <code>0 &lt;= anos &lt; 1</code> → 1; <code>1 &lt;= floor &lt;= 3</code> → 2; <code>4 &lt;= floor &lt;= 6</code> → 3; <code>7 &lt;= floor &lt;= 10</code> → 4; <code>floor &gt;= 11</code> → 5; incluir linha explícita "Data não informada" e "Unidade não mapeada" em notas de qualidade dos boletins; incluir apenas indicadores publicados no boletim no cálculo do <code>source_fingerprint</code> (logo, ajuste de CNES só gera revisão se o boletim detalhar bairros).</p>
+        <p><strong>Trade-offs:</strong> Regras explícitas impedem divergência silenciosa entre pipeline Python e API/boletim Java.</p>
+        <p><strong>Recomendação:</strong> <strong>Submeter Alternativa A para assinatura formal da Epidemiologia/Veterinária</strong> antes de implementar o gerador de boletins.</p>
+        <p><strong>Impacto no RFC:</strong> P-16 (16.1–16.3), T-03 (23.1, 23.3, 23.6) e Apêndice D.7.</p>
+        <p class="dec-full"><strong>Critério de aceite:</strong> Tabela de casos de borda (0m, 11m, 12m, 3a11m, 10a11m, 11a0m, nulo) validada por testes unitários idênticos na pipeline e no gerador de boletins.</p>
+      </div>
+    </div>
+
+    <div class="dec-item">
+      <div class="dec-head">
+        <span class="dec-id">DEC-AUD-009</span>
+        <span class="dec-title">Resiliência de Redis: matriz fail-open/fail-closed de rate limit e invalidação por namespace no cache público</span>
+      </div>
+      <div class="dec-grid">
+        <p><strong>Origem:</strong> AUD-009, AUD-014 (DT-03, DT-09, DT-11, Ap. K.1).</p>
+        <p><strong>Autoridade de decisão:</strong> Arquitetura / SRE.</p>
+        <p class="dec-full"><strong>Problema:</strong> Definir comportamento exato quando <code>redis-rate-limit</code> cai e fechar o mecanismo de invalidação do <code>redis-public-cache</code> (incluindo página <code>/sobre</code> e páginas legais).</p>
+        <p class="dec-full"><strong>Cenário motivador:</strong> Durante uma manutenção ou falha OOM no <code>redis-rate-limit</code>, o sistema precisa decidir se bloqueia login (503) ou usa limiter local; no <code>redis-public-cache</code>, despublicar uma notícia precisa invalidar instantaneamente todas as combinações de filtros/páginas.</p>
+        <p><strong>Alternativas:</strong> (A) Para <code>redis-rate-limit</code>: <strong>fallback local conservador em memória (Bucket4j/Caffeine)</strong> para rotas públicas/leitura + <strong><code>fail-closed</code> (503)</strong> para login, reset, verificação e solicitação pública (ou fallback local estrito com alerta crítico); para <code>redis-public-cache</code>: adotar <strong>namespace versionado</strong> (<code>posts_epoch</code>, <code>bulletins_epoch</code>, <code>institutional_epoch</code> persistidos em tabela leve no PostgreSQL e espelhados no Redis com TTL curto de 5–10s), eliminando <code>SCAN/DEL</code> e resolvendo o modo bypass em caso de falha.</p>
+        <p><strong>Trade-offs:</strong> Namespace versionado é O(1), atômico, imune a race conditions de invalidação parcial e cobre naturalmente <code>/sobre</code> e <code>/privacidade</code>.</p>
+        <p><strong>Recomendação:</strong> <strong>Alternativa A</strong>, padronizando <code>/sobre</code> e documentos institucionais em <code>DT-09</code> com chaves e TTLs explícitos (ex: 600s).</p>
+        <p><strong>Impacto no RFC:</strong> DT-03 (30.3), DT-09 (32.3–32.5) e DT-11 (34.5).</p>
+        <p class="dec-full"><strong>Critério de aceite:</strong> Teste de caos derrubando cada Redis isoladamente: (1) <code>redis-public-cache</code> fora → fallback PostgreSQL sem 500; (2) <code>redis-rate-limit</code> fora → rotas sensíveis respeitam política acordada + métrica de erro disparada; (3) despublicação invalida todas as páginas filtradas em &lt; 1s.</p>
+      </div>
+    </div>
+
+    <div class="dec-item">
+      <div class="dec-head">
+        <span class="dec-id">DEC-AUD-010</span>
+        <span class="dec-title">Continuidade (RPO/RTO, backup sincronizado) e estratégia técnica LGPD (anonimização/tombstone)</span>
+      </div>
+      <div class="dec-grid">
+        <p><strong>Origem:</strong> AUD-007, AUD-017 (P-04, P-12, P-18, T-05, DT-13, Ap. D.4).</p>
+        <p><strong>Autoridade de decisão:</strong> TI UENF + Jurídico/Encarregado LGPD + Arquitetura.</p>
+        <p class="dec-full"><strong>Problema:</strong> Estabelecer RPO/RTO mensuráveis, garantir restauração consistente entre PostgreSQL e volume HD de arquivos, definir cota/alerta de disco e mecanismo técnico de pseudonimização/eliminação de titulares sem quebrar FKs históricas.</p>
+        <p class="dec-full"><strong>Cenário motivador:</strong> Falha física do servidor exige restore em nova máquina; ou ex-colaborador solicita remoção de dados pessoais da conta enquanto possui 30 notícias revisadas e 5 aprovações de boletins no histórico.</p>
+        <p><strong>Alternativas:</strong> (A) RPO ≤ 24h (dump diário PostgreSQL + rsync incremental de arquivos imutáveis com manifesto SHA-256 para segundo servidor/storage da TI UENF) e RTO ≤ 8h; alertas de disco em 75%/85% e bloqueio seguro de novos uploads em 95%; para LGPD de usuários: <strong>pseudonimização in-place</strong> (substituir e-mail/nome/avatar por tombstone <code>anon_{id}@removed.local</code>, mantendo <code>user_id</code> para FKs e removendo foto do filesystem, sujeito a retenção legal de auditoria).</p>
+        <p><strong>Trade-offs:</strong> Backup diário sincronizado por arquivos imutáveis (write-once) é simples de operar pela TI universitária sem exigir storage enterprise; pseudonimização preserva integridade referencial e auditoria editorial.</p>
+        <p><strong>Recomendação:</strong> <strong>Alternativa A</strong>, condicionando o prazo final de retenção das planilhas municipais (P-12) ao parecer formal do Encarregado LGPD da UENF.</p>
+        <p><strong>Impacto no RFC:</strong> P-12 (12.3), P-18 (18.3), DT-13 (36.3) e Apêndice D.4.</p>
+        <p class="dec-full"><strong>Critério de aceite:</strong> Ensaio documentado de restore completo em ambiente limpo com 100% de correspondência de checksums entre banco e filesystem; procedimento testado de anonimização sem violar constraints.</p>
+      </div>
+    </div>
+
+    <div class="dec-item">
+      <div class="dec-head">
+        <span class="dec-id">DEC-AUD-011</span>
+        <span class="dec-title">Regras completas de ciclo de vida, escopo territorial e despublicação de boletins</span>
+      </div>
+      <div class="dec-grid">
+        <p><strong>Origem:</strong> AUD-011 (P-05, P-19, T-03).</p>
+        <p><strong>Autoridade de decisão:</strong> Coordenação NSS + Epidemiologia + Arquitetura.</p>
+        <p class="dec-full"><strong>Problema:</strong> Definir: (1) qual escopo territorial gera boletins automáticos na V1 (ex: 1 boletim nacional por doença/mês + 1 de Campos por doença animal/mês, ou por UF?); (2) o que ocorre com <code>v2</code> pendente quando <code>v3</code> é gerada; (3) efeito de despublicar a versão ativa sobre a versão anterior.</p>
+        <p class="dec-full"><strong>Cenário motivador:</strong> Um lote retroativo corrige janeiro/2026 duas vezes na mesma semana antes da aprovação; se <code>v2</code> continuar aprovável, um agente pode publicar <code>v2</code> obsoleta por engano.</p>
+        <p><strong>Alternativas:</strong> (A) Ao gerar <code>v3</code> para a mesma competência, marcar automaticamente qualquer revisão anterior em <code>PENDING_REVIEW</code> como <code>SUPERSEDED</code> (não aprovável); ao despublicar versão ativa, <code>current_published_version_id</code> passa a <code>NULL</code> (competência sai do ar sem reativar automaticamente versão antiga potencialmente errada — reativação exige ação explícita de republicação); na V1, geração automática restrita a escopos cadastrados em tabela <code>bulletins.auto_scopes</code> (ex: Brasil/RJ/Campos).</p>
+        <p><strong>Trade-offs:</strong> Evita explosão de minutas e impede que conteúdo substituído volte ao ar sem nova conferência humana.</p>
+        <p><strong>Recomendação:</strong> <strong>Alternativa A</strong>, definindo a lista inicial de <code>auto_scopes</code> e cron de calendário com a Coordenação NSS.</p>
+        <p><strong>Impacto no RFC:</strong> P-05 (5.4), P-19 (19.2) e T-03 (23.2–23.4).</p>
+        <p class="dec-full"><strong>Critério de aceite:</strong> Teste de integração comprova que gerar <code>v3</code> bloqueia aprovação de <code>v2</code> com <code>409</code> e que despublicar <code>v2</code> remove o boletim da API pública sem ressuscitar <code>v1</code>.</p>
+      </div>
+    </div>
+
+    <div class="dec-item">
+      <div class="dec-head">
+        <span class="dec-id">DEC-AUD-012</span>
+        <span class="dec-title">Máquina de estados fechada e regras de colaboração do CMS de notícias</span>
+      </div>
+      <div class="dec-grid">
+        <p><strong>Origem:</strong> AUD-012 (P-05A, P-06, T-02).</p>
+        <p><strong>Autoridade de decisão:</strong> Coordenação Editorial (Escritor-Chefe) + Arquitetura.</p>
+        <p class="dec-full"><strong>Problema:</strong> Fechar transições entre <code>DRAFT</code>, <code>IN_REVIEW</code>, <code>CHANGES_REQUESTED</code>, <code>REJECTED</code>, <code>APPROVED</code>, <code>PUBLISHED</code> e <code>UNPUBLISHED</code>; definir quem pode editar rascunho de terceiros e se Escritor comum pode propor revisão em notícia já publicada.</p>
+        <p class="dec-full"><strong>Cenário motivador:</strong> Escritor A envia notícia, Escritor-Chefe rejeita definitivamente (pauta descartada); ou Escritor B tenta corrigir erro de digitação em notícia já publicada.</p>
+        <p><strong>Alternativas:</strong> (A) Incluir <code>REJECTED</code> como estado terminal de revisão (preservando histórico); simplificar <code>APPROVED → PUBLISHED</code> em ação atômica na V1 (eliminando limbo de revisão aprovada mas não publicada); permitir apenas <strong>um rascunho ativo por post</strong> (<code>current_draft_revision_id</code>); Escritor edita apenas próprios rascunhos em <code>DRAFT</code>/<code>CHANGES_REQUESTED</code>, enquanto Escritor-Chefe pode editar qualquer rascunho e abrir revisão de post publicado.</p>
+        <p><strong>Trade-offs:</strong> Modelo simples, determinístico e sem ambiguidade de merge entre múltiplos rascunhos paralelos.</p>
+        <p><strong>Recomendação:</strong> <strong>Alternativa A</strong>.</p>
+        <p><strong>Impacto no RFC:</strong> P-05A (5.1), P-06 (6.1) e T-02 (22.4, 22.7).</p>
+        <p class="dec-full"><strong>Critério de aceite:</strong> Matriz de transições implementada em enum/state-machine no Java com testes negativos para todas as transições proibidas.</p>
+      </div>
+    </div>
+
+    <div class="dec-item">
+      <div class="dec-head">
+        <span class="dec-id">DEC-AUD-013</span>
+        <span class="dec-title">Isolamento de URLs de mídia após despublicação, cotas e limpeza de ativos órfãos</span>
+      </div>
+      <div class="dec-grid">
+        <p><strong>Origem:</strong> AUD-013 (P-19, T-02, T-08).</p>
+        <p><strong>Autoridade de decisão:</strong> Arquitetura + Infraestrutura.</p>
+        <p class="dec-full"><strong>Problema:</strong> Impedir que imagens de uma notícia despublicada continuem acessíveis via URL estática, definir limites de upload por classe de mídia e limpar arquivos abandonados.</p>
+        <p class="dec-full"><strong>Cenário motivador:</strong> Notícia com foto de evento sem autorização é despublicada com urgência, mas o link direto da imagem continua respondendo <code>200 OK</code>.</p>
+        <p><strong>Alternativas:</strong> (A) Servir mídias públicas via rota controlada (Java + <code>X-Accel-Redirect</code>/Caddy ou controle de visibilidade recalculado por contagem de referências em revisões <code>PUBLISHED</code>, movendo/bloqueando o arquivo quando referências públicas caírem a zero); definir limites explícitos: avatar = 5 MB, imagem editorial = 10 MB, PDF de boletim = 20 MB; job semanal remove mídias em <code>DRAFT</code> órfãs há &gt; 30 dias sem referência em nenhuma revisão.</p>
+        <p><strong>Trade-offs:</strong> Controle por contagem de referências protege mídias reutilizadas em mais de uma notícia e garante retirada imediata quando a última referência pública é despublicada.</p>
+        <p><strong>Recomendação:</strong> <strong>Alternativa A</strong>.</p>
+        <p><strong>Impacto no RFC:</strong> T-02 (22.3), T-08 (28.3) e P-19 (19.2).</p>
+        <p class="dec-full"><strong>Critério de aceite:</strong> Despublicar notícia com imagem exclusiva e comprovar que a URL pública da imagem passa a retornar <code>404</code>/<code>403</code> imediatamente.</p>
+      </div>
+    </div>
+
+    <div class="dec-item">
+      <div class="dec-head">
+        <span class="dec-id">DEC-AUD-014</span>
+        <span class="dec-title">Política de senhas, verificação reforçada (step-up) e atomicidade do contador de falhas de login</span>
+      </div>
+      <div class="dec-grid">
+        <p><strong>Origem:</strong> AUD-015 (P-03, P-17, DT-03).</p>
+        <p><strong>Autoridade de decisão:</strong> Segurança / Arquitetura.</p>
+        <p class="dec-full"><strong>Problema:</strong> Definir o que constitui "verificação reforçada" ao promover Admin/Chefe Geral, requisitos mínimos de senha, reset do contador de falhas após login válido e prevenção de corrida em rajadas paralelas de login.</p>
+        <p class="dec-full"><strong>Cenário motivador:</strong> Sessão deixada aberta em computador da UENF tenta promover outra conta a Chefe Geral; ou atacante dispara 50 requisições de login paralelas no mesmo milissegundo.</p>
+        <p><strong>Alternativas:</strong> (A) <strong>Step-up por reconfirmação de senha atual</strong> na própria requisição (ou token de reautenticação recente válido por 5 min) para ações de concessão/revogação de <code>ADMIN</code>/<code>CHEFE_GERAL</code>; senha mínima de 12 caracteres (padrão NIST 800-63B, sem regras arcaicas de rotação forçada); login bem-sucedido zera o contador de falhas da conta; script Lua no Redis limita concorrência em voo por conta (ex: máx. 2 verificações Argon2 simultâneas por HMAC de e-mail) além do teto de 10 falhas/15 min.</p>
+        <p><strong>Trade-offs:</strong> Reconfirmação de senha não exige MFA/SMS na V1 (alinhado a P-17) e bloqueia sequestro trivial de sessão; limite de concorrência em voo protege também contra DoS de CPU no Argon2.</p>
+        <p><strong>Recomendação:</strong> <strong>Alternativa A</strong>.</p>
+        <p><strong>Impacto no RFC:</strong> P-03 (3.2), P-17 (17.2) e DT-03 (30.2.3).</p>
+        <p class="dec-full"><strong>Critério de aceite:</strong> Promoção de Admin sem reconfirmação de senha retorna <code>403 STEP_UP_REQUIRED</code>; rajada de 20 logins simultâneos com senha errada não excede 10 validações efetivas na janela.</p>
+      </div>
+    </div>
+
+    <div class="dec-item">
+      <div class="dec-head">
+        <span class="dec-id">DEC-AUD-015</span>
+        <span class="dec-title">Padronização de contratos HTTP (erros, Idempotency-Key, paginação, busca pública e upload 100 MB)</span>
+      </div>
+      <div class="dec-grid">
+        <p><strong>Origem:</strong> AUD-018, AUD-025 (P-01, P-02, P-11, T-04, T-06, T-08, Ap. B, H, I).</p>
+        <p><strong>Autoridade de decisão:</strong> Arquitetura + Frontend React + Backend Java.</p>
+        <p class="dec-full"><strong>Problema:</strong> Uniformizar envelope de erros HTTP, definir semântica de <code>Idempotency-Key</code>, reconciliar <code>hasNext</code> vs <code>Página 1 de N</code>, especificar endpoint de busca pública, alinhar etapas do formulário veterinário (4 vs 6) e corrigir wireframe da Tela B.</p>
+        <p class="dec-full"><strong>Cenário motivador:</strong> Frontend espera <code>totalPages</code> para renderizar "Página 1 de N" (Ap. H.2), mas backend implementa apenas <code>hasNext</code> (Ap. I.2); cliente envia <code>Idempotency-Key</code> repetida com payload alterado e não há código de erro acordado.</p>
+        <p><strong>Alternativas:</strong> (A) Adotar envelope único RFC 7807/JSON (<code>code</code>, <code>message</code>, <code>requestId</code>, <code>fieldErrors[]</code>, <code>retryAfterSeconds?</code>); header <code>Idempotency-Key</code> (UUID v4, TTL 24h em PostgreSQL/Redis, retornando resposta original em payload idêntico e <code>409 IDEMPOTENCY_CONFLICT</code> se payload divergir); incluir <code>totalElements</code> e <code>totalPages</code> no DTO de listagem pública; endpoint <code>GET /api/public/search?q=&amp;type=&amp;from=&amp;to=&amp;page=0&amp;size=20</code> com PostgreSQL FTS (<code>portuguese</code>) sem cachear queries raras; upload municipal via <code>multipart/form-data</code> em streaming com timeout de 300s no Caddy/Spring (chunks apenas se medido como necessário em QA).</p>
+        <p><strong>Trade-offs:</strong> Contrato único reduz drasticamente bugs de integração React–Java.</p>
+        <p><strong>Recomendação:</strong> <strong>Alternativa A</strong>, além de corrigir Tela B (alinhando a DT-07) e unificar o número de etapas do formulário veterinário após homologação clínica.</p>
+        <p><strong>Impacto no RFC:</strong> T-08 (28.1), Apêndice B (Tela B), Apêndice H.2/H.4 e Apêndice I.2.</p>
+        <p class="dec-full"><strong>Critério de aceite:</strong> Especificação OpenAPI versionada em <code>NSS-deployment/contracts/</code> cobrindo todos os novos endpoints e validada em testes de contrato.</p>
+      </div>
+    </div>
+
+    <div class="dec-item">
+      <div class="dec-head">
+        <span class="dec-id">DEC-AUD-016</span>
+        <span class="dec-title">Segurança de rascunhos locais, recuperação de sessão e tokens visuais de estado/dark mode</span>
+      </div>
+      <div class="dec-grid">
+        <p><strong>Origem:</strong> AUD-020 (T-06, DT-10, Manual de Marca §3 e §9).</p>
+        <p><strong>Autoridade de decisão:</strong> Frontend / UX + Comunicação Institucional.</p>
+        <p class="dec-full"><strong>Problema:</strong> Evitar vazamento de rascunhos locais em máquinas compartilhadas, definir UX de sessão expirada durante upload/edição e completar tokens de cor (erro, sucesso, alerta, dark mode, paletas daltônicas de mapas).</p>
+        <p class="dec-full"><strong>Cenário motivador:</strong> Veterinário A fecha o navegador com rascunho aberto no PC da recepção da clínica; Veterinário B faz login e vê dados do rascunho de A — ou o designer implementa dark mode sem paleta aprovada.</p>
+        <p><strong>Alternativas:</strong> (A) Chaves de rascunho no <code>sessionStorage</code> (ou <code>IndexedDB</code> prefixado por <code>userId:clinicId</code> com limpeza obrigatória no logout e TTL de 24h) + modal de reautenticação <em>in-place</em> quando ocorrer <code>401</code> durante edição (preservando estado da tela e arquivo selecionado); decidir se <strong>dark mode</strong> fica no escopo da V1 (e publicar tokens AAA no Manual de Marca v1.1) ou se é removido do checklist de homologação da V1.</p>
+        <p><strong>Trade-offs:</strong> Modal de reautenticação in-place evita perda de dados sem precisar persistir arquivos grandes no navegador; adiar dark mode reduz custo de QA de acessibilidade na V1.</p>
+        <p><strong>Recomendação:</strong> <strong>Alternativa A</strong>, preferindo <strong>adiar dark mode para V1.1</strong> (mantendo paleta clara WCAG 2.2 AA rigorosa + tokens semânticos de erro/sucesso/alerta e paleta ColorBrewer acessível para mapas).</p>
+        <p><strong>Impacto no RFC:</strong> T-06 (26.5, 26.7), DT-10 (33.2) e Manual de Marca §3 e §9.</p>
+        <p class="dec-full"><strong>Critério de aceite:</strong> Teste E2E Playwright: expiração de sessão em meio à edição abre modal de login e preserva o formulário; logout limpa 100% dos rascunhos locais.</p>
+      </div>
+    </div>
+
+    <div class="dec-item">
+      <div class="dec-head">
+        <span class="dec-id">DEC-AUD-017</span>
+        <span class="dec-title">Política de retries/DLQ do SMTP e alinhamento do catálogo de templates (RFC vs Manual)</span>
+      </div>
+      <div class="dec-grid">
+        <p><strong>Origem:</strong> AUD-021 (DT-06, DT-12, Manual §7.1).</p>
+        <p><strong>Autoridade de decisão:</strong> Arquitetura + Coordenação NSS.</p>
+        <p class="dec-full"><strong>Problema:</strong> Definir política de retentativas e falha permanente (DLQ) da outbox SMTP, UI de reenvio manual para falhas críticas, e resolver quem recebe o template "Notificação veterinária" (alinhando DT-12 com Manual §7.1).</p>
+        <p class="dec-full"><strong>Cenário motivador:</strong> Servidor SMTP da UENF fica fora do ar por 6 horas ou rejeita endereço com erro de digitação; o pedido de acesso foi aprovado no banco, mas o usuário nunca recebe o link de primeiro acesso.</p>
+        <p><strong>Alternativas:</strong> (A) Outbox SMTP com 6 tentativas em backoff exponencial (1m, 5m, 15m, 1h, 4h, 12h), estado terminal <code>FAILED_PERMANENT</code> com alerta Prometheus e botão "Reenviar notificação" para Admin/Chefe Geral na fila de solicitações/boletins; esclarecer que o 9º template (<code>VET_NOTIFICATION_RECEIPT</code>) é recibo opcional ao representante remetente (sem dados clínicos) e incluí-lo no Manual de Marca v1.1.</p>
+        <p><strong>Trade-offs:</strong> Evita bloqueio de transações administrativas por lentidão SMTP e dá autonomia operacional sem acesso ao banco.</p>
+        <p><strong>Recomendação:</strong> <strong>Alternativa A</strong>.</p>
+        <p><strong>Impacto no RFC:</strong> DT-06, DT-12 (35.1, 35.3) e Manual de Marca §7.1.</p>
+        <p class="dec-full"><strong>Critério de aceite:</strong> Simular falha SMTP por 2 tentativas e sucesso na 3ª (entrega única idempotente); simular falha permanente e validar transição para <code>FAILED_PERMANENT</code> + alerta + reenvio manual.</p>
+      </div>
+    </div>
+
+    <div class="dec-item">
+      <div class="dec-head">
+        <span class="dec-id">DEC-AUD-018</span>
+        <span class="dec-title">Autorização, cache e rate limiting do endpoint de consulta de CEP</span>
+      </div>
+      <div class="dec-grid">
+        <p><strong>Origem:</strong> AUD-022 (T-05, DT-03).</p>
+        <p><strong>Autoridade de decisão:</strong> Arquitetura / Desenvolvimento Java.</p>
+        <p class="dec-full"><strong>Problema:</strong> Definir quem pode consultar <code>/api/v1/addresses/postal-code/{cep}</code>, onde cachear respostas do ViaCEP, timeout máximo e quota de taxa.</p>
+        <p class="dec-full"><strong>Cenário motivador:</strong> Usuário comum autenticado usa o endpoint como proxy gratuito para raspar milhares de CEPs, derrubando a integração ViaCEP para os Agentes Epidemiológicos.</p>
+        <p><strong>Alternativas:</strong> (A) Restringir endpoint a papéis que cadastram endereços (<code>Agente Epidemiológico</code> e <code>Chefe Geral</code>), rate limit de <code>30/min/usuário</code>, timeout HTTP de <code>3s</code> para ViaCEP e cache em tabela <code>veterinary.postal_code_cache</code> no PostgreSQL (TTL 30 dias) — sem poluir os 4 Redis especializados.</p>
+        <p><strong>Trade-offs:</strong> Tabela cache no PostgreSQL tem baixíssimo volume (poucos milhares de CEPs em Campos), persiste entre restarts e não interfere nos limites de memória dos Redis.</p>
+        <p><strong>Recomendação:</strong> <strong>Alternativa A</strong>.</p>
+        <p><strong>Impacto no RFC:</strong> T-05 (25.3) e DT-03 (tabela 30.2.1).</p>
+        <p class="dec-full"><strong>Critério de aceite:</strong> Usuário comum recebe <code>403</code>; CEP consultado duas vezes faz apenas 1 chamada externa; timeout &gt; 3s retorna fallback gracioso permitindo preenchimento manual.</p>
+      </div>
+    </div>
+
+    <div class="dec-item">
+      <div class="dec-head">
+        <span class="dec-id">DEC-AUD-019</span>
+        <span class="dec-title">Higiene documental e fechamento de papéis/fluxo da página Sobre</span>
+      </div>
+      <div class="dec-grid">
+        <p><strong>Origem:</strong> AUD-024, AUD-026 (Controle Documental, P-01, P-03, P-15.3, P-20, DT-11, Ap. F.6, Ap. K.1).</p>
+        <p><strong>Autoridade de decisão:</strong> Coordenação NSS / Arquitetura.</p>
+        <p class="dec-full"><strong>Problema:</strong> Uniformizar contagem de papéis em "nove papéis" (5 automáticos + 3 condicionais de mapa + 1 Representante Municipal), remover frase obsoleta "acesso ao mapa é único" em P-15.3, atualizar metadados do RFC para V1.4 (incluindo DT-10..DT-13) e definir se Escritor-Chefe pode propor rascunho da página Sobre ou se apenas Chefe Geral edita/publica.</p>
+        <p class="dec-full"><strong>Cenário motivador:</strong> Novo desenvolvedor lê P-20 ("oito papéis") e esquece o Representante Municipal, ou implementa permissão para Escritor-Chefe editar <code>/sobre</code> em conflito com DT-11.</p>
+        <p><strong>Alternativas:</strong> (A) Confirmar que apenas Chefe Geral edita e publica <code>/sobre</code> na V1 (simplificando <code>about_revisions</code> para registrar apenas <code>published_by</code>) e corrigir todas as referências textuais na revisão v1.4.1 do RFC.</p>
+        <p><strong>Trade-offs:</strong> Elimina ambiguidade de papel sem adicionar workflow complexo para uma página institucional de baixa frequência de edição.</p>
+        <p><strong>Recomendação:</strong> <strong>Alternativa A</strong>.</p>
+        <p><strong>Impacto no RFC:</strong> Controle Documental, P-01, P-15.3, P-20, DT-11, Ap. F.6 e Ap. K.1.</p>
+        <p class="dec-full"><strong>Critério de aceite:</strong> Revisão textual sem divergência de contagem de papéis ou versão documental; matriz de permissões da página Sobre alinhada entre DT-11 e Ap. K.1.</p>
+      </div>
+    </div>
+
+    <div class="dec-item">
+      <div class="dec-head">
+        <span class="dec-id">DEC-AUD-020</span>
+        <span class="dec-title">Guardas operacionais: destinatários de solicitações, limite de upload em voo e contingência de papéis únicos</span>
+      </div>
+      <div class="dec-grid">
+        <p><strong>Origem:</strong> AUD-027 (P-02, P-05A, P-11, P-19).</p>
+        <p><strong>Autoridade de decisão:</strong> Arquitetura + Coordenação NSS.</p>
+        <p class="dec-full"><strong>Problema:</strong> Impedir que a lista de destinatários de solicitações fique vazia, definir comportamento de upload em andamento quando o Analista reduz o limite global, e documentar contingência caso o único Escritor-Chefe ou Analista fique ausente.</p>
+        <p class="dec-full"><strong>Cenário motivador:</strong> O único Admin configurado para receber solicitações é rebaixado; durante 2 semanas, novos pedidos entram na fila sem enviar nenhum e-mail.</p>
+        <p><strong>Alternativas:</strong> (A) Fallback automático: se a lista configurada de destinatários ativos ficar vazia, notificar todos os Chefes Gerais ativos + alerta na UI; upload captura o limite vigente no início do streaming (<code>effective_limit_bytes</code>) e configuração global usa optimistic locking (<code>version</code>); documentar no runbook que o Chefe Geral pode assumir temporariamente <code>Escritor-Chefe</code> ou <code>Analista</code> via multi-role em emergências, com auditoria explícita.</p>
+        <p><strong>Trade-offs:</strong> Baixíssimo custo de implementação e alta resiliência operacional para equipe acadêmica com rotatividade de bolsistas.</p>
+        <p><strong>Recomendação:</strong> <strong>Alternativa A</strong>.</p>
+        <p><strong>Impacto no RFC:</strong> P-02 (2.4), P-11 (11.2) e P-20 (20.3).</p>
+        <p class="dec-full"><strong>Critério de aceite:</strong> Teste automatizado comprova fallback de notificação quando destinatários configurados são revogados e preservação de upload iniciado antes de redução de limite.</p>
+      </div>
+    </div>
+
+    <div class="dec-item">
+      <div class="dec-head">
+        <span class="dec-id">DEC-AUD-021</span>
+        <span class="dec-title">Política HTTP de despublicação, escopo de leitura de auditoria e contrato de exportação de tabela</span>
+      </div>
+      <div class="dec-grid">
+        <p><strong>Origem:</strong> AUD-028 (P-19, T-02, T-05, Ap. B Tela C).</p>
+        <p><strong>Autoridade de decisão:</strong> Arquitetura + Segurança + Epidemiologia.</p>
+        <p class="dec-full"><strong>Problema:</strong> Definir: (1) status HTTP (<code>404</code> vs <code>410</code>) e reserva de slug após despublicação; (2) se Admin vê eventos de auditoria de Chefe Geral; (3) formato, colunas de metadados e permissão de "[Baixar tabela autorizada]".</p>
+        <p class="dec-full"><strong>Cenário motivador:</strong> Usuário exporta tabela do mapa humano e a divulga fora de contexto sem o aviso de que são notificações (não casos confirmados) e com cobertura parcial.</p>
+        <p><strong>Alternativas:</strong> (A) Retornar <code>404 Not Found</code> para conteúdo despublicado (evitando distinguir rascunho inexistente de retirado) e manter slug permanentemente reservado (com tabela opcional de redirects 301 em troca de slug); em <code>audit.user_activity_events</code>, Admin visualiza apenas eventos de usuários não administrativos, enquanto Chefe Geral visualiza todos os eventos administrativos (usuário comum vê apenas os próprios, sem expor nome do executor administrativo); exportação da Tela C em CSV UTF-8 com BOM, neutralização de formula injection e linhas de cabeçalho/rodapé de metadados (fonte, extração Gold, aviso "notificações ≠ casos confirmados", status de cobertura), liberada a quem possui <code>map.*.view</code>.</p>
+        <p><strong>Trade-offs:</strong> Protege privacidade de gestores na auditoria e preserva semântica epidemiológica fora da plataforma.</p>
+        <p><strong>Recomendação:</strong> <strong>Alternativa A</strong>.</p>
+        <p><strong>Impacto no RFC:</strong> P-19 (19.1), T-02 (22.4), T-05 (25.1) e Apêndice B (Tela C).</p>
+        <p class="dec-full"><strong>Critério de aceite:</strong> Admin recebe <code>403</code> ou lista filtrada sem eventos de Chefe Geral; CSV exportado contém proveniência e escapa células iniciadas por <code>=,+,-,@</code>.</p>
+      </div>
+    </div>
+
+    <div class="dec-item">
+      <div class="dec-head">
+        <span class="dec-id">DEC-AUD-022</span>
+        <span class="dec-title">Fechamento das homologações institucionais e técnicas pendentes (T-09 / DT-10..DT-13)</span>
+      </div>
+      <div class="dec-grid">
+        <p><strong>Origem:</strong> AUD-030 (T-01, T-02, T-04, T-09, DT-10, DT-11, DT-13, Manual §2/§5/§8/§9).</p>
+        <p><strong>Autoridade de decisão:</strong> TI UENF (banco) + Comunicação UENF (marca/LRB) + Jurídico/LGPD UENF + Veterinária.</p>
+        <p class="dec-full"><strong>Problema:</strong> Formalizar as decisões já reconhecidas como abertas no RFC: (1) 1 banco lógico com schemas vs 2 bancos lógicos; (2) homologação do Tiptap; (3) direitos/licença do <code>logo.jpg</code> (IA), logos oficiais UENF/centros/labs e confirmação da sigla LRB; (4) parecer jurídico sobre LGPD, Marco Civil art. 15 e frase de rodapé.</p>
+        <p class="dec-full"><strong>Cenário motivador:</strong> Desenvolvimento conclui a V1 tecnicamente, mas o lançamento fica bloqueado meses aguardando validação jurídica dos termos e liberação oficial das logomarcas.</p>
+        <p><strong>Alternativas:</strong> (A) Abrir trilha institucional paralela imediatamente na Semana 1; adotar <strong>1 banco lógico com schemas separados por domínio</strong> (proposta T-01) como decisão padrão para a V1 (simplifica backups transacionais e deployment mantendo isolamento por roles SQL) e usar o fallback tipográfico oficial até homologação da arte IA.</p>
+        <p><strong>Trade-offs:</strong> Evita bloqueio do caminho crítico de engenharia por trâmites administrativos universitários.</p>
+        <p><strong>Recomendação:</strong> <strong>Alternativa A</strong>.</p>
+        <p><strong>Impacto no RFC:</strong> T-01, T-09 (29.2), DT-10, DT-11, DT-13 e Manual de Marca §9.</p>
+        <p class="dec-full"><strong>Critério de aceite:</strong> Ata/registro de homologação formal anexado ao repositório para cada item do checklist de <code>T-09</code> e Manual §9 antes do go-live.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARTE D -->
+  <section id="parte-d" class="sec">
+    <h2>Parte D — Casos de uso descobertos</h2>
+    <p class="measure">Casos de uso reais derivados da reconstrução das jornadas de todos os 9 perfis (e contas multi-role), combinando eventos adversos, revogações mid-flight, reenvios e falhas parciais que não possuem comportamento especificado no RFC.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Ator</th>
+            <th>Caso de uso</th>
+            <th>Gatilho</th>
+            <th>Fluxo principal</th>
+            <th>Exceções</th>
+            <th>Comportamento não definido</th>
+            <th>Prioridade</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="col-id">CU-001</td>
+            <td>Chefe Geral (2 contas)</td>
+            <td>Rebaixamento mútuo concorrente dos dois últimos Chefes Gerais</td>
+            <td>Chefes A e B submetem simultaneamente remoção do papel um do outro</td>
+            <td>Sistema serializa alteração de <code>CHEFE_GERAL</code>, aplica a primeira e rejeita a segunda</td>
+            <td>Concorrência em <code>READ COMMITTED</code> sem lock</td>
+            <td>Qual lock PostgreSQL impede zerar Chefes Gerais e qual código HTTP (409/422) é retornado</td>
+            <td class="prio prio-p0">P0</td>
+          </tr>
+          <tr>
+            <td class="col-id">CU-002</td>
+            <td>TI UENF / Direção</td>
+            <td>Recuperação (break-glass) por perda do último Chefe Geral</td>
+            <td>Único Chefe Geral sai da UENF ou perde acesso ao e-mail</td>
+            <td>Procedimento auditado promove novo Chefe Geral sem comprometer auditoria</td>
+            <td>Sem segundo Chefe Geral ativo na plataforma</td>
+            <td>Não existe runbook nem mecanismo de recuperação de emergência</td>
+            <td class="prio prio-p0">P0</td>
+          </tr>
+          <tr>
+            <td class="col-id">CU-003</td>
+            <td>Rep. de Clínica / Usuário</td>
+            <td>Consulta ao mapa após revogação imediata de grant com JWT válido</td>
+            <td>Agente/Admin revoga <code>map.animal.view</code> enquanto sessão do usuário está ativa</td>
+            <td>Próxima requisição à API animal é bloqueada imediatamente com 403</td>
+            <td>JWT válido por até 15 min sem checagem de versão</td>
+            <td>Mecanismo de invalidação/revalidação imediata do JWT e fallback se Redis cair</td>
+            <td class="prio prio-p0">P0</td>
+          </tr>
+          <tr>
+            <td class="col-id">CU-004</td>
+            <td>Agente Epi. / Chefe Geral</td>
+            <td>Sucessão de gestão quando Agente responsável por clínicas é desativado</td>
+            <td>Agente é suspenso ou perde papel deixando clínicas vinculadas</td>
+            <td>Chefe Geral transfere gestão das clínicas para outro Agente ativo</td>
+            <td>Clínica possui 1 gestor único desativado</td>
+            <td>Cardinalidade da gestão (1:N vs N:M) e fluxo de reatribuição de clínica órfã</td>
+            <td class="prio prio-p0">P0</td>
+          </tr>
+          <tr>
+            <td class="col-id">CU-005</td>
+            <td>Visitante / Usuário Existente</td>
+            <td>Solicitação pública de acesso com e-mail já cadastrado</td>
+            <td>Pessoa já registrada (ativa ou suspensa) preenche formulário público P-02</td>
+            <td>Resposta pública neutra; sistema trata sem duplicar conta nem vazar cadastro</td>
+            <td>E-mail já existe em <code>users</code></td>
+            <td>Se abre solicitação de novo papel, se envia instrução de login ou se bloqueia silenciosamente</td>
+            <td class="prio prio-p0">P0</td>
+          </tr>
+          <tr>
+            <td class="col-id">CU-006</td>
+            <td>Rep. Municipal</td>
+            <td>Reenvio de planilha municipal corrigida para a mesma competência</td>
+            <td>Prefeitura identifica erro em CSV já enviado e sobe versão corrigida</td>
+            <td>Sistema aceita novo arquivo (hash distinto) referenciando o anterior sem sobrescrever</td>
+            <td>Reenvio acidental do mesmo arquivo (hash igual)</td>
+            <td>Regra de deduplicação (hash vs período) e relacionamento entre versões de planilhas</td>
+            <td class="prio prio-p0">P0</td>
+          </tr>
+          <tr>
+            <td class="col-id">CU-007</td>
+            <td>Rep. Municipal</td>
+            <td>Conta desativada ou sessão expirada durante upload de 100 MB</td>
+            <td>Admin suspende conta ou JWT expira enquanto arquivo está em streaming</td>
+            <td>Servidor aborta/descarta arquivo parcial em área temporária sem poluir fila do Analista</td>
+            <td>Arquivo parcial salvo no disco sem registro no banco</td>
+            <td>Limpeza de arquivos temporários órfãos e UX de retomada após expiração de sessão</td>
+            <td class="prio prio-p1">P1</td>
+          </tr>
+          <tr>
+            <td class="col-id">CU-008</td>
+            <td>Titular de Dados (LGPD)</td>
+            <td>Pedido de eliminação/correção de dados pessoais com histórico imutável</td>
+            <td>Ex-colaborador solicita exclusão de conta via canal LGPD</td>
+            <td>Dados pessoais da conta e foto são anonimizados preservando FKs editoriais/auditoria</td>
+            <td>FKs em <code>post_revisions</code>, <code>approvals</code> e planilhas brutas</td>
+            <td>Estratégia de pseudonimização/tombstone e tratamento de dados pessoais em planilhas retidas</td>
+            <td class="prio prio-p0">P0</td>
+          </tr>
+          <tr>
+            <td class="col-id">CU-009</td>
+            <td>Rep. de Clínica</td>
+            <td>Retificação ou cancelamento de notificação veterinária enviada com erro</td>
+            <td>Representante percebe erro de espécie/idade após confirmar envio</td>
+            <td>Cria evento de retificação ou cancelamento auditado sem apagar registro original</td>
+            <td>Notificação já incorporada a lote Gold</td>
+            <td>Não existe fluxo de edição, retificação ou cancelamento pós-envio em T-04</td>
+            <td class="prio prio-p1">P1</td>
+          </tr>
+          <tr>
+            <td class="col-id">CU-010</td>
+            <td>Rep. de Clínica</td>
+            <td>Re-convite de representante anteriormente removido da mesma clínica</td>
+            <td>Clínica recontrata veterinário que teve vínculo revogado meses antes</td>
+            <td>Novo vínculo ativo é criado preservando o registro histórico da revogação anterior</td>
+            <td>PK composta <code>(user_id, clinic_id)</code> em G.3 bloqueia inserção</td>
+            <td>Se recicla linha antiga (apagando histórico) ou usa chave substituta + índice parcial</td>
+            <td class="prio prio-p1">P1</td>
+          </tr>
+          <tr>
+            <td class="col-id">CU-011</td>
+            <td>Worker Boletins / Aprovador</td>
+            <td>Nova carga retroativa gera boletim v3 enquanto v2 ainda aguarda revisão</td>
+            <td>Gold publica correção antes de v2 ser aprovada ou rejeitada</td>
+            <td>v2 passa automaticamente a <code>SUPERSEDED</code> e apenas v3 fica aprovável</td>
+            <td>Aprovador tenta aprovar v2 por link antigo do e-mail</td>
+            <td>Transição automática de v2 pendente e mensagem de erro/redirecionamento para v3</td>
+            <td class="prio prio-p1">P1</td>
+          </tr>
+          <tr>
+            <td class="col-id">CU-012</td>
+            <td>Chefe Geral</td>
+            <td>Despublicação de boletim revisado (v2) quando existe v1 substituída</td>
+            <td>Erro detectado em v2 já pública exige retirada urgente</td>
+            <td>v2 passa a <code>UNPUBLISHED</code>, cache público é invalidado e competência sai do ar</td>
+            <td>Dúvida se v1 volta a ficar pública automaticamente</td>
+            <td>Se <code>current_published_version_id</code> vira <code>NULL</code> ou regride para v1</td>
+            <td class="prio prio-p1">P1</td>
+          </tr>
+          <tr>
+            <td class="col-id">CU-013</td>
+            <td>Escritor-Chefe</td>
+            <td>Despublicação urgente de notícia com imagem referenciada por URL estática</td>
+            <td>Notícia publicada contém foto sem autorização de imagem</td>
+            <td>Notícia e imagem exclusiva deixam de responder publicamente imediatamente</td>
+            <td>Imagem em cache HTTP/diretório estático ou usada em 2 notícias</td>
+            <td>Revogação de acesso público à mídia exclusiva vs preservação se compartilhada</td>
+            <td class="prio prio-p1">P1</td>
+          </tr>
+          <tr>
+            <td class="col-id">CU-014</td>
+            <td>Visitante / Usuário Mapa</td>
+            <td>Divergência entre boletim recém-publicado e números do mapa em cache</td>
+            <td>Gold publica novo snapshot; boletim v2 é aprovado no mesmo dia</td>
+            <td>Invalidação automática de <code>redis-analytics</code> e <code>IndexedDB</code> alinha os dois canais</td>
+            <td>Cache analítico e IndexedDB mantêm snapshot anterior</td>
+            <td>Mecanismo de invalidação de <code>redis-analytics</code> e <code>IndexedDB</code> após commit Gold</td>
+            <td class="prio prio-p1">P1</td>
+          </tr>
+          <tr>
+            <td class="col-id">CU-015</td>
+            <td>Chefe Geral</td>
+            <td>Remoção do último destinatário configurado para receber solicitações P-02</td>
+            <td>Admin destinatário perde papel ou é desmarcado na configuração</td>
+            <td>Sistema impede lista vazia ou aplica fallback automático para Chefes Gerais ativos</td>
+            <td>Novos pedidos ficam na fila sem notificar ninguém por SMTP</td>
+            <td>Invariante de destinatário mínimo e comportamento de fallback</td>
+            <td class="prio prio-p2">P2</td>
+          </tr>
+          <tr>
+            <td class="col-id">CU-016</td>
+            <td>Analista de Dados</td>
+            <td>Redução do limite global de upload enquanto envio maior está em curso</td>
+            <td>Analista muda teto de 100 MB para 50 MB durante upload de 80 MB</td>
+            <td>Upload já admitido conclui com o limite vigente no início; novos respeitam 50 MB</td>
+            <td>Proxy/backend aborta conexão no meio do streaming</td>
+            <td>Se o limite é fixado no início do upload e controle otimista na tabela de configuração</td>
+            <td class="prio prio-p2">P2</td>
+          </tr>
+          <tr>
+            <td class="col-id">CU-017</td>
+            <td>Rep. de Clínica (PC compartilhado)</td>
+            <td>Troca de operador no mesmo navegador com rascunho local pendente</td>
+            <td>Sessão do Usuário A expira em PC de recepção; Usuário B faz login</td>
+            <td>Rascunhos locais de A são isolados por <code>userId</code> e descartados no logout</td>
+            <td>Rascunho salvo em chave global expõe dados clínicos a B</td>
+            <td>Política de isolamento e limpeza de rascunhos locais no navegador</td>
+            <td class="prio prio-p1">P1</td>
+          </tr>
+          <tr>
+            <td class="col-id">CU-018</td>
+            <td>Chefe Geral (Contingência)</td>
+            <td>Retirada urgente de notícia com único Escritor-Chefe indisponível</td>
+            <td>Notícia com erro grave precisa sair do ar fora do expediente do Escritor-Chefe</td>
+            <td>Chefe Geral atribui a si papel <code>Escritor-Chefe</code> (auditado), revalida sessão e despublica</td>
+            <td>Aprovação de step-up + revalidação de sessão necessária</td>
+            <td>Confirmação se este é o procedimento oficial de contingência e se há alerta ao remover último Escritor-Chefe</td>
+            <td class="prio prio-p2">P2</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Detalhamento operacional dos 5 casos de uso de maior impacto</h3>
+    <div class="detail-row">
+      <p><strong>1. CU-001 — Rebaixamento concorrente dos dois últimos Chefes Gerais:</strong> <em>Estado inicial:</em> 2 usuários ativos (A e B) com papel <code>CHEFE_GERAL</code>. <em>Permissões:</em> ambos possuem <code>CHEFE_GERAL</code> + step-up válido. <em>Dados alterados:</em> <code>identity.user_roles</code>, <code>users.authz_version</code>, <code>audit.user_activity_events</code>. <em>Efeitos colaterais:</em> invalidação imediata das sessões do usuário rebaixado; segunda transação aguarda lock na linha <code>CHEFE_GERAL</code> em <code>roles</code>, lê contagem = 1 e aborta com <code>409 LAST_CHIEF_PROTECTED</code>. <em>Estado final:</em> exatamente 1 Chefe Geral ativo e 2 eventos auditados (1 sucesso, 1 bloqueio).</p>
+    </div>
+    <div class="detail-row">
+      <p><strong>2. CU-003 — Revogação imediata de grant com JWT ativo:</strong> <em>Estado inicial:</em> Representante R com sessão ativa (JWT <code>authz_ver=4</code>, <code>map.animal.view=true</code>). <em>Permissões:</em> Agente A gestor da clínica de R executa revogação. <em>Dados alterados:</em> <code>identity.user_grants</code> (revogado), <code>users.authz_version=5</code>, chave Redis <code>authz:ver:{R}=5</code>, evento em <code>audit</code>. <em>Efeitos colaterais:</em> próxima chamada de R com JWT v4 detecta divergência (4 ≠ 5), recarrega/rejeita e retorna <code>403</code> na API animal sem esperar os 15 min do JWT. <em>Estado final:</em> acesso animal bloqueado instantaneamente; outras clínicas e conta permanecem ativas.</p>
+    </div>
+    <div class="detail-row">
+      <p><strong>3. CU-006 — Reenvio de planilha municipal corrigida vs duplicata:</strong> <em>Estado inicial:</em> Município M possui upload <code>U1</code> (Out/2026, hash <code>H1</code>, status <code>VALID</code>). <em>Permissões:</em> <code>Representante Municipal</code> com vínculo ativo em <code>municipality_memberships</code> para M. <em>Dados alterados:</em> se hash = <code>H1</code>, nenhum registro criado (<code>409 DUPLICATE_UPLOAD</code> com referência a <code>U1</code>); se hash = <code>H2</code>, cria <code>U2</code> com <code>supersedes_upload_id=U1</code>, grava arquivo imutável no HD fora do webroot, dispara validação assíncrona e enfileira e-mail <code>FILE_RECEIVED</code> na outbox SMTP. <em>Estado final:</em> <code>U1</code> preservado intacto, <code>U2</code> na fila do Analista com vínculo explícito de substituição.</p>
+    </div>
+    <div class="detail-row">
+      <p><strong>4. CU-008 — Eliminação/anonimização LGPD de ex-colaborador:</strong> <em>Estado inicial:</em> Usuário U inativo com revisões editoriais, aprovações de boletins e avatar. <em>Permissões:</em> Chefe Geral executando protocolo formal aprovado pelo Encarregado LGPD. <em>Dados alterados:</em> <code>users</code> (e-mail/nome/hash substituídos por tombstone anônimo, <code>avatar_asset_id=NULL</code>), remoção física do arquivo de avatar, ocultação em <code>institutional.team_members</code> se aplicável, registro de evento em <code>audit</code>. <em>Efeitos colaterais:</em> invalidação de cache de <code>/sobre</code> e notícias onde créditos públicos exibiam o nome (conforme política editorial/jurídica). <em>Estado final:</em> FKs íntegras, nenhum dado pessoal identificável na conta ativa.</p>
+    </div>
+    <div class="detail-row">
+      <p><strong>5. CU-011 — Nova revisão de boletim v3 com v2 ainda pendente:</strong> <em>Estado inicial:</em> Boletim Dengue Jan/2026 com <code>v1 PUBLISHED</code> e <code>v2 PENDING_REVIEW</code>. <em>Permissões:</em> Worker de boletins consumindo novo <code>publication_id</code> da Gold. <em>Dados alterados:</em> em transação única em <code>bulletins</code>, calcula <code>source_fingerprint</code> (diferente de v1 e v2), marca <code>v2</code> como <code>SUPERSEDED</code>, cria <code>v3</code> em <code>PENDING_REVIEW</code> com novo snapshot imutável e artefato PDF/HTML, e enfileira notificação SMTP. <em>Estado final:</em> <code>v1</code> permanece pública; <code>v2</code> rejeita tentativas de aprovação com <code>409 VERSION_SUPERSEDED</code>; <code>v3</code> pronta para aprovação única.</p>
+    </div>
+  </section>
+
+  <!-- PARTE E -->
+  <section id="parte-e" class="sec">
+    <h2>Parte E — Contradições e problemas semânticos</h2>
+    <p class="measure">Separação rigorosa entre <strong>contradições comprovadas</strong> no texto dos documentos e <strong>hipóteses dependentes de esclarecimento</strong> com os responsáveis.</p>
+
+    <div class="cols-2">
+      <div>
+        <h3>1. Contradições comprovadas entre capítulos</h3>
+        <ul>
+          <li><strong>Escopo veterinário V1 (<code>P-15</code>/<code>P-16</code> vs <code>T-04</code>/<code>T-07</code>):</strong> Decisões aprovadas exigem mapa animal por bairro e boletim de cães por raça/SRD, mas o oráculo aprovado da Gold do Gabriel (<code>T-04</code> p. 25, Ap. I.4 p. 74) não gera raça, bairro nem clínica.</li>
+          <li><strong>Total de papéis (<code>P-01</code>/<code>P-20</code> vs <code>P-03</code>/Ap. C):</strong> P-01, P-20 e Resumo Executivo falam em "oito papéis", enquanto P-03 e Apêndice C listam nove papéis (incluindo <code>Representante Municipal</code>).</li>
+          <li><strong>Fluxo de solicitação (<code>DT-07</code> vs Ap. B Tela B):</strong> DT-07 (p. 40) exige duas etapas obrigatórias com revisão e checkbox; Tela B (p. 55) exibe etapa única com botão direto <code>[Enviar solicitação]</code>.</li>
+          <li><strong>Etapas do formulário veterinário (<code>T-04</code> vs <code>T-06</code>/Ap. H.4):</strong> T-04 (p. 24–25) estrutura 6 etapas; T-06 (p. 28) e Ap. H.4 (p. 72) especificam 4 etapas ("1/4 a 4/4").</li>
+          <li><strong>Versão e escopo documental (Capa vs Controle Documental e Ap. F.6):</strong> Capa/cabeçalho indicam V1.4 (incluindo DT-10..DT-13), mas Controle Documental (p. ix) indica "revisão 1.3" e só reconhece DT-02..DT-09.</li>
+        </ul>
+
+        <h3>2. Termos usados de modo incompatível</h3>
+        <ul>
+          <li><strong>"Acesso ao mapa é único" (P-15.3, p. 12):</strong> contradiz diretamente P-01, P-20 e DT-02, que estabelecem duas permissões independentes (<code>map.human.view</code> e <code>map.animal.view</code>).</li>
+          <li><strong>"Boletins veterinários de cães" (P-16, p. 12–13) vs "esporotricose" (T-04/I.4):</strong> a Gold animal inclui felinos (<code>especie_codigo=1</code>), caninos (<code>2</code>) e NI (<code>0</code>); usar "boletins de cães" como sinônimo de boletim veterinário cria ambiguidade epidemiológica sobre felinos.</li>
+          <li><strong>"Verificação reforçada" (P-03, p. 3):</strong> termo usado como requisito obrigatório sem nenhuma definição operacional em todo o RFC.</li>
+        </ul>
+
+        <h3>3. Cardinalidades e relações incoerentes</h3>
+        <ul>
+          <li><strong><code>veterinary.clinic_memberships</code> (Ap. G.3, p. 69–70):</strong> PK composta <code>(user_id, clinic_id)</code> impede múltiplos vínculos históricos (revogação + re-convite) exigidos por P-08/P-09.</li>
+          <li><strong>Clínica–Agente (P-07/P-08):</strong> texto no singular ("agente responsável") sem definir se é 1:N ou N:M, criando risco de clínicas órfãs.</li>
+          <li><strong>Usuário–Município (P-10):</strong> relação ausente do diagrama e tabelas do Apêndice G.</li>
+        </ul>
+      </div>
+
+      <div>
+        <h3>4. Responsabilidades sobrepostas</h3>
+        <ul>
+          <li><strong>Notificação veterinária pelo Agente Epidemiológico:</strong> listada na tabela de Stakeholders (p. x), mas omitida da matriz de permissões do Agente no Apêndice C (p. 58) e de <code>POST /api/v1/animal/notifications</code> em T-08 (p. 32). <em>(Hipótese a esclarecer: o Agente deve acumular papel ou notificar diretamente?)</em></li>
+          <li><strong>Edição da Página Sobre (DT-11 vs Ap. K.1):</strong> DT-11 (p. 47) reserva edição ao Chefe Geral e nega permissão implícita aos demais papéis; Ap. K.1 (p. 78) coloca a "Área editorial" preparando o conteúdo no passo 1.</li>
+          <li><strong>Escrita da outbox de boletins (T-01 vs T-03):</strong> pipeline só escreve em <code>analytics</code>, Java só lê <code>analytics</code> em read-only; nenhuma das duas partes tem permissão para manter uma fila compartilhada sem redesenho.</li>
+        </ul>
+
+        <h3>5. Diferenças entre contratos técnicos e comportamento do produto</h3>
+        <ul>
+          <li><strong>Paginação pública (Ap. I.2 vs Ap. H.2):</strong> contrato JSON devolve <code>{items, page, size, hasNext}</code>, mas a UI exige exibir "Página 1 de N" e quantidade total.</li>
+          <li><strong>Escopo do <code>redis-public-cache</code> (DT-09 vs DT-11/K.1):</strong> DT-09 define o 4º Redis exclusivamente para notícias e boletins, mas DT-11 e K.1 exigem invalidar nele a página <code>/sobre</code>.</li>
+          <li><strong>Estados editoriais (P-05A vs T-02):</strong> P-05A prevê "rejeitar" notícia, mas a máquina de estados de T-02 (p. 21) só contém <code>CHANGES_REQUESTED</code>.</li>
+        </ul>
+
+        <h3>6. Inconsistências entre RFC e Manual de Marca v1.0</h3>
+        <ul>
+          <li><strong>Catálogo de templates SMTP:</strong> RFC DT-12 (p. 48) define 9 eventos (incluindo "Notificação veterinária"); Manual de Marca §7.1 (p. 4/6) lista apenas 8 templates (sem o 9º e sem chave padronizada no RFC).</li>
+          <li><strong>Dark mode sem paleta:</strong> Manual de Marca §9 (p. 5/6) exige testar "cores e tipografia em mobile, dark mode e PDF", mas nem o Manual §3 nem o RFC DT-10 definem tokens de dark mode ou de estados semânticos (erro/sucesso/alerta).</li>
+          <li><strong>Escala de espaçamento:</strong> Manual §3.1 (p. 3/6) define <code>4/8/12/16/24/32 px</code>; RFC Ap. B.1 (p. 55) lista <code>4/8/12/16/24 px</code> (omissão menor de <code>32 px</code>).</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARTE F -->
+  <section id="parte-f" class="sec">
+    <h2>Parte F — Matriz de estados e concorrência</h2>
+    <p class="measure">Análise das 12 operações críticas sujeitas a disputa simultânea, eventos fora de ordem ou falhas parciais, identificando a invariante necessária e a regra ainda ausente no RFC.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Entidade / operação</th>
+            <th>Estado inicial</th>
+            <th>Evento</th>
+            <th>Estado esperado</th>
+            <th>Concorrência possível</th>
+            <th>Invariante</th>
+            <th>Falha possível</th>
+            <th>Regra ausente</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Papéis (Chefe Geral)</strong><br>Rebaixamento/suspensão</td>
+            <td>2 Chefes Gerais ativos</td>
+            <td>Remoção de papel ou suspensão</td>
+            <td>1 Chefe Geral ativo; sessão do alvo invalidada</td>
+            <td>2 Chefes Gerais rebaixando um ao outro simultaneamente</td>
+            <td><code>COUNT(active CHEFE_GERAL) &gt;= 1</code></td>
+            <td>Race em <code>READ COMMITTED</code> deixa 0 Chefes Gerais</td>
+            <td>Lock SQL explícito (<code>FOR UPDATE</code>/advisory) e runbook break-glass</td>
+          </tr>
+          <tr>
+            <td><strong>Permissões / Grants</strong><br>Revogação de mapa</td>
+            <td>Usuário com JWT válido (15m) e grant ativo</td>
+            <td>Admin/Agente revoga <code>map.animal.view</code></td>
+            <td>Acesso negado (403) na próxima requisição</td>
+            <td>Requisição ao mapa simultânea à revogação</td>
+            <td>Grant revogado não pode autorizar leitura após commit</td>
+            <td>JWT aceito por até 15 min; falha de propagação no Redis</td>
+            <td>Verificação de <code>authz_ver</code> por requisição e fallback DB</td>
+          </tr>
+          <tr>
+            <td><strong>Solicitação pública</strong><br>Aprovação / Rejeição</td>
+            <td><code>PENDING</code> (e-mail verificado)</td>
+            <td>Aprovador decide (aprova ou rejeita)</td>
+            <td><code>APPROVED</code> ou <code>REJECTED</code> + e-mail enfileirado</td>
+            <td>2 Admins decidem o mesmo pedido simultaneamente</td>
+            <td>Apenas 1 decisão final; sem conta duplicada</td>
+            <td>SMTP falha após commit; conta já existe em <code>users</code></td>
+            <td>Regra para e-mail já existente, TTLs e política de DLQ SMTP</td>
+          </tr>
+          <tr>
+            <td><strong>Login / Rate limit</strong><br>Contagem de falhas</td>
+            <td>Conta com 9 falhas nos últimos 15 min</td>
+            <td>Rajada de tentativas de login</td>
+            <td>10ª falha aceita; demais recebem 429</td>
+            <td>20 requisições paralelas no mesmo milissegundo</td>
+            <td>Máx. 10 falhas efetivas/15 min/conta</td>
+            <td>Check-then-act permite >10 validações Argon2; queda do Redis</td>
+            <td>Controle de concorrência em voo e política <code>fail-closed</code>/local</td>
+          </tr>
+          <tr>
+            <td><strong>Notícia (CMS)</strong><br>Edição concorrente</td>
+            <td>Revisão em <code>DRAFT</code> (<code>version=7</code>)</td>
+            <td><code>PATCH</code> salvando conteúdo JSONB</td>
+            <td><code>version=8</code> salva ou <code>409</code> para sessão antiga</td>
+            <td>2 sessões (Escritor + Escritor-Chefe) editam mesmo rascunho</td>
+            <td>Nenhuma alteração perdida silenciosamente</td>
+            <td>Lock efêmero no Redis expira ou diverge do banco</td>
+            <td>Quem pode editar rascunho de terceiro; se pode haver >1 rascunho</td>
+          </tr>
+          <tr>
+            <td><strong>Notícia (CMS)</strong><br>Despublicação + mídia</td>
+            <td><code>PUBLISHED</code> com imagem em cache/estático</td>
+            <td>Escritor-Chefe despublica com motivo</td>
+            <td><code>UNPUBLISHED</code>; cache público e mídia exclusiva bloqueados</td>
+            <td>Publicação/leitura pública concorrente com invalidação</td>
+            <td>Conteúdo despublicado nunca volta via cache ou URL de mídia</td>
+            <td>Invalidação Redis falha após commit; imagem estática fica pública</td>
+            <td>Persistência do modo bypass, namespace versionado e revogação de mídia</td>
+          </tr>
+          <tr>
+            <td><strong>Boletim</strong><br>Geração por carga Gold</td>
+            <td><code>v1 PUBLISHED</code>; <code>v2 PENDING_REVIEW</code></td>
+            <td>Pipeline publica correção retroativa na Gold</td>
+            <td><code>v2 SUPERSEDED</code>; <code>v3 PENDING_REVIEW</code> criada</td>
+            <td>2 execuções do worker ou aprovação de <code>v2</code> simultânea à criação de <code>v3</code></td>
+            <td>Chave idempotente única; versão obsoleta não pode ser publicada</td>
+            <td>Worker sem permissão para marcar outbox em <code>analytics</code></td>
+            <td>Protocolo checkpoint Pipeline→Java e auto-superação de <code>v2</code></td>
+          </tr>
+          <tr>
+            <td><strong>Boletim</strong><br>Aprovação concorrente</td>
+            <td><code>v2 PENDING_REVIEW</code></td>
+            <td>Chefe Geral e Agente delegado clicam Aprovar</td>
+            <td>1 aprovação persiste; <code>v2 PUBLISHED</code>; 2ª recebe 409</td>
+            <td>2 aprovadores decidindo ao mesmo tempo</td>
+            <td>Transição atômica única de <code>PENDING_REVIEW → PUBLISHED</code></td>
+            <td>Revogação da delegação do Agente milissegundos antes do commit</td>
+            <td>Verificação transacional da delegação dentro do mesmo lock da aprovação</td>
+          </tr>
+          <tr>
+            <td><strong>Publicação Gold</strong><br>Sincronização de cache</td>
+            <td>Snapshot <code>B1</code> em PostgreSQL, Redis e IndexedDB</td>
+            <td>Pipeline commita snapshot <code>B2</code></td>
+            <td>Fatos, metadados e caches servem <code>B2</code></td>
+            <td>Consultas analíticas concorrentes durante/após publicação</td>
+            <td>Metadados, mapa e boletim refletem mesmo snapshot</td>
+            <td><code>redis-analytics</code> e <code>IndexedDB</code> servem <code>B1</code> após commit de <code>B2</code></td>
+            <td>Mecanismo de invalidação de <code>redis-analytics</code> e <code>IndexedDB</code></td>
+          </tr>
+          <tr>
+            <td><strong>Convite de clínica</strong><br>Aceite e re-vínculo</td>
+            <td>Convite <code>PENDING</code> para clínica ativa</td>
+            <td>Destinatário aceita convite</td>
+            <td>Vínculo <code>ACTIVE</code> em <code>clinic_memberships</code></td>
+            <td>Aceite concorrente com expiração, remoção do Agente ou inativação da clínica</td>
+            <td>1 vínculo ativo por <code>(user, clinic)</code>; histórico preservado</td>
+            <td>PK composta impede re-convite após revogação prévia</td>
+            <td>Chave substituta + índice único parcial e TTL do convite</td>
+          </tr>
+          <tr>
+            <td><strong>Notificação veterinária</strong><br>Submissão</td>
+            <td>Rascunho preenchido para clínica C1</td>
+            <td>Representante confirma envio</td>
+            <td>Notificação salva em <code>veterinary.notifications</code></td>
+            <td>Revogação do vínculo com C1 ou inativação de C1 durante envio; duplo clique</td>
+            <td>Vínculo e clínica ativos validados na transação; sem duplicidade</td>
+            <td>Timeout no cliente após commit no servidor gera reenvio duplicado</td>
+            <td><code>Idempotency-Key</code> no POST e fluxo de retificação pós-envio</td>
+          </tr>
+          <tr>
+            <td><strong>Upload municipal</strong><br>Recepção e limite</td>
+            <td>Limite global = 100 MB; conta ativa</td>
+            <td>Prefeitura envia arquivo de 80 MB</td>
+            <td>Arquivo salvo imutável + status <code>VALIDATING</code></td>
+            <td>Analista reduz limite para 50 MB ou Admin desativa conta durante streaming</td>
+            <td>Limite efetivo travado na admissão; sem duplicata silenciosa</td>
+            <td>Arquivo parcial fica no HD se conexão/conta cair no meio</td>
+            <td>Regra de limite em voo, limpeza de temporários e deduplicação por hash</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- PARTE G -->
+  <section id="parte-g" class="sec">
+    <h2>Parte G — Cenários de testes que faltam</h2>
+    <p class="measure">22 cenários complementares aos já listados nos Apêndices D.6 e J, cobrindo comportamentos descobertos nesta auditoria (sem repetir testes já existentes).</p>
+
+    <div class="test-grid">
+      <div class="test-item">
+        <p><strong>TST-AUD-001 [Concorrência] — Rebaixamento simultâneo dos 2 últimos Chefes Gerais</strong></p>
+        <p><em>Pré-condição:</em> Exatamente 2 Chefes Gerais ativos (A e B). <em>Ação:</em> Disparar 2 requisições simultâneas (A rebaixa B; B rebaixa A). <em>Esperado:</em> Exatamente 1 retorna 200 e a outra 409; permanece 1 Chefe Geral ativo. <em>Ref:</em> P-03, P-20, DEC-AUD-003.</p>
+      </div>
+      <div class="test-item">
+        <p><strong>TST-AUD-002 [Autorização negativa] — Revogação imediata de grant com JWT em voo</strong></p>
+        <p><em>Pré-condição:</em> Representante com JWT válido (15m) e <code>map.animal.view</code>. <em>Ação:</em> Revogar grant e chamar API animal com o mesmo JWT 100 ms depois. <em>Esperado:</em> Rejeição imediata (403/401→403), sem aguardar expiração do JWT. <em>Ref:</em> P-20, DT-02, DEC-AUD-002.</p>
+      </div>
+      <div class="test-item">
+        <p><strong>TST-AUD-003 [Autorização negativa] — Promoção administrativa sem verificação reforçada</strong></p>
+        <p><em>Pré-condição:</em> Chefe Geral autenticado. <em>Ação:</em> Chamar endpoint de promoção a Admin/Chefe Geral sem token/reconfirmação step-up. <em>Esperado:</em> 403 <code>STEP_UP_REQUIRED</code>; nenhuma alteração persistida. <em>Ref:</em> P-03, DEC-AUD-014.</p>
+      </div>
+      <div class="test-item">
+        <p><strong>TST-AUD-004 [Concorrência] — Rajada paralela de 20 logins com senha incorreta</strong></p>
+        <p><em>Pré-condição:</em> Conta com 0 falhas. <em>Ação:</em> Enviar 20 requisições simultâneas com senha errada. <em>Esperado:</em> No máximo 10 passam pela validação Argon2; restantes recebem 429 com <code>Retry-After</code>. <em>Ref:</em> DT-03, DEC-AUD-014.</p>
+      </div>
+      <div class="test-item">
+        <p><strong>TST-AUD-005 [Recuperação de falhas] — Indisponibilidade do <code>redis-rate-limit</code></strong></p>
+        <p><em>Pré-condição:</em> Container <code>redis-rate-limit</code> pausado. <em>Ação:</em> Chamar login, solicitação pública e listagem pública de notícias. <em>Esperado:</em> Rotas sensíveis aplicam política <code>fail-closed</code>/local sem mascarar erro como 429; métrica de erro incrementada. <em>Ref:</em> DT-03, DEC-AUD-009.</p>
+      </div>
+      <div class="test-item">
+        <p><strong>TST-AUD-006 [Integração] — Solicitação pública com e-mail já existente</strong></p>
+        <p><em>Pré-condição:</em> E-mail <code>u@uenf.br</code> já ativo em <code>users</code>. <em>Ação:</em> Submeter solicitação pública P-02 com esse e-mail. <em>Esperado:</em> Resposta HTTP idêntica à de e-mail novo (anti-enumeração), sem criar conta duplicada. <em>Ref:</em> P-02, DT-04, DEC-AUD-007.</p>
+      </div>
+      <div class="test-item">
+        <p><strong>TST-AUD-007 [Integração] — Expiração de tokens (verificação, convite, protocolo, reset)</strong></p>
+        <p><em>Pré-condição:</em> Relógio controlável em QA avançado além do TTL acordado. <em>Ação:</em> Tentar consumir cada token expirado. <em>Esperado:</em> Rejeição explícita (410/400) e orientação segura de reenvio sem vazar dados. <em>Ref:</em> P-02, P-08, P-17, DEC-AUD-007.</p>
+      </div>
+      <div class="test-item">
+        <p><strong>TST-AUD-008 [Integração] — Re-convite de representante após revogação prévia</strong></p>
+        <p><em>Pré-condição:</em> Representante teve vínculo revogado na Clínica C1. <em>Ação:</em> Agente convida novamente o mesmo e-mail para C1 e usuário aceita. <em>Esperado:</em> Novo vínculo <code>ACTIVE</code> criado preservando registro histórico do vínculo <code>REVOKED</code>. <em>Ref:</em> P-08, Ap. G.3, DEC-AUD-006.</p>
+      </div>
+      <div class="test-item">
+        <p><strong>TST-AUD-009 [Autorização negativa] — Transferência de clínica órfã após desativação de Agente</strong></p>
+        <p><em>Pré-condição:</em> Agente A (único gestor de C1) é suspenso. <em>Ação:</em> Chefe Geral atribui Agente B como gestor de C1; B convida representante. <em>Esperado:</em> Operação concluída com auditoria; Agente C (não gestor) continua recebendo 403. <em>Ref:</em> P-07, P-08, DEC-AUD-006.</p>
+      </div>
+      <div class="test-item">
+        <p><strong>TST-AUD-010 [Idempotência] — Reenvio de notificação veterinária após timeout de cliente</strong></p>
+        <p><em>Pré-condição:</em> Representante autenticado na Clínica C1. <em>Ação:</em> Enviar dois <code>POST /api/v1/animal/notifications</code> com mesma <code>Idempotency-Key</code> (payload igual e depois payload diferente). <em>Esperado:</em> Payload igual retorna mesmo ID sem duplicar; payload diferente retorna 409. <em>Ref:</em> P-09, DEC-AUD-015.</p>
+      </div>
+      <div class="test-item">
+        <p><strong>TST-AUD-011 [Integridade/Segurança] — Upload municipal: hash duplicado, correção e ZIP-bomb</strong></p>
+        <p><em>Pré-condição:</em> Rep. Municipal autenticado. <em>Ação:</em> (1) Reenviar CSV com mesmo SHA-256; (2) Enviar CSV corrigido; (3) Enviar XLSX com razão de compressão anômala/fórmula DDE. <em>Esperado:</em> (1) 409 apontando original; (2) aceito com referência; (3) <code>QUARANTINED</code> sem travar JVM. <em>Ref:</em> P-10, P-11, DEC-AUD-005.</p>
+      </div>
+      <div class="test-item">
+        <p><strong>TST-AUD-012 [Concorrência] — Redução do limite de upload durante streaming ativo</strong></p>
+        <p><em>Pré-condição:</em> Limite 100 MB; upload de 80 MB iniciado. <em>Ação:</em> Analista reduz limite para 50 MB durante a transferência. <em>Esperado:</em> Upload em curso conclui; próximo upload de 60 MB recebe 413. <em>Ref:</em> P-11, DEC-AUD-020.</p>
+      </div>
+      <div class="test-item">
+        <p><strong>TST-AUD-013 [Integração / Dados] — Sincronização de <code>redis-analytics</code> após commit Gold</strong></p>
+        <p><em>Pré-condição:</em> Consulta analítica cacheada no <code>redis-analytics</code> (lote B1). <em>Ação:</em> Pipeline publica lote B2 com totais alterados. <em>Esperado:</em> Worker detecta B2 sem escrita no schema <code>analytics</code> e próxima consulta API retorna totais de B2. <em>Ref:</em> P-14, T-01, DEC-AUD-004.</p>
+      </div>
+      <div class="test-item">
+        <p><strong>TST-AUD-014 [Concorrência] — Boletim v3 gerada enquanto v2 está em <code>PENDING_REVIEW</code></strong></p>
+        <p><em>Pré-condição:</em> Competência Jan/2026 com v1 pública e v2 pendente. <em>Ação:</em> Nova carga Gold gera v3; aprovador tenta aprovar v2 por URL antiga. <em>Esperado:</em> v2 marcada <code>SUPERSEDED</code> e tentativa retorna 409 indicando v3. <em>Ref:</em> P-05, T-03, DEC-AUD-011.</p>
+      </div>
+      <div class="test-item">
+        <p><strong>TST-AUD-015 [Integração] — Despublicação de boletim revisado v2 com v1 anterior</strong></p>
+        <p><em>Pré-condição:</em> v2 ativa (substituiu v1). <em>Ação:</em> Chefe Geral despublica v2. <em>Esperado:</em> Competência some da listagem e detalhe públicos (404), sem reativar v1 automaticamente; histórico íntegro. <em>Ref:</em> P-19, T-03, DEC-AUD-011.</p>
+      </div>
+      <div class="test-item">
+        <p><strong>TST-AUD-016 [Unitário / Epidemiologia] — Bordas de idade veterinária, data nula e CNES ausente</strong></p>
+        <p><em>Pré-condição:</em> Dataset de referência com 0m, 11m, 1a0m, 3a11m, 7a0m, 10a11m, 11a0m e <code>data_notificacao=NULL</code>. <em>Ação:</em> Executar classificação na pipeline e gerador de boletim. <em>Esperado:</em> 100% de paridade nas faixas 0–5 e contagem explícita de nulos/não mapeados. <em>Ref:</em> P-16, T-04, DEC-AUD-008.</p>
+      </div>
+      <div class="test-item">
+        <p><strong>TST-AUD-017 [Integração / Segurança] — Bloqueio de mídia após despublicação de notícia</strong></p>
+        <p><em>Pré-condição:</em> Notícia publicada com imagem exclusiva <code>imgA</code> e imagem compartilhada <code>imgB</code>. <em>Ação:</em> Escritor-Chefe despublica notícia e visitante requisita URLs diretas. <em>Esperado:</em> <code>imgA</code> retorna 404/403; <code>imgB</code> (usada em outro post publicado) permanece 200. <em>Ref:</em> P-19, T-02, DEC-AUD-013.</p>
+      </div>
+      <div class="test-item">
+        <p><strong>TST-AUD-018 [Contratos HTTP] — Paginação, busca pública e cache da página Sobre</strong></p>
+        <p><em>Pré-condição:</em> 45 notícias publicadas e página Sobre publicada. <em>Ação:</em> Consultar <code>page=0..2</code>, buscar termo com acento e editar membro da equipe na página Sobre. <em>Esperado:</em> DTO devolve <code>totalPages=3</code> sem sobreposição; busca retorna acentuados; <code>/sobre</code> reflete edição imediatamente após invalidação do cache. <em>Ref:</em> DT-09, DT-11, DEC-AUD-015.</p>
+      </div>
+      <div class="test-item">
+        <p><strong>TST-AUD-019 [Autorização negativa] — Escopo de auditoria e proxy de CEP</strong></p>
+        <p><em>Pré-condição:</em> Admin e Usuário Comum autenticados. <em>Ação:</em> Admin consulta auditoria tentando filtrar eventos de Chefe Geral; Usuário Comum chama <code>/api/v1/addresses/postal-code/28013602</code>. <em>Esperado:</em> Admin não recebe eventos de Chefe Geral; Usuário Comum recebe 403 no endpoint de CEP. <em>Ref:</em> T-05, DEC-AUD-018, DEC-AUD-021.</p>
+      </div>
+      <div class="test-item">
+        <p><strong>TST-AUD-020 [E2E Playwright / UX] — Expiração de sessão durante edição e troca de usuário em PC compartilhado</strong></p>
+        <p><em>Pré-condição:</em> Usuário A editando formulário veterinário no navegador. <em>Ação:</em> Invalidar sessão no servidor e clicar Salvar; depois fazer logout e logar como Usuário B. <em>Esperado:</em> Modal de reautenticação preserva dados de A sem perder preenchimento; após logout, B não vê nenhum rascunho de A. <em>Ref:</em> T-06, DEC-AUD-016.</p>
+      </div>
+      <div class="test-item">
+        <p><strong>TST-AUD-021 [Recuperação / SMTP] — Falha permanente SMTP, alerta e reenvio manual</strong></p>
+        <p><em>Pré-condição:</em> SMTP de teste configurado para rejeitar permanentemente (550). <em>Ação:</em> Aprovar solicitação de acesso e avançar relógio pelas 6 tentativas. <em>Esperado:</em> Evento chega a <code>FAILED_PERMANENT</code>, gera alerta e aparece na UI para reenvio manual auditado. <em>Ref:</em> DT-06, DT-12, DEC-AUD-017.</p>
+      </div>
+      <div class="test-item">
+        <p><strong>TST-AUD-022 [Backup, Restore e Rollback] — Restauração íntegra PostgreSQL + volume HD + guarda da migration 0003</strong></p>
+        <p><em>Pré-condição:</em> Ambiente QA com notícias, mídias, PDFs, uploads municipais e tabela <code>fato_esporo</code> populada. <em>Ação:</em> (1) Restaurar backup em host limpo e validar 100% dos hashes; (2) Rodar migration <code>0003</code> contra base com dados ESPORO. <em>Esperado:</em> (1) Restore íntegro dentro do RTO; (2) Migration <code>0003</code> aborta com erro explícito sem apagar registros. <em>Ref:</em> P-18, T-01, T-07, DEC-AUD-010.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARTE H -->
+  <section id="parte-h" class="sec">
+    <h2>Parte H — Plano de fechamento das decisões</h2>
+    <p class="measure">Sequenciamento orientado por dependências técnicas e institucionais. Decisões marcadas com <strong>[Alto risco de retrabalho]</strong> causam refatoração de banco, segurança ou contratos de API se adiadas.</p>
+
+    <div class="wave-block">
+      <h3>Onda 1 — Bloqueantes antes de iniciar qualquer implementação nova</h3>
+      <ul>
+        <li><strong>DEC-AUD-001 [Alto risco de retrabalho]:</strong> Fechar escopo veterinário da V1 (Gold atual do Gabriel vs evolução com raça/bairro) e ponte com notificações web.</li>
+        <li><strong>DEC-AUD-022 (início da trilha institucional):</strong> Protocolar imediatamente consultas à Comunicação UENF (marca IA, logos oficiais, LRB), Jurídico/LGPD (P-12, DT-13) e Veterinária (ficha T-04), para não travar o go-live.</li>
+        <li><strong>DEC-AUD-019:</strong> Publicar errata v1.4.1 corrigindo contagem de 9 papéis, frase obsoleta de P-15.3, Tela B e controle documental.</li>
+      </ul>
+    </div>
+
+    <div class="wave-block">
+      <h3>Onda 2 — Devem preceder migrations de banco e definição de contratos HTTP</h3>
+      <ul>
+        <li><strong>DEC-AUD-022 (parte T-01) [Alto risco de retrabalho]:</strong> Confirmar 1 banco lógico com schemas por domínio vs 2 bancos lógicos.</li>
+        <li><strong>DEC-AUD-002 [Alto risco de retrabalho]:</strong> Definir validação de <code>authz_ver</code> em JWT + Redis/DB.</li>
+        <li><strong>DEC-AUD-003:</strong> Especificar lock transacional para último Chefe Geral ativo.</li>
+        <li><strong>DEC-AUD-004 [Alto risco de retrabalho]:</strong> Fechar protocolo checkpoint Pipeline→Java para boletins e invalidação de <code>redis-analytics</code>/<code>IndexedDB</code>.</li>
+        <li><strong>DEC-AUD-005 [Alto risco de retrabalho]:</strong> Modelar tabelas municipais, deduplicação por hash e quarentena no Apêndice G.</li>
+        <li><strong>DEC-AUD-006 [Alto risco de retrabalho]:</strong> Fechar gestão N:M de clínicas por Agentes, chave substituta em <code>clinic_memberships</code> e permissão de notificação do Agente.</li>
+        <li><strong>DEC-AUD-007 &amp; DEC-AUD-015:</strong> Fixar tabela de TTLs de tokens, fluxo para e-mail existente e especificação OpenAPI única (erros, <code>Idempotency-Key</code>, <code>totalPages</code>, busca pública).</li>
+        <li><strong>DEC-AUD-011 &amp; DEC-AUD-012:</strong> Congelar máquinas de estado de boletins e notícias antes de criar enums e migrations.</li>
+      </ul>
+    </div>
+
+    <div class="wave-block">
+      <h3>Onda 3 — Necessárias antes dos testes integrados e de QA</h3>
+      <ul>
+        <li><strong>DEC-AUD-008:</strong> Assinatura da Epidemiologia/Veterinária sobre idade fracionária, data nula, espécies nos boletins e CNES não mapeado.</li>
+        <li><strong>DEC-AUD-009:</strong> Implementar matriz <code>fail-open</code>/<code>fail-closed</code> do <code>redis-rate-limit</code> e namespace versionado no <code>redis-public-cache</code> (incluindo <code>/sobre</code>).</li>
+        <li><strong>DEC-AUD-013 &amp; DEC-AUD-014:</strong> Revogação de URLs de mídia após despublicação, step-up de senha, política de senhas e controle de concorrência no login.</li>
+        <li><strong>DEC-AUD-016, DEC-AUD-017, DEC-AUD-018, DEC-AUD-020 &amp; DEC-AUD-021:</strong> Rascunhos locais seguros, decisão sobre dark mode na V1, DLQ SMTP + catálogo unificado de templates, cache/auth do proxy de CEP, fallback de destinatários P-02, escopo de auditoria e CSV de exportação.</li>
+      </ul>
+    </div>
+
+    <div class="wave-block">
+      <h3>Onda 4 — Obrigatórias antes da publicação em produção</h3>
+      <ul>
+        <li><strong>DEC-AUD-010:</strong> Definir RPO/RTO, configurar backup externo sincronizado (PostgreSQL + HD 12 TB) na TI UENF, ensaiar restore completo (<code>TST-AUD-022</code>) e formalizar procedimento LGPD de anonimização/tombstone.</li>
+        <li><strong>DEC-AUD-022 (conclusão):</strong> Homologação formal da marca, logos oficiais/LRB, textos jurídicos (<code>/privacidade</code>, <code>/termos</code>, <code>/acessibilidade</code>), calibração em QA de p95, quotas DT-03 e 128 MB do <code>redis-public-cache</code>.</li>
+      </ul>
+    </div>
+
+    <div class="wave-block">
+      <h3>Onda 5 — Melhorias que podem ficar para versões posteriores (V1.1 / V2)</h3>
+      <ul>
+        <li><strong>AUD-031:</strong> Estratégia de evolução multi-versão de <code>schemaVersion</code> no JSONB do CMS (na V1, apenas rejeitar versão ≠ 1).</li>
+        <li><strong>AUD-032:</strong> Padronização completa de <code>X-Request-Id</code> ponta a ponta e migração de logs em arquivo da pipeline para driver de container.</li>
+        <li><strong>Dark mode completo (parte de DEC-AUD-016) e upload em chunks resumíveis:</strong> postergáveis se o streaming multipart de 100 MB passar nos ensaios de QA.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- PARTE I -->
+  <section id="parte-i" class="sec">
+    <h2>Parte I — Avaliação de prontidão</h2>
+    <p class="measure">Veredito objetivo sobre os dez critérios de prontidão da especificação para a V1, com justificativa rastreável.</p>
+
+    <figure>
+      <p class="fig-title">Nenhuma das dez dimensões críticas atinge prontidão integral para implementação sem decisões adicionais</p>
+      <svg viewBox="0 0 680 390" role="img" aria-label="Resumo visual das 10 perguntas de prontidão: 0 Sim, 6 Parcialmente, 4 Não">
+        <!-- Legend -->
+        <rect x="210" y="10" width="14" height="14" fill="#15803D"/>
+        <text x="230" y="22" font-family="IBM Plex Sans, sans-serif" font-size="13" fill="#111827">Sim (0)</text>
+        <rect x="315" y="10" width="14" height="14" fill="#C2410C"/>
+        <text x="335" y="22" font-family="IBM Plex Sans, sans-serif" font-size="13" fill="#111827">Parcialmente (6)</text>
+        <rect x="475" y="10" width="14" height="14" fill="#B91C1C"/>
+        <text x="495" y="22" font-family="IBM Plex Sans, sans-serif" font-size="13" fill="#111827">Não (4)</text>
+
+        <!-- 10 rows, 34px spacing starting y=50 -->
+        <text x="200" y="64" font-family="IBM Plex Sans, sans-serif" font-size="13" fill="#111827" text-anchor="end">1. V1 sem inventar regras</text>
+        <rect x="210" y="48" width="140" height="22" fill="#B91C1C"/>
+        <text x="360" y="64" font-family="IBM Plex Mono, monospace" font-size="12.5" fill="#991B1B">Não</text>
+
+        <text x="200" y="98" font-family="IBM Plex Sans, sans-serif" font-size="13" fill="#111827" text-anchor="end">2. Estrutura de dados</text>
+        <rect x="210" y="82" width="270" height="22" fill="#C2410C"/>
+        <text x="490" y="98" font-family="IBM Plex Mono, monospace" font-size="12.5" fill="#7C2D12">Parcialmente</text>
+
+        <text x="200" y="132" font-family="IBM Plex Sans, sans-serif" font-size="13" fill="#111827" text-anchor="end">3. Transações e concorrência</text>
+        <rect x="210" y="116" width="140" height="22" fill="#B91C1C"/>
+        <text x="360" y="132" font-family="IBM Plex Mono, monospace" font-size="12.5" fill="#991B1B">Não</text>
+
+        <text x="200" y="166" font-family="IBM Plex Sans, sans-serif" font-size="13" fill="#111827" text-anchor="end">4. Autorização e revogação</text>
+        <rect x="210" y="150" width="270" height="22" fill="#C2410C"/>
+        <text x="490" y="166" font-family="IBM Plex Mono, monospace" font-size="12.5" fill="#7C2D12">Parcialmente</text>
+
+        <text x="200" y="200" font-family="IBM Plex Sans, sans-serif" font-size="13" fill="#111827" text-anchor="end">5. Semântica epidemiológica</text>
+        <rect x="210" y="184" width="270" height="22" fill="#C2410C"/>
+        <text x="490" y="200" font-family="IBM Plex Mono, monospace" font-size="12.5" fill="#7C2D12">Parcialmente</text>
+
+        <text x="200" y="234" font-family="IBM Plex Sans, sans-serif" font-size="13" fill="#111827" text-anchor="end">6. Fluxos editoriais</text>
+        <rect x="210" y="218" width="270" height="22" fill="#C2410C"/>
+        <text x="490" y="234" font-family="IBM Plex Mono, monospace" font-size="12.5" fill="#7C2D12">Parcialmente</text>
+
+        <text x="200" y="268" font-family="IBM Plex Sans, sans-serif" font-size="13" fill="#111827" text-anchor="end">7. Disponibilidade e restore</text>
+        <rect x="210" y="252" width="140" height="22" fill="#B91C1C"/>
+        <text x="360" y="268" font-family="IBM Plex Mono, monospace" font-size="12.5" fill="#991B1B">Não</text>
+
+        <text x="200" y="302" font-family="IBM Plex Sans, sans-serif" font-size="13" fill="#111827" text-anchor="end">8. UX de erros e exceções</text>
+        <rect x="210" y="286" width="270" height="22" fill="#C2410C"/>
+        <text x="490" y="302" font-family="IBM Plex Mono, monospace" font-size="12.5" fill="#7C2D12">Parcialmente</text>
+
+        <text x="200" y="336" font-family="IBM Plex Sans, sans-serif" font-size="13" fill="#111827" text-anchor="end">9. Dados pessoais e LGPD</text>
+        <rect x="210" y="320" width="270" height="22" fill="#C2410C"/>
+        <text x="490" y="336" font-family="IBM Plex Mono, monospace" font-size="12.5" fill="#7C2D12">Parcialmente</text>
+
+        <text x="200" y="370" font-family="IBM Plex Sans, sans-serif" font-size="13" fill="#111827" text-anchor="end">10. Testes de aceitação</text>
+        <rect x="210" y="354" width="140" height="22" fill="#B91C1C"/>
+        <text x="360" y="370" font-family="IBM Plex Mono, monospace" font-size="12.5" fill="#991B1B">Não</text>
+      </svg>
+      <figcaption>Síntese das 10 perguntas objetivas da Parte I: 6 dimensões parcialmente atendidas e 4 não atendidas para implementação direta sem decisões adicionais.</figcaption>
+    </figure>
+
+    <div class="readiness-item">
+      <strong>1. É possível implementar a V1 sem inventar regras de negócio?</strong>
+      <span class="status-nao">Não</span>
+      <span>Persistem decisões críticas em aberto sobre escopo veterinário (<code>P-15</code>/<code>P-16</code> vs <code>T-04</code>), ponte entre notificações web e Gold, gestão de clínicas órfãs (<code>P-08</code>), TTLs de tokens (<code>P-02</code>/<code>P-17</code>), reenvio municipal (<code>P-10</code>) e arredondamento etário (<code>P-16</code>).</span>
+    </div>
+    <div class="readiness-item">
+      <strong>2. A estrutura de dados está suficientemente especificada?</strong>
+      <span class="status-parcial">Parcialmente</span>
+      <span>O núcleo analítico humano (<code>P-13</code>/<code>P-14</code>) e o esboço de CMS/boletins (<code>T-02</code>/<code>T-03</code>) estão bem encaminhados, mas faltam a decisão de 1 vs 2 bancos (<code>T-01</code>), todas as tabelas municipais (<code>AUD-006</code>), correção da PK composta de <code>clinic_memberships</code> (<code>Ap. G.3</code>) e estratégia de índices de auditoria.</span>
+    </div>
+    <div class="readiness-item">
+      <strong>3. As transações e a concorrência estão suficientemente definidas?</strong>
+      <span class="status-nao">Não</span>
+      <span>O RFC exige garantias concorrentes (último Chefe Geral, login paralelo, boletim v2 vs v3, aprovação concorrente, redução de limite em voo), mas não especifica os mecanismos transacionais no PostgreSQL/Redis necessários para cumpri-las (<code>AUD-003</code>, <code>AUD-011</code>, <code>AUD-015</code>, <code>AUD-027</code>).</span>
+    </div>
+    <div class="readiness-item">
+      <strong>4. Os mecanismos de autorização e revogação cobrem as jornadas previstas?</strong>
+      <span class="status-parcial">Parcialmente</span>
+      <span>A matriz RBAC + grants independentes (<code>DT-02</code>, <code>Ap. C</code>) é forte, porém faltam o mecanismo de revogação imediata de JWT de 15 min (<code>AUD-002</code>), definição de verificação reforçada (<code>P-03</code>), coerência sobre 8 vs 9 papéis e permissão de notificação do Agente (<code>AUD-019</code>).</span>
+    </div>
+    <div class="readiness-item">
+      <strong>5. A publicação de dados epidemiológicos preserva sua semântica?</strong>
+      <span class="status-parcial">Parcialmente</span>
+      <span>Excelente na visão humana nacional (<code>P-13</code>, <code>P-14</code>, <code>Ap. A.4</code>), mas comprometida na visão veterinária pela ausência de raça/bairro na Gold, regra aberta de idade fracionária, tratamento de data nula e falta de invalidação de <code>redis-analytics</code>/<code>IndexedDB</code> (<code>AUD-001</code>, <code>AUD-010</code>, <code>AUD-016</code>).</span>
+    </div>
+    <div class="readiness-item">
+      <strong>6. Os fluxos editoriais possuem estados e transições completos?</strong>
+      <span class="status-parcial">Parcialmente</span>
+      <span>Versionamento imutável e créditos (<code>P-04</code>, <code>P-06</code>, <code>T-02</code>) estão bem concebidos, mas faltam <code>REJECTED</code> em notícias, política de mídia após despublicação, comportamento de <code>v2</code> pendente quando surge <code>v3</code> em boletins e efeito de despublicação sobre versão anterior (<code>AUD-011</code>, <code>AUD-012</code>, <code>AUD-013</code>).</span>
+    </div>
+    <div class="readiness-item">
+      <strong>7. A estratégia de disponibilidade e recuperação possui garantias verificáveis?</strong>
+      <span class="status-nao">Não</span>
+      <span>Não há RPO, RTO, destino externo confirmado de backup, sincronização de backup entre PostgreSQL e HD de 12 TB, política de rollback de migrations nem matriz <code>fail-open</code>/<code>fail-closed</code> para queda do <code>redis-rate-limit</code> (<code>AUD-009</code>, <code>AUD-017</code>).</span>
+    </div>
+    <div class="readiness-item">
+      <strong>8. A interface possui comportamento definido para erros e exceções?</strong>
+      <span class="status-parcial">Parcialmente</span>
+      <span>Estados 429, skeletons por estágio de autorização e Lei de Jakob (<code>T-06</code>, <code>DT-03</code>, <code>DT-08</code>) são pontos fortes, mas faltam isolamento de rascunhos locais em PCs compartilhados, recuperação de upload interrompido, tokens semânticos/dark mode no Manual de Marca e correção de divergências nos wireframes (<code>AUD-020</code>, <code>AUD-025</code>).</span>
+    </div>
+    <div class="readiness-item">
+      <strong>9. O tratamento de dados pessoais tem responsabilidades e decisões identificadas?</strong>
+      <span class="status-parcial">Parcialmente</span>
+      <span><code>DT-13</code> enquadra corretamente LGPD, Marco Civil e LBI sem tratar checklist como certificação, mas faltam o fluxo técnico de anonimização/tombstone para contas com histórico imutável e a definição institucional de retenção das planilhas municipais (<code>AUD-007</code>, <code>AUD-030</code>).</span>
+    </div>
+    <div class="readiness-item">
+      <strong>10. O RFC permite construir um conjunto verificável de testes de aceitação?</strong>
+      <span class="status-nao">Não</span>
+      <span>Os Apêndices D.6 e J fornecem boa base para o caminho feliz e regras de taxa, mas sem fechar TTLs, contratos HTTP de erro/idempotência, regras de concorrência, semântica veterinária e fallbacks de Redis, cerca de metade dos cenários críticos de aceitação (Parte G) não tem oráculo determinístico.</span>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>

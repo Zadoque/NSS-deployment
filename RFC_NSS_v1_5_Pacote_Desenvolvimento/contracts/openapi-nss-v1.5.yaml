@@ -1,0 +1,3399 @@
+# Gerado a partir de contracts/build_openapi.py — RFC-NSS-001 v1.5
+openapi: 3.1.0
+info:
+  title: NSS/UENF — API contratual consolidada
+  version: 1.5.0
+  description: Contrato de desenvolvimento proposto pelo RFC-NSS-001 v1.5. Confirme rotas pré-existentes no
+    contrato v1 e implemente novas rotas sem quebra retroativa. As operações dependentes de governança não
+    estão homologadas para produção.
+servers:
+- url: https://nss.uenf.br
+  description: URL institucional; produção condicionada a release gates
+tags:
+- name: Autenticação
+- name: Identidade
+- name: Solicitações
+- name: Clínicas
+- name: Veterinária
+- name: Municípios
+- name: Editorial
+- name: Portal público
+- name: Boletins
+- name: Epidemiologia humana
+- name: Epidemiologia animal
+- name: Institucional
+- name: Endereços
+- name: Auditoria
+paths:
+  /api/v1/auth/login:
+    post:
+      tags:
+      - Autenticação
+      summary: Efetuar login e criar refresh cookie
+      operationId: POST_api_v1_auth_login
+      responses:
+        '200':
+          description: Resultado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResult'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '429':
+          $ref: '#/components/responses/Error429'
+        '503':
+          $ref: '#/components/responses/Error503'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthLogin'
+      security: []
+  /api/v1/auth/refresh:
+    post:
+      tags:
+      - Autenticação
+      summary: Rotacionar refresh HttpOnly e obter JWT
+      operationId: POST_api_v1_auth_refresh
+      responses:
+        '200':
+          description: Resultado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResult'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '429':
+          $ref: '#/components/responses/Error429'
+        '503':
+          $ref: '#/components/responses/Error503'
+      security: []
+  /api/v1/auth/logout:
+    post:
+      tags:
+      - Autenticação
+      summary: Revogar sessão atual e remover cookie
+      operationId: POST_api_v1_auth_logout
+      responses:
+        '204':
+          description: Resultado
+        '401':
+          $ref: '#/components/responses/Error401'
+        '503':
+          $ref: '#/components/responses/Error503'
+      security:
+      - BearerJWT: []
+  /api/v1/auth/step-up:
+    post:
+      tags:
+      - Autenticação
+      summary: Reconfirmar senha para ações críticas por 5 minutos
+      operationId: POST_api_v1_auth_step_up
+      responses:
+        '200':
+          description: Resultado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StepUpResult'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '429':
+          $ref: '#/components/responses/Error429'
+        '503':
+          $ref: '#/components/responses/Error503'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StepUpInput'
+      security:
+      - BearerJWT: []
+  /api/v1/users/me:
+    get:
+      tags:
+      - Identidade
+      summary: Consultar identidade e permissões efetivas
+      operationId: GET_api_v1_users_me
+      responses:
+        '200':
+          description: Resultado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserSummary'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '503':
+          $ref: '#/components/responses/Error503'
+      security:
+      - BearerJWT: []
+  /api/v1/users/{userId}/roles:
+    post:
+      tags:
+      - Identidade
+      summary: Conceder papel após checagem transacional do último chefe
+      operationId: POST_api_v1_users_userId_roles
+      responses:
+        '200':
+          description: Resultado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserSummary'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '422':
+          $ref: '#/components/responses/Error422'
+        '503':
+          $ref: '#/components/responses/Error503'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RoleChange'
+      parameters:
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: integer
+      - &id001
+        name: Idempotency-Key
+        in: header
+        required: true
+        description: UUID v4. Escopo actor/rota/chave, fingerprint e retenção por 24 h; conflito 409.
+        schema:
+          type: string
+      security:
+      - BearerJWT: []
+      x-roles:
+      - CHEFE_GERAL
+      - ADMINISTRADOR
+  /api/v1/users/{userId}/roles/{role}:
+    delete:
+      tags:
+      - Identidade
+      summary: Revogar papel com lock, step-up e auditoria
+      operationId: DELETE_api_v1_users_userId_roles_role
+      responses:
+        '200':
+          description: Resultado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserSummary'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '422':
+          $ref: '#/components/responses/Error422'
+        '503':
+          $ref: '#/components/responses/Error503'
+      parameters:
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: integer
+      - name: role
+        in: path
+        required: true
+        schema:
+          type: string
+      - *id001
+      security:
+      - BearerJWT: []
+      x-roles:
+      - CHEFE_GERAL
+      - ADMINISTRADOR
+  /api/v1/users/{userId}/grants:
+    post:
+      tags:
+      - Identidade
+      summary: Conceder grant independente de mapa
+      operationId: POST_api_v1_users_userId_grants
+      responses:
+        '200':
+          description: Resultado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserSummary'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '422':
+          $ref: '#/components/responses/Error422'
+        '503':
+          $ref: '#/components/responses/Error503'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GrantChange'
+      parameters:
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: integer
+      - *id001
+      security:
+      - BearerJWT: []
+      x-roles:
+      - CHEFE_GERAL
+      - ADMINISTRADOR
+      - AGENTE_EPIDEMIOLOGICO
+  /api/v1/users/{userId}/grants/{permission}:
+    delete:
+      tags:
+      - Identidade
+      summary: Revogar grant de mapa
+      operationId: DELETE_api_v1_users_userId_grants_permission
+      responses:
+        '200':
+          description: Resultado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserSummary'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '422':
+          $ref: '#/components/responses/Error422'
+        '503':
+          $ref: '#/components/responses/Error503'
+      parameters:
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: integer
+      - name: permission
+        in: path
+        required: true
+        schema:
+          type: string
+      - *id001
+      security:
+      - BearerJWT: []
+      x-roles:
+      - CHEFE_GERAL
+      - ADMINISTRADOR
+      - AGENTE_EPIDEMIOLOGICO
+  /api/public/access-requests:
+    post:
+      tags:
+      - Solicitações
+      summary: Receber pedido após segunda etapa de revisão
+      operationId: POST_api_public_access_requests
+      responses:
+        '202':
+          description: Resultado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Accepted'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '422':
+          $ref: '#/components/responses/Error422'
+        '429':
+          $ref: '#/components/responses/Error429'
+        '503':
+          $ref: '#/components/responses/Error503'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccessRequest'
+      parameters:
+      - *id001
+      security: []
+  /api/public/access-requests/verify:
+    post:
+      tags:
+      - Solicitações
+      summary: Confirmar e-mail por token único e movê-lo à fila de aprovação
+      operationId: POST_api_public_access_requests_verify
+      responses:
+        '200':
+          description: Resultado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Accepted'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '410':
+          $ref: '#/components/responses/Error410'
+        '429':
+          $ref: '#/components/responses/Error429'
+        '503':
+          $ref: '#/components/responses/Error503'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token: &id004
+                  type: string
+              required:
+              - token
+      security: []
+  /api/public/access-requests/status:
+    get:
+      tags:
+      - Solicitações
+      summary: Consultar protocolo com segredo separado e prazo
+      operationId: GET_api_public_access_requests_status
+      responses:
+        '200':
+          description: Resultado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessRequestStatus'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '410':
+          $ref: '#/components/responses/Error410'
+        '429':
+          $ref: '#/components/responses/Error429'
+        '503':
+          $ref: '#/components/responses/Error503'
+      parameters:
+      - name: protocol
+        in: query
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: secret
+        in: query
+        required: true
+        description: ''
+        schema:
+          type: string
+      security: []
+  /api/v1/access-requests:
+    get:
+      tags:
+      - Solicitações
+      summary: Listar solicitações a decidir com escopo administrativo
+      operationId: GET_api_v1_access_requests
+      responses:
+        '200':
+          description: Resultado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessRequestPage'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '422':
+          $ref: '#/components/responses/Error422'
+        '503':
+          $ref: '#/components/responses/Error503'
+      parameters:
+      - &id002
+        name: page
+        in: query
+        required: false
+        description: Começa em zero.
+        schema:
+          type: integer
+          minimum: 0
+      - &id003
+        name: size
+        in: query
+        required: false
+        description: Tamanho máximo 20.
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 20
+      security:
+      - BearerJWT: []
+      x-roles:
+      - CHEFE_GERAL
+      - ADMINISTRADOR
+  /api/v1/access-requests/{requestId}/decision:
+    post:
+      tags:
+      - Solicitações
+      summary: Decidir uma única vez, associar usuário existente e notificar via outbox
+      operationId: POST_api_v1_access_requests_requestId_decision
+      responses:
+        '200':
+          description: Resultado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessRequestStatus'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '422':
+          $ref: '#/components/responses/Error422'
+        '503':
+          $ref: '#/components/responses/Error503'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccessDecision'
+      parameters:
+      - name: requestId
+        in: path
+        required: true
+        schema:
+          type: string
+      - *id001
+      security:
+      - BearerJWT: []
+      x-roles:
+      - CHEFE_GERAL
+      - ADMINISTRADOR
+  /api/v1/clinics:
+    post:
+      tags:
+      - Clínicas
+      summary: Cadastrar clínica sob gestão do agente ativo
+      operationId: POST_api_v1_clinics
+      responses:
+        '201':
+          description: Resultado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Clinic'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '422':
+          $ref: '#/components/responses/Error422'
+        '503':
+          $ref: '#/components/responses/Error503'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClinicCreate'
+      parameters:
+      - *id001
+      security:
+      - BearerJWT: []
+      x-roles:
+      - CHEFE_GERAL
+      - AGENTE_EPIDEMIOLOGICO
+    get:
+      tags:
+      - Clínicas
+      summary: Listar clínicas permitidas ao usuário
+      operationId: GET_api_v1_clinics
+      responses:
+        '200':
+          description: Resultado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClinicPage'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '422':
+          $ref: '#/components/responses/Error422'
+        '503':
+          $ref: '#/components/responses/Error503'
+      parameters:
+      - *id002
+      - *id003
+      security:
+      - BearerJWT: []
+      x-roles:
+      - CHEFE_GERAL
+      - AGENTE_EPIDEMIOLOGICO
+      - REPRESENTANTE_CLINICA
+  /api/v1/clinics/{clinicId}:
+    get:
+      tags:
+      - Clínicas
+      summary: Consultar detalhes da clínica conforme vínculo ativo
+      operationId: GET_api_v1_clinics_clinicId
+      responses:
+        '200':
+          description: Resultado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Clinic'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '422':
+          $ref: '#/components/responses/Error422'
+        '503':
+          $ref: '#/components/responses/Error503'
+      parameters:
+      - name: clinicId
+        in: path
+        required: true
+        schema:
+          type: string
+      security:
+      - BearerJWT: []
+      x-roles:
+      - CHEFE_GERAL
+      - AGENTE_EPIDEMIOLOGICO
+      - REPRESENTANTE_CLINICA
+  /api/v1/clinics/{clinicId}/status:
+    post:
+      tags:
+      - Clínicas
+      summary: Ativar ou inativar clínica e revogar operações futuras
+      operationId: POST_api_v1_clinics_clinicId_status
+      responses:
+        '200':
+          description: Resultado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Clinic'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '422':
+          $ref: '#/components/responses/Error422'
+        '503':
+          $ref: '#/components/responses/Error503'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  enum:
+                  - ACTIVE
+                  - INACTIVE
+                reason: *id004
+              required:
+              - status
+              - reason
+      parameters:
+      - name: clinicId
+        in: path
+        required: true
+        schema:
+          type: string
+      - &id005
+        name: If-Match
+        in: header
+        required: true
+        description: ETag da versão do recurso; divergência 409.
+        schema:
+          type: string
+      - *id001
+      security:
+      - BearerJWT: []
+      x-roles:
+      - CHEFE_GERAL
+  /api/v1/clinics/{clinicId}/agents:
+    post:
+      tags:
+      - Clínicas
+      summary: Adicionar gestor ativo em relação N:M
+      operationId: POST_api_v1_clinics_clinicId_agents
+      responses:
+        '204':
+          description: Resultado
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '422':
+          $ref: '#/components/responses/Error422'
+        '503':
+          $ref: '#/components/responses/Error503'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClinicAgentAssign'
+      parameters:
+      - name: clinicId
+        in: path
+        required: true
+        schema:
+          type: string
+      - *id001
+      security:
+      - BearerJWT: []
+      x-roles:
+      - CHEFE_GERAL
+  /api/v1/clinics/{clinicId}/agents/{userId}:
+    delete:
+      tags:
+      - Clínicas
+      summary: Revogar gestor sem desamparar a clínica
+      operationId: DELETE_api_v1_clinics_clinicId_agents_userId
+      responses:
+        '204':
+          description: Resultado
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '422':
+          $ref: '#/components/responses/Error422'
+        '503':
+          $ref: '#/components/responses/Error503'
+      parameters:
+      - name: clinicId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: integer
+      - *id001
+      security:
+      - BearerJWT: []
+      x-roles:
+      - CHEFE_GERAL
+  /api/v1/clinics/{clinicId}/invitations:
+    post:
+      tags:
+      - Clínicas
+      summary: Convidar representante com expiração de 72 horas
+      operationId: POST_api_v1_clinics_clinicId_invitations
+      responses:
+        '202':
+          description: Resultado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Accepted'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '422':
+          $ref: '#/components/responses/Error422'
+        '503':
+          $ref: '#/components/responses/Error503'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClinicInvitation'
+      parameters:
+      - name: clinicId
+        in: path
+        required: true
+        schema:
+          type: string
+      - *id001
+      security:
+      - BearerJWT: []
+      x-roles:
+      - CHEFE_GERAL
+      - AGENTE_EPIDEMIOLOGICO
+  /api/v1/clinics/invitations/accept:
+    post:
+      tags:
+      - Clínicas
+      summary: Aceitar vínculo após validação da clínica e do usuário
+      operationId: POST_api_v1_clinics_invitations_accept
+      responses:
+        '200':
+          description: Resultado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Clinic'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '422':
+          $ref: '#/components/responses/Error422'
+        '503':
+          $ref: '#/components/responses/Error503'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InvitationAccept'
+      parameters:
+      - *id001
+      security:
+      - BearerJWT: []
+  /api/v1/clinics/{clinicId}/members/{userId}:
+    delete:
+      tags:
+      - Clínicas
+      summary: Revogar vínculo clínico preservando histórico
+      operationId: DELETE_api_v1_clinics_clinicId_members_userId
+      responses:
+        '204':
+          description: Resultado
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '422':
+          $ref: '#/components/responses/Error422'
+        '503':
+          $ref: '#/components/responses/Error503'
+      parameters:
+      - name: clinicId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: integer
+      - *id001
+      security:
+      - BearerJWT: []
+      x-roles:
+      - CHEFE_GERAL
+      - AGENTE_EPIDEMIOLOGICO
+  /api/v1/animal/notifications:
+    post:
+      tags:
+      - Veterinária
+      summary: Submeter notificação da clínica selecionada sem entrada direta na Gold
+      operationId: POST_api_v1_animal_notifications
+      responses:
+        '201':
+          description: Valida vínculo ativo na clínica no começo e no commit; recibo sem dados clínicos. Proíbe
+            Agente gestor sem papel de representante.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VetNotification'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '422':
+          $ref: '#/components/responses/Error422'
+        '503':
+          $ref: '#/components/responses/Error503'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VetNotificationInput'
+      parameters:
+      - *id001
+      security:
+      - BearerJWT: []
+      x-roles:
+      - REPRESENTANTE_CLINICA
+      description: Valida vínculo ativo na clínica no começo e no commit; recibo sem dados clínicos. Proíbe
+        Agente gestor sem papel de representante.
+    get:
+      tags:
+      - Veterinária
+      summary: Consultar notificações autorizadas da clínica
+      operationId: GET_api_v1_animal_notifications
+      responses:
+        '200':
+          description: Resultado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VetNotificationPage'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '422':
+          $ref: '#/components/responses/Error422'
+        '503':
+          $ref: '#/components/responses/Error503'
+      parameters:
+      - name: clinicId
+        in: query
+        required: true
+        description: ''
+        schema:
+          type: string
+      - *id002
+      - *id003
+      security:
+      - BearerJWT: []
+      x-roles:
+      - REPRESENTANTE_CLINICA
+      - AGENTE_EPIDEMIOLOGICO
+      - CHEFE_GERAL
+  /api/v1/animal/notifications/{notificationId}/corrections:
+    post:
+      tags:
+      - Veterinária
+      summary: Retificar ou cancelar via evento imutável
+      operationId: POST_api_v1_animal_notifications_notificationId_corrections
+      responses:
+        '200':
+          description: Resultado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VetNotification'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '422':
+          $ref: '#/components/responses/Error422'
+        '503':
+          $ref: '#/components/responses/Error503'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VetCorrection'
+      parameters:
+      - name: notificationId
+        in: path
+        required: true
+        schema:
+          type: string
+      - *id001
+      security:
+      - BearerJWT: []
+      x-roles:
+      - REPRESENTANTE_CLINICA
+      - CHEFE_GERAL
+  /api/v1/municipal/uploads:
+    post:
+      tags:
+      - Municípios
+      summary: Receber planilha CSV/XLS/XLSX em streaming com limite de admissão
+      operationId: POST_api_v1_municipal_uploads
+      responses:
+        '201':
+          description: Resultado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MunicipalUpload'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '413':
+          $ref: '#/components/responses/Error413'
+        '422':
+          $ref: '#/components/responses/Error422'
+        '429':
+          $ref: '#/components/responses/Error429'
+        '503':
+          $ref: '#/components/responses/Error503'
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                municipalityIbge: *id004
+                disease: *id004
+                competence: *id004
+                file:
+                  type: string
+                  format: binary
+                supersedesUploadId: &id006
+                  type: string
+                  format: uuid
+                sourceDeclaration:
+                  type: boolean
+              required:
+              - municipalityIbge
+              - disease
+              - competence
+              - file
+              - sourceDeclaration
+      parameters:
+      - *id001
+      security:
+      - BearerJWT: []
+      x-roles:
+      - REPRESENTANTE_MUNICIPAL
+    get:
+      tags:
+      - Municípios
+      summary: Listar envios do representante ou fila do Analista
+      operationId: GET_api_v1_municipal_uploads
+      responses:
+        '200':
+          description: Resultado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UploadPage'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '422':
+          $ref: '#/components/responses/Error422'
+        '503':
+          $ref: '#/components/responses/Error503'
+      parameters:
+      - name: municipalityIbge
+        in: query
+        required: false
+        description: ''
+        schema:
+          type: string
+      - *id002
+      - *id003
+      security:
+      - BearerJWT: []
+      x-roles:
+      - REPRESENTANTE_MUNICIPAL
+      - ANALISTA_DADOS
+      - CHEFE_GERAL
+  /api/v1/municipal/uploads/{uploadId}:
+    get:
+      tags:
+      - Municípios
+      summary: Consultar upload, digest, status e relatório
+      operationId: GET_api_v1_municipal_uploads_uploadId
+      responses:
+        '200':
+          description: Resultado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MunicipalUpload'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '422':
+          $ref: '#/components/responses/Error422'
+        '503':
+          $ref: '#/components/responses/Error503'
+      parameters:
+      - name: uploadId
+        in: path
+        required: true
+        schema:
+          type: string
+      security:
+      - BearerJWT: []
+      x-roles:
+      - REPRESENTANTE_MUNICIPAL
+      - ANALISTA_DADOS
+      - CHEFE_GERAL
+  /api/v1/municipal/uploads/{uploadId}/validation:
+    post:
+      tags:
+      - Municípios
+      summary: Validar ou colocar arquivo em quarentena
+      operationId: POST_api_v1_municipal_uploads_uploadId_validation
+      responses:
+        '200':
+          description: Resultado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MunicipalUpload'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '422':
+          $ref: '#/components/responses/Error422'
+        '503':
+          $ref: '#/components/responses/Error503'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UploadValidation'
+      parameters:
+      - name: uploadId
+        in: path
+        required: true
+        schema:
+          type: string
+      - *id001
+      security:
+      - BearerJWT: []
+      x-roles:
+      - ANALISTA_DADOS
+      - CHEFE_GERAL
+  /api/v1/municipal/uploads/{uploadId}/download:
+    get:
+      tags:
+      - Municípios
+      summary: Download auditado de arquivo permitido (quarentena exige ação especial)
+      operationId: GET_api_v1_municipal_uploads_uploadId_download
+      responses:
+        '200':
+          description: Resultado
+          content:
+            application/json:
+              schema:
+                type: string
+                format: binary
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '503':
+          $ref: '#/components/responses/Error503'
+      parameters:
+      - name: uploadId
+        in: path
+        required: true
+        schema:
+          type: string
+      security:
+      - BearerJWT: []
+      x-roles:
+      - ANALISTA_DADOS
+      - CHEFE_GERAL
+  /api/v1/posts:
+    post:
+      tags:
+      - Editorial
+      summary: Criar pauta e rascunho JSONB schemaVersion 1
+      operationId: POST_api_v1_posts
+      responses:
+        '201':
+          description: Resultado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '422':
+          $ref: '#/components/responses/Error422'
+        '503':
+          $ref: '#/components/responses/Error503'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostInput'
+      parameters:
+      - *id001
+      security:
+      - BearerJWT: []
+      x-roles:
+      - ESCRITOR
+      - ESCRITOR_CHEFE
+  /api/v1/posts/{postId}:
+    patch:
+      tags:
+      - Editorial
+      summary: Editar revisão única com ETag e controle de autoria
+      operationId: PATCH_api_v1_posts_postId
+      responses:
+        '200':
+          description: Resultado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '422':
+          $ref: '#/components/responses/Error422'
+        '503':
+          $ref: '#/components/responses/Error503'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostInput'
+      parameters:
+      - name: postId
+        in: path
+        required: true
+        schema:
+          type: string
+      - *id005
+      security:
+      - BearerJWT: []
+      x-roles:
+      - ESCRITOR
+      - ESCRITOR_CHEFE
+  /api/v1/posts/{postId}/submit:
+    post:
+      tags:
+      - Editorial
+      summary: Enviar rascunho para revisão
+      operationId: POST_api_v1_posts_postId_submit
+      responses:
+        '200':
+          description: Resultado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '422':
+          $ref: '#/components/responses/Error422'
+        '503':
+          $ref: '#/components/responses/Error503'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublishAction'
+      parameters:
+      - name: postId
+        in: path
+        required: true
+        schema:
+          type: string
+      - *id001
+      security:
+      - BearerJWT: []
+      x-roles:
+      - ESCRITOR
+      - ESCRITOR_CHEFE
+  /api/v1/posts/{postId}/review:
+    post:
+      tags:
+      - Editorial
+      summary: Solicitar alterações, rejeitar ou publicar com histórico
+      operationId: POST_api_v1_posts_postId_review
+      responses:
+        '200':
+          description: Resultado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '422':
+          $ref: '#/components/responses/Error422'
+        '503':
+          $ref: '#/components/responses/Error503'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                decision:
+                  type: string
+                  enum:
+                  - REQUEST_CHANGES
+                  - REJECT
+                  - PUBLISH
+                reason: *id004
+                version:
+                  type: integer
+              required:
+              - decision
+              - version
+      parameters:
+      - name: postId
+        in: path
+        required: true
+        schema:
+          type: string
+      - *id001
+      security:
+      - BearerJWT: []
+      x-roles:
+      - ESCRITOR_CHEFE
+  /api/v1/posts/{postId}/unpublish:
+    post:
+      tags:
+      - Editorial
+      summary: Despublicar notícia e bloquear mídia exclusiva na mesma mudança lógica
+      operationId: POST_api_v1_posts_postId_unpublish
+      responses:
+        '200':
+          description: Resultado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '422':
+          $ref: '#/components/responses/Error422'
+        '503':
+          $ref: '#/components/responses/Error503'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublishAction'
+      parameters:
+      - name: postId
+        in: path
+        required: true
+        schema:
+          type: string
+      - *id001
+      security:
+      - BearerJWT: []
+      x-roles:
+      - ESCRITOR_CHEFE
+  /api/public/posts:
+    get:
+      tags:
+      - Portal público
+      summary: Listar somente notícias publicadas
+      operationId: GET_api_public_posts
+      responses:
+        '200':
+          description: Resultado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostPage'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '429':
+          $ref: '#/components/responses/Error429'
+        '503':
+          $ref: '#/components/responses/Error503'
+      parameters:
+      - *id002
+      - *id003
+      security: []
+  /api/public/posts/{slug}:
+    get:
+      tags:
+      - Portal público
+      summary: Ler revisão publicada da notícia, 404 quando retirada
+      operationId: GET_api_public_posts_slug
+      responses:
+        '200':
+          description: Resultado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '429':
+          $ref: '#/components/responses/Error429'
+        '503':
+          $ref: '#/components/responses/Error503'
+      parameters:
+      - name: slug
+        in: path
+        required: true
+        schema:
+          type: string
+      security: []
+  /api/public/search:
+    get:
+      tags:
+      - Portal público
+      summary: Busca FTS no conteúdo publicado, com acentos
+      operationId: GET_api_public_search
+      responses:
+        '200':
+          description: Resultado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  posts:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Post'
+                  bulletins:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Bulletin'
+                  page:
+                    type: integer
+                  size:
+                    type: integer
+                  totalElements:
+                    type: integer
+                  totalPages:
+                    type: integer
+                  hasNext:
+                    type: boolean
+                required:
+                - posts
+                - bulletins
+                - page
+                - size
+                - totalElements
+                - totalPages
+                - hasNext
+        '400':
+          $ref: '#/components/responses/Error400'
+        '429':
+          $ref: '#/components/responses/Error429'
+        '503':
+          $ref: '#/components/responses/Error503'
+      parameters:
+      - name: q
+        in: query
+        required: true
+        description: Mínimo 2 caracteres, máximo 100.
+        schema:
+          type: string
+      - name: type
+        in: query
+        required: false
+        description: posts|bulletins|all
+        schema:
+          type: string
+      - name: from
+        in: query
+        required: false
+        description: ''
+        schema:
+          type: string
+      - name: to
+        in: query
+        required: false
+        description: ''
+        schema:
+          type: string
+      - *id002
+      - *id003
+      security: []
+  /api/public/media/{assetId}:
+    get:
+      tags:
+      - Portal público
+      summary: Servir mídia apenas se existir referência pública ativa
+      operationId: GET_api_public_media_assetId
+      responses:
+        '200':
+          description: Resultado
+          content:
+            application/json:
+              schema:
+                type: string
+                format: binary
+        '400':
+          $ref: '#/components/responses/Error400'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '429':
+          $ref: '#/components/responses/Error429'
+        '503':
+          $ref: '#/components/responses/Error503'
+      parameters:
+      - name: assetId
+        in: path
+        required: true
+        schema:
+          type: string
+      security: []
+  /api/v1/bulletins:
+    get:
+      tags:
+      - Boletins
+      summary: Listar minutas e versões sob autorização
+      operationId: GET_api_v1_bulletins
+      responses:
+        '200':
+          description: Resultado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BulletinPage'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '422':
+          $ref: '#/components/responses/Error422'
+        '503':
+          $ref: '#/components/responses/Error503'
+      parameters:
+      - name: disease
+        in: query
+        required: false
+        description: ''
+        schema:
+          type: string
+      - name: competence
+        in: query
+        required: false
+        description: ''
+        schema:
+          type: string
+      - *id002
+      - *id003
+      security:
+      - BearerJWT: []
+      x-roles:
+      - CHEFE_GERAL
+      - AGENTE_EPIDEMIOLOGICO
+  /api/v1/bulletins/{bulletinId}/decision:
+    post:
+      tags:
+      - Boletins
+      summary: Aprovação única sob lock, delegação e fingerprint vigente
+      operationId: POST_api_v1_bulletins_bulletinId_decision
+      responses:
+        '200':
+          description: Resultado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bulletin'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '422':
+          $ref: '#/components/responses/Error422'
+        '503':
+          $ref: '#/components/responses/Error503'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BulletinAction'
+      parameters:
+      - name: bulletinId
+        in: path
+        required: true
+        schema:
+          type: string
+      - *id001
+      security:
+      - BearerJWT: []
+      x-roles:
+      - CHEFE_GERAL
+      - AGENTE_EPIDEMIOLOGICO
+  /api/v1/bulletins/{bulletinId}/unpublish:
+    post:
+      tags:
+      - Boletins
+      summary: Retirar versão e manter current_published_version_id null
+      operationId: POST_api_v1_bulletins_bulletinId_unpublish
+      responses:
+        '200':
+          description: Resultado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bulletin'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '422':
+          $ref: '#/components/responses/Error422'
+        '503':
+          $ref: '#/components/responses/Error503'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublishAction'
+      parameters:
+      - name: bulletinId
+        in: path
+        required: true
+        schema:
+          type: string
+      - *id001
+      security:
+      - BearerJWT: []
+      x-roles:
+      - CHEFE_GERAL
+  /api/public/bulletins:
+    get:
+      tags:
+      - Portal público
+      summary: Listar apenas boletins publicados
+      operationId: GET_api_public_bulletins
+      responses:
+        '200':
+          description: Resultado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BulletinPage'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '429':
+          $ref: '#/components/responses/Error429'
+        '503':
+          $ref: '#/components/responses/Error503'
+      parameters:
+      - *id002
+      - *id003
+      security: []
+  /api/public/bulletins/{bulletinId}:
+    get:
+      tags:
+      - Portal público
+      summary: Exibir boletim com proveniência e aviso epidemiológico
+      operationId: GET_api_public_bulletins_bulletinId
+      responses:
+        '200':
+          description: Resultado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bulletin'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '429':
+          $ref: '#/components/responses/Error429'
+        '503':
+          $ref: '#/components/responses/Error503'
+      parameters:
+      - name: bulletinId
+        in: path
+        required: true
+        schema:
+          type: string
+      security: []
+  /api/v1/epidemiology/municipalities:
+    get:
+      tags:
+      - Epidemiologia humana
+      summary: Municípios segundo unidade de notificação e publicação corrente
+      operationId: GET_api_v1_epidemiology_municipalities
+      responses:
+        '200':
+          description: Resultado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HumanEpidemiology'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '422':
+          $ref: '#/components/responses/Error422'
+        '503':
+          $ref: '#/components/responses/Error503'
+      parameters:
+      - name: disease
+        in: query
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: year
+        in: query
+        required: true
+        description: ''
+        schema:
+          type: integer
+      - name: month
+        in: query
+        required: true
+        description: ''
+        schema:
+          type: integer
+      - name: sex
+        in: query
+        required: false
+        description: ''
+        schema:
+          type: string
+      - name: ageBand
+        in: query
+        required: false
+        description: ''
+        schema:
+          type: string
+      - name: uf
+        in: query
+        required: false
+        description: ''
+        schema:
+          type: string
+      - name: region
+        in: query
+        required: false
+        description: ''
+        schema:
+          type: string
+      security:
+      - BearerJWT: []
+      x-required-permission: map.human.view
+  /api/v1/epidemiology/districts:
+    get:
+      tags:
+      - Epidemiologia humana
+      summary: Distritos nacionais; cobertura indisponível não é zero
+      operationId: GET_api_v1_epidemiology_districts
+      responses:
+        '200':
+          description: Resultado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HumanEpidemiology'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '422':
+          $ref: '#/components/responses/Error422'
+        '503':
+          $ref: '#/components/responses/Error503'
+      parameters:
+      - name: disease
+        in: query
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: year
+        in: query
+        required: true
+        description: ''
+        schema:
+          type: integer
+      - name: month
+        in: query
+        required: true
+        description: ''
+        schema:
+          type: integer
+      - name: municipality
+        in: query
+        required: true
+        description: ''
+        schema:
+          type: string
+      security:
+      - BearerJWT: []
+      x-required-permission: map.human.view
+  /api/v1/epidemiology/neighborhoods:
+    get:
+      tags:
+      - Epidemiologia humana
+      summary: Bairros da unidade notificadora, inclusive categorias nominais não mapeadas
+      operationId: GET_api_v1_epidemiology_neighborhoods
+      responses:
+        '200':
+          description: Resultado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HumanEpidemiology'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '422':
+          $ref: '#/components/responses/Error422'
+        '503':
+          $ref: '#/components/responses/Error503'
+      parameters:
+      - name: disease
+        in: query
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: year
+        in: query
+        required: true
+        description: ''
+        schema:
+          type: integer
+      - name: month
+        in: query
+        required: true
+        description: ''
+        schema:
+          type: integer
+      - name: municipality
+        in: query
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: district
+        in: query
+        required: true
+        description: ''
+        schema:
+          type: string
+      security:
+      - BearerJWT: []
+      x-required-permission: map.human.view
+  /api/v1/epidemiology/metadata:
+    get:
+      tags:
+      - Epidemiologia humana
+      summary: Ler metadados atuais do mesmo snapshot para cache de cliente
+      operationId: GET_api_v1_epidemiology_metadata
+      responses:
+        '200':
+          description: Resultado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicationMetadata'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '422':
+          $ref: '#/components/responses/Error422'
+        '503':
+          $ref: '#/components/responses/Error503'
+      parameters:
+      - name: disease
+        in: query
+        required: false
+        description: ''
+        schema:
+          type: string
+      - name: year
+        in: query
+        required: false
+        description: ''
+        schema:
+          type: integer
+      security:
+      - BearerJWT: []
+      x-required-permission: map.human.view
+  /api/v1/animal/epidemiology/summary:
+    get:
+      tags:
+      - Epidemiologia animal
+      summary: Consultar fonte animal explicitamente selecionada sem somá-la à outra fonte
+      operationId: GET_api_v1_animal_epidemiology_summary
+      responses:
+        '200':
+          description: Resultado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnimalEpidemiology'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '422':
+          $ref: '#/components/responses/Error422'
+        '503':
+          $ref: '#/components/responses/Error503'
+      parameters:
+      - name: sourceDataset
+        in: query
+        required: true
+        description: ESPORO_HISTORICAL_GABRIEL, VET_WEB_VERIFIED ou VET_NOTIFICATION_CLINICAL
+        schema:
+          type: string
+      - name: competence
+        in: query
+        required: false
+        description: ''
+        schema:
+          type: string
+      - name: speciesCode
+        in: query
+        required: false
+        description: ''
+        schema:
+          type: integer
+      security:
+      - BearerJWT: []
+      x-required-permission: map.animal.view
+  /api/v1/animal/epidemiology/neighborhoods:
+    get:
+      tags:
+      - Epidemiologia animal
+      summary: Consultar apenas territórios animais verificados pela fonte
+      operationId: GET_api_v1_animal_epidemiology_neighborhoods
+      responses:
+        '200':
+          description: Resultado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnimalEpidemiology'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '422':
+          $ref: '#/components/responses/Error422'
+        '503':
+          $ref: '#/components/responses/Error503'
+      parameters:
+      - name: sourceDataset
+        in: query
+        required: true
+        description: VET_WEB_VERIFIED ou VET_NOTIFICATION_CLINICAL quando houver território comprovado
+        schema:
+          type: string
+      - name: competence
+        in: query
+        required: false
+        description: ''
+        schema:
+          type: string
+      security:
+      - BearerJWT: []
+      x-required-permission: map.animal.view
+  /api/v1/animal/epidemiology/metadata:
+    get:
+      tags:
+      - Epidemiologia animal
+      summary: Consultar fingerprint, data de corte e completude animal
+      operationId: GET_api_v1_animal_epidemiology_metadata
+      responses:
+        '200':
+          description: Resultado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicationMetadata'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '422':
+          $ref: '#/components/responses/Error422'
+        '503':
+          $ref: '#/components/responses/Error503'
+      parameters:
+      - name: sourceDataset
+        in: query
+        required: true
+        description: ''
+        schema:
+          type: string
+      security:
+      - BearerJWT: []
+      x-required-permission: map.animal.view
+  /api/v1/epidemiology/export:
+    get:
+      tags:
+      - Epidemiologia humana
+      summary: Exportar CSV agregada e metadados sob permissão de mapa
+      operationId: GET_api_v1_epidemiology_export
+      responses:
+        '200':
+          description: Resultado
+          content:
+            application/json:
+              schema:
+                type: string
+                format: binary
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '422':
+          $ref: '#/components/responses/Error422'
+        '503':
+          $ref: '#/components/responses/Error503'
+      parameters:
+      - name: disease
+        in: query
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: year
+        in: query
+        required: true
+        description: ''
+        schema:
+          type: integer
+      - name: month
+        in: query
+        required: true
+        description: ''
+        schema:
+          type: integer
+      - name: geography
+        in: query
+        required: true
+        description: ''
+        schema:
+          type: string
+      security:
+      - BearerJWT: []
+      x-required-permission: map.human.view
+  /api/v1/animal/epidemiology/export:
+    get:
+      tags:
+      - Epidemiologia animal
+      summary: Exportar CSV animal com fonte e cobertura
+      operationId: GET_api_v1_animal_epidemiology_export
+      responses:
+        '200':
+          description: Resultado
+          content:
+            application/json:
+              schema:
+                type: string
+                format: binary
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '422':
+          $ref: '#/components/responses/Error422'
+        '503':
+          $ref: '#/components/responses/Error503'
+      parameters:
+      - name: sourceDataset
+        in: query
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: competence
+        in: query
+        required: false
+        description: ''
+        schema:
+          type: string
+      security:
+      - BearerJWT: []
+      x-required-permission: map.animal.view
+  /api/public/about:
+    get:
+      tags:
+      - Portal público
+      summary: Página Sobre e equipe na versão homologada
+      operationId: GET_api_public_about
+      responses:
+        '200':
+          description: Resultado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AboutPage'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '429':
+          $ref: '#/components/responses/Error429'
+        '503':
+          $ref: '#/components/responses/Error503'
+      security: []
+  /api/v1/institutional/about:
+    put:
+      tags:
+      - Institucional
+      summary: Atualizar e publicar revisão da página Sobre por Chefe Geral
+      operationId: PUT_api_v1_institutional_about
+      responses:
+        '200':
+          description: Resultado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AboutPage'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '422':
+          $ref: '#/components/responses/Error422'
+        '503':
+          $ref: '#/components/responses/Error503'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AboutPage'
+      parameters:
+      - *id005
+      security:
+      - BearerJWT: []
+      x-roles:
+      - CHEFE_GERAL
+  /api/public/legal/{documentSlug}:
+    get:
+      tags:
+      - Portal público
+      summary: Política de privacidade, termos e acessibilidade com versões
+      operationId: GET_api_public_legal_documentSlug
+      responses:
+        '200':
+          description: Resultado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  slug: *id004
+                  html: *id004
+                  revision:
+                    type: integer
+                  publishedAt:
+                    type: string
+                    format: date-time
+                required:
+                - slug
+                - html
+                - revision
+        '404':
+          $ref: '#/components/responses/Error404'
+        '429':
+          $ref: '#/components/responses/Error429'
+        '503':
+          $ref: '#/components/responses/Error503'
+      parameters:
+      - name: documentSlug
+        in: path
+        required: true
+        schema:
+          type: string
+      security: []
+  /api/v1/institutional/legal/{documentSlug}:
+    put:
+      tags:
+      - Institucional
+      summary: Publicar texto legal após aprovação jurídica
+      operationId: PUT_api_v1_institutional_legal_documentSlug
+      responses:
+        '200':
+          description: Resultado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Accepted'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '422':
+          $ref: '#/components/responses/Error422'
+        '503':
+          $ref: '#/components/responses/Error503'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                html: *id004
+                legalApprovalId: *id004
+                reason: *id004
+              required:
+              - html
+              - legalApprovalId
+      parameters:
+      - name: documentSlug
+        in: path
+        required: true
+        schema:
+          type: string
+      - *id005
+      security:
+      - BearerJWT: []
+      x-roles:
+      - CHEFE_GERAL
+  /api/v1/addresses/postal-code/{postalCode}:
+    get:
+      tags:
+      - Endereços
+      summary: Proxy controlado para CEP com cache PostgreSQL e fallback manual
+      operationId: GET_api_v1_addresses_postal_code_postalCode
+      responses:
+        '200':
+          description: Resultado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostalAddress'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '429':
+          $ref: '#/components/responses/Error429'
+        '503':
+          $ref: '#/components/responses/Error503'
+      parameters:
+      - name: postalCode
+        in: path
+        required: true
+        schema:
+          type: string
+      security:
+      - BearerJWT: []
+      x-roles:
+      - CHEFE_GERAL
+      - AGENTE_EPIDEMIOLOGICO
+  /api/v1/audit/events:
+    get:
+      tags:
+      - Auditoria
+      summary: Consultar trilha limitada ao nível do executor
+      operationId: GET_api_v1_audit_events
+      responses:
+        '200':
+          description: Resultado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuditPage'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '422':
+          $ref: '#/components/responses/Error422'
+        '503':
+          $ref: '#/components/responses/Error503'
+      parameters:
+      - name: actorId
+        in: query
+        required: false
+        description: ''
+        schema:
+          type: string
+      - name: action
+        in: query
+        required: false
+        description: ''
+        schema:
+          type: string
+      - *id002
+      - *id003
+      security:
+      - BearerJWT: []
+      x-roles:
+      - CHEFE_GERAL
+      - ADMINISTRADOR
+  /api/public/cache/epochs:
+    get:
+      tags:
+      - Portal público
+      summary: Versões públicas persistidas em PostgreSQL para invalidação segura
+      operationId: GET_api_public_cache_epochs
+      responses:
+        '200':
+          description: Resultado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CacheEpochs'
+        '429':
+          $ref: '#/components/responses/Error429'
+        '503':
+          $ref: '#/components/responses/Error503'
+      security: []
+components:
+  securitySchemes:
+    BearerJWT:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    RefreshCookie:
+      type: apiKey
+      in: cookie
+      name: nss_refresh
+  schemas:
+    Problem:
+      type: object
+      properties:
+        type: *id004
+        title: *id004
+        status:
+          type: integer
+        detail: *id004
+        instance: *id004
+        code: *id004
+        requestId: *id004
+        fieldErrors:
+          type: array
+          items:
+            type: object
+            properties:
+              field: *id004
+              message: *id004
+            required: []
+        retryAfterSeconds:
+          type: integer
+          minimum: 0
+      required:
+      - type
+      - title
+      - status
+      - code
+      - requestId
+    Id: *id006
+    UserSummary:
+      type: object
+      properties:
+        id: *id006
+        displayName: *id004
+        email:
+          type: string
+          format: email
+        roles:
+          type: array
+          items: *id004
+        permissions:
+          type: array
+          items: *id004
+        accountVersion:
+          type: integer
+        active:
+          type: boolean
+      required:
+      - id
+      - roles
+      - permissions
+      - active
+    AuthLogin:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+        replaceExistingSession:
+          type: boolean
+      required:
+      - email
+      - password
+    AuthResult:
+      type: object
+      properties:
+        accessToken: *id004
+        tokenType:
+          type: string
+          const: Bearer
+        expiresIn:
+          type: integer
+          example: 900
+        user:
+          $ref: '#/components/schemas/UserSummary'
+      required:
+      - accessToken
+      - tokenType
+      - expiresIn
+      - user
+    StepUpInput:
+      type: object
+      properties:
+        currentPassword: *id004
+      required:
+      - currentPassword
+    StepUpResult:
+      type: object
+      properties:
+        proof: *id004
+        expiresInSeconds:
+          type: integer
+          example: 300
+      required:
+      - proof
+    AccessRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 2
+          maxLength: 150
+        email:
+          type: string
+          format: email
+        reason:
+          type: string
+          minLength: 10
+          maxLength: 4000
+        requestedRole: *id004
+        reviewConfirmed:
+          type: boolean
+        privacyNoticeAcknowledged:
+          type: boolean
+      required:
+      - name
+      - email
+      - reason
+      - requestedRole
+      - reviewConfirmed
+      - privacyNoticeAcknowledged
+    Accepted:
+      type: object
+      properties:
+        accepted:
+          type: boolean
+        message: *id004
+        trackingHint: *id004
+      required:
+      - accepted
+      - message
+    AccessDecision:
+      type: object
+      properties:
+        decision:
+          type: string
+          enum:
+          - APPROVE
+          - REJECT
+        reason: *id004
+        targetRoles:
+          type: array
+          items: *id004
+      required:
+      - decision
+    AccessRequestStatus:
+      type: object
+      properties:
+        id: *id006
+        status:
+          type: string
+          enum:
+          - AWAITING_EMAIL
+          - PENDING_REVIEW
+          - APPROVED
+          - REJECTED
+          - EXPIRED
+        createdAt:
+          type: string
+          format: date-time
+        emailVerifiedAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+      required:
+      - id
+      - status
+    RoleChange:
+      type: object
+      properties:
+        role: *id004
+        reason: *id004
+        stepUpProof: *id004
+      required:
+      - role
+      - reason
+    GrantChange:
+      type: object
+      properties:
+        permission:
+          type: string
+          enum:
+          - map.human.view
+          - map.animal.view
+        reason: *id004
+        clinicId: *id006
+      required:
+      - permission
+      - reason
+    Clinic:
+      type: object
+      properties:
+        id: *id006
+        name: *id004
+        municipalityIbge:
+          type: string
+          pattern: ^[0-9]{7}$
+        status:
+          type: string
+          enum:
+          - ACTIVE
+          - INACTIVE
+        address: *id004
+        version:
+          type: integer
+      required:
+      - id
+      - name
+      - municipalityIbge
+      - status
+    ClinicCreate:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 2
+        municipalityIbge:
+          type: string
+          pattern: ^[0-9]{7}$
+        postalCode:
+          type: string
+          pattern: ^[0-9]{8}$
+        address: *id004
+        cnpj: *id004
+        source: *id004
+      required:
+      - name
+      - municipalityIbge
+      - source
+    ClinicAgentAssign:
+      type: object
+      properties:
+        userId:
+          type: integer
+        reason: *id004
+      required:
+      - userId
+      - reason
+    ClinicInvitation:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        reason: *id004
+      required:
+      - email
+    InvitationAccept:
+      type: object
+      properties:
+        token: *id004
+      required:
+      - token
+    VetNotificationInput:
+      type: object
+      properties:
+        clinicId: *id006
+        notificationDate:
+          type:
+          - string
+          - 'null'
+          format: date
+        speciesCode:
+          type: integer
+          enum:
+          - 0
+          - 1
+          - 2
+        sexCode:
+          type: string
+          enum:
+          - M
+          - F
+          - i
+        castrationCode:
+          type: integer
+          enum:
+          - 0
+          - 1
+          - 2
+        ageValue:
+          type:
+          - number
+          - 'null'
+          minimum: 0
+        ageUnit:
+          type: string
+          enum:
+          - YEARS
+          - MONTHS
+          - UNKNOWN
+        ageUnknownReason: *id004
+        breedName: *id004
+        mixedBreed:
+          type: boolean
+        residenceMunicipalityIbge:
+          type: string
+          pattern: ^[0-9]{7}$
+        residenceTerritoryCode: *id004
+        residenceTerritorySource: *id004
+        sourceDeclaration:
+          type: boolean
+      required:
+      - clinicId
+      - speciesCode
+      - sexCode
+      - castrationCode
+      - ageUnit
+      - sourceDeclaration
+    VetNotification:
+      type: object
+      properties:
+        id: *id006
+        clinicId: *id006
+        status:
+          type: string
+          enum:
+          - SUBMITTED
+          - UNDER_REVIEW
+          - VALIDATED
+          - REJECTED
+        protocol: *id004
+        createdAt:
+          type: string
+          format: date-time
+        dataVersion:
+          type: integer
+        sourceDataset: *id004
+      required:
+      - id
+      - clinicId
+      - status
+      - createdAt
+    VetCorrection:
+      type: object
+      properties:
+        kind:
+          type: string
+          enum:
+          - RECTIFICATION
+          - CANCELLATION
+        reason:
+          type: string
+          minLength: 10
+        correctedData:
+          $ref: '#/components/schemas/VetNotificationInput'
+      required:
+      - kind
+      - reason
+    MunicipalUpload:
+      type: object
+      properties:
+        id: *id006
+        municipalityIbge: *id004
+        disease: *id004
+        competence: *id004
+        sha256: *id004
+        status:
+          type: string
+          enum:
+          - RECEIVING
+          - VALIDATING
+          - VALID
+          - QUARANTINED
+          - REJECTED
+          - SUPERSEDED
+        supersedesUploadId: *id006
+        effectiveLimitBytes:
+          type: integer
+        reportUrl: *id004
+      required:
+      - id
+      - municipalityIbge
+      - sha256
+      - status
+    UploadValidation:
+      type: object
+      properties:
+        decision:
+          type: string
+          enum:
+          - ACCEPT
+          - REJECT
+          - QUARANTINE
+        reason: *id004
+      required:
+      - decision
+      - reason
+    PostInput:
+      type: object
+      properties:
+        title:
+          type: string
+          minLength: 3
+        summary: *id004
+        content:
+          $ref: '#/components/schemas/RichDocument'
+        slug: *id004
+        coverAssetId: *id006
+        creditMode: *id004
+      required:
+      - title
+      - content
+    RichDocument:
+      type: object
+      properties:
+        schemaVersion:
+          type: integer
+          const: 1
+        type:
+          type: string
+          const: doc
+        content:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+      required:
+      - schemaVersion
+      - type
+      - content
+    Post:
+      type: object
+      properties:
+        id: *id006
+        title: *id004
+        slug: *id004
+        summary: *id004
+        state: *id004
+        publishedAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        version:
+          type: integer
+        content:
+          $ref: '#/components/schemas/RichDocument'
+      required:
+      - id
+      - title
+      - slug
+      - state
+    PublishAction:
+      type: object
+      properties:
+        reason: *id004
+        version:
+          type: integer
+      required:
+      - version
+    Bulletin:
+      type: object
+      properties:
+        id: *id006
+        disease: *id004
+        competence: *id004
+        territoryCode: *id004
+        status:
+          type: string
+          enum:
+          - PENDING_REVIEW
+          - PUBLISHED
+          - REJECTED
+          - SUPERSEDED
+          - UNPUBLISHED
+        sourceFingerprint: *id004
+        sourceDataset: *id004
+        createdAt:
+          type: string
+          format: date-time
+        version:
+          type: integer
+        disclaimer: *id004
+      required:
+      - id
+      - disease
+      - competence
+      - status
+      - sourceFingerprint
+    BulletinAction:
+      type: object
+      properties:
+        decision:
+          type: string
+          enum:
+          - APPROVE
+          - REJECT
+        reason: *id004
+        expectedVersion:
+          type: integer
+      required:
+      - decision
+      - expectedVersion
+    Coverage:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - AVAILABLE
+          - PARTIAL
+          - UNAVAILABLE
+        eligibleRecords:
+          type: integer
+          minimum: 0
+        mappedRecords:
+          type: integer
+          minimum: 0
+        unknownTerritoryRecords:
+          type: integer
+          minimum: 0
+      required:
+      - status
+    MapItem:
+      type: object
+      properties:
+        territoryCode: *id004
+        name: *id004
+        notificationsTotal:
+          type: integer
+          minimum: 0
+      required:
+      - territoryCode
+      - notificationsTotal
+    AnimalEpidemiology:
+      type: object
+      properties:
+        metric:
+          type: string
+          const: notifications
+        disease: *id004
+        sourceDataset:
+          type: string
+          enum:
+          - ESPORO_HISTORICAL_GABRIEL
+          - VET_WEB_VERIFIED
+          - VET_NOTIFICATION_CLINICAL
+        publicationFingerprint: *id004
+        publishedAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        definitionVersion: *id004
+        geographicBasis: *id004
+        coverage:
+          $ref: '#/components/schemas/Coverage'
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/MapItem'
+        disclaimer: *id004
+      required:
+      - metric
+      - sourceDataset
+      - publicationFingerprint
+      - definitionVersion
+      - geographicBasis
+      - coverage
+      - items
+    HumanEpidemiology:
+      type: object
+      properties:
+        metric:
+          type: string
+          const: notifications
+        geography: *id004
+        coverage:
+          $ref: '#/components/schemas/Coverage'
+        publicationFingerprint: *id004
+        publishedAt:
+          type: string
+          format: date-time
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/MapItem'
+      required:
+      - metric
+      - geography
+      - coverage
+      - items
+    PublicationMetadata:
+      type: object
+      properties:
+        sourceDataset: *id004
+        publicationFingerprint: *id004
+        publishedAt:
+          type: string
+          format: date-time
+        coverage:
+          $ref: '#/components/schemas/Coverage'
+        availableYears:
+          type: array
+          items:
+            type: integer
+        availableMonthsByYear:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: integer
+        municipalityOnlyScopes:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+      required:
+      - sourceDataset
+      - publicationFingerprint
+      - coverage
+    CacheEpochs:
+      type: object
+      properties:
+        posts:
+          type: integer
+          minimum: 1
+        bulletins:
+          type: integer
+          minimum: 1
+        institutional:
+          type: integer
+          minimum: 1
+      required:
+      - posts
+      - bulletins
+      - institutional
+    AboutPage:
+      type: object
+      properties:
+        mission: *id004
+        description: *id004
+        institutions:
+          type: array
+          items:
+            type: object
+            properties:
+              name: *id004
+              level:
+                type: integer
+              logoAssetId: *id006
+              officialUrl: *id004
+            required:
+            - name
+            - level
+        team:
+          type: array
+          items:
+            type: object
+            properties:
+              displayName: *id004
+              role: *id004
+              bio: *id004
+              socialLinks:
+                type: array
+                items: *id004
+              visible:
+                type: boolean
+            required:
+            - displayName
+            - role
+        revision:
+          type: integer
+      required:
+      - mission
+      - institutions
+      - team
+      - revision
+    PostalAddress:
+      type: object
+      properties:
+        postalCode: *id004
+        street: *id004
+        neighborhood: *id004
+        city: *id004
+        state: *id004
+        source: *id004
+      required:
+      - postalCode
+    AuditEvent:
+      type: object
+      properties:
+        id: *id006
+        actorId: *id004
+        action: *id004
+        targetType: *id004
+        targetId: *id004
+        occurredAt:
+          type: string
+          format: date-time
+        requestId: *id004
+      required:
+      - id
+      - action
+      - occurredAt
+    PostPage:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Post'
+        page:
+          type: integer
+        size:
+          type: integer
+        totalElements:
+          type: integer
+        totalPages:
+          type: integer
+        hasNext:
+          type: boolean
+      required:
+      - items
+      - page
+      - size
+      - totalElements
+      - totalPages
+      - hasNext
+    BulletinPage:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Bulletin'
+        page:
+          type: integer
+        size:
+          type: integer
+        totalElements:
+          type: integer
+        totalPages:
+          type: integer
+        hasNext:
+          type: boolean
+      required:
+      - items
+      - page
+      - size
+      - totalElements
+      - totalPages
+      - hasNext
+    ClinicPage:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Clinic'
+        page:
+          type: integer
+        size:
+          type: integer
+        totalElements:
+          type: integer
+        totalPages:
+          type: integer
+        hasNext:
+          type: boolean
+      required:
+      - items
+      - page
+      - size
+      - totalElements
+      - totalPages
+      - hasNext
+    UploadPage:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/MunicipalUpload'
+        page:
+          type: integer
+        size:
+          type: integer
+        totalElements:
+          type: integer
+        totalPages:
+          type: integer
+        hasNext:
+          type: boolean
+      required:
+      - items
+      - page
+      - size
+      - totalElements
+      - totalPages
+      - hasNext
+    AccessRequestPage:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccessRequestStatus'
+        page:
+          type: integer
+        size:
+          type: integer
+        totalElements:
+          type: integer
+        totalPages:
+          type: integer
+        hasNext:
+          type: boolean
+      required:
+      - items
+      - page
+      - size
+      - totalElements
+      - totalPages
+      - hasNext
+    AuditPage:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/AuditEvent'
+        page:
+          type: integer
+        size:
+          type: integer
+        totalElements:
+          type: integer
+        totalPages:
+          type: integer
+        hasNext:
+          type: boolean
+      required:
+      - items
+      - page
+      - size
+      - totalElements
+      - totalPages
+      - hasNext
+    VetNotificationPage:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/VetNotification'
+        page:
+          type: integer
+        size:
+          type: integer
+        totalElements:
+          type: integer
+        totalPages:
+          type: integer
+        hasNext:
+          type: boolean
+      required:
+      - items
+      - page
+      - size
+      - totalElements
+      - totalPages
+      - hasNext
+  responses:
+    Error400:
+      description: Bad Request
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Problem'
+    Error401:
+      description: Unauthenticated
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Problem'
+    Error403:
+      description: Forbidden
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Problem'
+    Error404:
+      description: Not Found
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Problem'
+    Error409:
+      description: Conflict
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Problem'
+    Error410:
+      description: Gone
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Problem'
+    Error413:
+      description: Payload Too Large
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Problem'
+    Error422:
+      description: Unprocessable Entity
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Problem'
+    Error429:
+      description: Too Many Requests
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Problem'
+    Error500:
+      description: Internal Server Error
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Problem'
+    Error503:
+      description: Service Unavailable
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Problem'
+security:
+- BearerJWT: []

@@ -1,0 +1,19 @@
+flowchart LR
+  V[Visitante / Usuário] --> C[Caddy / TLS / mesma origem]
+  C --> R[React SPA]
+  C --> J[Java Spring Boot / monólito modular]
+  J --> P[(PostgreSQL 16 / domínios por schema)]
+  J --> RS[(Redis sessões)]
+  J --> RR[(Redis rate-limit)]
+  J --> RA[(Redis analytics)]
+  J --> RP[(Redis conteúdo público)]
+  J --> FS[(Mídias em armazenamento institucional imutável)]
+  J --> O[Outbox SMTP]
+  O --> SMTP[SMTP UENF]
+  S[SINAN / CNES / IBGE] --> PY[Pipeline Python: Bronze Silver Gold]
+  PY --> AN[(analytics / analytics_animal)]
+  AN --> P
+  P -->|visão veterinária minimizada / leitura específica| PY
+  J -->|consulta read-only Gold| AN
+  PY -->|publicação transacional, fingerprint| AN
+  J -->|polling com checkpoint em bulletins| P

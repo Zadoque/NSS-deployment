@@ -83,3 +83,29 @@ groups:
               intervalMs: 15000
               maxDataPoints: 43200
               refId: A
+
+      - uid: nss-auth-rate-limit-redis
+        title: NSS Auth — Redis de rate-limit indisponível
+        condition: A
+        for: 1m
+        noDataState: OK
+        execErrState: Error
+        annotations:
+          summary: "O Redis de rate-limit falhou em uma ou mais tentativas"
+          description: "As rotas protegidas devem permanecer fail-closed; verifique o serviço redis-rate-limit."
+        labels:
+          severity: critical
+          service: nss-java
+        data:
+          - refId: A
+            relativeTimeRange:
+              from: 300
+              to: 0
+            datasourceUid: nss-prometheus
+            model:
+              editorMode: code
+              expr: increase(nss_auth_admission_total{result="redis_unavailable"}[5m]) > 0
+              instant: true
+              intervalMs: 15000
+              maxDataPoints: 43200
+              refId: A
