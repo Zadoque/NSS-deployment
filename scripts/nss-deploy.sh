@@ -206,7 +206,7 @@ start_java() {
   step 'health Redis' docker compose exec -T redis redis-cli ping
   step 'health Redis de limites' docker compose exec -T redis-rate-limit redis-cli ping
   step 'health Redis de analytics' docker compose exec -T redis-analytics redis-cli ping
-  step 'schema central NSS 0002' docker compose run --rm migrate
+  step 'schema central NSS' docker compose run --rm migrate
   step 'Java'  docker compose up -d java
   step 'health Java' bash -c '
     container=$(docker compose ps -q java)
@@ -782,7 +782,7 @@ if [[ "${1:-}" == "up" || "${1:-}" == "resume" ]]; then
   bootstrap_tty
   exit 0
 fi
-if [[ "${1:-}" == "status" ]]; then show_state; status; exit 0; fi
+if [[ "${1:-}" == "status" ]]; then require_env; show_state; status; exit 0; fi
 if [[ "${1:-}" == "reset-state" ]]; then state_reset; exit 0; fi
 if [[ "${1:-}" == "contract-test" ]]; then require_env; contract_test_all; exit 0; fi
 
