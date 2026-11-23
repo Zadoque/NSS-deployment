@@ -38,6 +38,7 @@ services:
       SPRING_JPA_HIBERNATE_DDL_AUTO: validate
       SPRING_PROFILES_ACTIVE: prod
       JWT_SECRET: ${JWT_SECRET:?JWT_SECRET must be set}
+      NSS_OUTBOX_PAYLOAD_SECRET: ${NSS_OUTBOX_PAYLOAD_SECRET:?NSS_OUTBOX_PAYLOAD_SECRET must be set}
       JWT_EXPIRATION: ${JWT_EXPIRATION:-900000}
       SECURE_COOKIES: ${SECURE_COOKIES:-false}
       API_AUTH_SECURE_COOKIE: ${SECURE_COOKIES:-false}
@@ -45,7 +46,8 @@ services:
       BOOTSTRAP_ADMIN_EMAIL: ${BOOTSTRAP_ADMIN_EMAIL:-}
       BOOTSTRAP_ADMIN_PASSWORD: ${BOOTSTRAP_ADMIN_PASSWORD:-}
       CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS:-}
-      FIRST_ACCESS_FRONTEND_URL: ${URL_TOKEN_SENDER_SCHEME:-http}://${URL_TOKEN_SENDER:-localhost:5173}
+      FIRST_ACCESS_FRONTEND_URL: ${URL_TOKEN_SENDER_SCHEME:-http}://${URL_TOKEN_SENDER:-127.0.0.1:8080}
+      API_FRONTEND_URL: ${URL_TOKEN_SENDER_SCHEME:-http}://${URL_TOKEN_SENDER:-127.0.0.1:8080}
       MAIL_HOST: ${MAIL_HOST:-localhost}
       MAIL_PORT: ${MAIL_PORT:-1025}
       MAIL_USERNAME: ${MAIL_USERNAME:-}
@@ -75,6 +77,8 @@ services:
     image: ${REDIS_IMAGE:-redis:7-alpine}
     restart: unless-stopped
     command: ["redis-server", "--appendonly", "yes"]
+    ports:
+      - "127.0.0.1:${NSS_REDIS_PORT:-16379}:6379"
     volumes:
       - redis_data:/data
     healthcheck:
@@ -137,7 +141,7 @@ services:
       ANALYTICS_MIGRATOR_USER: ${NSS_ANALYTICS_MIGRATOR_USER:-nss_analytics_migrator}
       ANALYTICS_MIGRATOR_PASSWORD: ${NSS_ANALYTICS_MIGRATOR_PASSWORD:-${POSTGRES_ADMIN_PASSWORD}}
       GRAFANA_DB_USER: ${NSS_GRAFANA_DB_USER:-nss_grafana}
-      GRAFANA_DB_PASSWORD: ${NSS_GRAFANA_DB_PASSWORD:-${POSTGRES_ADMIN_PASSWORD}}
+      GRAFANA_DB_PASSWORD: ${NSS_GRAFANA_DB_PASSWORD:?NSS_GRAFANA_DB_PASSWORD must be set}
     depends_on:
       db:
         condition: service_healthy
@@ -168,7 +172,7 @@ services:
       - java
     networks:
       nss_proxy:
-        ipv4_address: 172.30.254.2
+        ipv4_address: ${NSS_PROXY_CADDY_IP:-172.30.254.2}
 
   grafana:
     image: ${NSS_GRAFANA_IMAGE:-grafana/grafana:latest}
@@ -177,6 +181,8 @@ services:
       GF_SECURITY_ADMIN_USER: ${GRAFANA_ADMIN_USER:-admin}
       GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD:?GRAFANA_ADMIN_PASSWORD must be set}
       GF_USERS_ALLOW_SIGN_UP: "false"
+      GRAFANA_DB_USER: ${NSS_GRAFANA_DB_USER:-nss_grafana}
+      GRAFANA_DB_PASSWORD: ${NSS_GRAFANA_DB_PASSWORD:?NSS_GRAFANA_DB_PASSWORD must be set}
     ports:
       - "127.0.0.1:${NSS_GRAFANA_PORT:-3000}:3000"
     volumes:
@@ -184,6 +190,8 @@ services:
       - ./observability/grafana/provisioning:/etc/grafana/provisioning:ro
       - ./observability/grafana/dashboards:/var/lib/grafana/dashboards:ro
     depends_on:
+      migrate:
+        condition: service_completed_successfully
       prometheus:
         condition: service_started
     networks: [nss_internal]
@@ -236,9 +244,9 @@ networks:
     driver: bridge
     ipam:
       config:
-        - subnet: 172.30.254.0/29
-          ip_range: 172.30.254.4/30
-          gateway: 172.30.254.1
+        - subnet: ${NSS_PROXY_SUBNET:-172.30.254.0/29}
+          ip_range: ${NSS_PROXY_IP_RANGE:-172.30.254.4/30}
+          gateway: ${NSS_PROXY_GATEWAY:-172.30.254.1}
 
 volumes:
   pgdata:

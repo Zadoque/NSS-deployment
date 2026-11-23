@@ -186,6 +186,7 @@ paths:
         description: UUID v4. Escopo actor/rota/chave, fingerprint e retenção por 24 h; conflito 409.
         schema:
           type: string
+          format: uuid
       security:
       - BearerJWT: []
       x-roles:
@@ -228,6 +229,18 @@ paths:
         schema:
           type: string
       - *id001
+      - name: X-Step-Up-Proof
+        in: header
+        required: true
+        description: Prova de senha recente, válida por 5 minutos para ações críticas.
+        schema:
+          type: string
+      - name: reason
+        in: query
+        required: false
+        description: Motivo auditável da revogação.
+        schema:
+          type: string
       security:
       - BearerJWT: []
       x-roles:
@@ -281,7 +294,7 @@ paths:
     delete:
       tags:
       - Identidade
-      summary: Revogar grant de mapa
+      summary: Revogar grant de mapa no escopo informado
       operationId: DELETE_api_v1_users_userId_grants_permission
       responses:
         '200':
@@ -314,6 +327,19 @@ paths:
         schema:
           type: string
       - *id001
+      - name: reason
+        in: query
+        required: false
+        description: Motivo auditável da revogação.
+        schema:
+          type: string
+      - name: clinicId
+        in: query
+        required: false
+        description: UUID da clínica; ausente seleciona apenas o grant global.
+        schema:
+          type: string
+          format: uuid
       security:
       - BearerJWT: []
       x-roles:
@@ -767,7 +793,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Accepted'
+                $ref: '#/components/schemas/ClinicInvitationQueued'
         '400':
           $ref: '#/components/responses/Error400'
         '401':
@@ -2490,6 +2516,18 @@ components:
       - code
       - requestId
     Id: *id006
+    GrantSummary:
+      type: object
+      properties:
+        permission: *id004
+        scopeType:
+          type: string
+          nullable: true
+        clinicId:
+          type: string
+          nullable: true
+      required:
+      - permission
     UserSummary:
       type: object
       properties:
@@ -2508,11 +2546,16 @@ components:
           type: integer
         active:
           type: boolean
+        grants:
+          type: array
+          items:
+            $ref: '#/components/schemas/GrantSummary'
       required:
       - id
       - roles
       - permissions
       - active
+      - grants
     AuthLogin:
       type: object
       properties:
@@ -2594,6 +2637,15 @@ components:
       required:
       - accepted
       - message
+    ClinicInvitationQueued:
+      type: object
+      properties:
+        accepted:
+          type: boolean
+        message: *id004
+      required:
+      - accepted
+      - message
     AccessDecision:
       type: object
       properties:
@@ -2640,6 +2692,7 @@ components:
       required:
       - role
       - reason
+      - stepUpProof
     GrantChange:
       type: object
       properties:

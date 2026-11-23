@@ -24,13 +24,14 @@ def responses(code=200, schema=None,extra=(),description=None):
 
 def reqbody(schema,required=True,ctype='application/json'):
     return {'required':required,'content':{ctype:{'schema':schema}}}
-def header(name,required=False,description=''):
-    return {'name':name,'in':'header','required':required,'description':description,'schema':{'type':'string'}}
+def header(name,required=False,description='',**extra):
+    return {'name':name,'in':'header','required':required,'description':description,'schema':{'type':'string',**extra}}
 def query(name,required=False,type='string',description='',**extra):
     return {'name':name,'in':'query','required':required,'description':description,'schema':{'type':type,**extra}}
 def path(name,type='string'):
     return {'name':name,'in':'path','required':True,'schema':{'type':type}}
-IDEMP=header('Idempotency-Key',True,'UUID v4. Escopo actor/rota/chave, fingerprint e retenção por 24 h; conflito 409.')
+IDEMP=header('Idempotency-Key',True,'UUID v4. Escopo actor/rota/chave, fingerprint e retenção por 24 h; conflito 409.',format='uuid')
+STEP_UP=header('X-Step-Up-Proof',True,'Prova de senha recente, válida por 5 minutos para ações críticas.')
 MATCH=header('If-Match',True,'ETag da versão do recurso; divergência 409.')
 COMMON_PAGE=[query('page',type='integer',minimum=0,description='Começa em zero.'),query('size',type='integer',minimum=1,maximum=20,description='Tamanho máximo 20.')]
 AUTH='BearerJWT'
@@ -49,16 +50,18 @@ def op(route,method,tag,summary,*,req=None,result=None,code=200,extra=('400','40
 schemas={
 'Problem':obj({'type':str_schema,'title':str_schema,'status':{'type':'integer'},'detail':str_schema,'instance':str_schema,'code':str_schema,'requestId':str_schema,'fieldErrors':arr(obj({'field':str_schema,'message':str_schema})),'retryAfterSeconds':{'type':'integer','minimum':0}},['type','title','status','code','requestId']),
 'Id':id_schema,
-'UserSummary':obj({'id':id_schema,'displayName':str_schema,'email':{'type':'string','format':'email'},'roles':arr(str_schema),'permissions':arr(str_schema),'accountVersion':{'type':'integer'},'active':{'type':'boolean'}},['id','roles','permissions','active']),
+'GrantSummary':obj({'permission':str_schema,'scopeType':{'type':'string','nullable':True},'clinicId':{'type':'string','nullable':True}},['permission']),
+'UserSummary':obj({'id':id_schema,'displayName':str_schema,'email':{'type':'string','format':'email'},'roles':arr(str_schema),'permissions':arr(str_schema),'accountVersion':{'type':'integer'},'active':{'type':'boolean'},'grants':arr(ref('GrantSummary'))},['id','roles','permissions','active','grants']),
 'AuthLogin':obj({'email':{'type':'string','format':'email'},'password':{'type':'string'},'replaceExistingSession':{'type':'boolean'}},['email','password']),
 'AuthResult':obj({'accessToken':str_schema,'tokenType':{'type':'string','const':'Bearer'},'expiresIn':{'type':'integer','example':900},'user':ref('UserSummary')},['accessToken','tokenType','expiresIn','user']),
 'StepUpInput':obj({'currentPassword':str_schema},['currentPassword']),
 'StepUpResult':obj({'proof':str_schema,'expiresInSeconds':{'type':'integer','example':300}},['proof']),
 'AccessRequest':obj({'name':{'type':'string','minLength':2,'maxLength':150},'email':{'type':'string','format':'email'},'reason':{'type':'string','minLength':10,'maxLength':4000},'requestedRole':str_schema,'reviewConfirmed':{'type':'boolean'},'privacyNoticeAcknowledged':{'type':'boolean'}},['name','email','reason','requestedRole','reviewConfirmed','privacyNoticeAcknowledged']),
 'Accepted':obj({'accepted':{'type':'boolean'},'message':str_schema,'trackingHint':str_schema},['accepted','message']),
+'ClinicInvitationQueued':obj({'accepted':{'type':'boolean'},'message':str_schema},['accepted','message']),
 'AccessDecision':obj({'decision':{'type':'string','enum':['APPROVE','REJECT']},'reason':str_schema,'targetRoles':arr(str_schema)},['decision']),
 'AccessRequestStatus':obj({'id':id_schema,'status':{'type':'string','enum':['AWAITING_EMAIL','PENDING_REVIEW','APPROVED','REJECTED','EXPIRED']},'createdAt':{'type':'string','format':'date-time'},'emailVerifiedAt':{'type':['string','null'],'format':'date-time'}},['id','status']),
-'RoleChange':obj({'role':str_schema,'reason':str_schema,'stepUpProof':str_schema},['role','reason']),
+'RoleChange':obj({'role':str_schema,'reason':str_schema,'stepUpProof':str_schema},['role','reason','stepUpProof']),
 'GrantChange':obj({'permission':{'type':'string','enum':['map.human.view','map.animal.view']},'reason':str_schema,'clinicId':id_schema},['permission','reason']),
 'Clinic':obj({'id':id_schema,'name':str_schema,'municipalityIbge':{'type':'string','pattern':'^[0-9]{7}$'},'status':{'type':'string','enum':['ACTIVE','INACTIVE']},'address':str_schema,'version':{'type':'integer'}},['id','name','municipalityIbge','status']),
 'ClinicCreate':obj({'name':{'type':'string','minLength':2},'municipalityIbge':{'type':'string','pattern':'^[0-9]{7}$'},'postalCode':{'type':'string','pattern':'^[0-9]{8}$'},'address':str_schema,'cnpj':str_schema,'source':str_schema},['name','municipalityIbge','source']),
@@ -96,9 +99,9 @@ op('/api/v1/auth/logout','POST','Autenticação','Revogar sessão atual e remove
 op('/api/v1/auth/step-up','POST','Autenticação','Reconfirmar senha para ações críticas por 5 minutos',req=ref('StepUpInput'),result=ref('StepUpResult'),extra=('400','401','403','429','503'))
 op('/api/v1/users/me','GET','Identidade','Consultar identidade e permissões efetivas',result=ref('UserSummary'),extra=('401','503'))
 op('/api/v1/users/{userId}/roles','POST','Identidade','Conceder papel após checagem transacional do último chefe',req=ref('RoleChange'),result=ref('UserSummary'),params=[path('userId','integer'),IDEMP],roles=['CHEFE_GERAL','ADMINISTRADOR'])
-op('/api/v1/users/{userId}/roles/{role}','DELETE','Identidade','Revogar papel com lock, step-up e auditoria',result=ref('UserSummary'),params=[path('userId','integer'),path('role'),IDEMP],roles=['CHEFE_GERAL','ADMINISTRADOR'])
+op('/api/v1/users/{userId}/roles/{role}','DELETE','Identidade','Revogar papel com lock, step-up e auditoria',result=ref('UserSummary'),params=[path('userId','integer'),path('role'),IDEMP,STEP_UP,query('reason',description='Motivo auditável da revogação.')],roles=['CHEFE_GERAL','ADMINISTRADOR'])
 op('/api/v1/users/{userId}/grants','POST','Identidade','Conceder grant independente de mapa',req=ref('GrantChange'),result=ref('UserSummary'),params=[path('userId','integer'),IDEMP],roles=['CHEFE_GERAL','ADMINISTRADOR','AGENTE_EPIDEMIOLOGICO'])
-op('/api/v1/users/{userId}/grants/{permission}','DELETE','Identidade','Revogar grant de mapa',result=ref('UserSummary'),params=[path('userId','integer'),path('permission'),IDEMP],roles=['CHEFE_GERAL','ADMINISTRADOR','AGENTE_EPIDEMIOLOGICO'])
+op('/api/v1/users/{userId}/grants/{permission}','DELETE','Identidade','Revogar grant de mapa no escopo informado',result=ref('UserSummary'),params=[path('userId','integer'),path('permission'),IDEMP,query('reason',description='Motivo auditável da revogação.'),query('clinicId',type='string',format='uuid',description='UUID da clínica; ausente seleciona apenas o grant global.')],roles=['CHEFE_GERAL','ADMINISTRADOR','AGENTE_EPIDEMIOLOGICO'])
 op('/api/public/access-requests','POST','Solicitações','Receber pedido após segunda etapa de revisão',req=ref('AccessRequest'),result=ref('Accepted'),code=202,params=[IDEMP],public=True,extra=('400','409','422','429','503'))
 op('/api/public/access-requests/verify','POST','Solicitações','Confirmar e-mail por token único e movê-lo à fila de aprovação',req=obj({'token':str_schema},['token']),result=ref('Accepted'),public=True,extra=('400','410','429','503'))
 op('/api/public/access-requests/status','GET','Solicitações','Consultar protocolo com segredo separado e prazo',result=ref('AccessRequestStatus'),params=[query('protocol',True),query('secret',True)],public=True,extra=('400','404','410','429','503'))
@@ -110,7 +113,7 @@ op('/api/v1/clinics/{clinicId}','GET','Clínicas','Consultar detalhes da clínic
 op('/api/v1/clinics/{clinicId}/status','POST','Clínicas','Ativar ou inativar clínica e revogar operações futuras',req=obj({'status':{'type':'string','enum':['ACTIVE','INACTIVE']},'reason':str_schema},['status','reason']),result=ref('Clinic'),params=[path('clinicId'),MATCH,IDEMP],roles=['CHEFE_GERAL'])
 op('/api/v1/clinics/{clinicId}/agents','POST','Clínicas','Adicionar gestor ativo em relação N:M',req=ref('ClinicAgentAssign'),code=204,params=[path('clinicId'),IDEMP],roles=['CHEFE_GERAL'])
 op('/api/v1/clinics/{clinicId}/agents/{userId}','DELETE','Clínicas','Revogar gestor sem desamparar a clínica',code=204,params=[path('clinicId'),path('userId','integer'),IDEMP],roles=['CHEFE_GERAL'])
-op('/api/v1/clinics/{clinicId}/invitations','POST','Clínicas','Convidar representante com expiração de 72 horas',req=ref('ClinicInvitation'),result=ref('Accepted'),code=202,params=[path('clinicId'),IDEMP],roles=['CHEFE_GERAL','AGENTE_EPIDEMIOLOGICO'])
+op('/api/v1/clinics/{clinicId}/invitations','POST','Clínicas','Convidar representante com expiração de 72 horas',req=ref('ClinicInvitation'),result=ref('ClinicInvitationQueued'),code=202,params=[path('clinicId'),IDEMP],roles=['CHEFE_GERAL','AGENTE_EPIDEMIOLOGICO'])
 op('/api/v1/clinics/invitations/accept','POST','Clínicas','Aceitar vínculo após validação da clínica e do usuário',req=ref('InvitationAccept'),result=ref('Clinic'),params=[IDEMP])
 op('/api/v1/clinics/{clinicId}/members/{userId}','DELETE','Clínicas','Revogar vínculo clínico preservando histórico',code=204,params=[path('clinicId'),path('userId','integer'),IDEMP],roles=['CHEFE_GERAL','AGENTE_EPIDEMIOLOGICO'])
 op('/api/v1/animal/notifications','POST','Veterinária','Submeter notificação da clínica selecionada sem entrada direta na Gold',req=ref('VetNotificationInput'),result=ref('VetNotification'),code=201,params=[IDEMP],roles=['REPRESENTANTE_CLINICA'],description='Valida vínculo ativo na clínica no começo e no commit; recibo sem dados clínicos. Proíbe Agente gestor sem papel de representante.')

@@ -751,23 +751,36 @@ contract_test_all() {
 }
 
 status() {
-  docker compose ps || log 'Não foi possível consultar os serviços; verifique Docker/Compose e o .env.'
+  local compose_args=(--env-file "$ENV_FILE")
+  local project="${COMPOSE_PROJECT_NAME:-nss-v1}"
+  [[ -n "${COMPOSE_PROJECT_NAME:-}" ]] && compose_args+=(--project-name "$project")
+  log "Projeto Compose: ${project}"
+  docker compose "${compose_args[@]}" ps --all || log 'Não foi possível consultar os serviços; verifique Docker/Compose e o .env.'
   printf '\nPortas locais:\n'
   ss -lnt 2>/dev/null | awk -v ports=":${NSS_HTTP_PORT:-8080}|:${NSS_GRAFANA_PORT:-3000}|:${NSS_PROMETHEUS_PORT:-9090}|:${NSS_PUSHGATEWAY_PORT:-9091}|:6379" 'NR==1 || $0 ~ ports' || true
   printf '\nRecursos:\n'
-  docker stats --no-stream --format 'table {{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}' 2>/dev/null || true
+  local container_ids=()
+  mapfile -t container_ids < <(docker compose "${compose_args[@]}" ps -q)
+  if ((${#container_ids[@]})); then
+    docker stats --no-stream --format 'table {{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}' "${container_ids[@]}" 2>/dev/null || true
+  else
+    log "Nenhum container em execução no projeto ${project}."
+  fi
 }
 
 diagnose() {
+  local compose_args=(--env-file "$ENV_FILE")
+  local project="${COMPOSE_PROJECT_NAME:-nss-v1}"
+  [[ -n "${COMPOSE_PROJECT_NAME:-}" ]] && compose_args+=(--project-name "$project")
   log 'Diagnóstico de configuração'
-  docker compose --env-file "$ENV_FILE" config --quiet && log 'compose.yaml: OK' || log 'compose.yaml: INVÁLIDO'
+  docker compose "${compose_args[@]}" config --quiet && log 'compose.yaml: OK' || log 'compose.yaml: INVÁLIDO'
   log 'DNS interno e Redis'
-  docker compose exec -T java getent hosts redis 2>/dev/null || log 'Java ainda não está em execução'
-  docker compose exec -T redis redis-cli ping 2>/dev/null || log 'Redis não responde'
+  docker compose "${compose_args[@]}" exec -T java getent hosts redis 2>/dev/null || log 'Java ainda não está em execução'
+  docker compose "${compose_args[@]}" exec -T redis redis-cli ping 2>/dev/null || log 'Redis não responde'
   log 'HTTP local'
   curl -fsS -o /dev/null -w 'Caddy HTTP %{http_code}, %{time_total}s\n' http://127.0.0.1:"${NSS_HTTP_PORT:-8080}"/ || true
   log 'Logs recentes'
-  docker compose logs --tail=40 java redis redis-rate-limit redis-analytics caddy frontend
+  docker compose "${compose_args[@]}" logs --tail=40 java redis redis-rate-limit redis-analytics caddy frontend
 }
 
 show_state() {
