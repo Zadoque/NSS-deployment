@@ -127,6 +127,26 @@ uma senha de app nas configurações de segurança. Use o e-mail da conta como
 ./scripts/nss-deploy.sh reset-state
 ```
 
+## Grafo Graphify do NSS
+
+O flake de `nss-deployment` fornece o comando que cria
+um grafo por repositório e combina os seis grafos em `.graphify-central`:
+
+```bash
+nix run ./nss-deployment#nss-graphify -- build
+nix run ./nss-deployment#nss-graphify -- stats
+nix run ./nss-deployment#nss-graphify -- serve
+```
+
+O modo padrão é estrutural e não envia documentação para um modelo. Para uma
+extração semântica explícita, com custo de tokens conforme o backend configurado,
+use `nix run ./nss-deployment#nss-graphify -- semantic`. Os grafos gerados são locais e
+ignorados pelo Git.
+
+O workflow `NSS Graphify` reconstrói o grafo semanalmente ou sob demanda. Para
+acessar os repositórios privados no CI, configure o secret `NSS_GRAPHIFY_TOKEN`
+com permissão de leitura nos seis repositórios.
+
 O menu interativo continua disponível sem argumento. Antes do bootstrap, o
 script apresenta o pré-voo numerado (Compose, repositórios, ambiente, Compose
 efetivo e confirmação do operador). Ele não inicia containers enquanto uma

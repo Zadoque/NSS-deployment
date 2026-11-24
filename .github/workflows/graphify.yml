@@ -1,0 +1,72 @@
+name: NSS Graphify
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 3 * * 1"
+
+permissions:
+  contents: read
+
+jobs:
+  graphify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout deployment
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          path: nss-workspace/nss-deployment
+
+      - name: Checkout database
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          repository: Zadoque/NSS-database
+          path: nss-workspace/NSS-database
+          token: ${{ secrets.NSS_GRAPHIFY_TOKEN }}
+
+      - name: Checkout backend
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          repository: Zadoque/Site-Sala-de-Situa-o-de-Saude-Java
+          path: nss-workspace/Site-Sala-de-Situa-o-de-Saude-Java
+          token: ${{ secrets.NSS_GRAPHIFY_TOKEN }}
+
+      - name: Checkout frontend
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          repository: Zadoque/NSS-front-end
+          path: nss-workspace/nss-front-end
+          token: ${{ secrets.NSS_GRAPHIFY_TOKEN }}
+
+      - name: Checkout pipeline
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          repository: Zadoque/nss-pipeline
+          path: nss-workspace/nss-pipeline
+          token: ${{ secrets.NSS_GRAPHIFY_TOKEN }}
+
+      - name: Checkout NixOS configuration
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          repository: Zadoque/nss-NixOS-Configuration
+          path: nss-workspace/nss-NixOS-Configuration
+          token: ${{ secrets.NSS_GRAPHIFY_TOKEN }}
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Install Graphify
+        run: uv tool install --python 3.12 "graphifyy[mcp,sql]==0.9.114"
+
+      - name: Build and validate central graph
+        working-directory: nss-workspace
+        run: ./nss-deployment/scripts/graphify-nss.sh build
+
+      - name: Upload graph artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: nss-graphify
+          path: |
+            nss-workspace/.graphify-central/
+            nss-workspace/*/graphify-out/GRAPH_REPORT.md

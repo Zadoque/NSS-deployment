@@ -1,0 +1,10 @@
+# Artefatos de deployment gerados ou empacotados
+*.zip
+*.pdf
+*.csv
+*.csv.gz
+reports/territory-audit-map.html
+documentacao/*.pdf
+documentacao/*.aux
+documentacao/*.log
+documentacao/*.out
