@@ -1,0 +1,17 @@
+apiVersion: 1
+
+datasources:
+  - name: NSS PostgreSQL
+    uid: nss-postgres
+    type: postgres
+    access: proxy
+    url: db:5432
+    user: $__env{GRAFANA_DB_USER}
+    isDefault: false
+    jsonData:
+      database: situacao_saude
+      sslmode: disable
+      postgresVersion: 1600
+      timescaledb: false
+    secureJsonData:
+      password: $__env{GRAFANA_DB_PASSWORD}

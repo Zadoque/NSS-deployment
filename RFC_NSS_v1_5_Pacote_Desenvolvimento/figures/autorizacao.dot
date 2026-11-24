@@ -1,0 +1,14 @@
+digraph AUTH {
+  graph [rankdir=TB, bgcolor="white", pad=0.12, nodesep=0.25, ranksep=0.35, fontname="DejaVu Sans", label="Autorização de requisições após commit de revogação", labelloc=t, fontsize=15];
+  node [shape=box, style="rounded,filled", fontname="DejaVu Sans", fontsize=10, color="#174A7E", fillcolor="#F3F6F8"];
+  edge [color="#607585", arrowsize=0.7, fontname="DejaVu Sans", fontsize=9];
+  JWT [label="JWT assinado e dentro do TTL?"];
+  User [label="Conta ativa + versão atual no PostgreSQL?"];
+  Perm [label="Papel, grant, vínculo e objeto permitem ação?"];
+  Commit [label="Mutação: validar novamente em transação sob lock"];
+  Deny401 [label="401 / sessão inválida",color="#991B1B",fillcolor="#FEE2E2"];
+  Deny403 [label="403 / sem permissão",color="#991B1B",fillcolor="#FEE2E2"];
+  Deny503 [label="503 / store indisponível",color="#854D0E",fillcolor="#FEF3C7"];
+  OK [label="200 / autorização concedida",color="#14532D",fillcolor="#DCFCE7"];
+  JWT -> User [label="válido"]; JWT -> Deny401 [label="não"]; User -> Perm [label="sim"]; User -> Deny401 [label="versão antiga"]; User -> Deny503 [label="DB inacessível"]; Perm -> Deny403 [label="não"]; Perm -> OK [label="somente leitura"]; Perm -> Commit [label="mutação"]; Commit -> OK [label="vínculos atuais"]; Commit -> Deny403 [label="revogado"];
+}

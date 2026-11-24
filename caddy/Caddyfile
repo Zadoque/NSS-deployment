@@ -1,11 +1,27 @@
+{
+    servers {
+        trusted_proxies static 172.30.254.1/32
+        trusted_proxies_strict
+    }
+}
+
 :80 {
     encode zstd gzip
 
     handle /api/* {
-        reverse_proxy java:8080
+        reverse_proxy java:8080 {
+            header_up X-Forwarded-For {client_ip}
+        }
     }
 
     handle {
+        header {
+            Content-Security-Policy "default-src 'self'; base-uri 'self'; connect-src 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; img-src 'self' data: blob:; script-src 'self'; style-src 'self' 'unsafe-inline'"
+            X-Content-Type-Options "nosniff"
+            X-Frame-Options "DENY"
+            Referrer-Policy "strict-origin-when-cross-origin"
+            Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
+        }
         reverse_proxy frontend:80
     }
 }

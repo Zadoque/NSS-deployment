@@ -1,0 +1,9 @@
+municipality_code,municipality,uf,catalog_neighborhoods,external_count_or_range,source,confidence,notes
+3525904,Jundiaí,SP,1,73-74,https://jundiai.sp.gov.br/noticias/2022/04/28/conheca-seu-bairro-projeto-amplia-conhecimento-de-toda-a-cidade/;https://jundiai.sp.gov.br/noticias/2015/07/31/nova-centralidade-de-bairros-tambem-orienta-plano-diretor/,high,Official municipal sources diverge between 73 defined by LC 461/2008 and 74 cited in 2015.
+3502804,Araçatuba,SP,1,about 150,https://pt.wikipedia.org/wiki/Ara%C3%A7atuba,low,Search result reports approximately 150; official municipal confirmation still pending.
+3506003,Bauru,SP,2,pending,https://www.daebauru.sp.gov.br/empresa.php?item=RO1,medium,Official DAE page lists many neighborhood groups; exact normalized count requires extraction of the complete municipal source.
+3516200,Franca,SP,0,more than 230,https://www3.franca.sp.gov.br/noticia/38780/mapas-da-cidade.html,medium,Official portal publishes the current neighborhood map; a municipal bulletin reports more than 230 neighborhoods.
+3170107,Uberaba,MG,2,213,https://pt.wikipedia.org/wiki/Lista_de_bairros_de_Uberaba,medium,Search result cites a list of 213 neighborhoods/localities; official source cross-check remains pending.
+1721000,Palmas,TO,0,pending,https://geo.palmas.to.gov.br/mapas/,medium,Official GeoPalmas exposes neighborhood layers; count must be extracted from the downloadable layer.
+3303906,Petrópolis,RJ,0,55 neighborhoods + 44 localities,https://www.petropolis.rj.leg.br/institucional/noticias/camara-de-petropolis-discute-proposta-de-abairramento-e-divisao-oficial-da-cidade-em-55-bairros,high,Official proposal distinguishes formal neighborhoods from localities.
+4128104,Umuarama,PR,1,227,https://umuarama.pr.gov.br/files/Chamamentos/arquivo/1706202476.pdf,medium,Municipal PDF states number of neighborhoods; source date and formal status require verification.

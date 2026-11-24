@@ -1,0 +1,45 @@
+name: Deploy NSS
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: nss-production
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: [self-hosted, linux, x64, nss-production]
+    timeout-minutes: 240
+    steps:
+      - name: Checkout deployment release
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+
+      - name: Validate host and pinned release
+        env:
+          NSS_DATABASE_REPO: /srv/nss/sources/NSS-database
+          NSS_JAVA_REPO: /srv/nss/sources/Site-Sala-de-Situa-o-de-Saude-Java
+          NSS_FRONTEND_REPO: /srv/nss/sources/NSS-front-end
+          NSS_PIPELINE_REPO: /srv/nss/sources/NSS-pipeline
+        run: |
+          set -Eeuo pipefail
+          ./scripts/check-host-dependencies.sh
+          ./scripts/nss-release.sh sync
+
+      - name: Build and promote application
+        env:
+          NSS_ENV_FILE: /etc/nss/secrets/nss-deployment.env
+          NSS_DATABASE_REPO: /srv/nss/sources/NSS-database
+          NSS_JAVA_REPO: /srv/nss/sources/Site-Sala-de-Situa-o-de-Saude-Java
+          NSS_FRONTEND_REPO: /srv/nss/sources/NSS-front-end
+          NSS_PIPELINE_REPO: /srv/nss/sources/NSS-pipeline
+          NSS_NONINTERACTIVE: "1"
+        run: |
+          set -Eeuo pipefail
+          ./scripts/nss-deploy.sh reset-state
+          ./scripts/nss-deploy.sh up

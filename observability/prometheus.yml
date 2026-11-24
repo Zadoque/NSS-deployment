@@ -11,3 +11,8 @@ scrape_configs:
     honor_labels: true
     static_configs:
       - targets: [pushgateway:9091]
+
+  - job_name: nss-java
+    metrics_path: /actuator/prometheus
+    static_configs:
+      - targets: [java:8080]
